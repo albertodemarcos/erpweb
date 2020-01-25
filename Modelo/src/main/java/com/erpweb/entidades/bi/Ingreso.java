@@ -17,6 +17,7 @@ public class Ingreso implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private String procedencia; 			//Procedencia del gasto (contrato o venta)
 	private BigDecimal baseImponible;     //Precio sin impuesto
 	private BigDecimal cuotaTributaria;   //Valor del impuesto sobre el producto
 	private BigDecimal importeTotal;      //Base imponible mas cuota tributaria
@@ -43,6 +44,14 @@ public class Ingreso implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	public String getProcedencia() {
+		return procedencia;
+	}
+
+	public void setProcedencia(String procedencia) {
+		this.procedencia = procedencia;
+	}
+
 	public BigDecimal getBaseImponible() {
 		return baseImponible;
 	}

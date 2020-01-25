@@ -1,6 +1,7 @@
 package com.erpweb.entidades.facturacion;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ public class LineaVenta implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Contrato contrato;
-	private Articulo articulo;
-	private Servicio servicio;
+	private Venta venta;
+	private Set<Articulo> articulos;
+	private Set<Servicio> servicios;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -46,29 +47,30 @@ public class LineaVenta implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Contrato getContrato() {
-		return contrato;
+	public Venta getVenta() {
+		return venta;
 	}
 
-	public void setContrato(Contrato contrato) {
-		this.contrato = contrato;
+	public void setVenta(Venta venta) {
+		this.venta = venta;
 	}
 
-	public Articulo getArticulo() {
-		return articulo;
+	public Set<Articulo> getArticulos() {
+		return articulos;
 	}
 
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
+	public void setArticulos(Set<Articulo> articulos) {
+		this.articulos = articulos;
 	}
 
-	public Servicio getServicio() {
-		return servicio;
+	public Set<Servicio> getServicios() {
+		return servicios;
 	}
 
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	public void setServicios(Set<Servicio> servicios) {
+		this.servicios = servicios;
 	}
+
 	
 	
 }
