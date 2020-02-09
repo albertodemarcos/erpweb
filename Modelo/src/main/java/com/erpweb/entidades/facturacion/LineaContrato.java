@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.erpweb.entidades.compras.Articulo;
 import com.erpweb.entidades.compras.Servicio;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="lineacontrato")
@@ -47,6 +48,7 @@ public class LineaContrato implements Serializable {
 		this.codigo = codigo;
 	}
 
+	@JsonIgnore
 	public Contrato getContrato() {
 		return contrato;
 	}

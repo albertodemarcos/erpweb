@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -42,6 +43,7 @@ public class Contrato implements Serializable {
 		this.codigo = codigo;
 	}
 
+	@OneToMany
 	public Set<LineaContrato> getLineaContrato() {
 		return lineaContrato;
 	}
@@ -50,6 +52,7 @@ public class Contrato implements Serializable {
 		this.lineaContrato = lineaContrato;
 	}
 
+	@OneToMany
 	public Factura getFactura() {
 		return factura;
 	}
