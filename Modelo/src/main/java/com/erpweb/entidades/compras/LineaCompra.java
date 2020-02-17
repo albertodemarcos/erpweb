@@ -21,7 +21,7 @@ public class LineaCompra implements Serializable {
 	private Long id;
 	private String codigo;
 	private Set<Articulo> articulos; //Puede comprarse cero, uno o varios articulos en la compra
-	//private Set<Servicio> servicios; //Puede comprarse cero, uno o varios servicios en la compra
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

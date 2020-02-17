@@ -12,6 +12,6 @@ public interface InformeRepository extends JpaRepository<Informe, Long> {
 	
 	Informe findByIdAndEmpresaId(Long id, Long empresaId);
 	
-	List<Informe> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Informe> findByIdInAndEmpresaId(List<Long> ids, Long empresaId);
 	
 }
