@@ -1,14 +1,18 @@
 package com.erpweb.servicios.ventas.interfaces;
 
+import com.erpweb.dto.VentaDto;
 import com.erpweb.entidades.ventas.Venta;
 
 public interface VentaServiceInterfaz {
 
-	public void obtieneVenta(Long id, Long empresaId); //Obtenemos la venta de BBDD
+	public Boolean creaVentaDesdeVentaDto(VentaDto ventaDto); //Crea la venta mediante dto
 	
-	public void obtieneVentaDto(Long id, Long empresaId); //Obtenemos la venta y lo llevamos a capa vista mediante dto
+	public VentaDto obtieneVentaDto(Long id, Long empresaId); //Visualizar la venta
 	
-	public void actualizaVenta(Venta venta); //Actualizamos la venta 
+	public Boolean actualizaVenta(VentaDto ventaDto); //Actualizamos la venta 
 
-	public void eliminaVenta(Venta venta); //Borramos la venta
+	public Boolean eliminaVenta(Venta venta); //Borramos la venta
+
+	public Venta obtieneVenta(Long id, Long empresaId); //Obtenemos la venta de BBDD
+	
 }

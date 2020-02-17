@@ -2,6 +2,7 @@ package com.erpweb.servicios.ventas;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.ventas.Contrato;
 import com.erpweb.servicios.ventas.interfaces.ContratoServiceInterfaz;
 
@@ -11,27 +12,33 @@ import com.erpweb.servicios.ventas.interfaces.ContratoServiceInterfaz;
 public class ContratoService implements ContratoServiceInterfaz {
 
 	@Override
-	public void obtieneContrato(Long id, Long empresaId) {
+	public Boolean creaContratoDesdeContratoDto(ContratoDto contratoDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneContratoDto(Long id, Long empresaId) {
+	public ContratoDto obtieneContratoDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaContrato(Contrato contato) {
+	public Boolean actualizaContrato(ContratoDto contatoDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaContrato(Contrato contato) {
+	public Boolean eliminaContrato(Contrato contato) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+	@Override
+	public Contrato obtieneContrato(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

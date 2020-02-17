@@ -1,16 +1,18 @@
 package com.erpweb.servicios.inventario.interfaces;
 
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.entidades.inventario.Articulo;
 
 public interface ArticuloServiceInterfaz {
 
-	public void obtieneArticulo(Long id, Long empresaId); //Obtenemos el articulo de BBDD
-	
-	public void obtieneArticuloDto(Long id, Long empresaId); //Obtenemos el articulo y lo llevamos a capa vista mediante dto
-	
-	public void actualizaArticulo(Articulo articulo); //Actualizamos el articulo
+	public Boolean creaArticuloDesdeArticuloDto(ArticuloDto articuloDto); //Crea  mediante
 
-	public void eliminaArticulo(Articulo articulo); //Borramos el articulo 	
+	public ArticuloDto obtieneArticuloDto(Long id, Long empresaId); //Visualizar el articulo
 	
+	public Boolean actualizaArticulo(ArticuloDto articuloDto); //Actualizamos el articulo
+	
+	public Boolean eliminaArticulo(Articulo articulo); //Borramos el articulo 	
+
+	public Articulo obtieneArticulo(Long id, Long empresaId); //Obtenemos el articulo de BBDD
 	
 }

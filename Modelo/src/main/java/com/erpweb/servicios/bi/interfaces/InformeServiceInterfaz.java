@@ -1,15 +1,17 @@
 package com.erpweb.servicios.bi.interfaces;
 
+import com.erpweb.dto.InformeDto;
 import com.erpweb.entidades.bi.Informe;
 
 public interface InformeServiceInterfaz {
 
-	public void obtieneInforme(Long id, Long empresaId); //Obtenemos el informe de BBDD
+	public Boolean creaInformeDesdeInformeDto(InformeDto informeDto); //Crea  mediante
 	
-	public void obtieneInformeDto(Long id, Long empresaId); //Obtenemos el informe y lo llevamos a capa vista mediante dto
+	public InformeDto obtieneInformeDto(Long id, Long empresaId); //Visualizar el informe
 	
-	public void actualizaInforme(Informe informe); //Actualizamos el informe
+	public Boolean actualizaInforme(InformeDto informeDto); //Actualizamos el informe
 	
-	public void eliminaInforme(Informe informe); //Borramos el informe
+	public Boolean eliminaInforme(Informe informe); //Borramos el informe
 	
+	public Informe obtieneInforme(Long id, Long empresaId); //Obtenemos el informe de BBDD
 }

@@ -2,6 +2,7 @@ package com.erpweb.servicios.crm;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ClienteDto;
 import com.erpweb.entidades.crm.Cliente;
 import com.erpweb.servicios.crm.interfaces.ClienteServiceInterfaz;
 
@@ -11,26 +12,35 @@ import com.erpweb.servicios.crm.interfaces.ClienteServiceInterfaz;
 public class ClienteService implements ClienteServiceInterfaz {
 
 	@Override
-	public void obtieneCliente(Long id, Long empresaId) {
+	public Boolean creaClienteDesdeClienteDto(ClienteDto clienteDto) {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void obtieneClienteDto(Long id, Long empresaId) {
+	public ClienteDto obtieneClienteDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void actualizaCliente(Cliente cliente) {
+	public Boolean actualizaCliente(ClienteDto clienteDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaCliente(Cliente cliente) {
+	public Boolean eliminaCliente(Cliente cliente) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	@Override
+	public Cliente obtieneCliente(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 

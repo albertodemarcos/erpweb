@@ -2,6 +2,7 @@ package com.erpweb.servicios.recursoshumanos;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.NominaDto;
 import com.erpweb.entidades.recursoshumanos.Nomina;
 import com.erpweb.servicios.recursoshumanos.interfaces.NominaServiceInterfaz;
 
@@ -9,27 +10,34 @@ import com.erpweb.servicios.recursoshumanos.interfaces.NominaServiceInterfaz;
 public class NominaService implements NominaServiceInterfaz {
 
 	@Override
-	public void obtieneNomina(Long id, Long empresaId) {
+	public Boolean creaNominaDesdeNominaDto(NominaDto nominaDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneNominaDto(Long id, Long empresaId) {
+	public NominaDto obtieneNominaDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaNomina(Nomina nomina) {
+	public Boolean actualizaNomina(NominaDto nominaDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaNomina(Nomina nomina) {
+	public Boolean eliminaNomina(Nomina nomina) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	@Override
+	public Nomina obtieneNomina(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -1,15 +1,18 @@
 package com.erpweb.servicios.inventario.interfaces;
 
+import com.erpweb.dto.AlmacenDto;
 import com.erpweb.entidades.inventario.Almacen;
 
 public interface AlmacenServiceInterfaz {
 
-	public void obtieneAlmacen(Long id, Long empresaId); //Obtenemos la almacen de BBDD
-	
-	public void obtieneAlmacenDto(Long id, Long empresaId); //Obtenemos la almacen y lo llevamos a capa vista mediante dto
-	
-	public void actualizaAlmacen(Almacen almacen); //Actualizamos la almacen
+	public Boolean creaAlmacenDesdeAlmacenDto(AlmacenDto almacenDto); //Crea el almacen mediante
 
-	public void eliminaAlmacen(Almacen almacen); //Borramos la almacen
+	public AlmacenDto obtieneAlmacenDto(Long id, Long empresaId); //Visualizar el almacen
+	
+	public Boolean actualizaAlmacen(AlmacenDto almacenDto); //Actualizamos el almacen
+	
+	public Boolean eliminaAlmacen(Almacen almacen); //Borramos el almacen
+	
+	public Almacen obtieneAlmacen(Long id, Long empresaId); //Obtenemos el almacen de BBDD
 	
 }

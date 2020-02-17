@@ -2,6 +2,7 @@ package com.erpweb.servicios.recursoshumanos;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.EmpleadoDto;
 import com.erpweb.entidades.recursoshumanos.Empleado;
 import com.erpweb.servicios.recursoshumanos.interfaces.EmpleadoServiceInterfaz;
 
@@ -11,30 +12,33 @@ import com.erpweb.servicios.recursoshumanos.interfaces.EmpleadoServiceInterfaz;
 public class EmpleadoService implements EmpleadoServiceInterfaz {
 
 	@Override
-	public void obtieneEmpleado(Long id, Long empresaId) {
+	public Boolean creaEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneEmpleadoDto(Long id, Long empresaId) {
+	public EmpleadoDto obtieneEmpleadoDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaEmpleado(Empleado empleado) {
+	public Boolean actualizaEmpleado(EmpleadoDto empleadoDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaEmpleado(Empleado empleado) {
+	public Boolean eliminaEmpleado(Empleado empleado) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
-
-	
+	@Override
+	public Empleado obtieneEmpleado(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

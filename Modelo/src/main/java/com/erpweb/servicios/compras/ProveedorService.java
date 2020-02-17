@@ -2,6 +2,7 @@ package com.erpweb.servicios.compras;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ProveedorDto;
 import com.erpweb.entidades.compras.Proveedor;
 import com.erpweb.servicios.compras.interfaces.ProveedorServiceInterfaz;
 
@@ -11,26 +12,35 @@ import com.erpweb.servicios.compras.interfaces.ProveedorServiceInterfaz;
 public class ProveedorService implements ProveedorServiceInterfaz {
 
 	@Override
-	public void obtieneProveedor(Long id, Long empresaId) {
+	public Boolean creaProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void obtieneProveedorDto(Long id, Long empresaId) {
+	public ProveedorDto obtieneProveedorDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void actualizaProveedor(Proveedor proveedor) {
+	public Boolean actualizaProveedor(ProveedorDto proveedorDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaProveedor(Proveedor proveedor) {
+	public Boolean eliminaProveedor(Proveedor proveedor) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	@Override
+	public Proveedor obtieneProveedor(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 

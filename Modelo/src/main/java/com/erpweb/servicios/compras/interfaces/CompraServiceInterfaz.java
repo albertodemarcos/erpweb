@@ -1,15 +1,18 @@
 package com.erpweb.servicios.compras.interfaces;
 
+import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.compras.Compra;
 
 public interface CompraServiceInterfaz {
 
-	public void obtieneCompra(Long id, Long empresaId); //Obtenemos Compra  de BBDD
+	public Boolean creaCompraDesdeCompraDto(CompraDto compraDto); //Crea la compra mediante dto
 	
-	public void obtieneCompraDto(Long id, Long empresaId); //Obtenemos Compra y lo llevamos a capa vista mediante dto
+	public CompraDto obtieneCompraDto(Long id, Long empresaId); //Visualizar la compra
 	
-	public void actualizaCompra(Compra compra); //Actualizamos Compra
+	public Boolean actualizaCompra(CompraDto compraDto); //Actualizamos la compra
 
-	public void eliminaCompra(Compra compra); //Borramos Compra
+	public Boolean eliminaCompra(Compra compra); //Borramos la compra
+	
+	public Compra obtieneCompra(Long id, Long empresaId); //Obtenemos la compra de BBDD
 	
 }

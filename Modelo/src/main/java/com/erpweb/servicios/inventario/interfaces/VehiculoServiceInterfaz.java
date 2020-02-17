@@ -1,16 +1,17 @@
 package com.erpweb.servicios.inventario.interfaces;
 
+import com.erpweb.dto.VehiculoDto;
 import com.erpweb.entidades.inventario.Vehiculo;
 
 public interface VehiculoServiceInterfaz {
 
-	public void obtieneVehiculo(Long id, Long empresaId); //Obtenemos el vehiculo de BBDD
+	public Boolean creaVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto); //Crea el vehiculo mediante dto
 	
-	public void obtieneVehiculoDto(Long id, Long empresaId); //Obtenemos el vehiculo y lo llevamos a capa vista mediante dto
+	public VehiculoDto obtieneVehiculoDto(Long id, Long empresaId); //Visualizar el vehiculo
 	
-	public void actualizaVehiculo(Vehiculo vehiculo); //Actualizamos el vehiculo
+	public Boolean actualizaVehiculo(VehiculoDto vehiculoDto); //Actualizamos el vehiculo
 
-	public void eliminaVehiculo(Vehiculo vehiculo); //Borramos el vehiculo
+	public Boolean eliminaVehiculo(Vehiculo vehiculo); //Borramos el vehiculo
 	
-	
+	public Vehiculo obtieneVehiculo(Long id, Long empresaId); //Obtenemos el vehiculo de BBDD
 }

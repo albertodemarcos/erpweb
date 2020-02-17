@@ -2,6 +2,7 @@ package com.erpweb.servicios.empresa;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ConfiguracionDto;
 import com.erpweb.entidades.empresa.Configuracion;
 import com.erpweb.servicios.empresa.interfaces.ConfiguracionServiceInterfaz;
 
@@ -9,30 +10,35 @@ import com.erpweb.servicios.empresa.interfaces.ConfiguracionServiceInterfaz;
 public class ConfiguracionService implements ConfiguracionServiceInterfaz {
 
 	@Override
-	public void obtieneConfiguracion(Long id, Long empresaId) {
+	public Boolean creaConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneConfiguracionDto(Long id, Long empresaId) {
+	public ConfiguracionDto obtieneConfiguracionDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaConfiguracion(Configuracion configuracion) {
+	public Boolean actualizaConfiguracion(ConfiguracionDto configuracionDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaConfiguracion(Configuracion configuracion) {
+	public Boolean eliminaConfiguracion(Configuracion configuracion) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
-	
+	@Override
+	public Configuracion obtieneConfiguracion(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

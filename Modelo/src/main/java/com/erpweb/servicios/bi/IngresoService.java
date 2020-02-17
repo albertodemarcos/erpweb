@@ -2,6 +2,7 @@ package com.erpweb.servicios.bi;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.IngresoDto;
 import com.erpweb.entidades.bi.Ingreso;
 import com.erpweb.servicios.bi.interfaces.IngresoServiceInterfaz;
 
@@ -9,28 +10,35 @@ import com.erpweb.servicios.bi.interfaces.IngresoServiceInterfaz;
 public class IngresoService implements IngresoServiceInterfaz {
 
 	@Override
-	public void obtieneIngreso(Long id, Long empresaId) {
+	public Boolean creaIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneIngresoDto(Long id, Long empresaId) {
+	public IngresoDto obtieneIngresoDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaIngreso(Ingreso ingreso) {
+	public Boolean actualizaIngreso(IngresoDto ingresoDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaIngreso(Ingreso ingreso) {
+	public Boolean eliminaIngreso(Ingreso ingreso) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	@Override
+	public Ingreso obtieneIngreso(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 

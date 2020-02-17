@@ -2,6 +2,7 @@ package com.erpweb.servicios.empresa;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.EmpresaDto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.servicios.empresa.interfaces.EmpresaServiceInterfaz;
 
@@ -11,33 +12,34 @@ import com.erpweb.servicios.empresa.interfaces.EmpresaServiceInterfaz;
 public class EmpresaService implements EmpresaServiceInterfaz {
 
 	@Override
-	public void obtieneEmpresa(Long id, Long empresaId) {
+	public Boolean creaEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneEmpresaDto(Long id, Long empresaId) {
+	public EmpresaDto obtieneEmpresaDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaEmpresa(Empresa empresa) {
+	public Boolean actualizaEmpresa(EmpresaDto empresaDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaEmpresa(Empresa empresa) {
+	public Boolean eliminaEmpresa(Empresa empresa) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
-	
-
-	
-
+	@Override
+	public Empresa obtieneEmpresa(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

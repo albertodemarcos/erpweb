@@ -1,16 +1,18 @@
 package com.erpweb.servicios.ventas.interfaces;
 
+import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.ventas.Contrato;
 
 public interface ContratoServiceInterfaz {
 
-	public void obtieneContrato(Long id, Long empresaId); //Obtenemos el contato de BBDD
+	public Boolean creaContratoDesdeContratoDto(ContratoDto contratoDto); //Crea el contrato mediante dto
 	
-	public void obtieneContratoDto(Long id, Long empresaId); //Obtenemos el contato y lo llevamos a capa vista mediante dto
+	public ContratoDto obtieneContratoDto(Long id, Long empresaId); //Visualizar el contato
 	
-	public void actualizaContrato(Contrato contato); //Actualizamos el contato
+	public Boolean actualizaContrato(ContratoDto contatoDto); //Actualizamos el contato
 
-	public void eliminaContrato(Contrato contato); //Borramos el contato 
-	
+	public Boolean eliminaContrato(Contrato contato); //Borramos el contato 
+
+	public Contrato obtieneContrato(Long id, Long empresaId); //Obtenemos el contato de BBDD
 	
 }

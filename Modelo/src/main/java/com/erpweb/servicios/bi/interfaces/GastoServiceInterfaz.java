@@ -1,15 +1,18 @@
 package com.erpweb.servicios.bi.interfaces;
 
+import com.erpweb.dto.GastoDto;
 import com.erpweb.entidades.bi.Gasto;
 
 public interface GastoServiceInterfaz {
 
-	public void obtieneGasto(Long id, Long empresaId); //Obtenemos el gasto de BBDD
+	public Boolean creaGastoDesdeGastoDto(GastoDto gastoDto); //Crea  mediante
 	
-	public void obtieneGastoDto(Long id, Long empresaId); //Obtenemos el gasto y lo llevamos a capa vista mediante dto
+	public GastoDto obtieneGastoDto(Long id, Long empresaId); //Visualizar el gasto
 	
-	public void actualizaGasto(Gasto gasto); //Actualizamos el gasto
+	public Boolean actualizaGasto(GastoDto gastoDto); //Actualizamos el gasto
 	
-	public void eliminaGasto(Gasto gasto); //Borramos el gasto
+	public Boolean eliminaGasto(Gasto gasto); //Borramos el gasto
+	
+	public Gasto obtieneGasto(Long id, Long empresaId); //Obtenemos el gasto de BBDD
 	
 }

@@ -2,6 +2,7 @@ package com.erpweb.servicios.inventario;
 
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.servicios.inventario.interfaces.ArticuloServiceInterfaz;
 
@@ -11,34 +12,34 @@ import com.erpweb.servicios.inventario.interfaces.ArticuloServiceInterfaz;
 public class ArticuloService implements ArticuloServiceInterfaz {
 
 	@Override
-	public void obtieneArticulo(Long id, Long empresaId) {
+	public Boolean creaArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void obtieneArticuloDto(Long id, Long empresaId) {
+	public ArticuloDto obtieneArticuloDto(Long id, Long empresaId) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void actualizaArticulo(Articulo articulo) {
+	public Boolean actualizaArticulo(ArticuloDto articuloDto) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void eliminaArticulo(Articulo articulo) {
+	public Boolean eliminaArticulo(Articulo articulo) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
-	
+	@Override
+	public Articulo obtieneArticulo(Long id, Long empresaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-
-
-
-	
 
 }
