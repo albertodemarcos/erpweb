@@ -41,8 +41,11 @@ public class GastoService implements GastoServiceInterfaz {
 		try {
 			//Guardamos el gasto en base de datos
 			gastoRepository.save(gasto);
+			
 		}catch(Exception e) {
+			
 			System.out.println("Error: " + e.getLocalizedMessage() );
+			
 			return Boolean.FALSE;
 		}
 		
@@ -83,6 +86,7 @@ public class GastoService implements GastoServiceInterfaz {
 		
 		Empresa empresa = empresaRepository.findOne(gastoDto.getEmpresaId());
 		
+		gasto.setId(gastoDto.getId());
 		gasto.setCodigo(gastoDto.getCodigo());
 		gasto.setEmpresa(empresa);
 		gasto.setProcedencia(gastoDto.getProcedencia());
@@ -95,8 +99,11 @@ public class GastoService implements GastoServiceInterfaz {
 		try {
 			//Actualizamos el gasto en base de datos
 			gastoRepository.save(gasto);
+			
 		}catch(Exception e) {
+			
 			System.out.println("Error: " + e.getLocalizedMessage() );
+			
 			return Boolean.FALSE;
 		}
 		
@@ -106,15 +113,42 @@ public class GastoService implements GastoServiceInterfaz {
 	@Override
 	public Boolean eliminaGasto(Gasto gasto) {
 		
-		return null;
+		if(gasto == null || gasto.getId() == null) {
+			return Boolean.FALSE;
+		}
+		
+		try {
+			//Elimnamos el gasto
+			gastoRepository.deleteById(gasto.getId());
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error: " + e.getLocalizedMessage());
+			
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.TRUE;
 	}
 
 	@Override
 	public Gasto obtieneGasto(Long id, Long empresaId) {
 		
-		return null;
+		Gasto gasto;
+		
+		try {
+			//Recuperamos el gasto
+			gasto = gastoRepository.findByIdAndEmpresaId(id, empresaId);
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error: " + e.getLocalizedMessage());
+			
+			return new Gasto();
+		}
+		
+		return gasto;
 	}
-
 
 
 	
