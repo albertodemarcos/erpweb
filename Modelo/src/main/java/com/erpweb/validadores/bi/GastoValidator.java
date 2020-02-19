@@ -17,6 +17,7 @@ public class GastoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		GastoDto gastoDto = (GastoDto) target;
+		System.out.println(gastoDto.toString());
 	}
 
 }

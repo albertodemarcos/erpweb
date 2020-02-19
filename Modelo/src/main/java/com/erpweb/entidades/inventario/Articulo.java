@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.abstractas.Producto;
 import com.erpweb.entidades.compras.Proveedor;
 import com.erpweb.entidades.comun.Impuesto;
+import com.erpweb.entidades.empresa.Empresa;
 
 @Entity
 @Table(name="articulo")
@@ -22,12 +24,14 @@ public class Articulo extends Producto implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private String nombre;
 	private String descripcion;
 	private BigDecimal baseImponible;
 	private Impuesto impuesto;
 	private BigDecimal importeTotal;
 	private Proveedor proveedor;
+	private Almacen almacen;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -47,6 +51,14 @@ public class Articulo extends Producto implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String getNombre() {
@@ -89,12 +101,22 @@ public class Articulo extends Producto implements Serializable {
 		this.importeTotal = importeTotal;
 	}
 
+	@ManyToOne
 	public Proveedor getProveedor() {
 		return proveedor;
 	}
 
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
+	}
+
+	@ManyToOne
+	public Almacen getAlmacen() {
+		return almacen;
+	}
+
+	public void setAlmacen(Almacen almacen) {
+		this.almacen = almacen;
 	}
 	
 	

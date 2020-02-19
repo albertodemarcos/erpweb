@@ -17,6 +17,7 @@ public class AlmacenValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		AlmacenDto almacenDto = (AlmacenDto) target;
+		System.out.println(almacenDto.toString());
 	}
 
 }

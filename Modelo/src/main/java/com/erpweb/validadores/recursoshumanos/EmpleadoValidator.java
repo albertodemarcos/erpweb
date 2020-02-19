@@ -17,6 +17,7 @@ public class EmpleadoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		EmpleadoDto empleadoDto = (EmpleadoDto) target;
+		System.out.println(empleadoDto.toString());
 	}
 
 }

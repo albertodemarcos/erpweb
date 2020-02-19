@@ -17,6 +17,7 @@ public class IngresoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		IngresoDto ingresoDto = (IngresoDto) target;
+		System.out.println(ingresoDto.toString());
 	}
 
 }

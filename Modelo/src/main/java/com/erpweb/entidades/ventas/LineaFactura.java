@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.comun.Impuesto;
@@ -47,6 +48,7 @@ public class LineaFactura implements Serializable {
 	}
 
 	@JsonIgnore
+	@ManyToOne
 	public Factura getFactura() {
 		return factura;
 	}

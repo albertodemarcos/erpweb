@@ -17,6 +17,7 @@ public class InformeValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		InformeDto informeDto = (InformeDto) target;
+		System.out.println(informeDto.toString());
 	}
 
 }

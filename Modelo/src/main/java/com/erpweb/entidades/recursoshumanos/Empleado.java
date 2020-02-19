@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import com.erpweb.entidades.abstractas.Persona;
 import com.erpweb.entidades.comun.DireccionPostal;
+import com.erpweb.entidades.empresa.Empresa;
 
 
 @Entity
@@ -21,6 +22,7 @@ public class Empleado extends Persona implements Serializable {
 	
 	private Long id;
     private String codigo;
+    private Empresa empresa;
     private String nombre;
 	private DireccionPostal direccionPostal;
 	private Nomina nomina;	
@@ -43,6 +45,14 @@ public class Empleado extends Persona implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String getNombre() {

@@ -10,8 +10,8 @@ import com.erpweb.entidades.ventas.Contrato;
 
 @Repository
 public interface ContratoRepository extends JpaRepository<Contrato, Long> {
-
+/*
 	Contrato findByIdAndEmpresaId(Long id, Long empresaId);
 	
-	List<Contrato> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Contrato> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);*/
 }

@@ -1,7 +1,6 @@
 package com.erpweb.entidades.usuarios;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +10,7 @@ import javax.persistence.Table;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
+import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.interfaces.UsuarioInterfaz;
 
 
@@ -22,6 +22,7 @@ public class Usuario extends User implements UsuarioInterfaz, Serializable {
 	
 	private Long id;
     private String identidad;
+    private Empresa empresa;
     private String idioma; 
     
     public Usuario () {
@@ -46,6 +47,14 @@ public class Usuario extends User implements UsuarioInterfaz, Serializable {
     public void setIdentidad(String identidad) {
         this.identidad = identidad;
     }
+    
+    public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
     
     public String getIdioma() {
         return idioma;

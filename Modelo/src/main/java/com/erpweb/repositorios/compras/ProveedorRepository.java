@@ -10,10 +10,10 @@ import com.erpweb.entidades.compras.Proveedor;
 @Repository
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
 
-	
+	/*
 	Proveedor findByIdAndEmpresaId(Long id, Long empresaId);
 	
 	List<Proveedor> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
-	
+	*/
 	
 }

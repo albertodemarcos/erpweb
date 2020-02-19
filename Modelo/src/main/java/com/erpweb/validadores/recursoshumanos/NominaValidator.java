@@ -17,6 +17,7 @@ public class NominaValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		NominaDto nominaDto = (NominaDto) target;
+		System.out.println(nominaDto.toString());
 	}
 
 }

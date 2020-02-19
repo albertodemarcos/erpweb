@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,7 @@ public class Poblacion implements Serializable {
 	private String codigoPostal;
 	private Pais pais;
 	private Region region;
-	private Provincia provincias;
+	private Provincia provincia;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -67,6 +68,7 @@ public class Poblacion implements Serializable {
 		this.pais = pais;
 	}
 
+	@ManyToOne
 	public Region getRegion() {
 		return region;
 	}
@@ -75,12 +77,13 @@ public class Poblacion implements Serializable {
 		this.region = region;
 	}
 
-	public Provincia getProvincias() {
-		return provincias;
+	@ManyToOne
+	public Provincia getProvincia() {
+		return provincia;
 	}
 
-	public void setProvincias(Provincia provincias) {
-		this.provincias = provincias;
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
 	}
 	
 	

@@ -5,10 +5,15 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.erpweb.entidades.empresa.Empresa;
 
 @Entity
 @Table(name="compra")
@@ -18,9 +23,10 @@ public class Compra implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private Date fechaCompra;
 	private Set<LineaCompra> lineaCompra;
-	private Set<Proveedor> proveedores;
+	private Proveedor proveedor;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -41,6 +47,14 @@ public class Compra implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 	public Date getFechaCompra() {
 		return fechaCompra;
@@ -50,6 +64,7 @@ public class Compra implements Serializable {
 		this.fechaCompra = fechaCompra;
 	}
 
+	@OneToMany(mappedBy="compra")
 	public Set<LineaCompra> getLineaCompra() {
 		return lineaCompra;
 	}
@@ -57,14 +72,17 @@ public class Compra implements Serializable {
 	public void setLineaCompra(Set<LineaCompra> lineaCompra) {
 		this.lineaCompra = lineaCompra;
 	}
-
-	public Set<Proveedor> getProveedores() {
-		return proveedores;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	public Proveedor getProveedor() {
+		return proveedor;
 	}
 
-	public void setProveedores(Set<Proveedor> proveedores) {
-		this.proveedores = proveedores;
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
+
+	
 	
 	
 	

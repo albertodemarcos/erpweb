@@ -1,13 +1,17 @@
 package com.erpweb.entidades.inventario;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.erpweb.entidades.empresa.Empresa;
 
 
 @Entity
@@ -16,11 +20,12 @@ public class Almacen implements Serializable {
 
 	private static final long serialVersionUID = -8835509117976603534L;
 	
-	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private String nombre;
-	private Set<Articulo> articulos;
+	private Articulo articulo; 				//Articulo
+	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
 		
 	
 	@Id
@@ -30,27 +35,50 @@ public class Almacen implements Serializable {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getCodigo() {
 		return codigo;
 	}
+	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	public Set<Articulo> getArticulos() {
-		return articulos;
+	
+	public Empresa getEmpresa() {
+		return empresa;
 	}
-	public void setArticulos(Set<Articulo> articulos) {
-		this.articulos = articulos;
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-    
-    
+	
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+
+	public BigDecimal getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
+	}
+	
 }

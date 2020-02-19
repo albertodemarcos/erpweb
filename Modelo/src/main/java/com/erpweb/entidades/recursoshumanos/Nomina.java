@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.empresa.Empresa;
+
 
 @Entity
 @Table(name="empleado")
@@ -19,6 +21,7 @@ public class Nomina implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private Empleado empleado; //Empleado 
 	private String descripcion; 
 	private BigDecimal sueldo; //Sueldo base bruto
@@ -44,6 +47,14 @@ public class Nomina implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public Empleado getEmpleado() {

@@ -17,6 +17,7 @@ public class ProveedorValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		ProveedorDto proveedorDto = (ProveedorDto) target;
+		System.out.println(proveedorDto.toString());
 	}
 
 }

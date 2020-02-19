@@ -17,6 +17,7 @@ public class ClienteValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		ClienteDto clienteDto = (ClienteDto) target;
+		System.out.println(clienteDto.toString());
 	}
 
 }

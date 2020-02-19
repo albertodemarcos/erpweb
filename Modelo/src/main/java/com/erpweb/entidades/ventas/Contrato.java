@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.erpweb.entidades.empresa.Empresa;
 
 @Entity
 @Table(name="contrato")
@@ -19,6 +22,7 @@ public class Contrato implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private Date fechaCreacion;  //Cuando se crea el contrato
 	private Date fechaInicio;    //Cuando empieza el contrato
 	private Date fechaFin;       //Cuando finaliza el contrato
@@ -46,6 +50,14 @@ public class Contrato implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public Date getFechaCreacion() {
@@ -80,6 +92,7 @@ public class Contrato implements Serializable {
 		this.descripcion = descripcion;
 	}
 
+	@OneToMany(mappedBy="contrato")
 	public Set<LineaContrato> getLineaContrato() {
 		return lineaContrato;
 	}

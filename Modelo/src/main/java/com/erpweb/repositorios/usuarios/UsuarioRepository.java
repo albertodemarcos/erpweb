@@ -9,12 +9,12 @@ import com.erpweb.entidades.usuarios.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-
+/*
 	Usuario findByIdAndEmpresaId(Long id, Long empresaId);
 	
 	List<Usuario> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
 	
-	
+	*/
 	
 	
 	

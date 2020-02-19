@@ -17,6 +17,7 @@ public class VehiculoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		VehiculoDto vehiculoDto = (VehiculoDto) target;
+		System.out.println(vehiculoDto.toString());
 	}
 
 }

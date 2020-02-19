@@ -18,6 +18,7 @@ public class Configuracion implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private String idiomaApp;
 	
 	@Id
@@ -38,6 +39,14 @@ public class Configuracion implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String getIdiomaApp() {

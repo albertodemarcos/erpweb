@@ -17,6 +17,7 @@ public class VentaValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		VentaDto ventaDto = (VentaDto) target;
+		System.out.println(ventaDto.toString());
 	}
 
 }

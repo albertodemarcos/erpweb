@@ -17,6 +17,7 @@ public class ContratoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		ContratoDto contratoDto = (ContratoDto) target;
+		System.out.println(contratoDto.toString());
 	}
 
 }

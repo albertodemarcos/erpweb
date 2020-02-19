@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.empresa.Empresa;
+
 @Entity
 @Table(name="informe")
 public class Informe implements Serializable {
@@ -18,6 +20,7 @@ public class Informe implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private Boolean generado = Boolean.FALSE;
 	
 	
@@ -35,6 +38,14 @@ public class Informe implements Serializable {
 	
 	public String getCodigo() {
 		return codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 	
 	public void setCodigo(String codigo) {

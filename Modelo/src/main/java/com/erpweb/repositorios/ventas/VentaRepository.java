@@ -10,8 +10,8 @@ import com.erpweb.entidades.ventas.Venta;
 
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Long> {
-
+/*
 	Venta findByIdAndEmpresaId(Long id, Long empresaId);
 	
-	List<Venta> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Venta> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);*/
 }

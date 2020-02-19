@@ -1,14 +1,17 @@
 package com.erpweb.entidades.compras;
 
 import java.io.Serializable;
-import java.util.List;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.utiles.enumerados.TipoProveedor;
 
@@ -20,11 +23,13 @@ public class Proveedor implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private String nombre;
-	private String empresa;
+	private String nombreEmpresa;
 	private String telefono;
-	private List<Articulo> articulos; //Productos pertenecientes al proveedor
-	private TipoProveedor tipoProveedor; //Tipo de proveedor por suministros
+	private Articulo articulo; 				//Productos pertenecientes al proveedor
+	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
+	private TipoProveedor tipoProveedor; 	//Tipo de proveedor por suministros
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -45,6 +50,14 @@ public class Proveedor implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -54,12 +67,12 @@ public class Proveedor implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getEmpresa() {
-		return empresa;
+	public String getNombreEmpresa() {
+		return nombreEmpresa;
 	}
 
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
 	}
 
 	public String getTelefono() {
@@ -70,12 +83,21 @@ public class Proveedor implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<Articulo> getArticulos() {
-		return articulos;
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
+	public Articulo getArticulo() {
+		return articulo;
 	}
 
-	public void setArticulos(List<Articulo> articulos) {
-		this.articulos = articulos;
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+
+	public BigDecimal getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public TipoProveedor getTipoProveedor() {
@@ -85,8 +107,5 @@ public class Proveedor implements Serializable {
 	public void setTipoProveedor(TipoProveedor tipoProveedor) {
 		this.tipoProveedor = tipoProveedor;
 	}
-	
-	
-	
 	
 }

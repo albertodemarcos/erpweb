@@ -17,6 +17,7 @@ public class UsuarioValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		UsuarioDto usuarioDto = (UsuarioDto) target;
+		System.out.println(usuarioDto.toString());
 	}
 
 }

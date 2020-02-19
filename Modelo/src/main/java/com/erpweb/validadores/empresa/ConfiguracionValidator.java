@@ -17,6 +17,7 @@ public class ConfiguracionValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		ConfiguracionDto configuracionDto = (ConfiguracionDto) target;
+		System.out.println(configuracionDto.toString());
 	}
 
 }

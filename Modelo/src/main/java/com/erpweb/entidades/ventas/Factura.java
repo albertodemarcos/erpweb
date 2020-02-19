@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.erpweb.entidades.empresa.Empresa;
 
 
 @Entity
@@ -20,6 +23,7 @@ public class Factura implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private Date fechaCreacion;  				//Cuando se crea la factura
 	private Date fechaInicio;    				//Cuando empieza la factura
 	private Date fechaFin;       				//Cuando finaliza la factura
@@ -48,6 +52,14 @@ public class Factura implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public Date getFechaCreacion() {
@@ -106,6 +118,7 @@ public class Factura implements Serializable {
 		this.importeTotal = importeTotal;
 	}
 
+	@OneToMany(mappedBy="factura" )
 	public Set<LineaFactura> getLineasFactura() {
 		return lineasFactura;
 	}

@@ -1,11 +1,14 @@
 package com.erpweb.entidades.comun;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,7 @@ public class Provincia implements Serializable {
 	private String nombre;
 	private Pais pais;
 	private Region region;
+	private Set<Poblacion> poblaciones;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -49,6 +53,7 @@ public class Provincia implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@ManyToOne
 	public Pais getPais() {
 		return pais;
 	}
@@ -57,12 +62,22 @@ public class Provincia implements Serializable {
 		this.pais = pais;
 	}
 
+	@ManyToOne
 	public Region getRegion() {
 		return region;
 	}
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	@OneToMany(mappedBy = "provincia")
+	public Set<Poblacion> getPoblaciones() {
+		return poblaciones;
+	}
+
+	public void setPoblaciones(Set<Poblacion> poblaciones) {
+		this.poblaciones = poblaciones;
 	}
 	
 	

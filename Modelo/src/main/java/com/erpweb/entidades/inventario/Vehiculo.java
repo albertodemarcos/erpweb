@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.utiles.enumerados.TipoVehiculo;
 
 @Entity
@@ -20,6 +21,7 @@ public class Vehiculo implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private String matricula;
 	private String marca;
 	private String modelo;
@@ -49,6 +51,14 @@ public class Vehiculo implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String getMatricula() {

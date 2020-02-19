@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -58,6 +59,7 @@ public class Pais implements Serializable {
 		this.nombre = nombre;
 	}
 	
+	@OneToMany(mappedBy = "pais")
 	public Set<Region> getRegiones() {
 		return regiones;
 	}
@@ -66,6 +68,7 @@ public class Pais implements Serializable {
 		this.regiones = regiones;
 	}
 
+	@OneToMany(mappedBy = "pais")
 	public Set<Provincia> getProvincias() {
 		return provincias;
 	}

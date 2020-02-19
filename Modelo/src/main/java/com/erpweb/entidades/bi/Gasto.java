@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.empresa.Empresa;
+
 @Entity
 @Table(name="gasto")
 public class Gasto implements Serializable{
@@ -18,6 +20,7 @@ public class Gasto implements Serializable{
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private String procedencia; 			//Procedencia del gasto (contrato o venta)
 	private BigDecimal baseImponible;     //Precio sin impuesto
 	private BigDecimal cuotaTributaria;   //Valor del impuesto sobre el producto
@@ -47,6 +50,14 @@ public class Gasto implements Serializable{
 		this.codigo = codigo;
 	}
 	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
 	public String getProcedencia() {
 		return procedencia;
 	}

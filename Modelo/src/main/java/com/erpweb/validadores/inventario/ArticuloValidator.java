@@ -17,6 +17,7 @@ public class ArticuloValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		ArticuloDto articuloDto = (ArticuloDto) target;
+		System.out.println(articuloDto.toString());
 	}
 
 }

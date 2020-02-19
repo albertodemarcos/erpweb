@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.GastoDto;
 import com.erpweb.entidades.bi.Gasto;
-import com.erpweb.repositorios.bi.GastoRepository;
 import com.erpweb.servicios.bi.interfaces.GastoServiceInterfaz;
 
 @Service

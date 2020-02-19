@@ -2,12 +2,13 @@ package com.erpweb.entidades.ventas;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.comun.Impuesto;
@@ -23,7 +24,8 @@ public class LineaContrato implements Serializable {
 	private Long id;
 	private String codigo;
 	private Contrato contrato;
-	private Set<Articulo> articulos;		//Cada linea pueden tener uno o varios articulos del MISMO tipo
+	private Articulo articulo;				//Articulo
+	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
 	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
 	private Impuesto impuesto; 				//Impuesto 
 	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
@@ -50,6 +52,7 @@ public class LineaContrato implements Serializable {
 	}
 
 	@JsonIgnore
+	@ManyToOne
 	public Contrato getContrato() {
 		return contrato;
 	}
@@ -57,13 +60,22 @@ public class LineaContrato implements Serializable {
 	public void setContrato(Contrato contrato) {
 		this.contrato = contrato;
 	}
-
-	public Set<Articulo> getArticulos() {
-		return articulos;
+	
+	public BigDecimal getCantidad() {
+		return cantidad;
 	}
 
-	public void setArticulos(Set<Articulo> articulos) {
-		this.articulos = articulos;
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
 	}
 
 	public BigDecimal getBaseImponibleTotal() {

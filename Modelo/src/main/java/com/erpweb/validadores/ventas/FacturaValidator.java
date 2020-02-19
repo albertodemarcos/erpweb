@@ -17,6 +17,7 @@ public class FacturaValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 		FacturaDto facturaDto = (FacturaDto) target;
+		System.out.println(facturaDto.toString());
 	}
 
 }

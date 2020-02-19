@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.erpweb.entidades.abstractas.Persona;
 import com.erpweb.entidades.comun.DireccionPostal;
+import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.utiles.enumerados.TipoCliente;
 
 @Entity
@@ -20,7 +21,8 @@ public class Cliente extends Persona implements Serializable{
 	private static final long serialVersionUID = -3351686938578336993L;
 	
 	private Long id;
-    private String codigo;          
+    private String codigo;   
+    private Empresa empresa;
     private String nombre;					  //Nombre del cliente
     private DireccionPostal direccionPostal;  //Datos para la facturacion
     private TipoCliente TipoCliente;          //Tipo de cliente
@@ -44,6 +46,14 @@ public class Cliente extends Persona implements Serializable{
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String getNombre() {
