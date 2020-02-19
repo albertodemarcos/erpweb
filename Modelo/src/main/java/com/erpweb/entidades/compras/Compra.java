@@ -1,6 +1,7 @@
 package com.erpweb.entidades.compras;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ public class Compra implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Date fechaCompra;
 	private Set<LineaCompra> lineaCompra;
 	private Set<Proveedor> proveedores;
 	
@@ -31,13 +33,21 @@ public class Compra implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getCodigo() {
 		return codigo;
 	}
-	
+
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public Date getFechaCompra() {
+		return fechaCompra;
+	}
+
+	public void setFechaCompra(Date fechaCompra) {
+		this.fechaCompra = fechaCompra;
 	}
 
 	public Set<LineaCompra> getLineaCompra() {
@@ -47,14 +57,16 @@ public class Compra implements Serializable {
 	public void setLineaCompra(Set<LineaCompra> lineaCompra) {
 		this.lineaCompra = lineaCompra;
 	}
-	
-	public Set<Proveedor> getProveedor() {
+
+	public Set<Proveedor> getProveedores() {
 		return proveedores;
 	}
 
-	public void setProveedor(Set<Proveedor> proveedores) {
+	public void setProveedores(Set<Proveedor> proveedores) {
 		this.proveedores = proveedores;
 	}
+	
+	
 	
 	
 }

@@ -18,6 +18,7 @@ public class Configuracion implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private String idiomaApp;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -37,6 +38,14 @@ public class Configuracion implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getIdiomaApp() {
+		return idiomaApp;
+	}
+
+	public void setIdiomaApp(String idiomaApp) {
+		this.idiomaApp = idiomaApp;
 	}
 	
 	

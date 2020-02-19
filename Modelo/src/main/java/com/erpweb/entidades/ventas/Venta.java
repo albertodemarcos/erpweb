@@ -1,6 +1,7 @@
 package com.erpweb.entidades.ventas;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -15,9 +16,12 @@ public class Venta implements Serializable {
 
 	private static final long serialVersionUID = -7571807984020434198L;
 	
-	
 	private Long id;
 	private String codigo;
+	private Date fechaCreacion;  				//Cuando se crea la factura
+	private Date fechaInicio;    				//Cuando empieza la factura
+	private Date fechaFin;       				//Cuando finaliza la factura
+	private String descripcion;
 	private Set<LineaVenta> lineaVenta;
 	private Factura factura;
 	
@@ -38,6 +42,30 @@ public class Venta implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	public Set<LineaVenta> getLineaVenta() {
 		return lineaVenta;
 	}
@@ -50,6 +78,7 @@ public class Venta implements Serializable {
 	public void setFactura(Factura factura) {
 		this.factura = factura;
 	}
+	
 	
 	
 }

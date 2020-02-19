@@ -19,6 +19,7 @@ public class Almacen implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private String nombre;
 	private Set<Articulo> articulos;
 		
 	
@@ -43,6 +44,12 @@ public class Almacen implements Serializable {
 	}
 	public void setArticulos(Set<Articulo> articulos) {
 		this.articulos = articulos;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
     
     

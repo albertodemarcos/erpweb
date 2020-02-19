@@ -23,7 +23,7 @@ public class Empleado extends Persona implements Serializable {
     private String codigo;
     private String nombre;
 	private DireccionPostal direccionPostal;
-		
+	private Nomina nomina;	
     
     @Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -59,6 +59,14 @@ public class Empleado extends Persona implements Serializable {
 
 	public void setDireccionPostal(DireccionPostal direccionPostal) {
 		this.direccionPostal = direccionPostal;
+	}
+
+	public Nomina getNomina() {
+		return nomina;
+	}
+
+	public void setNomina(Nomina nomina) {
+		this.nomina = nomina;
 	}
 
     

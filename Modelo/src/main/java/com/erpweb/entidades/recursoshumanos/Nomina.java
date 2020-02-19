@@ -1,6 +1,8 @@
 package com.erpweb.entidades.recursoshumanos;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,12 @@ public class Nomina implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empleado empleado; //Empleado 
+	private String descripcion; 
+	private BigDecimal sueldo; //Sueldo base bruto
+	private BigDecimal extras; //Extras al sueldo base
+	private Date fechaNomina;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -29,14 +37,53 @@ public class Nomina implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getCodigo() {
 		return codigo;
 	}
-	
+
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public BigDecimal getSueldo() {
+		return sueldo;
+	}
+
+	public void setSueldo(BigDecimal sueldo) {
+		this.sueldo = sueldo;
+	}
+
+	public BigDecimal getExtras() {
+		return extras;
+	}
+
+	public void setExtras(BigDecimal extras) {
+		this.extras = extras;
+	}
+
+	public Date getFechaNomina() {
+		return fechaNomina;
+	}
+
+	public void setFechaNomina(Date fechaNomina) {
+		this.fechaNomina = fechaNomina;
+	}
 	
 }
