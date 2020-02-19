@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.abstractas.Persona;
@@ -48,6 +50,7 @@ public class Cliente extends Persona implements Serializable{
 		this.codigo = codigo;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	public Empresa getEmpresa() {
 		return empresa;
 	}

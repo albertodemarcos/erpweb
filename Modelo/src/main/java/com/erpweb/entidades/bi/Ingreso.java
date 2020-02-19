@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.empresa.Empresa;
@@ -46,7 +48,7 @@ public class Ingreso implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	public Empresa getEmpresa() {
 		return empresa;
 	}

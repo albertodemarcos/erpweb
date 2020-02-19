@@ -9,9 +9,10 @@ import com.erpweb.entidades.bi.Ingreso;
 
 @Repository
 public interface IngresoRepository extends JpaRepository<Ingreso, Long> {
-/*
+
 	Ingreso findByIdAndEmpresaId(Long id, Long empresaId);
 	
 	List<Ingreso> findByIdInAndEmpresaId(List<Long> ids, Long empresaId);
-	*/
+
+	
 }

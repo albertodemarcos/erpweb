@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,6 +54,7 @@ public class Articulo extends Producto implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	public Empresa getEmpresa() {
 		return empresa;
 	}

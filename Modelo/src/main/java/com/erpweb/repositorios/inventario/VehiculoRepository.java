@@ -11,8 +11,12 @@ import com.erpweb.entidades.inventario.Vehiculo;
 @Repository
 public interface VehiculoRepository extends JpaRepository<Vehiculo, Long> {
 
-	/*
+	
 	Vehiculo findByIdAndEmpresaId(Long id, Long empresaId);
 	
-	List< Vehiculo> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);*/
+	List< Vehiculo> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	
+	
+	
+	
 }

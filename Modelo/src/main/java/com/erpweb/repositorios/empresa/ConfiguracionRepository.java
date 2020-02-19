@@ -11,10 +11,10 @@ import com.erpweb.entidades.empresa.Configuracion;
 @Repository
 public interface ConfiguracionRepository extends JpaRepository<Configuracion, Long> {
 
-	/*
+	
 	Configuracion findByIdAndEmpresaId(Long id, Long empresaId);
 	
 	List<Configuracion> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
-	*/
+	
 	
 }

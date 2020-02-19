@@ -3,9 +3,11 @@ package com.erpweb.entidades.usuarios;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
@@ -48,6 +50,7 @@ public class Usuario extends User implements UsuarioInterfaz, Serializable {
         this.identidad = identidad;
     }
     
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     public Empresa getEmpresa() {
 		return empresa;
 	}

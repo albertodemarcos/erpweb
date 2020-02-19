@@ -10,11 +10,11 @@ import com.erpweb.entidades.recursoshumanos.Empleado;
 @Repository
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
 
-	/*
+	
 	Empleado findByIdAndEmpresaId(Long id, Long empresaId);
 	
 	List<Empleado> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
-	*/
+	
 	
 	
 	

@@ -51,6 +51,7 @@ public class Proveedor implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	public Empresa getEmpresa() {
 		return empresa;
 	}
