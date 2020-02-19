@@ -14,6 +14,8 @@ import com.erpweb.repositorios.bi.interfaces.GastoRepositoryInterfaz;
 @Repository
 public interface GastoRepository extends JpaRepository<Gasto, Long>, GastoRepositoryInterfaz {
 
+	Gasto findOne(Long id);
+	
 	Gasto findByIdAndEmpresaId(Long id, Long empresaId);
 	
 	List<Gasto> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);

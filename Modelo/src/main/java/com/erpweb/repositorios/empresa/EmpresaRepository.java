@@ -12,7 +12,7 @@ import com.erpweb.entidades.empresa.Empresa;
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
 	
-	Empresa findByIdAndEmpresaId(Long id, Long empresaId);
+	Empresa findOne(Long id);
 	
 	List<Empresa> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
 	
