@@ -46,7 +46,7 @@ public class ClienteService implements ClienteServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(clienteDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(clienteDto.getEmpresaId()).orElse(new Empresa());
 		
 		cliente.setCodigo(clienteDto.getCodigo());
 		cliente.setEmpresa(empresa);
@@ -56,10 +56,10 @@ public class ClienteService implements ClienteServiceInterfaz {
 		cliente.setNif(clienteDto.getNif());
 		
 		//Buscamos la provinicia
-		Provincia provincia = provinciaRepository.findOne(clienteDto.getProvinciaId());
+		Provincia provincia = provinciaRepository.findById(clienteDto.getProvinciaId()).orElse(new Provincia());
 		
 		//Buscamos la poblacion
-		Poblacion poblacion = poblacionRepository.findOne(clienteDto.getPoblacionId());
+		Poblacion poblacion = poblacionRepository.findById(clienteDto.getPoblacionId()).orElse(new Poblacion());
 		
 		//Rellenamos la direccion postal
 		DireccionPostal direccionPostal = new DireccionPostal();
@@ -155,7 +155,7 @@ public class ClienteService implements ClienteServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(clienteDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(clienteDto.getEmpresaId()).orElse(new Empresa());
 		
 		cliente.setId(clienteDto.getId());
 		cliente.setCodigo(clienteDto.getCodigo());
@@ -166,10 +166,10 @@ public class ClienteService implements ClienteServiceInterfaz {
 		cliente.setNif(clienteDto.getNif());
 		
 		//Buscamos la provinicia
-		Provincia provincia = provinciaRepository.findOne(clienteDto.getProvinciaId());
+		Provincia provincia = provinciaRepository.findById(clienteDto.getProvinciaId()).orElse(new Provincia());
 		
 		//Buscamos la poblacion
-		Poblacion poblacion = poblacionRepository.findOne(clienteDto.getPoblacionId());
+		Poblacion poblacion = poblacionRepository.findById(clienteDto.getPoblacionId()).orElse(new Poblacion());
 		
 		//Rellenamos la direccion postal
 		DireccionPostal direccionPostal = new DireccionPostal();

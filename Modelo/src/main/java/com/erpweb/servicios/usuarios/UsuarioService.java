@@ -30,7 +30,7 @@ public class UsuarioService implements UsuarioServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(usuarioDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(usuarioDto.getEmpresaId()).orElse(new Empresa());
 		
 		usuario.setCodigo(usuarioDto.getCodigo());
 		usuario.setEmpresa(empresa);
@@ -83,7 +83,7 @@ public class UsuarioService implements UsuarioServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(usuarioDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(usuarioDto.getEmpresaId()).orElse(new Empresa());
 		
 		usuario.setId(usuarioDto.getId());
 		usuario.setCodigo(usuarioDto.getCodigo());

@@ -3,9 +3,11 @@ package com.erpweb.entidades.comun;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -57,6 +59,7 @@ public class Impuesto implements Serializable {
 		this.porcentaje = porcentaje;
 	}
 	
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
 	public Pais getPais() {
 		return pais;
 	}

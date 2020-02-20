@@ -33,7 +33,7 @@ public class FacturaService implements FacturaServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(facturaDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(facturaDto.getEmpresaId()).orElse(new Empresa());
 		
 		factura.setCodigo(facturaDto.getCodigo());
 		factura.setEmpresa(empresa);
@@ -101,7 +101,7 @@ public class FacturaService implements FacturaServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(facturaDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(facturaDto.getEmpresaId()).orElse(new Empresa());
 		
 		factura.setId(facturaDto.getId());
 		factura.setCodigo(facturaDto.getCodigo());

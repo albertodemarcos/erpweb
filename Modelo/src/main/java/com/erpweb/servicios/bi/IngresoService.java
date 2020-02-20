@@ -29,7 +29,7 @@ public class IngresoService implements IngresoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(ingresoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(ingresoDto.getEmpresaId()).orElse(new Empresa());
 		
 		ingreso.setCodigo(ingresoDto.getCodigo());
 		ingreso.setEmpresa(empresa);
@@ -86,7 +86,7 @@ public class IngresoService implements IngresoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(ingresoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(ingresoDto.getEmpresaId()).orElse(new Empresa());
 		
 		ingreso.setId(ingresoDto.getId());
 		ingreso.setCodigo(ingresoDto.getCodigo());

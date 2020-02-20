@@ -28,7 +28,7 @@ public class InformeService implements InformeServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(informeDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(informeDto.getEmpresaId()).orElse(new Empresa());
 		
 		informe.setCodigo(informeDto.getCodigo());
 		informe.setEmpresa(empresa);
@@ -75,7 +75,7 @@ public class InformeService implements InformeServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(informeDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(informeDto.getEmpresaId()).orElse(new Empresa());
 		
 		informe.setId(informeDto.getId());
 		informe.setCodigo(informeDto.getCodigo());

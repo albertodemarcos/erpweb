@@ -30,7 +30,7 @@ public class ProveedorService implements ProveedorServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(proveedorDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(proveedorDto.getEmpresaId()).orElse(new Empresa());
 		
 		proveedor.setCodigo(proveedorDto.getCodigo());
 		proveedor.setEmpresa(empresa);
@@ -87,7 +87,7 @@ public class ProveedorService implements ProveedorServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(proveedorDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(proveedorDto.getEmpresaId()).orElse(new Empresa());
 		
 		proveedor.setId(proveedorDto.getId());
 		proveedor.setCodigo(proveedorDto.getCodigo());

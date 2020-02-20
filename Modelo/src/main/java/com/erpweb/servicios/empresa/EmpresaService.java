@@ -47,7 +47,7 @@ public class EmpresaService implements EmpresaServiceInterfaz {
 	@Override
 	public EmpresaDto obtieneEmpresaDto(Long id) {
 		
-		Empresa empresa = empresaRepository.findOne(id);
+		Empresa empresa = empresaRepository.findById(id).orElse(new Empresa());
 		
 		if(empresa == null) {
 			return new EmpresaDto();
@@ -120,8 +120,8 @@ public class EmpresaService implements EmpresaServiceInterfaz {
 		Empresa empresa;
 		
 		try {
-			//Recuperamos el gasto
-			empresa = empresaRepository.findOne(id);
+			//Recuperamos la empresa
+			empresa = empresaRepository.findById(id).orElse(new Empresa());
 			
 		}catch(Exception e) {
 			

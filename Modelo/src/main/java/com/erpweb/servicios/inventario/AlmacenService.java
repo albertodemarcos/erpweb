@@ -29,7 +29,7 @@ public class AlmacenService implements AlmacenServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(almacenDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(almacenDto.getEmpresaId()).orElse(new Empresa());
 		
 		almacen.setCodigo(almacenDto.getCodigo());
 		almacen.setEmpresa(empresa);
@@ -77,7 +77,7 @@ public class AlmacenService implements AlmacenServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(almacenDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(almacenDto.getEmpresaId()).orElse(new Empresa());
 		
 		almacen.setId(almacenDto.getId());
 		almacen.setCodigo(almacenDto.getCodigo());

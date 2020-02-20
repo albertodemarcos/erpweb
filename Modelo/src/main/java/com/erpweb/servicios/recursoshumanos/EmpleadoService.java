@@ -46,7 +46,7 @@ public class EmpleadoService implements EmpleadoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(empleadoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(empleadoDto.getEmpresaId()).orElse(new Empresa());
 		
 		empleado.setCodigo(empleadoDto.getCodigo());
 		empleado.setEmpresa(empresa);
@@ -56,10 +56,10 @@ public class EmpleadoService implements EmpleadoServiceInterfaz {
 		empleado.setNif(empleadoDto.getNif());
 		
 		//Buscamos la provinicia
-		Provincia provincia = provinciaRepository.findOne(empleadoDto.getProvinciaId());
+		Provincia provincia = provinciaRepository.findById(empleadoDto.getProvinciaId()).orElse(new Provincia());
 		
 		//Buscamos la poblacion
-		Poblacion poblacion = poblacionRepository.findOne(empleadoDto.getPoblacionId());
+		Poblacion poblacion = poblacionRepository.findById(empleadoDto.getPoblacionId()).orElse(new Poblacion());
 		
 		//Rellenamos la direccion postal
 		DireccionPostal direccionPostal = new DireccionPostal();
@@ -153,7 +153,7 @@ public class EmpleadoService implements EmpleadoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(empleadoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(empleadoDto.getEmpresaId()).orElse(new Empresa());
 		
 		empleado.setId(empleadoDto.getId());
 		empleado.setCodigo(empleadoDto.getCodigo());
@@ -164,10 +164,10 @@ public class EmpleadoService implements EmpleadoServiceInterfaz {
 		empleado.setNif(empleadoDto.getNif());
 		
 		//Buscamos la provinicia
-		Provincia provincia = provinciaRepository.findOne(empleadoDto.getProvinciaId());
+		Provincia provincia = provinciaRepository.findById(empleadoDto.getProvinciaId()).orElse(new Provincia());
 		
 		//Buscamos la poblacion
-		Poblacion poblacion = poblacionRepository.findOne(empleadoDto.getPoblacionId());
+		Poblacion poblacion = poblacionRepository.findById(empleadoDto.getPoblacionId()).orElse(new Poblacion());
 		
 		//Rellenamos la direccion postal
 		DireccionPostal direccionPostal = new DireccionPostal();

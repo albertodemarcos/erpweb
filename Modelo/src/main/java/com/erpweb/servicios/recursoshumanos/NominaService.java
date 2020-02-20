@@ -33,7 +33,7 @@ public class NominaService implements NominaServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(nominaDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(nominaDto.getEmpresaId()).orElse(new Empresa());
 		
 		nomina.setCodigo(nominaDto.getCodigo());
 		nomina.setEmpresa(empresa);
@@ -102,7 +102,7 @@ public class NominaService implements NominaServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(nominaDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(nominaDto.getEmpresaId()).orElse(new Empresa());
 		
 		nomina.setId(nominaDto.getId());
 		nomina.setCodigo(nominaDto.getCodigo());

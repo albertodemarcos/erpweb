@@ -1,6 +1,7 @@
 package com.erpweb.repositorios.empresa;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,9 +13,9 @@ import com.erpweb.entidades.empresa.Empresa;
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
 	
-	Empresa findOne(Long id);
+	Optional<Empresa> findById(Long id);
 	
-	List<Empresa> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Empresa> findByIdIn( List<Long> empresasId);
 	
 	
 }

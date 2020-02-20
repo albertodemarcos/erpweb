@@ -37,7 +37,7 @@ public class ContratoService implements ContratoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(contratoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(contratoDto.getEmpresaId()).orElse(new Empresa());
 		
 		contrato.setCodigo(contratoDto.getCodigo());
 		contrato.setEmpresa(empresa);
@@ -107,7 +107,7 @@ public class ContratoService implements ContratoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(contratoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(contratoDto.getEmpresaId()).orElse(new Empresa());
 		
 		contrato.setId(contratoDto.getId());
 		contrato.setCodigo(contratoDto.getCodigo());

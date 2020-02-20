@@ -31,7 +31,7 @@ public class VehiculoService implements VehiculoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(vehiculoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(vehiculoDto.getEmpresaId()).orElse(new Empresa());
 		
 		vehiculo.setCodigo(vehiculoDto.getCodigo());
 		vehiculo.setEmpresa(empresa);
@@ -86,7 +86,7 @@ public class VehiculoService implements VehiculoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(vehiculoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(vehiculoDto.getEmpresaId()).orElse(new Empresa());
 		
 		vehiculo.setId(vehiculoDto.getId());
 		vehiculo.setCodigo(vehiculoDto.getCodigo());

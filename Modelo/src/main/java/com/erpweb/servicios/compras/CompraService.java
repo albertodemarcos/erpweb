@@ -29,7 +29,7 @@ public class CompraService implements CompraServiceInterfaz{
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(compraDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(compraDto.getEmpresaId()).orElse(new Empresa());
 		
 		compra.setCodigo(compraDto.getCodigo());
 		compra.setEmpresa(empresa);
@@ -80,7 +80,7 @@ public class CompraService implements CompraServiceInterfaz{
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(compraDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(compraDto.getEmpresaId()).orElse(new Empresa());
 		
 		compra.setId(compraDto.getId());
 		compra.setCodigo(compraDto.getCodigo());

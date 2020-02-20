@@ -36,7 +36,7 @@ public class VentaService implements VentaServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(ventaDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(ventaDto.getEmpresaId()).orElse(new Empresa());
 		
 		venta.setCodigo(ventaDto.getCodigo());
 		venta.setEmpresa(empresa);
@@ -105,7 +105,7 @@ public class VentaService implements VentaServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(ventaDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(ventaDto.getEmpresaId()).orElse(new Empresa());
 		
 		venta.setId(ventaDto.getId());
 		venta.setCodigo(ventaDto.getCodigo());

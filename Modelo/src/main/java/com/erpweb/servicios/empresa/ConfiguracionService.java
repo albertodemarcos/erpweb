@@ -28,7 +28,7 @@ public class ConfiguracionService implements ConfiguracionServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(configuracionDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(configuracionDto.getEmpresaId()).orElse(new Empresa());
 		
 		configuracion.setCodigo(configuracionDto.getCodigo());
 		configuracion.setEmpresa(empresa);
@@ -76,7 +76,7 @@ public class ConfiguracionService implements ConfiguracionServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(configuracionDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(configuracionDto.getEmpresaId()).orElse(new Empresa());
 		
 		configuracion.setId(configuracionDto.getId());
 		configuracion.setCodigo(configuracionDto.getCodigo());

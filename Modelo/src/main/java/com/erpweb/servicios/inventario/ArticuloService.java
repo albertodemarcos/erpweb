@@ -48,7 +48,7 @@ public class ArticuloService implements ArticuloServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(articuloDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(articuloDto.getEmpresaId()).orElse(new Empresa());
 		
 		articulo.setCodigo(articuloDto.getCodigo());
 		articulo.setEmpresa(empresa);
@@ -58,7 +58,7 @@ public class ArticuloService implements ArticuloServiceInterfaz {
 		articulo.setImporteTotal(articuloDto.getImporteTotal());
 		
 		//Recuperamos el impuesto
-		Impuesto impuesto = impuestoRepository.findOne(articuloDto.getImpuestoId());
+		Impuesto impuesto = impuestoRepository.findById(articuloDto.getImpuestoId()).orElse(new Impuesto());
 		
 		//Recuperamos el proveedor
 		Proveedor proveedor = proveedorRepository.findByIdAndEmpresaId(articuloDto.getProveedorId(), articuloDto.getEmpresaId());
@@ -143,7 +143,7 @@ public class ArticuloService implements ArticuloServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(articuloDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(articuloDto.getEmpresaId()).orElse(new Empresa());
 		
 		articulo.setId(articuloDto.getId());
 		articulo.setCodigo(articuloDto.getCodigo());
@@ -154,7 +154,7 @@ public class ArticuloService implements ArticuloServiceInterfaz {
 		articulo.setImporteTotal(articuloDto.getImporteTotal());
 		
 		//Recuperamos el impuesto
-		Impuesto impuesto = impuestoRepository.findOne(articuloDto.getImpuestoId());
+		Impuesto impuesto = impuestoRepository.findById(articuloDto.getImpuestoId()).orElse(new Impuesto());
 		
 		//Recuperamos el proveedor
 		Proveedor proveedor = proveedorRepository.findByIdAndEmpresaId(articuloDto.getProveedorId(), articuloDto.getEmpresaId());

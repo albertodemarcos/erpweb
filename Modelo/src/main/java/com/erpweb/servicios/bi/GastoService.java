@@ -27,7 +27,7 @@ public class GastoService implements GastoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(gastoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(gastoDto.getEmpresaId()).orElse(new Empresa());
 		
 		gasto.setCodigo(gastoDto.getCodigo());
 		gasto.setEmpresa(empresa);
@@ -84,7 +84,7 @@ public class GastoService implements GastoServiceInterfaz {
 			return Boolean.FALSE;
 		}
 		
-		Empresa empresa = empresaRepository.findOne(gastoDto.getEmpresaId());
+		Empresa empresa = empresaRepository.findById(gastoDto.getEmpresaId()).orElse(new Empresa());
 		
 		gasto.setId(gastoDto.getId());
 		gasto.setCodigo(gastoDto.getCodigo());
