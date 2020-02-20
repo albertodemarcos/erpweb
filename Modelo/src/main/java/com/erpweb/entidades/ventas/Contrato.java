@@ -3,8 +3,10 @@ package com.erpweb.entidades.ventas;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.SortNatural;
 
 import com.erpweb.entidades.empresa.Empresa;
 
@@ -25,14 +29,14 @@ public class Contrato implements Serializable {
 	private Long id;
 	private String codigo;
 	private Empresa empresa;
-	private Date fechaCreacion;  //Cuando se crea el contrato
-	private Date fechaInicio;    //Cuando empieza el contrato
-	private Date fechaFin;       //Cuando finaliza el contrato
-	private String descripcion;
-	private Set<LineaContrato> lineaContrato;
-	private Factura factura;
-	private BigDecimal baseImponibleTotal;	//Importe total del contrato sin impuestos
-	private BigDecimal importeTotal;	    //Importe total del contro con impuestos
+	private Date fechaCreacion;  													//Cuando se crea el contrato
+	private Date fechaInicio;    													//Cuando empieza el contrato
+	private Date fechaFin;       													//Cuando finaliza el contrato
+	private String descripcion;														//Descripcion del contrato
+	private SortedSet<LineaContrato> lineasContrato = new TreeSet<LineaContrato>();	//Lineas del contrato ordenadas
+	private Factura factura;														//Factura asociada al contrato
+	private BigDecimal baseImponibleTotal;											//Importe total del contrato sin impuestos
+	private BigDecimal importeTotal;	    										//Importe total del contro con impuestos
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -95,13 +99,14 @@ public class Contrato implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	@OneToMany(mappedBy="contrato")
-	public Set<LineaContrato> getLineaContrato() {
-		return lineaContrato;
+	@SortNatural
+	@OneToMany(orphanRemoval = true, mappedBy = "contrato", cascade = CascadeType.ALL)
+	public SortedSet<LineaContrato> getLineasContrato() {
+		return lineasContrato;
 	}
 
-	public void setLineaContrato(Set<LineaContrato> lineaContrato) {
-		this.lineaContrato = lineaContrato;
+	public void setLineasContrato(SortedSet<LineaContrato> lineasContrato) {
+		this.lineasContrato = lineasContrato;
 	}
 
 	public Factura getFactura() {
