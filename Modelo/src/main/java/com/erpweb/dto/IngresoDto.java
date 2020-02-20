@@ -3,7 +3,6 @@ package com.erpweb.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.erpweb.entidades.empresa.Empresa;
 
 public class IngresoDto implements Serializable {
 

@@ -25,7 +25,6 @@ public class Empleado extends Persona implements Serializable {
 	private Long id;
     private String codigo;
     private Empresa empresa;
-    private String nombre;
 	private DireccionPostal direccionPostal;
 	private Nomina nomina;	
     
@@ -56,14 +55,6 @@ public class Empleado extends Persona implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public DireccionPostal getDireccionPostal() {

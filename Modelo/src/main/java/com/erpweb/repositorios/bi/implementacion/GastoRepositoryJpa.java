@@ -1,13 +1,9 @@
 package com.erpweb.repositorios.bi.implementacion;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
-import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.repositorios.bi.interfaces.GastoRepositoryInterfaz;
 
 public class GastoRepositoryJpa implements GastoRepositoryInterfaz  {

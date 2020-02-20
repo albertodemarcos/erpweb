@@ -23,6 +23,7 @@ public class Usuario extends User implements UsuarioInterfaz, Serializable {
 	private static final long serialVersionUID = -5624847003092101671L;
 	
 	private Long id;
+	private String codigo;
     private String identidad;
     private Empresa empresa;
     private String idioma; 
@@ -42,7 +43,15 @@ public class Usuario extends User implements UsuarioInterfaz, Serializable {
 		this.id = id;
 	}
     
-    public String getIdentidad() {
+    public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getIdentidad() {
         return identidad;
     }
 

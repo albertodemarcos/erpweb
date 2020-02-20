@@ -2,7 +2,6 @@ package com.erpweb.dto;
 
 import java.io.Serializable;
 
-import com.erpweb.entidades.empresa.Empresa;
 
 public class InformeDto implements Serializable {
 

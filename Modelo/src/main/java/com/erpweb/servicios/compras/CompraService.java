@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.CompraDto;
-import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.entidades.compras.Compra;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.compras.CompraRepository;

@@ -3,10 +3,14 @@ package com.erpweb.entidades.comun;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.erpweb.entidades.empresa.Empresa;
 
 @Entity
 @Table(name="direccionpostal")
@@ -17,6 +21,7 @@ public class DireccionPostal implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Empresa empresa;
 	private Poblacion poblacion;
 	private String codigoPostal;
 	private String direccion; 		//Calle/avenida/plaza, etc. con numero
@@ -45,6 +50,15 @@ public class DireccionPostal implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
 	public Poblacion getPoblacion() {
 		return poblacion;
 	}

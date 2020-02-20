@@ -149,8 +149,5 @@ public class GastoService implements GastoServiceInterfaz {
 		
 		return gasto;
 	}
-
-
-	
 	
 }

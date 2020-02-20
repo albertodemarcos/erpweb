@@ -30,10 +30,6 @@ public class Vehiculo implements Serializable {
 	private TipoVehiculo tipoVehiculo;
 	private Date fechaMatriculacion;
 	
-	public Vehiculo() {
-		
-	}
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -16,7 +16,7 @@ import com.erpweb.entidades.empresa.Empresa;
 
 
 @Entity
-@Table(name="empleado")
+@Table(name="nomina")
 public class Nomina implements Serializable {
 
 	private static final long serialVersionUID = 6451854018104501999L;
@@ -29,7 +29,6 @@ public class Nomina implements Serializable {
 	private BigDecimal sueldo; //Sueldo base bruto
 	private BigDecimal extras; //Extras al sueldo base
 	private Date fechaNomina;
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

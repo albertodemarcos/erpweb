@@ -25,7 +25,6 @@ public class Cliente extends Persona implements Serializable{
 	private Long id;
     private String codigo;   
     private Empresa empresa;
-    private String nombre;					  //Nombre del cliente
     private DireccionPostal direccionPostal;  //Datos para la facturacion
     private TipoCliente TipoCliente;          //Tipo de cliente
 
@@ -57,14 +56,6 @@ public class Cliente extends Persona implements Serializable{
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public DireccionPostal getDireccionPostal() {
