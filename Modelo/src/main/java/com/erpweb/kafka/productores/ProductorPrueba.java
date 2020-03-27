@@ -73,7 +73,7 @@ public class ProductorPrueba {
 					logger.error("Error, no se ha podido certificar que han llegado correctamente los datos a kafka");
 					
 					if(exception == null) {
-						exception.printStackTrace();
+						logger.info("Error, la trama no ha llegado a destino" );
 					}
 				}
 			}
