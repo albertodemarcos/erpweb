@@ -1,16 +1,23 @@
 package com.erpweb.controladores.bi;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.entidades.bi.Informe;
+import com.erpweb.validadores.bi.InformeValidator;
+
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
 @RestController
 @RequestMapping("/informes")
 public class InformeController {
+	
+	@Autowired private InformeValidator informeValidator;
 
 	@GetMapping("/informe")
 	public String getInforme() {
@@ -28,7 +35,14 @@ public class InformeController {
 	}
 	
 	@PostMapping("/crearInforme")
-	public String postCrearInforme() {
+	public String postCrearInforme( Informe informe, BindingResult result) {
+		
+		this.informeValidator.validate(informe, result);
+		
+		if( result.hasErrors() ) {
+			return "";
+		}
+		
 		return "";
 	}
 	
@@ -38,7 +52,14 @@ public class InformeController {
 	}
 	
 	@PostMapping("/editarInforme")
-	public String postEditarInforme() {
+	public String postEditarInforme( Informe informe, BindingResult result) {
+		
+		this.informeValidator.validate(informe, result);
+		
+		if( result.hasErrors() ) {
+			return "";
+		}
+		
 		return "";
 	}
 	

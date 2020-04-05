@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.entidades.bi.Gasto;
+import com.erpweb.servicios.bi.GastoService;
 import com.erpweb.validadores.bi.GastoValidator;
 
 
@@ -37,9 +39,9 @@ public class GastoController {
 	}
 	
 	@PostMapping("/crearGasto")
-	public String postCrearGasto(BindingResult result, Model model) {
+	public String postCrearGasto(Gasto gasto, BindingResult result) {
 		
-		this.gastoValidator.validate(model, result);
+		this.gastoValidator.validate(gasto, result);
 		
 		if( result.hasErrors() ) {
 			
@@ -56,7 +58,15 @@ public class GastoController {
 	}
 	
 	@PostMapping("/editarGasto")
-	public String postEditarGasto() {
+	public String postEditarGasto(Gasto gasto, BindingResult result) {
+		
+		this.gastoValidator.validate(gasto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return "";
+		}
+		
 		return "";
 	}
 	
