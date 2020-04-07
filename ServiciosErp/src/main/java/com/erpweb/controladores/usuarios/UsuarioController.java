@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.usuarios.UsuarioService;
 import com.erpweb.validadores.usuarios.UsuarioValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,7 +17,11 @@ import com.erpweb.validadores.usuarios.UsuarioValidator;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 	
-	@Autowired private UsuarioValidator usuarioValidator;
+	@Autowired 
+	private UsuarioValidator usuarioValidator;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@GetMapping("/usuario")
 	public String getUsuario(  ) {

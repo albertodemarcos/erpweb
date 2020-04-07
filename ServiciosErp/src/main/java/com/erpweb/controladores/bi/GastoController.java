@@ -1,5 +1,6 @@
 package com.erpweb.controladores.bi;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.dto.GastoDto;
 import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.servicios.bi.GastoService;
 import com.erpweb.validadores.bi.GastoValidator;
@@ -22,6 +24,9 @@ public class GastoController {
 	
 	@Autowired 
 	private GastoValidator gastoValidator;
+	
+	@Autowired
+	private GastoService gastoService;
 	
 	@GetMapping("/gasto")
 	public String getGasto() {
@@ -39,7 +44,7 @@ public class GastoController {
 	}
 	
 	@PostMapping("/crearGasto")
-	public String postCrearGasto(Gasto gasto, BindingResult result) {
+	public String postCrearGasto(GastoDto gasto, BindingResult result) {
 		
 		this.gastoValidator.validate(gasto, result);
 		
@@ -48,6 +53,11 @@ public class GastoController {
 			return "";
 		}
 		
+		Boolean persistir = this.gastoService.creaGastoDesdeGastoDto(gasto);
+		
+		if(BooleanUtils.isTrue(persistir)) {
+			return "persisitido";
+		}
 		
 		return "";
 	}
@@ -58,7 +68,7 @@ public class GastoController {
 	}
 	
 	@PostMapping("/editarGasto")
-	public String postEditarGasto(Gasto gasto, BindingResult result) {
+	public String postEditarGasto(GastoDto gasto, BindingResult result) {
 		
 		this.gastoValidator.validate(gasto, result);
 		
@@ -67,11 +77,29 @@ public class GastoController {
 			return "";
 		}
 		
+		Boolean persistir = this.gastoService.creaGastoDesdeGastoDto(gasto);
+		
+		if(BooleanUtils.isTrue(persistir)) {
+			return "persisitido";
+		}
+		
 		return "";
 	}
 	
 	@PostMapping("/eliminarGasto")
-	public String postEliminarGasto() {
+	public String postEliminarGasto(GastoDto gasto) {
+		
+		if(gasto == null) {
+			
+			return "";
+		}
+		
+		Boolean eliminar = this.gastoService.eliminarGastoPorId(gasto.getId(), gasto.getEmpresaId());
+		
+		if(BooleanUtils.isTrue(eliminar)) {
+			return "persisitido";
+		}
+		
 		return "";
 	}
 

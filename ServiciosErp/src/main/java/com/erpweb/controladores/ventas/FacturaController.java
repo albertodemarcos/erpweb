@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.ventas.Factura;
+import com.erpweb.servicios.ventas.FacturaService;
 import com.erpweb.validadores.ventas.FacturaValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,8 +17,12 @@ import com.erpweb.validadores.ventas.FacturaValidator;
 @RequestMapping("/facturas")
 public class FacturaController {
 	
-	@Autowired private FacturaValidator facturaValidator;
+	@Autowired 
+	private FacturaValidator facturaValidator;
 
+	@Autowired
+	private FacturaService facturaService;
+	
 	@GetMapping("/factura")
 	public String getFactura(  ) {
 		return "";

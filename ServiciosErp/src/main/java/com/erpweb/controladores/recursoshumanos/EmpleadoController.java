@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.recursoshumanos.Empleado;
+import com.erpweb.servicios.recursoshumanos.EmpleadoService;
 import com.erpweb.validadores.recursoshumanos.EmpleadoValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,7 +17,11 @@ import com.erpweb.validadores.recursoshumanos.EmpleadoValidator;
 @RequestMapping("/empleados")
 public class EmpleadoController {
 	
-	@Autowired private EmpleadoValidator empleadoValidator;
+	@Autowired 
+	private EmpleadoValidator empleadoValidator;
+	
+	@Autowired
+	private EmpleadoService empleadoService;
 
 	@GetMapping("/empleado")
 	public String getEmpleado(  ) {

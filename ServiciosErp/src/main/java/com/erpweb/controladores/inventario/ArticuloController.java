@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.inventario.Articulo;
+import com.erpweb.servicios.inventario.ArticuloService;
 import com.erpweb.validadores.inventario.ArticuloValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,8 +17,12 @@ import com.erpweb.validadores.inventario.ArticuloValidator;
 @RequestMapping("/articulos")
 public class ArticuloController {
 	
-	@Autowired private ArticuloValidator articuloValidator;
+	@Autowired 
+	private ArticuloValidator articuloValidator;
 
+	@Autowired
+	private ArticuloService articuloService;
+	
 	@GetMapping("/articulo")
 	public String getArticulo(  ) {
 		return "";

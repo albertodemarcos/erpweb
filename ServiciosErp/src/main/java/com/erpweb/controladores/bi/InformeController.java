@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.bi.Informe;
+import com.erpweb.servicios.bi.InformeService;
 import com.erpweb.validadores.bi.InformeValidator;
 
 
@@ -17,7 +18,11 @@ import com.erpweb.validadores.bi.InformeValidator;
 @RequestMapping("/informes")
 public class InformeController {
 	
-	@Autowired private InformeValidator informeValidator;
+	@Autowired 
+	private InformeValidator informeValidator;
+	
+	@Autowired
+	private InformeService informeService;
 
 	@GetMapping("/informe")
 	public String getInforme() {

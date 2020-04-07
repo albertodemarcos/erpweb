@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.empresa.Configuracion;
+import com.erpweb.servicios.empresa.ConfiguracionService;
 import com.erpweb.validadores.empresa.ConfiguracionValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,8 +17,12 @@ import com.erpweb.validadores.empresa.ConfiguracionValidator;
 @RequestMapping("/configuraciones")
 public class ConfiguracionController {
 	
-	@Autowired private ConfiguracionValidator configuracionValidator;
+	@Autowired 
+	private ConfiguracionValidator configuracionValidator;
 
+	@Autowired
+	private ConfiguracionService configuracionService;
+	
 	@GetMapping("/configuracion")
 	public String getConfiguracion(  ) {
 		return "";

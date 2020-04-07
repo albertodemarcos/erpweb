@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.inventario.Vehiculo;
+import com.erpweb.servicios.inventario.VehiculoService;
 import com.erpweb.validadores.inventario.VehiculoValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,7 +17,11 @@ import com.erpweb.validadores.inventario.VehiculoValidator;
 @RequestMapping("/vehiculos")
 public class VehiculoController {
 	
-	@Autowired private VehiculoValidator vehiculoValidator;
+	@Autowired 
+	private VehiculoValidator vehiculoValidator;
+	
+	@Autowired
+	private VehiculoService vehiculoService;
 
 	@GetMapping("/vehiculo")
 	public String getVehiculo(  ) {

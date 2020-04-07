@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.recursoshumanos.Nomina;
+import com.erpweb.servicios.recursoshumanos.NominaService;
 import com.erpweb.validadores.recursoshumanos.NominaValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -16,7 +17,11 @@ import com.erpweb.validadores.recursoshumanos.NominaValidator;
 @RequestMapping("/nominas")
 public class NominaController {
 	
-	@Autowired private NominaValidator nominaValidator;
+	@Autowired 
+	private NominaValidator nominaValidator;
+	
+	@Autowired
+	private NominaService nominaService;
 
 	@GetMapping("/nomina")
 	public String getNomina(  ) {
