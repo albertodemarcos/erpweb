@@ -130,6 +130,30 @@ public class GastoService implements GastoServiceInterfaz {
 		
 		return Boolean.TRUE;
 	}
+	
+	
+
+	@Override
+	public Boolean eliminarGastoPorId(Long gastoId, Long empresaId) {
+		// TODO Auto-generated method stub
+		
+		if(gastoId == null || gastoId == 0L) {
+			return Boolean.FALSE;
+		}
+		
+		try {
+			//Elimnamos el gasto
+			gastoRepository.deleteByIdAndEmpresaId(gastoId,empresaId);
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error: " + e.getLocalizedMessage());
+			
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.TRUE;
+	}
 
 	@Override
 	public Gasto obtieneGasto(Long id, Long empresaId) {

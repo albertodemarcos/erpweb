@@ -19,4 +19,6 @@ public interface GastoRepository extends JpaRepository<Gasto, Long>, GastoReposi
 	
 	List<Gasto> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
 	
+	Boolean deleteByIdAndEmpresaId(Long id, Long empresaId);
+	
 }

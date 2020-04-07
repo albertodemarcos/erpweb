@@ -13,6 +13,8 @@ public interface GastoServiceInterfaz {
 	
 	public Boolean eliminaGasto(Gasto gasto); //Borramos el gasto
 	
+	public Boolean eliminarGastoPorId(Long gastoId, Long empresaId); //Borramos el gasto por su ID e empresaID
+	
 	public Gasto obtieneGasto(Long id, Long empresaId); //Obtenemos el gasto de BBDD
 	
 }
