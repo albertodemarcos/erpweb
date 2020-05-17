@@ -11,7 +11,9 @@ public interface ClienteServiceInterfaz {
 	
 	public Boolean actualizaCliente(ClienteDto clienteDto); //Actualizamos el cliente
 	
-	public Boolean eliminaCliente(Cliente cliente); //Borramos el cliente
+	public Boolean eliminarClientePorId(Long id, Long empresaId); //Borramos el cliente por su id y empresaId
 
 	public Cliente obtieneCliente(Long id, Long empresaId); //Obtenemos el cliente  de BBDD
+	
+	public Boolean eliminaCliente(Cliente cliente); //Borramos el cliente
 }

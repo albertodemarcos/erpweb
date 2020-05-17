@@ -209,6 +209,61 @@ public class ClienteService implements ClienteServiceInterfaz {
 		
 		return Boolean.TRUE;
 	}
+	
+	@Override
+	public Boolean eliminarClientePorId(Long id, Long empresaId) {
+		
+		Cliente cliente = null;
+		
+		if(id == null || empresaId == null) {
+			return Boolean.FALSE;
+		}
+		
+		
+		try {
+			
+			cliente = clienteRepository.findByIdAndEmpresaId(id, empresaId);
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error al eliminar la direccion postal de un cliente: " + e.getLocalizedMessage());
+			
+			return Boolean.FALSE;
+		}
+		
+		
+		DireccionPostal direccionPostal = cliente.getDireccionPostal();
+		
+		if(direccionPostal == null) {
+			System.out.println("Error al eliminar la direccion postal del cliente: " + cliente.getId() );
+			return Boolean.FALSE;
+		}
+		
+		try {
+			//Elimnamos la direccion postal primero
+			direccionPostalRepository.deleteById(direccionPostal.getId());
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error al eliminar la direccion postal de un cliente: " + e.getLocalizedMessage());
+			
+			return Boolean.FALSE;
+		}
+		
+		try {
+			
+			//Eliminamos el cliente
+			clienteRepository.deleteById(cliente.getId());
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error al eliminar el cliente: " + e.getLocalizedMessage());
+			
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.TRUE;
+	}
 
 	@Override
 	public Boolean eliminaCliente(Cliente cliente) {
@@ -268,5 +323,7 @@ public class ClienteService implements ClienteServiceInterfaz {
 		
 		return cliente;
 	}
+
+	
 
 }

@@ -23,12 +23,12 @@ public class VentaController {
 	@Autowired
 	private VentaService ventaService;
 
-	@GetMapping("//venta")
+	@GetMapping("/venta")
 	public String getVenta(  ) {
 		return "";
 	}
 	
-	@GetMapping("//ventas")
+	@GetMapping("/ventas")
 	public String getVentas(  ) {
 		return "";
 	}
