@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilos Globales */
+
+html,
+body {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+footer {
+    color: black;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+}
