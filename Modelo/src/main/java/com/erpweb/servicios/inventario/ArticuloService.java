@@ -1,7 +1,7 @@
 package com.erpweb.servicios.inventario;
 
-
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,11 @@ import com.erpweb.repositorios.comun.ImpuestoRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
-import com.erpweb.servicios.inventario.interfaces.ArticuloServiceInterfaz;
 
 
 
 @Service
-public class ArticuloService implements ArticuloServiceInterfaz {
+public class ArticuloService {
 
 	@Autowired
 	private ArticuloRepository articuloRepository;
@@ -40,6 +39,170 @@ public class ArticuloService implements ArticuloServiceInterfaz {
 	
 	
 	
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
+	public void crearArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
+		
+		Articulo articulo = new Articulo();
+		
+		if(articuloDto.getEmpresaId() == null) {
+			//return Boolean.FALSE;
+		}
+		
+		Empresa empresa = empresaRepository.findById(articuloDto.getEmpresaId()).orElse(new Empresa());
+		
+		articulo.setCodigo(articuloDto.getCodigo());
+		articulo.setEmpresa(empresa);
+		articulo.setNombre(articuloDto.getNombre());
+		articulo.setDescripcion(articuloDto.getDescripcion());
+		articulo.setBaseImponible(articuloDto.getBaseImponible());
+		articulo.setImporteTotal(articuloDto.getImporteTotal());
+		
+		//Recuperamos el impuesto
+		Impuesto impuesto = impuestoRepository.findById(articuloDto.getImpuestoId()).orElse(new Impuesto());
+		
+		//Recuperamos el proveedor
+		Proveedor proveedor = proveedorRepository.findByIdAndEmpresaId(articuloDto.getProveedorId(), articuloDto.getEmpresaId());
+		
+		//Sera opcional
+		Almacen almacen;
+		
+		if(articuloDto.getAlmacenId() != null) {
+			//Recuperamos el almacen
+			almacen = almacenRepository.findByIdAndEmpresaId(articuloDto.getAlmacenId(), articuloDto.getEmpresaId());
+			//Introducimos el almacen
+			articulo.setAlmacen(almacen);
+		}
+		
+		articulo.setImpuesto(impuesto);
+		articulo.setProveedor(proveedor);
+		
+		try {
+			//Guardamos el articulo en base de datos
+			articuloRepository.save(articulo);
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error: " + e.getLocalizedMessage() );
+			
+			//return Boolean.FALSE;
+		}
+		
+		//return Boolean.TRUE;
+	}
+	
+	public void actualizarArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
+		
+		Articulo articulo = new Articulo();
+		
+		if(articuloDto.getEmpresaId() == null) {
+			//return Boolean.FALSE;
+		}
+		
+		Empresa empresa = empresaRepository.findById(articuloDto.getEmpresaId()).orElse(new Empresa());
+		
+		articulo.setId(articuloDto.getId());
+		articulo.setCodigo(articuloDto.getCodigo());
+		articulo.setEmpresa(empresa);
+		articulo.setNombre(articuloDto.getNombre());
+		articulo.setDescripcion(articuloDto.getDescripcion());
+		articulo.setBaseImponible(articuloDto.getBaseImponible());
+		articulo.setImporteTotal(articuloDto.getImporteTotal());
+		
+		//Recuperamos el impuesto
+		Impuesto impuesto = impuestoRepository.findById(articuloDto.getImpuestoId()).orElse(new Impuesto());
+		
+		//Recuperamos el proveedor
+		Proveedor proveedor = proveedorRepository.findByIdAndEmpresaId(articuloDto.getProveedorId(), articuloDto.getEmpresaId());
+		
+		//Sera opcional
+		Almacen almacen;
+		
+		if(articuloDto.getAlmacenId() != null) {
+			//Recuperamos el almacen
+			almacen = almacenRepository.findByIdAndEmpresaId(articuloDto.getAlmacenId(), articuloDto.getEmpresaId());
+			//Introducimos el almacen
+			articulo.setAlmacen(almacen);
+		}
+		articulo.setImpuesto(impuesto);
+		articulo.setProveedor(proveedor);
+		
+		try {
+			//Guardamos el articulo en base de datos
+			articuloRepository.save(articulo);
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error: " + e.getLocalizedMessage() );
+			
+			//return Boolean.FALSE;
+		}
+		
+		//return Boolean.TRUE;
+	}
+	
+	public void eliminarArticulo(Articulo articulo) {
+		
+		if(articulo == null || articulo.getId() == null) {
+			//return Boolean.FALSE;
+		}
+		
+		try {
+			//Elimnamos el gasto
+			articuloRepository.deleteById(articulo.getId());
+			
+		}catch(Exception e) {
+			
+			System.out.println("Error: " + e.getLocalizedMessage());
+			
+			//return Boolean.FALSE;
+		}
+		
+		//return Boolean.TRUE;
+	}
+	
+	public ArticuloDto obtenerArticuloDtoDesdeArticulo(Long id, Long empresaId) {
+		
+		Articulo articulo = articuloRepository.findByIdAndEmpresaId(id, empresaId);
+		
+		if(articulo == null) {
+			return new ArticuloDto();
+		}
+		
+		ArticuloDto articuloDto = new ArticuloDto();
+		
+		articuloDto.setId(articulo.getId());
+		articuloDto.setCodigo(articulo.getCodigo());
+		articuloDto.setEmpresaId(articulo.getEmpresa().getId());
+		articuloDto.setNombre(articulo.getNombre());
+		articuloDto.setDescripcion(articulo.getDescripcion());
+		articuloDto.setBaseImponible(articulo.getBaseImponible());
+		articuloDto.setImporteTotal(articulo.getImporteTotal());
+		
+		if(articulo.getImpuesto() != null) {
+			articuloDto.setImpuestoId(articulo.getImpuesto().getId());
+			articuloDto.setCodigoImpuesto(articulo.getImpuesto().getCodigo());
+			articuloDto.setNombreImpuesto(articulo.getImpuesto().getNombre());
+			articuloDto.setPorcentajeImpuesto(articulo.getImpuesto().getPorcentaje());
+		}
+		
+		if(articulo.getProveedor() != null) {
+			articuloDto.setProveedorId(articulo.getProveedor().getId());
+			articuloDto.setCodigoProveedor(articulo.getProveedor().getCodigo());
+			articuloDto.setNombreProveedor(articulo.getProveedor().getNombre());
+			articuloDto.setNombreEmpresaProveedor(articulo.getProveedor().getNombreEmpresa());
+			articuloDto.setTelefonoProveedor(articulo.getProveedor().getTelefono());
+			articuloDto.setTipoProveedor(articulo.getProveedor().getTipoProveedor());
+		}
+		
+		if(articulo.getAlmacen() != null) {
+			articuloDto.setAlmacenId(articulo.getAlmacen().getId());
+			articuloDto.setCodigoAlmacen(articulo.getAlmacen().getCodigo());
+			articuloDto.setNombreAlmacen(articulo.getAlmacen().getNombre());
+		}
+		
+		return articuloDto;
+	}
 
 }

@@ -53,11 +53,6 @@ public class GastoController {
 			return "";
 		}
 		
-		Boolean persistir = this.gastoService.creaGastoDesdeGastoDto(gasto);
-		
-		if(BooleanUtils.isTrue(persistir)) {
-			return "persisitido";
-		}
 		
 		return "";
 	}
@@ -77,11 +72,6 @@ public class GastoController {
 			return "";
 		}
 		
-		Boolean persistir = this.gastoService.creaGastoDesdeGastoDto(gasto);
-		
-		if(BooleanUtils.isTrue(persistir)) {
-			return "persisitido";
-		}
 		
 		return "";
 	}
@@ -94,11 +84,7 @@ public class GastoController {
 			return "";
 		}
 		
-		Boolean eliminar = this.gastoService.eliminarGastoPorId(gasto.getId(), gasto.getEmpresaId());
 		
-		if(BooleanUtils.isTrue(eliminar)) {
-			return "persisitido";
-		}
 		
 		return "";
 	}
