@@ -10,6 +10,7 @@ import com.erpweb.entidades.compras.Compra;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.compras.CompraRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -23,12 +24,13 @@ public class CompraService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public void crearCompraDesdeCompraDto(CompraDto compraDto) {
+	public AccionRespuesta crearCompraDesdeCompraDto(CompraDto compraDto) {
 		
 		Compra compra = new Compra();
 		
 		if(compraDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(compraDto.getEmpresaId()).orElse(new Empresa());
@@ -46,19 +48,20 @@ public class CompraService {
 		}catch(Exception e) {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
-			
-			//return Boolean.FALSE;
+						
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarCompraDesdeCompraDto(CompraDto compraDto) {
+	public AccionRespuesta actualizarCompraDesdeCompraDto(CompraDto compraDto) {
 		
 		Compra compra = new Compra();
 		
 		if(compraDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(compraDto.getEmpresaId()).orElse(new Empresa());
@@ -77,17 +80,18 @@ public class CompraService {
 		}catch(Exception e) {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
-			
-			//return Boolean.FALSE;
+						
+			return new AccionRespuesta();
 		}
-		
-		//return Boolean.TRUE;
+				
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarCompra(Compra compra) {
+	public AccionRespuesta eliminarCompra(Compra compra) {
 		
 		if(compra == null || compra.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -97,11 +101,11 @@ public class CompraService {
 		}catch(Exception e) {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
-			
-			//return Boolean.FALSE;
+						
+			return new AccionRespuesta();
 		}
-		
-		//return Boolean.TRUE;
+				
+		return new AccionRespuesta();
 	}
 		
 	public CompraDto obtenerCompraDtoDesdeCompra(Long id, Long empresaId) {

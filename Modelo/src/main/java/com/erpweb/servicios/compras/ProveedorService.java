@@ -11,6 +11,7 @@ import com.erpweb.entidades.compras.Proveedor;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.compras.ProveedorRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -25,12 +26,13 @@ public class ProveedorService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public void crearProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
+	public AccionRespuesta crearProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
 
 		Proveedor proveedor = new Proveedor();
 		
 		if(proveedorDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(proveedorDto.getEmpresaId()).orElse(new Empresa());
@@ -52,18 +54,19 @@ public class ProveedorService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
+	public AccionRespuesta actualizarProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
 
 		Proveedor proveedor = new Proveedor();
 		
 		if(proveedorDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(proveedorDto.getEmpresaId()).orElse(new Empresa());
@@ -86,16 +89,17 @@ public class ProveedorService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarProveedor(Proveedor proveedor) {
+	public AccionRespuesta eliminarProveedor(Proveedor proveedor) {
 		
 		if(proveedor == null || proveedor.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -106,10 +110,10 @@ public class ProveedorService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	

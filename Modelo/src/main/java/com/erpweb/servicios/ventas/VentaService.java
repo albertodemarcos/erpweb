@@ -13,6 +13,7 @@ import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.repositorios.ventas.VentaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 @Service
@@ -31,12 +32,13 @@ public class VentaService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearVentaDesdeVentaDto(VentaDto ventaDto) {
+	public AccionRespuesta crearVentaDesdeVentaDto(VentaDto ventaDto) {
 		
 		Venta venta = new Venta();
 
 		if(ventaDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(ventaDto.getEmpresaId()).orElse(new Empresa());
@@ -65,18 +67,19 @@ public class VentaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarVentaDesdeVentaDto(VentaDto ventaDto) {
+	public AccionRespuesta actualizarVentaDesdeVentaDto(VentaDto ventaDto) {
 		
 		Venta venta = new Venta();
 
 		if(ventaDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(ventaDto.getEmpresaId()).orElse(new Empresa());
@@ -106,16 +109,17 @@ public class VentaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarVenta(Venta venta) {
+	public AccionRespuesta eliminarVenta(Venta venta) {
 		
 		if(venta == null || venta.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -126,10 +130,10 @@ public class VentaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public VentaDto obtenerVentaDtoDesdeVenta(Long id, Long empresaId) {

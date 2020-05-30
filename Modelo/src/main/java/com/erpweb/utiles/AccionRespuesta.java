@@ -1,0 +1,82 @@
+package com.erpweb.utiles;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class AccionRespuesta implements Serializable {
+
+	private static final long serialVersionUID = -3327706462239519860L;
+
+	private Long id;
+	private String codigo;
+	private String respuesta;
+	private Boolean resultado;
+	private List<Object> data;
+	
+	
+	public AccionRespuesta() {
+		super();
+	}
+	
+	public AccionRespuesta(Long id, String codigo) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+	}
+	
+	public AccionRespuesta(Long id, String codigo, Boolean resultado ) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.resultado = resultado;
+	}
+	
+	public AccionRespuesta(Long id, String codigo, Boolean resultado, List<Object> data) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.resultado = resultado;
+		this.data = data;
+	}
+
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+	
+	public Boolean getResultado() {
+		return resultado;
+	}
+	
+	public void setResultado(Boolean resultado) {
+		this.resultado = resultado;
+	}
+	
+	public List<Object> getData() {
+		return data;
+	}
+	
+	public void setData(List<Object> data) {
+		this.data = data;
+	}
+	
+}

@@ -10,6 +10,7 @@ import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.bi.GastoRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class GastoService {
@@ -23,7 +24,7 @@ public class GastoService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearGastoDesdeGastoDto(GastoDto gastoDto) {
+	public AccionRespuesta crearGastoDesdeGastoDto(GastoDto gastoDto) {
 		
 		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", gastoDto.getEmpresaId() );
 		
@@ -31,7 +32,7 @@ public class GastoService {
 
 		if(gastoDto.getEmpresaId() == null) {
 			//return Boolean.FALSE;
-			return;
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(gastoDto.getEmpresaId()).orElse(new Empresa());
@@ -56,20 +57,20 @@ public class GastoService {
 			e.printStackTrace();
 			
 			//return Boolean.FALSE;
-			return;
+			return new AccionRespuesta();
 		}
 		
 		//return Boolean.TRUE;
-		return;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarGastoDesdeGastoDto(GastoDto gastoDto) {
+	public AccionRespuesta actualizarGastoDesdeGastoDto(GastoDto gastoDto) {
 		
 		Gasto gasto = new Gasto();
 
 		if(gastoDto.getEmpresaId() == null) {
 			//return Boolean.FALSE;
-			return;
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(gastoDto.getEmpresaId()).orElse(new Empresa());
@@ -93,18 +94,18 @@ public class GastoService {
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
 			//return Boolean.FALSE;
-			return;
+			return new AccionRespuesta();
 		}
 		
 		//return Boolean.TRUE;
-		return;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarGasto(Gasto gasto) {
+	public AccionRespuesta eliminarGasto(Gasto gasto) {
 		
 		if(gasto == null || gasto.getId() == null) {
 			//return Boolean.FALSE;
-			return;
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -116,11 +117,11 @@ public class GastoService {
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
 			//return Boolean.FALSE;
-			return;
+			return new AccionRespuesta();
 		}
 		
 		//return Boolean.TRUE;
-		return;
+		return new AccionRespuesta();
 	}
 	
 	public GastoDto obtenerGastoDtoDesdeGasto(Long id, Long empresaId) {

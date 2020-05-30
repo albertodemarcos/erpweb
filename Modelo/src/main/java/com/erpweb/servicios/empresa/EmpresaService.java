@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.erpweb.dto.EmpresaDto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -21,12 +22,13 @@ public class EmpresaService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
+	public AccionRespuesta crearEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
 
 		Empresa empresa = new Empresa();
 		
 		if(empresaDto == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		empresa.setCodigo(empresaDto.getCodigo());
@@ -42,18 +44,19 @@ public class EmpresaService {
 			
 			System.out.println("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
+	public AccionRespuesta actualizarEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
 		
 		Empresa empresa = new Empresa();
 		
 		if(empresaDto.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		empresa.setId(empresaDto.getId());
@@ -70,16 +73,17 @@ public class EmpresaService {
 			
 			System.out.println("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarEmpresa(Empresa empresa) {
+	public AccionRespuesta eliminarEmpresa(Empresa empresa) {
 		
 		if(empresa == null || empresa.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -90,10 +94,10 @@ public class EmpresaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public EmpresaDto obtenerEmpresaDtoDesdeEmpresa(Long id) {

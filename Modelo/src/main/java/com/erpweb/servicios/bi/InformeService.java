@@ -10,6 +10,7 @@ import com.erpweb.entidades.bi.Informe;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.bi.InformeRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class InformeService {
@@ -22,12 +23,13 @@ public class InformeService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public void crearInformeDesdeInformeDto( InformeDto informeDto ) {
+	public AccionRespuesta crearInformeDesdeInformeDto( InformeDto informeDto ) {
 		
 		Informe informe = new Informe();
 		
 		if(informeDto.getEmpresaId() == null) {
 			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(informeDto.getEmpresaId()).orElse(new Empresa());
@@ -45,17 +47,20 @@ public class InformeService {
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
 			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarInformeDesdeInformeDto( InformeDto informeDto ) {
+	public AccionRespuesta actualizarInformeDesdeInformeDto( InformeDto informeDto ) {
 		
 		Informe informe = new Informe();
 		
 		if(informeDto.getEmpresaId() == null) {
 			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(informeDto.getEmpresaId()).orElse(new Empresa());
@@ -73,15 +78,18 @@ public class InformeService {
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
 			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarInforme(Informe informe ) {
+	public AccionRespuesta eliminarInforme(Informe informe ) {
 		
 		if(informe == null || informe.getId() == null) {
 			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -93,9 +101,11 @@ public class InformeService {
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
 			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public InformeDto obtenerInformeDtoDesdeInforme(Long id, Long empresaId) {
@@ -113,7 +123,6 @@ public class InformeService {
 		informeDto.setGenerado(informe.getGenerado());
 		
 		return informeDto;
-		
 	}
 
 }

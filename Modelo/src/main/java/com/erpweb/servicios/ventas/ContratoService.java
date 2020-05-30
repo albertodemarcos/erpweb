@@ -14,6 +14,7 @@ import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.ventas.ContratoRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 @Service
@@ -32,12 +33,13 @@ public class ContratoService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearContratoDesdeContratoDto(ContratoDto contratoDto) {
+	public AccionRespuesta crearContratoDesdeContratoDto(ContratoDto contratoDto) {
 		
 		Contrato contrato = new Contrato();
 
 		if(contratoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(contratoDto.getEmpresaId()).orElse(new Empresa());
@@ -67,18 +69,19 @@ public class ContratoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarContratoDesdeContratoDto(ContratoDto contratoDto) {
+	public AccionRespuesta actualizarContratoDesdeContratoDto(ContratoDto contratoDto) {
 		
 		Contrato contrato = new Contrato();
 
 		if(contratoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(contratoDto.getEmpresaId()).orElse(new Empresa());
@@ -108,16 +111,17 @@ public class ContratoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarContrato(Contrato contrato) {
+	public AccionRespuesta eliminarContrato(Contrato contrato) {
 		
 		if(contrato == null || contrato.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -128,10 +132,10 @@ public class ContratoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public ContratoDto obtenerContratoDtoDesdeContrato(Long id, Long empresaId) {

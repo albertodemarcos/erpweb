@@ -11,6 +11,7 @@ import com.erpweb.entidades.bi.Ingreso;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.bi.IngresoRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class IngresoService {
@@ -23,12 +24,13 @@ public class IngresoService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public void crearIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
+	public AccionRespuesta crearIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
 		
 		Ingreso ingreso = new Ingreso();
 		
 		if(ingresoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(ingresoDto.getEmpresaId()).orElse(new Empresa());
@@ -50,18 +52,18 @@ public class IngresoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
+	public AccionRespuesta actualizarIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
 
 		Ingreso ingreso = new Ingreso();
 		
 		if(ingresoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(ingresoDto.getEmpresaId()).orElse(new Empresa());
@@ -84,17 +86,17 @@ public class IngresoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarIngreso(Ingreso ingreso) {
+	public AccionRespuesta eliminarIngreso(Ingreso ingreso) {
 		
 		if(ingreso == null || ingreso.getId() == null) {
-			///return Boolean.FALSE;
-			return;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -105,10 +107,10 @@ public class IngresoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 		
 	}
 		

@@ -10,6 +10,7 @@ import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -25,12 +26,13 @@ public class AlmacenService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
+	public AccionRespuesta crearAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
 		
 		Almacen almacen = new Almacen();
 		
 		if(almacenDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(almacenDto.getEmpresaId()).orElse(new Empresa());
@@ -47,18 +49,19 @@ public class AlmacenService {
 			
 			System.out.println("Error al guardar el almacen: " + almacenDto.getNombre() + "con el error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
+	public AccionRespuesta actualizarAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
 		
 		Almacen almacen = new Almacen();
 		
 		if(almacenDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(almacenDto.getEmpresaId()).orElse(new Empresa());
@@ -76,16 +79,17 @@ public class AlmacenService {
 			
 			System.out.println("Error al actualizar el almacen: " + almacenDto.getNombre() + "con el error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarAlmacen(Almacen almacen) {
+	public AccionRespuesta eliminarAlmacen(Almacen almacen) {
 		
 		if(almacen == null || almacen.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -96,10 +100,10 @@ public class AlmacenService {
 			
 			System.out.println("Error al eliminar el almacen con ID " + almacen.getId() + " con error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public AlmacenDto obtenerAlmacenDtoDesdeAlmacen(Long id, Long empresaId) {

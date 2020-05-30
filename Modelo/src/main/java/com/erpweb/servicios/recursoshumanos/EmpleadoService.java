@@ -16,6 +16,7 @@ import com.erpweb.repositorios.comun.PoblacionRepository;
 import com.erpweb.repositorios.comun.ProvinciaRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.recursoshumanos.EmpleadoRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -41,12 +42,13 @@ public class EmpleadoService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
+	public AccionRespuesta crearEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
 		
 		Empleado empleado = new Empleado();
 		
 		if(empleadoDto == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(empleadoDto.getEmpresaId()).orElse(new Empresa());
@@ -96,18 +98,19 @@ public class EmpleadoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
+	public AccionRespuesta actualizarEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
 		
 		Empleado empleado = new Empleado();
 		
 		if(empleadoDto == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(empleadoDto.getEmpresaId()).orElse(new Empresa());
@@ -158,16 +161,17 @@ public class EmpleadoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarEmpleado(Empleado empleado) {
+	public AccionRespuesta eliminarEmpleado(Empleado empleado) {
 		
 		if(empleado == null || empleado.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		DireccionPostal direccionPostal = empleado.getDireccionPostal();
@@ -176,7 +180,7 @@ public class EmpleadoService {
 			
 			System.out.println("Error al eliminar la direccion postal del empleado: " + empleado.getId() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -187,7 +191,7 @@ public class EmpleadoService {
 			
 			System.out.println("Error al eliminar la direccion postal de un empleado: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -199,10 +203,10 @@ public class EmpleadoService {
 			
 			System.out.println("Error al eliminar el empleado: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public EmpleadoDto obtenerEmpleadoDtoDesdeEmpleado(Long id, Long empresaId) {

@@ -12,6 +12,7 @@ import com.erpweb.entidades.recursoshumanos.Nomina;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.recursoshumanos.EmpleadoRepository;
 import com.erpweb.repositorios.recursoshumanos.NominaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class NominaService {
@@ -29,12 +30,13 @@ public class NominaService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearNominaDesdeNominaDto(NominaDto nominaDto) {
+	public AccionRespuesta crearNominaDesdeNominaDto(NominaDto nominaDto) {
 		
 		Nomina nomina = new Nomina();
 
 		if(nominaDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(nominaDto.getEmpresaId()).orElse(new Empresa());
@@ -59,18 +61,19 @@ public class NominaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarNominaDesdeNominaDto(NominaDto nominaDto) {
+	public AccionRespuesta actualizarNominaDesdeNominaDto(NominaDto nominaDto) {
 		
 		Nomina nomina = new Nomina();
 
 		if(nominaDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(nominaDto.getEmpresaId()).orElse(new Empresa());
@@ -96,16 +99,17 @@ public class NominaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarNomina(Nomina nomina) {
+	public AccionRespuesta eliminarNomina(Nomina nomina) {
 		
 		if(nomina == null || nomina.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -116,10 +120,10 @@ public class NominaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public NominaDto obtenerNominaDtoDesdeNomina(Long id, Long empresaId) {

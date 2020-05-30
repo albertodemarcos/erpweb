@@ -11,6 +11,7 @@ import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Vehiculo;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.VehiculoRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -27,12 +28,13 @@ public class VehiculoService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
+	public AccionRespuesta crearVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
 		Vehiculo vehiculo = new Vehiculo();
 
 		if(vehiculoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(vehiculoDto.getEmpresaId()).orElse(new Empresa());
@@ -53,18 +55,19 @@ public class VehiculoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
+	public AccionRespuesta actualizarVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
 		Vehiculo vehiculo = new Vehiculo();
 
 		if(vehiculoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(vehiculoDto.getEmpresaId()).orElse(new Empresa());
@@ -86,16 +89,17 @@ public class VehiculoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarVehiculo(Vehiculo vehiculo) {
+	public AccionRespuesta eliminarVehiculo(Vehiculo vehiculo) {
 		
 		if(vehiculo == null || vehiculo.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -106,10 +110,10 @@ public class VehiculoService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public VehiculoDto obtenerVehiculoDtoDesdeVehiculo(Long id, Long empresaId) {

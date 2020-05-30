@@ -12,6 +12,7 @@ import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 @Service
@@ -27,12 +28,13 @@ public class FacturaService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearFacturaDesdeFacturaDto(FacturaDto facturaDto) {
+	public AccionRespuesta crearFacturaDesdeFacturaDto(FacturaDto facturaDto) {
 		
 		Factura factura = new Factura();
 
 		if(facturaDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(facturaDto.getEmpresaId()).orElse(new Empresa());
@@ -59,18 +61,19 @@ public class FacturaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarFacturaDesdeFacturaDto(FacturaDto facturaDto) {
+	public AccionRespuesta actualizarFacturaDesdeFacturaDto(FacturaDto facturaDto) {
 		
 		Factura factura = new Factura();
 
 		if(facturaDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(facturaDto.getEmpresaId()).orElse(new Empresa());
@@ -98,16 +101,17 @@ public class FacturaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarFactura(Factura factura) {
+	public AccionRespuesta eliminarFactura(Factura factura) {
 		
 		if(factura == null || factura.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -118,10 +122,10 @@ public class FacturaService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public FacturaDto obtenerFacturaDtoDesdeFactura(Long id, Long empresaId) {

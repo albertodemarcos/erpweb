@@ -10,6 +10,7 @@ import com.erpweb.entidades.empresa.Configuracion;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.repositorios.empresa.ConfiguracionRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class ConfiguracionService {
@@ -23,12 +24,13 @@ public class ConfiguracionService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
+	public AccionRespuesta crearConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
 
 		Configuracion configuracion = new Configuracion();
 		
-		if(configuracionDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+		if( configuracionDto.getEmpresaId() == null ) {
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(configuracionDto.getEmpresaId()).orElse(new Empresa());
@@ -45,18 +47,19 @@ public class ConfiguracionService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
+	public AccionRespuesta actualizarConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
 
 		Configuracion configuracion = new Configuracion();
 		
 		if(configuracionDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(configuracionDto.getEmpresaId()).orElse(new Empresa());
@@ -74,16 +77,17 @@ public class ConfiguracionService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarConfiguracion(Configuracion configuracion) {
+	public AccionRespuesta eliminarConfiguracion(Configuracion configuracion) {
 		
 		if(configuracion == null || configuracion.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -94,10 +98,10 @@ public class ConfiguracionService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public ConfiguracionDto obtenerConfiguracionDtoDesdeConfiguracion(Long id, Long empresaId) {

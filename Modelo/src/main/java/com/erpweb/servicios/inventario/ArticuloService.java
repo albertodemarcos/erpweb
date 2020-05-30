@@ -16,6 +16,7 @@ import com.erpweb.repositorios.comun.ImpuestoRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -42,12 +43,13 @@ public class ArticuloService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
+	public AccionRespuesta crearArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
 		
 		Articulo articulo = new Articulo();
 		
 		if(articuloDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(articuloDto.getEmpresaId()).orElse(new Empresa());
@@ -86,18 +88,19 @@ public class ArticuloService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
+	public AccionRespuesta actualizarArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
 		
 		Articulo articulo = new Articulo();
 		
 		if(articuloDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(articuloDto.getEmpresaId()).orElse(new Empresa());
@@ -136,16 +139,17 @@ public class ArticuloService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarArticulo(Articulo articulo) {
+	public AccionRespuesta eliminarArticulo(Articulo articulo) {
 		
 		if(articulo == null || articulo.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -156,10 +160,10 @@ public class ArticuloService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public ArticuloDto obtenerArticuloDtoDesdeArticulo(Long id, Long empresaId) {

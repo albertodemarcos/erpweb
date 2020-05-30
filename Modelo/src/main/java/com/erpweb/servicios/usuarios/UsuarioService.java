@@ -10,6 +10,7 @@ import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.usuarios.UsuarioRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 @Service
@@ -25,12 +26,13 @@ public class UsuarioService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	public void crearUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
+	public AccionRespuesta crearUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
 		Usuario usuario = new Usuario();
 
 		if(usuarioDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(usuarioDto.getEmpresaId()).orElse(new Empresa());
@@ -50,18 +52,19 @@ public class UsuarioService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
+	public AccionRespuesta actualizarUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
 		Usuario usuario = new Usuario();
 
 		if(usuarioDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(usuarioDto.getEmpresaId()).orElse(new Empresa());
@@ -82,16 +85,17 @@ public class UsuarioService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage() );
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarUsuario(Usuario usuario) {
+	public AccionRespuesta eliminarUsuario(Usuario usuario) {
 		
 		if(usuario == null || usuario.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -102,10 +106,10 @@ public class UsuarioService {
 			
 			System.out.println("Error: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id, Long empresaId) {

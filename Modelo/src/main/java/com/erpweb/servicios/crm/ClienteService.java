@@ -16,6 +16,7 @@ import com.erpweb.repositorios.comun.PoblacionRepository;
 import com.erpweb.repositorios.comun.ProvinciaRepository;
 import com.erpweb.repositorios.crm.ClienteRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
+import com.erpweb.utiles.AccionRespuesta;
 
 
 
@@ -40,12 +41,13 @@ public class ClienteService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public void crearClienteDesdeClienteDto(ClienteDto clienteDto) {
+	public AccionRespuesta crearClienteDesdeClienteDto(ClienteDto clienteDto) {
 		
 		Cliente cliente = new Cliente();
 		
 		if(clienteDto == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(clienteDto.getEmpresaId()).orElse(new Empresa());
@@ -84,7 +86,8 @@ public class ClienteService {
 			//Error, el cliente se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
 			System.out.println("Error: " + e.getLocalizedMessage() );
-			cliente.setDireccionPostal(null);
+			
+			cliente.setDireccionPostal(null);			
 		}
 		
 		cliente.setTipoCliente(clienteDto.getTipoCliente());
@@ -94,14 +97,16 @@ public class ClienteService {
 			clienteRepository.save(cliente);
 			
 		}catch(Exception e) {
+			
 			System.out.println("Error: " + e.getLocalizedMessage() );
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void actualizarClienteDesdeClienteDto(ClienteDto clienteDto) {
+	public AccionRespuesta actualizarClienteDesdeClienteDto(ClienteDto clienteDto) {
 		
 		Cliente cliente = new Cliente();
 		
@@ -147,6 +152,7 @@ public class ClienteService {
 			//Error, el cliente se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
 			System.out.println("Error: " + e.getLocalizedMessage() );
+			
 			cliente.setDireccionPostal(null);
 		}
 		
@@ -157,24 +163,29 @@ public class ClienteService {
 			clienteRepository.save(cliente);
 			
 		}catch(Exception e) {
+			
 			System.out.println("Error: " + e.getLocalizedMessage() );
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
-	public void eliminarCliente(Cliente cliente) {
+	public AccionRespuesta eliminarCliente(Cliente cliente) {
 		
 		if(cliente == null || cliente.getId() == null) {
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		DireccionPostal direccionPostal = cliente.getDireccionPostal();
 		
 		if(direccionPostal == null) {
+			
 			System.out.println("Error al eliminar la direccion postal del cliente: " + cliente.getId() );
-			//return Boolean.FALSE;
+			
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -185,7 +196,7 @@ public class ClienteService {
 			
 			System.out.println("Error al eliminar la direccion postal de un cliente: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
 		try {
@@ -197,10 +208,10 @@ public class ClienteService {
 			
 			System.out.println("Error al eliminar el cliente: " + e.getLocalizedMessage());
 			
-			//return Boolean.FALSE;
+			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		return new AccionRespuesta();
 	}
 	
 	public ClienteDto obtenerClienteDtoDesdeCliente(Long id, Long empresaId) {
