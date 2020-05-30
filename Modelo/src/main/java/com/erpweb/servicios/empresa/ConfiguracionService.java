@@ -49,6 +49,8 @@ public class ConfiguracionService {
 			
 			logger.error("Error en el metodo crearConfiguracionDesdeConfiguracionDto() con la empresa{} ", configuracionDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -81,6 +83,8 @@ public class ConfiguracionService {
 			
 			logger.error("Error en el metodo actualizarConfiguracionDesdeConfiguracionDto() con la empresa{} ", configuracionDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -103,6 +107,8 @@ public class ConfiguracionService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarConfiguracion() con la empresa{} ", configuracion.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

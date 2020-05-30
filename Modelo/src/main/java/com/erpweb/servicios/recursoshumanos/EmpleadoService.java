@@ -82,13 +82,17 @@ public class EmpleadoService {
 		direccionPostal.setPoblacion(poblacion);
 		
 		try {
+			
 			//Guardamos la direccion postal del empleado
 			direccionPostalRepository.save(direccionPostal);
 			
 		}catch(Exception e) {
 			//Error, el empleado se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al guardar la direccion postal", empleadoDto.getEmpresaId() );
+			
+			e.printStackTrace();
+			
 			empleado.setDireccionPostal(null);
 		}
 	
@@ -99,6 +103,8 @@ public class EmpleadoService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -112,7 +118,7 @@ public class EmpleadoService {
 		
 		Empleado empleado = new Empleado();
 		
-		if(empleadoDto == null) {
+		if(empleadoDto == null || empleadoDto.getEmpresaId() == null) {
 			
 			return new AccionRespuesta();
 		}
@@ -153,7 +159,10 @@ public class EmpleadoService {
 		}catch(Exception e) {
 			//Error, el empleado se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al guardar la direccion postal ", empleadoDto.getEmpresaId() );
+			
+			e.printStackTrace();
+			
 			empleado.setDireccionPostal(null);
 		}
 	
@@ -164,6 +173,8 @@ public class EmpleadoService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -197,6 +208,8 @@ public class EmpleadoService {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getCif(),  empleado.getId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -208,6 +221,8 @@ public class EmpleadoService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa={} ", empleado.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

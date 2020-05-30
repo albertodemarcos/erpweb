@@ -56,6 +56,8 @@ public class ProveedorService {
 			
 			logger.error("Error en el metodo crearProveedorDesdeProveedorDto() con la empresa{} ", proveedorDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -93,6 +95,8 @@ public class ProveedorService {
 			
 			logger.error("Error en el metodo actualizarProveedorDesdeProveedorDto() con la empresa{} ", proveedorDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -115,6 +119,8 @@ public class ProveedorService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarProveedor() con la empresa{} ", proveedor.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

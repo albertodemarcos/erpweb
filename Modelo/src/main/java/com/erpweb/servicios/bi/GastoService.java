@@ -47,6 +47,7 @@ public class GastoService {
 		gasto.setObservaciones(gastoDto.getObservaciones());
 		
 		try {
+			
 			//Guardamos el gasto en base de datos
 			gastoRepository.save(gasto);
 			
@@ -153,7 +154,7 @@ public class GastoService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerGastoDtoDesdeGasto() con la empresa{} ", gastoDto.getEmpresaId() );
+			logger.error("Error en el metodo obtenerGastoDtoDesdeGasto() con la empresa{} ", empresaId );
 			
 			e.printStackTrace();
 		}

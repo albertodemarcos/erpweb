@@ -52,6 +52,8 @@ public class AlmacenService {
 			
 			logger.error("Error en el metodo crearAlmacenDesdeAlmacenDto() con la empresa{} ", almacenDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -84,6 +86,8 @@ public class AlmacenService {
 			
 			logger.error("Error en el metodo actualizarAlmacenDesdeAlmacenDto() con la empresa{} ", almacenDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -106,6 +110,8 @@ public class AlmacenService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarAlmacen() con la empresa{} ", almacen.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

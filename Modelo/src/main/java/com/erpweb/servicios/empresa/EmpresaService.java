@@ -46,6 +46,8 @@ public class EmpresaService {
 			
 			logger.error("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -77,6 +79,8 @@ public class EmpresaService {
 			
 			logger.error("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -99,6 +103,8 @@ public class EmpresaService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarEmpresa() con la empresa{} ", empresa.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

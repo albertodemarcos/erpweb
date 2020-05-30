@@ -51,6 +51,8 @@ public class CompraService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearCompraDesdeCompraDto() con la empresa{} ", compraDto.getEmpresaId() );
+			
+			e.printStackTrace();
 						
 			return new AccionRespuesta();
 		}
@@ -86,7 +88,9 @@ public class CompraService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarCompraDesdeCompraDto() con la empresa{} ", compraDto.getEmpresaId() );
-						
+			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 				
@@ -110,6 +114,8 @@ public class CompraService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarCompra() con la empresa{} ", compra.getId() );
+			
+			e.printStackTrace();
 						
 			return new AccionRespuesta();
 		}

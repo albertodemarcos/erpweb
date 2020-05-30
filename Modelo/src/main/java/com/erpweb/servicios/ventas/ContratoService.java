@@ -71,6 +71,8 @@ public class ContratoService {
 			
 			logger.error("Error en el metodo crearContratoDesdeContratoDto() con la empresa{} ", contratoDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -115,6 +117,8 @@ public class ContratoService {
 			
 			logger.error("Error en el metodo actualizarContratoDesdeContratoDto() con la empresa{} ", contratoDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -137,6 +141,8 @@ public class ContratoService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarContrato() con la empresa{} ", contrato.getEmpresa().getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

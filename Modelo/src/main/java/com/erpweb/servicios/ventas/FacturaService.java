@@ -56,12 +56,15 @@ public class FacturaService {
 		}
 		
 		try {
+			
 			//Guardamos la factura en base de datos
 			facturaRepository.save(factura);
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearFacturaDesdeFacturaDto() con la empresa{} ", facturaDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -98,12 +101,15 @@ public class FacturaService {
 		}
 		
 		try {
+			
 			//Guardamos la factura en base de datos
 			facturaRepository.save(factura);
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarFacturaDesdeFacturaDto() con la empresa{} ", facturaDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -121,12 +127,15 @@ public class FacturaService {
 		}
 		
 		try {
+			
 			//Elimnamos la factura
 			facturaRepository.deleteById(factura.getId());
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarFactura() con la empresa{} ", factura.getEmpresa().getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

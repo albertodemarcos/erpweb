@@ -54,6 +54,8 @@ public class UsuarioService {
 			
 			logger.error("Error en el metodo crearUsuarioDesdeUsuarioDto() con la empresa{} ", usuarioDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -89,6 +91,8 @@ public class UsuarioService {
 			
 			logger.error("Error en el metodo actualizarUsuarioDesdeUsuarioDto() con la empresa{} ", usuarioDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -111,6 +115,8 @@ public class UsuarioService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarUsuario() con la empresa{} ", usuario.getEmpresa().getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

@@ -89,6 +89,8 @@ public class ClienteService {
 			//pero permitimos que continue la ejecucion
 			logger.error("Error en el metodo crearClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			cliente.setDireccionPostal(null);			
 		}
 		
@@ -101,6 +103,8 @@ public class ClienteService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -158,6 +162,8 @@ public class ClienteService {
 			//pero permitimos que continue la ejecucion
 			logger.error("Error en el metodo actualizarClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			cliente.setDireccionPostal(null);
 		}
 		
@@ -170,6 +176,8 @@ public class ClienteService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -203,6 +211,8 @@ public class ClienteService {
 			
 			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -214,6 +224,8 @@ public class ClienteService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

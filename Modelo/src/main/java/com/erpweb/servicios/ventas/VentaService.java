@@ -62,12 +62,15 @@ public class VentaService {
 		}
 		
 		try {
+			
 			//Guardamos la venta en base de datos
 			ventaRepository.save(venta);
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearVentaDesdeVentaDto() con la empresa{} ", ventaDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -106,12 +109,15 @@ public class VentaService {
 		}
 		
 		try {
+			
 			//Guardamos la venta en base de datos
 			ventaRepository.save(venta);
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarVentaDesdeVentaDto() con la empresa{} ", ventaDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -129,12 +135,15 @@ public class VentaService {
 		}
 		
 		try {
+			
 			//Elimnamos la venta
 			ventaRepository.deleteById(venta.getId());
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarVenta() con la empresa{} ", venta.getEmpresa().getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

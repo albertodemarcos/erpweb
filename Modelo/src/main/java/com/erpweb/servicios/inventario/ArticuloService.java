@@ -83,12 +83,15 @@ public class ArticuloService {
 		articulo.setProveedor(proveedor);
 		
 		try {
+			
 			//Guardamos el articulo en base de datos
 			articuloRepository.save(articulo);
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearArticuloDesdeArticuloDto() con la empresa{} ", articuloDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -143,6 +146,8 @@ public class ArticuloService {
 			
 			logger.error("Error en el metodo actualizarArticuloDesdeArticuloDto() con la empresa{} ", articuloDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -165,6 +170,8 @@ public class ArticuloService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarArticulo() con la empresa{} ", articulo.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

@@ -55,6 +55,8 @@ public class IngresoService {
 			
 			logger.error("Error en el metodo crearIngresoDesdeIngresoDto() con la empresa{} ", ingresoDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -92,6 +94,8 @@ public class IngresoService {
 			
 			logger.error("Error en el metodo actualizarIngresoDesdeIngresoDto() con la empresa{} ", ingresoDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -115,6 +119,8 @@ public class IngresoService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarIngreso() con la empresa{} ", ingreso.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

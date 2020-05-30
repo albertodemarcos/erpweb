@@ -63,6 +63,8 @@ public class NominaService {
 			
 			logger.error("Error en el metodo crearNominaDesdeNominaDto() con la empresa{} ", nominaDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -103,6 +105,8 @@ public class NominaService {
 			
 			logger.error("Error en el metodo actualizarNominaDesdeNominaDto() con la empresa{} ", nominaDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -125,6 +129,8 @@ public class NominaService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarNomina() con la empresa{} ", nomina.getEmpresa().getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}

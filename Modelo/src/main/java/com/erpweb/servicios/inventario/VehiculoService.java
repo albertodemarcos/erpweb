@@ -58,6 +58,8 @@ public class VehiculoService {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculoDto.getEmpresaId() );
 			
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
@@ -87,12 +89,15 @@ public class VehiculoService {
 		vehiculo.setFechaMatriculacion(vehiculoDto.getFechaMatriculacion());
 		
 		try {
+			
 			//Guardamos el vehiculo en base de datos
 			vehiculoRepository.save(vehiculo);
 			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculoDto.getEmpresaId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
@@ -116,6 +121,8 @@ public class VehiculoService {
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculo.getId() );
+			
+			e.printStackTrace();
 			
 			return new AccionRespuesta();
 		}
