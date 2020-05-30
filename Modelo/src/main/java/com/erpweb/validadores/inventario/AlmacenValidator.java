@@ -1,11 +1,16 @@
 package com.erpweb.validadores.inventario;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.erpweb.dto.AlmacenDto;
 
 public class AlmacenValidator implements Validator {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -15,9 +20,27 @@ public class AlmacenValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		// TODO Auto-generated method stub
+		
+		logger.debug("Se evaluan los datos del dto={} ", AlmacenDto.class );
+		
 		AlmacenDto almacenDto = (AlmacenDto) target;
-		System.out.println(almacenDto.toString());
+		
+		if( almacenDto.getEmpresaId() == null || almacenDto.getEmpresaId().intValue() < 1 ) {
+			
+			errors.reject("ERROR_EMPRESA", "El almacen no esta asociado a una empresa");
+		}
+		
+		if( StringUtils.isBlank( almacenDto.getCodigo() )  ) {
+			
+			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+		}
+		
+		if( StringUtils.isBlank( almacenDto.getNombre() )  ) {
+			
+			errors.rejectValue("", "", "El campo nombre no puede estar vacío");
+		}
+		
+		
 	}
 
 }
