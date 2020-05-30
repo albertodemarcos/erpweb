@@ -75,8 +75,10 @@ public class InformeService {
 		informe.setGenerado(informeDto.getGenerado());
 		
 		try {
+			
 			//Actualizamos el informe en base de datos
 			informeRepository.save(informe);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarInformeDesdeInformeDto() con la empresa{} ", informeDto.getEmpresaId() );
@@ -91,7 +93,7 @@ public class InformeService {
 	
 	public AccionRespuesta eliminarInforme(Informe informe ) {
 		
-		logger.debug("Entramos en el metodo eliminarInforme() con la empresa={}", informe.getId() );
+		logger.debug("Entramos en el metodo eliminarInforme() con la empresa={}", informe.getEmpresa().getId() );
 		
 		if(informe == null || informe.getId() == null) {
 			
@@ -105,7 +107,7 @@ public class InformeService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarInforme() con la empresa{} ", informe.getId() );
+			logger.error("Error en el metodo eliminarInforme() con la empresa{} ", informe.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -128,11 +130,18 @@ public class InformeService {
 		
 		InformeDto informeDto = new InformeDto();
 		
-		informeDto.setCodigo(informe.getCodigo());
-		informeDto.setEmpresaId(empresaId);
-		informeDto.setGenerado(informe.getGenerado());
-		
-		logger.error("Error en el metodo obtenerInformeDtoDesdeInforme() con la empresa{} ", empresaId );
+		try {
+			
+			informeDto.setCodigo(informe.getCodigo());
+			informeDto.setEmpresaId(empresaId);
+			informeDto.setGenerado(informe.getGenerado());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerInformeDtoDesdeInforme() con la empresa{} ", empresaId );
+
+			e.printStackTrace();
+		}
 		
 		return informeDto;
 	}

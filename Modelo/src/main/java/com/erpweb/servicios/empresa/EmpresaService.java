@@ -124,13 +124,20 @@ public class EmpresaService {
 		
 		EmpresaDto empresaDto = new EmpresaDto();
 		
-		empresaDto.setId(empresa.getId());
-		empresaDto.setCodigo(empresa.getCodigo());
-		empresaDto.setNombre(empresa.getNombre());
-		empresaDto.setCif(empresa.getCif());
-		empresaDto.setTipoSociedadJuridica(empresa.getTipoSociedadJuridica());
-		
-		logger.error("Error en el metodo obtenerEmpresaDtoDesdeEmpresa() con la empresa{} ", id );
+		try {
+			
+			empresaDto.setId(empresa.getId());
+			empresaDto.setCodigo(empresa.getCodigo());
+			empresaDto.setNombre(empresa.getNombre());
+			empresaDto.setCif(empresa.getCif());
+			empresaDto.setTipoSociedadJuridica(empresa.getTipoSociedadJuridica());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerEmpresaDtoDesdeEmpresa() con la empresa{} ", id );
+			
+			e.printStackTrace();
+		}
 		
 		return empresaDto;
 	}

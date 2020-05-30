@@ -99,7 +99,7 @@ public class CompraService {
 	
 	public AccionRespuesta eliminarCompra(Compra compra) {
 		
-		logger.debug("Entramos en el metodo eliminarCompra() con la empresa={}", compra.getId() );
+		logger.debug("Entramos en el metodo eliminarCompra() con la empresa={}", compra.getEmpresa().getId() );
 		
 		if(compra == null || compra.getId() == null) {
 			
@@ -113,7 +113,7 @@ public class CompraService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarCompra() con la empresa{} ", compra.getId() );
+			logger.error("Error en el metodo eliminarCompra() con la empresa{} ", compra.getEmpresa().getId() );
 			
 			e.printStackTrace();
 						
@@ -136,13 +136,20 @@ public class CompraService {
 		
 		CompraDto compraDto = new CompraDto();
 		
-		compraDto.setCodigo(compra.getCodigo());
-		compraDto.setEmpresaId(empresaId);
-		compraDto.setFechaCompra(compra.getFechaCompra());
-		compraDto.setLineaCompra(compra.getLineaCompra());
-		compraDto.setProveedor(compra.getProveedor());
-		
-		logger.error("Error en el metodo obtenerCompraDtoDesdeCompra() con la empresa{} ", empresaId );
+		try {
+			
+			compraDto.setCodigo(compra.getCodigo());
+			compraDto.setEmpresaId(empresaId);
+			compraDto.setFechaCompra(compra.getFechaCompra());
+			compraDto.setLineaCompra(compra.getLineaCompra());
+			compraDto.setProveedor(compra.getProveedor());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerCompraDtoDesdeCompra() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return compraDto;
 	}

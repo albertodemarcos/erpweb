@@ -187,7 +187,7 @@ public class ClienteService {
 	
 	public AccionRespuesta eliminarCliente(Cliente cliente) {
 		
-		logger.debug("Entramos en el metodo eliminarCliente() con la empresa={}", cliente.getId() );
+		logger.debug("Entramos en el metodo eliminarCliente() con la empresa={}", cliente.getEmpresa().getId() );
 		
 		if(cliente == null || cliente.getId() == null) {
 			
@@ -198,7 +198,7 @@ public class ClienteService {
 		
 		if(direccionPostal == null) {
 			
-			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
+			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getEmpresa().getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -209,7 +209,7 @@ public class ClienteService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
+			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -223,7 +223,7 @@ public class ClienteService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
+			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -254,30 +254,37 @@ public class ClienteService {
 		
 		ClienteDto clienteDto = new ClienteDto();
 		
-		clienteDto.setId(cliente.getId());
-		clienteDto.setCodigo(cliente.getCodigo());
-		clienteDto.setEmpresaId(cliente.getEmpresa().getId());
-		clienteDto.setNombre(cliente.getNombre());
-		clienteDto.setApellidoPrimero(cliente.getApellidoPrimero());
-		clienteDto.setApellidoSegundo(cliente.getApellidoSegundo());
-		clienteDto.setNif(cliente.getNif());
-		
-		clienteDto.setDireccionPostalId(direccionPostal.getId());
-		clienteDto.setCodigoDireccionPostal(direccionPostal.getCodigo());
-		clienteDto.setCodigoPostal(direccionPostal.getCodigoPostal());
-		clienteDto.setDireccion(direccionPostal.getDireccion());
-		clienteDto.setEdificio(direccionPostal.getEdificio());
-		clienteDto.setTelefono(direccionPostal.getTelefono());
-		clienteDto.setObservaciones(direccionPostal.getObservaciones());
-		clienteDto.setTipoCliente(cliente.getTipoCliente());
-		
-		clienteDto.setPoblacionId(provincia.getId() !=null ? provincia.getId() : 0L );
-		clienteDto.setNombrePoblacion(provincia.getNombre() != null ? provincia.getNombre() : "SIN_PROVINCIA");
-		
-		clienteDto.setProvinciaId(poblacion.getId() !=null ? poblacion.getId() : 0L);
-		clienteDto.setNombreProvincia(poblacion.getNombre() !=null ? poblacion.getNombre() : "SIN_POBLACION");
-		
-		logger.error("Error en el metodo obtenerClienteDtoDesdeCliente() con la empresa{} ", empresaId );
+		try {
+			
+			clienteDto.setId(cliente.getId());
+			clienteDto.setCodigo(cliente.getCodigo());
+			clienteDto.setEmpresaId(cliente.getEmpresa().getId());
+			clienteDto.setNombre(cliente.getNombre());
+			clienteDto.setApellidoPrimero(cliente.getApellidoPrimero());
+			clienteDto.setApellidoSegundo(cliente.getApellidoSegundo());
+			clienteDto.setNif(cliente.getNif());
+			
+			clienteDto.setDireccionPostalId(direccionPostal.getId());
+			clienteDto.setCodigoDireccionPostal(direccionPostal.getCodigo());
+			clienteDto.setCodigoPostal(direccionPostal.getCodigoPostal());
+			clienteDto.setDireccion(direccionPostal.getDireccion());
+			clienteDto.setEdificio(direccionPostal.getEdificio());
+			clienteDto.setTelefono(direccionPostal.getTelefono());
+			clienteDto.setObservaciones(direccionPostal.getObservaciones());
+			clienteDto.setTipoCliente(cliente.getTipoCliente());
+			
+			clienteDto.setPoblacionId(provincia.getId() !=null ? provincia.getId() : 0L );
+			clienteDto.setNombrePoblacion(provincia.getNombre() != null ? provincia.getNombre() : "SIN_PROVINCIA");
+			
+			clienteDto.setProvinciaId(poblacion.getId() !=null ? poblacion.getId() : 0L);
+			clienteDto.setNombreProvincia(poblacion.getNombre() !=null ? poblacion.getNombre() : "SIN_POBLACION");
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerClienteDtoDesdeCliente() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return clienteDto;
 	}

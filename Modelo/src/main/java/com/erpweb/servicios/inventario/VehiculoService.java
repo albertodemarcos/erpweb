@@ -107,7 +107,7 @@ public class VehiculoService {
 	
 	public AccionRespuesta eliminarVehiculo(Vehiculo vehiculo) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", vehiculo.getId() );
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", vehiculo.getEmpresa().getId() );
 		
 		if(vehiculo == null || vehiculo.getId() == null) {
 			
@@ -120,7 +120,7 @@ public class VehiculoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculo.getId() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculo.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -142,15 +142,22 @@ public class VehiculoService {
 		
 		VehiculoDto vehiculoDto = new VehiculoDto();
 		
-		vehiculoDto.setCodigo(vehiculo.getCodigo());
-		vehiculoDto.setEmpresaId(vehiculo.getEmpresa().getId());
-		vehiculoDto.setMatricula(vehiculo.getMatricula());
-		vehiculoDto.setMarca(vehiculo.getMarca());
-		vehiculoDto.setModelo(vehiculo.getModelo());
-		vehiculoDto.setTipoVehiculo(vehiculo.getTipoVehiculo());
-		vehiculoDto.setFechaMatriculacion(vehiculo.getFechaMatriculacion());
-		
-		logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+		try {
+			
+			vehiculoDto.setCodigo(vehiculo.getCodigo());
+			vehiculoDto.setEmpresaId(vehiculo.getEmpresa().getId());
+			vehiculoDto.setMatricula(vehiculo.getMatricula());
+			vehiculoDto.setMarca(vehiculo.getMarca());
+			vehiculoDto.setModelo(vehiculo.getModelo());
+			vehiculoDto.setTipoVehiculo(vehiculo.getTipoVehiculo());
+			vehiculoDto.setFechaMatriculacion(vehiculo.getFechaMatriculacion());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return vehiculoDto;
 	}

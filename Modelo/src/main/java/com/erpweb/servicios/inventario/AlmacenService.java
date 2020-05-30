@@ -96,7 +96,7 @@ public class AlmacenService {
 	
 	public AccionRespuesta eliminarAlmacen(Almacen almacen) {
 		
-		logger.debug("Entramos en el metodo eliminarAlmacen() con la empresa={}", almacen.getId() );
+		logger.debug("Entramos en el metodo eliminarAlmacen() con la empresa={}", almacen.getEmpresa().getId() );
 		
 		if(almacen == null || almacen.getId() == null) {
 			
@@ -109,7 +109,7 @@ public class AlmacenService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarAlmacen() con la empresa{} ", almacen.getId() );
+			logger.error("Error en el metodo eliminarAlmacen() con la empresa{} ", almacen.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -131,12 +131,19 @@ public class AlmacenService {
 		
 		AlmacenDto almacenDto = new AlmacenDto();
 		
-		almacenDto.setId(almacen.getId());
-		almacenDto.setCodigo(almacen.getCodigo());
-		almacenDto.setEmpresaId(almacen.getEmpresa().getId());
-		almacenDto.setNombre(almacen.getNombre());
-		
-		logger.error("Error en el metodo obtenerAlmacenDtoDesdeAlmacen() con la empresa{} ", empresaId );
+		try {
+			
+			almacenDto.setId(almacen.getId());
+			almacenDto.setCodigo(almacen.getCodigo());
+			almacenDto.setEmpresaId(almacen.getEmpresa().getId());
+			almacenDto.setNombre(almacen.getNombre());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerAlmacenDtoDesdeAlmacen() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return almacenDto;
 	}

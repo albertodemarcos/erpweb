@@ -136,14 +136,21 @@ public class UsuarioService {
 		
 		UsuarioDto usuarioDto = new UsuarioDto();
 		
-		usuarioDto.setCodigo(usuario.getCodigo());
-		usuarioDto.setEmpresaId(usuario.getEmpresa().getId());
-		usuarioDto.setName(usuario.getName());
-		usuarioDto.setPassword(usuario.getPassword());
-		usuarioDto.setIdentidad(usuario.getIdentidad());
-		usuarioDto.setIdioma(usuario.getIdioma());
-		
-		logger.error("Error en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa{} ", empresaId );
+		try {
+			
+			usuarioDto.setCodigo(usuario.getCodigo());
+			usuarioDto.setEmpresaId(usuario.getEmpresa().getId());
+			usuarioDto.setName(usuario.getName());
+			usuarioDto.setPassword(usuario.getPassword());
+			usuarioDto.setIdentidad(usuario.getIdentidad());
+			usuarioDto.setIdioma(usuario.getIdioma());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return usuarioDto;
 	}

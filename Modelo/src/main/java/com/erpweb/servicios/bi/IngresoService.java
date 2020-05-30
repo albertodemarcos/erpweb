@@ -104,7 +104,7 @@ public class IngresoService {
 	
 	public AccionRespuesta eliminarIngreso(Ingreso ingreso) {
 		
-		logger.debug("Entramos en el metodo eliminarIngreso() con la empresa={}", ingreso.getId() );
+		logger.debug("Entramos en el metodo eliminarIngreso() con la empresa={}", ingreso.getEmpresa().getId() );
 		
 		if(ingreso == null || ingreso.getId() == null) {
 			
@@ -118,7 +118,7 @@ public class IngresoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarIngreso() con la empresa{} ", ingreso.getId() );
+			logger.error("Error en el metodo eliminarIngreso() con la empresa{} ", ingreso.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -142,16 +142,24 @@ public class IngresoService {
 		
 		IngresoDto ingresoDto = new IngresoDto();
 		
-		ingresoDto.setCodigo(ingresoDto.getCodigo());
-		ingresoDto.setEmpresaId(empresaId);
-		ingresoDto.setProcedencia(ingreso.getProcedencia());
-		ingresoDto.setBaseImponible(ingreso.getBaseImponible());
-		ingresoDto.setCuotaTributaria(ingreso.getCuotaTributaria());
-		ingresoDto.setImporteTotal(ingreso.getImporteTotal());
-		ingresoDto.setDescripcion(ingreso.getDescripcion());
-		ingresoDto.setObservaciones(ingreso.getObservaciones()); 
+		try {
+			
+			ingresoDto.setCodigo(ingresoDto.getCodigo());
+			ingresoDto.setEmpresaId(empresaId);
+			ingresoDto.setProcedencia(ingreso.getProcedencia());
+			ingresoDto.setBaseImponible(ingreso.getBaseImponible());
+			ingresoDto.setCuotaTributaria(ingreso.getCuotaTributaria());
+			ingresoDto.setImporteTotal(ingreso.getImporteTotal());
+			ingresoDto.setDescripcion(ingreso.getDescripcion());
+			ingresoDto.setObservaciones(ingreso.getObservaciones()); 
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerIngresoDtoDesdeIngreso() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
-		logger.error("Error en el metodo obtenerIngresoDtoDesdeIngreso() con la empresa{} ", empresaId );
 		
 		return ingresoDto;
 	}	

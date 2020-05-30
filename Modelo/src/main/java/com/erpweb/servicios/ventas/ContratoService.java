@@ -162,21 +162,28 @@ public class ContratoService {
 		
 		ContratoDto contratoDto = new ContratoDto();
 		
-		contratoDto.setCodigo(contrato.getCodigo());
-		contratoDto.setEmpresaId(contrato.getEmpresa().getId());
-		contratoDto.setFechaCreacion(contrato.getFechaCreacion());
-		contratoDto.setFechaInicio(contrato.getFechaInicio());
-		contratoDto.setFechaFin(contrato.getFechaFin());
-		contratoDto.setDescripcion(contrato.getDescripcion());
-		contratoDto.setBaseImponibleTotal(contrato.getBaseImponibleTotal());
-		contratoDto.setImporteTotal(contrato.getImporteTotal());
-		contratoDto.setFacturaId(contrato.getFactura().getId());
-		
-		if(!CollectionUtils.isEmpty(contrato.getLineasContrato())) {
-			contratoDto.getLineasContrato().addAll(contrato.getLineasContrato());
+		try {
+			
+			contratoDto.setCodigo(contrato.getCodigo());
+			contratoDto.setEmpresaId(contrato.getEmpresa().getId());
+			contratoDto.setFechaCreacion(contrato.getFechaCreacion());
+			contratoDto.setFechaInicio(contrato.getFechaInicio());
+			contratoDto.setFechaFin(contrato.getFechaFin());
+			contratoDto.setDescripcion(contrato.getDescripcion());
+			contratoDto.setBaseImponibleTotal(contrato.getBaseImponibleTotal());
+			contratoDto.setImporteTotal(contrato.getImporteTotal());
+			contratoDto.setFacturaId(contrato.getFactura().getId());
+			
+			if(!CollectionUtils.isEmpty(contrato.getLineasContrato())) {
+				contratoDto.getLineasContrato().addAll(contrato.getLineasContrato());
+			}
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerContratoDtoDesdeContrato() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
 		}
-		
-		logger.error("Error en el metodo obtenerContratoDtoDesdeContrato() con la empresa{} ", empresaId );
 		
 		return contratoDto;
 	}

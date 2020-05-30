@@ -105,7 +105,7 @@ public class ProveedorService {
 	
 	public AccionRespuesta eliminarProveedor(Proveedor proveedor) {
 		
-		logger.debug("Entramos en el metodo eliminarProveedor() con la empresa={}", proveedor.getId() );
+		logger.debug("Entramos en el metodo eliminarProveedor() con la empresa={}", proveedor.getEmpresa().getId() );
 		
 		if(proveedor == null || proveedor.getId() == null) {
 			
@@ -118,7 +118,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarProveedor() con la empresa{} ", proveedor.getId() );
+			logger.error("Error en el metodo eliminarProveedor() con la empresa{} ", proveedor.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -141,16 +141,23 @@ public class ProveedorService {
 		
 		ProveedorDto proveedorDto = new ProveedorDto();
 		
-		proveedorDto.setCodigo(proveedor.getCodigo());
-		proveedorDto.setEmpresaId(empresaId);
-		proveedorDto.setNombre(proveedor.getNombre());
-		proveedorDto.setNombreEmpresa(proveedor.getNombreEmpresa());
-		proveedorDto.setTelefono(proveedor.getTelefono());
-		proveedorDto.setArticulo(proveedor.getArticulo());
-		proveedorDto.setCantidad(proveedor.getCantidad());
-		proveedorDto.setTipoProveedor(proveedor.getTipoProveedor());
-		
-		logger.error("Error en el metodo obtenerProveedorDtoDesdeProveedor() con la empresa{} ", empresaId );
+		try {
+			
+			proveedorDto.setCodigo(proveedor.getCodigo());
+			proveedorDto.setEmpresaId(empresaId);
+			proveedorDto.setNombre(proveedor.getNombre());
+			proveedorDto.setNombreEmpresa(proveedor.getNombreEmpresa());
+			proveedorDto.setTelefono(proveedor.getTelefono());
+			proveedorDto.setArticulo(proveedor.getArticulo());
+			proveedorDto.setCantidad(proveedor.getCantidad());
+			proveedorDto.setTipoProveedor(proveedor.getTipoProveedor());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerProveedorDtoDesdeProveedor() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return proveedorDto;
 	}

@@ -163,21 +163,28 @@ public class VentaService {
 		
 		VentaDto ventaDto = new VentaDto();
 		
-		ventaDto.setCodigo(venta.getCodigo());
-		ventaDto.setEmpresaId(venta.getEmpresa().getId());
-		ventaDto.setFechaCreacion(venta.getFechaCreacion());
-		ventaDto.setFechaInicio(venta.getFechaInicio());
-		ventaDto.setFechaFin(venta.getFechaFin());
-		ventaDto.setDescripcion(venta.getDescripcion());
-		ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
-		ventaDto.setImporteTotal(venta.getImporteTotal());
-		ventaDto.setFacturaId(venta.getFactura().getId());
-		
-		if(!CollectionUtils.isEmpty(venta.getLineasVenta())) {
-			ventaDto.getLineasVenta().addAll(venta.getLineasVenta());
+		try {
+			
+			ventaDto.setCodigo(venta.getCodigo());
+			ventaDto.setEmpresaId(venta.getEmpresa().getId());
+			ventaDto.setFechaCreacion(venta.getFechaCreacion());
+			ventaDto.setFechaInicio(venta.getFechaInicio());
+			ventaDto.setFechaFin(venta.getFechaFin());
+			ventaDto.setDescripcion(venta.getDescripcion());
+			ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
+			ventaDto.setImporteTotal(venta.getImporteTotal());
+			ventaDto.setFacturaId(venta.getFactura().getId());
+			
+			if(!CollectionUtils.isEmpty(venta.getLineasVenta())) {
+				ventaDto.getLineasVenta().addAll(venta.getLineasVenta());
+			}
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerVentaDtoDesdeVenta() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
 		}
-		
-		logger.error("Error en el metodo obtenerVentaDtoDesdeVenta() con la empresa{} ", empresaId );
 		
 		return ventaDto;
 	}

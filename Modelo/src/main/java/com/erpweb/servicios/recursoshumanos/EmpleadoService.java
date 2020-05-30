@@ -195,7 +195,7 @@ public class EmpleadoService {
 		
 		if(direccionPostal == null) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getCif(),  empleado.getId() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getId(),  empleado.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -206,7 +206,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getCif(),  empleado.getId() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getId(),  empleado.getId() );
 			
 			e.printStackTrace();
 			
@@ -251,29 +251,36 @@ public class EmpleadoService {
 		
 		EmpleadoDto empleadoDto = new EmpleadoDto();
 		
-		empleadoDto.setId(empleado.getId());
-		empleadoDto.setCodigo(empleado.getCodigo());
-		empleadoDto.setEmpresaId(empleado.getEmpresa().getId());
-		empleadoDto.setNombre(empleado.getNombre());
-		empleadoDto.setApellidoPrimero(empleado.getApellidoPrimero());
-		empleadoDto.setApellidoSegundo(empleado.getApellidoSegundo());
-		empleadoDto.setNif(empleado.getNif());
-		
-		empleadoDto.setDireccionPostalId(direccionPostal.getId());
-		empleadoDto.setCodigoDireccionPostal(direccionPostal.getCodigo());
-		empleadoDto.setCodigoPostal(direccionPostal.getCodigoPostal());
-		empleadoDto.setDireccion(direccionPostal.getDireccion());
-		empleadoDto.setEdificio(direccionPostal.getEdificio());
-		empleadoDto.setTelefono(direccionPostal.getTelefono());
-		empleadoDto.setObservaciones(direccionPostal.getObservaciones());
-		
-		empleadoDto.setPoblacionId(provincia.getId() !=null ? provincia.getId() : 0L );
-		empleadoDto.setNombrePoblacion(provincia.getNombre() != null ? provincia.getNombre() : "SIN_PROVINCIA");
-		
-		empleadoDto.setProvinciaId(poblacion.getId() !=null ? poblacion.getId() : 0L);
-		empleadoDto.setNombreProvincia(poblacion.getNombre() !=null ? poblacion.getNombre() : "SIN_POBLACION");
-		
-		logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+		try {
+			
+			empleadoDto.setId(empleado.getId());
+			empleadoDto.setCodigo(empleado.getCodigo());
+			empleadoDto.setEmpresaId(empleado.getEmpresa().getId());
+			empleadoDto.setNombre(empleado.getNombre());
+			empleadoDto.setApellidoPrimero(empleado.getApellidoPrimero());
+			empleadoDto.setApellidoSegundo(empleado.getApellidoSegundo());
+			empleadoDto.setNif(empleado.getNif());
+			
+			empleadoDto.setDireccionPostalId(direccionPostal.getId());
+			empleadoDto.setCodigoDireccionPostal(direccionPostal.getCodigo());
+			empleadoDto.setCodigoPostal(direccionPostal.getCodigoPostal());
+			empleadoDto.setDireccion(direccionPostal.getDireccion());
+			empleadoDto.setEdificio(direccionPostal.getEdificio());
+			empleadoDto.setTelefono(direccionPostal.getTelefono());
+			empleadoDto.setObservaciones(direccionPostal.getObservaciones());
+			
+			empleadoDto.setPoblacionId(provincia.getId() !=null ? provincia.getId() : 0L );
+			empleadoDto.setNombrePoblacion(provincia.getNombre() != null ? provincia.getNombre() : "SIN_PROVINCIA");
+			
+			empleadoDto.setProvinciaId(poblacion.getId() !=null ? poblacion.getId() : 0L);
+			empleadoDto.setNombreProvincia(poblacion.getNombre() !=null ? poblacion.getNombre() : "SIN_POBLACION");
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return empleadoDto;
 	}

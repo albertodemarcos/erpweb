@@ -156,7 +156,7 @@ public class ArticuloService {
 	
 	public AccionRespuesta eliminarArticulo(Articulo articulo) {
 		
-		logger.debug("Entramos en el metodo eliminarArticulo() con la empresa={}", articulo.getId() );
+		logger.debug("Entramos en el metodo eliminarArticulo() con la empresa={}", articulo.getEmpresa().getId() );
 		
 		if(articulo == null || articulo.getId() == null) {
 			
@@ -169,7 +169,7 @@ public class ArticuloService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarArticulo() con la empresa{} ", articulo.getId() );
+			logger.error("Error en el metodo eliminarArticulo() con la empresa{} ", articulo.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -191,37 +191,44 @@ public class ArticuloService {
 		
 		ArticuloDto articuloDto = new ArticuloDto();
 		
-		articuloDto.setId(articulo.getId());
-		articuloDto.setCodigo(articulo.getCodigo());
-		articuloDto.setEmpresaId(articulo.getEmpresa().getId());
-		articuloDto.setNombre(articulo.getNombre());
-		articuloDto.setDescripcion(articulo.getDescripcion());
-		articuloDto.setBaseImponible(articulo.getBaseImponible());
-		articuloDto.setImporteTotal(articulo.getImporteTotal());
-		
-		if(articulo.getImpuesto() != null) {
-			articuloDto.setImpuestoId(articulo.getImpuesto().getId());
-			articuloDto.setCodigoImpuesto(articulo.getImpuesto().getCodigo());
-			articuloDto.setNombreImpuesto(articulo.getImpuesto().getNombre());
-			articuloDto.setPorcentajeImpuesto(articulo.getImpuesto().getPorcentaje());
+		try {
+			
+			articuloDto.setId(articulo.getId());
+			articuloDto.setCodigo(articulo.getCodigo());
+			articuloDto.setEmpresaId(articulo.getEmpresa().getId());
+			articuloDto.setNombre(articulo.getNombre());
+			articuloDto.setDescripcion(articulo.getDescripcion());
+			articuloDto.setBaseImponible(articulo.getBaseImponible());
+			articuloDto.setImporteTotal(articulo.getImporteTotal());
+			
+			if(articulo.getImpuesto() != null) {
+				articuloDto.setImpuestoId(articulo.getImpuesto().getId());
+				articuloDto.setCodigoImpuesto(articulo.getImpuesto().getCodigo());
+				articuloDto.setNombreImpuesto(articulo.getImpuesto().getNombre());
+				articuloDto.setPorcentajeImpuesto(articulo.getImpuesto().getPorcentaje());
+			}
+			
+			if(articulo.getProveedor() != null) {
+				articuloDto.setProveedorId(articulo.getProveedor().getId());
+				articuloDto.setCodigoProveedor(articulo.getProveedor().getCodigo());
+				articuloDto.setNombreProveedor(articulo.getProveedor().getNombre());
+				articuloDto.setNombreEmpresaProveedor(articulo.getProveedor().getNombreEmpresa());
+				articuloDto.setTelefonoProveedor(articulo.getProveedor().getTelefono());
+				articuloDto.setTipoProveedor(articulo.getProveedor().getTipoProveedor());
+			}
+			
+			if(articulo.getAlmacen() != null) {
+				articuloDto.setAlmacenId(articulo.getAlmacen().getId());
+				articuloDto.setCodigoAlmacen(articulo.getAlmacen().getCodigo());
+				articuloDto.setNombreAlmacen(articulo.getAlmacen().getNombre());
+			}
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerArticuloDtoDesdeArticulo() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
 		}
-		
-		if(articulo.getProveedor() != null) {
-			articuloDto.setProveedorId(articulo.getProveedor().getId());
-			articuloDto.setCodigoProveedor(articulo.getProveedor().getCodigo());
-			articuloDto.setNombreProveedor(articulo.getProveedor().getNombre());
-			articuloDto.setNombreEmpresaProveedor(articulo.getProveedor().getNombreEmpresa());
-			articuloDto.setTelefonoProveedor(articulo.getProveedor().getTelefono());
-			articuloDto.setTipoProveedor(articulo.getProveedor().getTipoProveedor());
-		}
-		
-		if(articulo.getAlmacen() != null) {
-			articuloDto.setAlmacenId(articulo.getAlmacen().getId());
-			articuloDto.setCodigoAlmacen(articulo.getAlmacen().getCodigo());
-			articuloDto.setNombreAlmacen(articulo.getAlmacen().getNombre());
-		}
-		
-		logger.error("Error en el metodo obtenerArticuloDtoDesdeArticulo() con la empresa{} ", empresaId );
 		
 		return articuloDto;
 	}

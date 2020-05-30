@@ -150,25 +150,32 @@ public class NominaService {
 		
 		NominaDto nominaDto = new NominaDto();
 		
-		nominaDto.setId(nomina.getId());
-		nominaDto.setCodigo(nomina.getCodigo());
-		nominaDto.setEmpresaId(nomina.getEmpresa().getId());
-		nominaDto.setDescripcion(nomina.getDescripcion());
-		nominaDto.setSueldo(nomina.getSueldo());
-		nominaDto.setExtras(nomina.getExtras());
-		nominaDto.setFechaNomina(nomina.getFechaNomina());
-		
-		//Rellenamos los datos del empleado
-		if(nomina.getEmpleado() != null) {
-			nominaDto.setEmpleadoId(nomina.getEmpleado().getId());
-			nominaDto.setCodigoEmpleado(nomina.getEmpleado().getCodigo());
-			nominaDto.setNombreEmpleado(nomina.getEmpleado().getNombre());	
-			nominaDto.setApellidoPrimeroEmpleado(nomina.getEmpleado().getApellidoPrimero());
-			nominaDto.setApellidoSegundoEmpleado(nomina.getEmpleado().getApellidoSegundo());
-			nominaDto.setNifEmpleado(nomina.getEmpleado().getNif());
+		try {
+			
+			nominaDto.setId(nomina.getId());
+			nominaDto.setCodigo(nomina.getCodigo());
+			nominaDto.setEmpresaId(nomina.getEmpresa().getId());
+			nominaDto.setDescripcion(nomina.getDescripcion());
+			nominaDto.setSueldo(nomina.getSueldo());
+			nominaDto.setExtras(nomina.getExtras());
+			nominaDto.setFechaNomina(nomina.getFechaNomina());
+			
+			//Rellenamos los datos del empleado
+			if(nomina.getEmpleado() != null) {
+				nominaDto.setEmpleadoId(nomina.getEmpleado().getId());
+				nominaDto.setCodigoEmpleado(nomina.getEmpleado().getCodigo());
+				nominaDto.setNombreEmpleado(nomina.getEmpleado().getNombre());	
+				nominaDto.setApellidoPrimeroEmpleado(nomina.getEmpleado().getApellidoPrimero());
+				nominaDto.setApellidoSegundoEmpleado(nomina.getEmpleado().getApellidoSegundo());
+				nominaDto.setNifEmpleado(nomina.getEmpleado().getNif());
+			}
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
 		}
-		
-		logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
 		
 		return nominaDto;
 	}

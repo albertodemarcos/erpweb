@@ -155,22 +155,29 @@ public class FacturaService {
 		
 		FacturaDto facturaDto = new FacturaDto();
 		
-		facturaDto.setId(factura.getId());
-		facturaDto.setCodigo(factura.getCodigo());
-		facturaDto.setEmpresaId(factura.getEmpresa().getId());
-		facturaDto.setFechaCreacion(factura.getFechaCreacion());
-		facturaDto.setFechaInicio(factura.getFechaInicio());
-		facturaDto.setFechaFin(factura.getFechaFin());
-		facturaDto.setDescripcion(factura.getDescripcion());
-		facturaDto.setBaseImponible(factura.getBaseImponible());
-		facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
-		facturaDto.setImporteTotal(factura.getImporteTotal());
-		
-		if(!CollectionUtils.isEmpty(factura.getLineasFactura())) {
-			facturaDto.getLineasFactura().addAll(factura.getLineasFactura());
+		try {
+			
+			facturaDto.setId(factura.getId());
+			facturaDto.setCodigo(factura.getCodigo());
+			facturaDto.setEmpresaId(factura.getEmpresa().getId());
+			facturaDto.setFechaCreacion(factura.getFechaCreacion());
+			facturaDto.setFechaInicio(factura.getFechaInicio());
+			facturaDto.setFechaFin(factura.getFechaFin());
+			facturaDto.setDescripcion(factura.getDescripcion());
+			facturaDto.setBaseImponible(factura.getBaseImponible());
+			facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
+			facturaDto.setImporteTotal(factura.getImporteTotal());
+			
+			if(!CollectionUtils.isEmpty(factura.getLineasFactura())) {
+				facturaDto.getLineasFactura().addAll(factura.getLineasFactura());
+			}
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerFacturaDtoDesdeFactura() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
 		}
-		
-		logger.error("Error en el metodo obtenerFacturaDtoDesdeFactura() con la empresa{} ", empresaId );
 		
 		return facturaDto;
 	}

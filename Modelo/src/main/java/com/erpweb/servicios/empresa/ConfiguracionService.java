@@ -93,7 +93,7 @@ public class ConfiguracionService {
 	
 	public AccionRespuesta eliminarConfiguracion(Configuracion configuracion) {
 		
-		logger.debug("Entramos en el metodo eliminarConfiguracion() con la empresa={}", configuracion.getId() );
+		logger.debug("Entramos en el metodo eliminarConfiguracion() con la empresa={}", configuracion.getEmpresa().getId() );
 		
 		if(configuracion == null || configuracion.getId() == null) {
 			
@@ -106,7 +106,7 @@ public class ConfiguracionService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarConfiguracion() con la empresa{} ", configuracion.getId() );
+			logger.error("Error en el metodo eliminarConfiguracion() con la empresa{} ", configuracion.getEmpresa().getId() );
 			
 			e.printStackTrace();
 			
@@ -128,12 +128,19 @@ public class ConfiguracionService {
 		
 		ConfiguracionDto configuracionDto = new ConfiguracionDto();
 		
-		configuracionDto.setId(configuracion.getId());
-		configuracionDto.setCodigo(configuracion.getCodigo());
-		configuracionDto.setEmpresaId(configuracion.getEmpresa().getId());
-		configuracionDto.setIdiomaApp(configuracion.getIdiomaApp());
-		
-		logger.error("Error en el metodo obtenerConfiguracionDtoDesdeConfiguracion() con la empresa{} ", empresaId );
+		try {
+			
+			configuracionDto.setId(configuracion.getId());
+			configuracionDto.setCodigo(configuracion.getCodigo());
+			configuracionDto.setEmpresaId(configuracion.getEmpresa().getId());
+			configuracionDto.setIdiomaApp(configuracion.getIdiomaApp());
+			
+		} catch(Exception e) {
+			
+			logger.error("Error en el metodo obtenerConfiguracionDtoDesdeConfiguracion() con la empresa{} ", empresaId );
+			
+			e.printStackTrace();
+		}
 		
 		return configuracionDto;
 	}
