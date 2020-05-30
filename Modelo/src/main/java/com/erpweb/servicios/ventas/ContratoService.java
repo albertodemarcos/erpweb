@@ -35,6 +35,8 @@ public class ContratoService {
 	
 	public AccionRespuesta crearContratoDesdeContratoDto(ContratoDto contratoDto) {
 		
+		logger.debug("Entramos en el metodo crearContratoDesdeContratoDto() con la empresa={}", contratoDto.getEmpresaId() );
+		
 		Contrato contrato = new Contrato();
 
 		if(contratoDto.getEmpresaId() == null) {
@@ -67,7 +69,7 @@ public class ContratoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearContratoDesdeContratoDto() con la empresa{} ", contratoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -76,6 +78,8 @@ public class ContratoService {
 	}
 	
 	public AccionRespuesta actualizarContratoDesdeContratoDto(ContratoDto contratoDto) {
+		
+		logger.debug("Entramos en el metodo actualizarContratoDesdeContratoDto() con la empresa={}", contratoDto.getEmpresaId() );
 		
 		Contrato contrato = new Contrato();
 
@@ -109,7 +113,7 @@ public class ContratoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarContratoDesdeContratoDto() con la empresa{} ", contratoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -118,6 +122,8 @@ public class ContratoService {
 	}
 	
 	public AccionRespuesta eliminarContrato(Contrato contrato) {
+		
+		logger.debug("Entramos en el metodo eliminarContrato() con la empresa={}", contrato.getEmpresa().getId() );
 		
 		if(contrato == null || contrato.getId() == null) {
 			
@@ -130,7 +136,7 @@ public class ContratoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarContrato() con la empresa{} ", contrato.getEmpresa().getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -139,6 +145,8 @@ public class ContratoService {
 	}
 	
 	public ContratoDto obtenerContratoDtoDesdeContrato(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerContratoDtoDesdeContrato() con la empresa={}", empresaId );
 		
 		Contrato contrato = contratoRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -161,6 +169,8 @@ public class ContratoService {
 		if(!CollectionUtils.isEmpty(contrato.getLineasContrato())) {
 			contratoDto.getLineasContrato().addAll(contrato.getLineasContrato());
 		}
+		
+		logger.error("Error en el metodo obtenerContratoDtoDesdeContrato() con la empresa{} ", empresaId );
 		
 		return contratoDto;
 	}

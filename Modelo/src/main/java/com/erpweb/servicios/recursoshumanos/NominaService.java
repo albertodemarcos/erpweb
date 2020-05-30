@@ -32,6 +32,8 @@ public class NominaService {
 	
 	public AccionRespuesta crearNominaDesdeNominaDto(NominaDto nominaDto) {
 		
+		logger.debug("Entramos en el metodo crearNominaDesdeNominaDto() con la empresa={}", nominaDto.getEmpresaId() );
+		
 		Nomina nomina = new Nomina();
 
 		if(nominaDto.getEmpresaId() == null) {
@@ -59,7 +61,7 @@ public class NominaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearNominaDesdeNominaDto() con la empresa{} ", nominaDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -68,6 +70,8 @@ public class NominaService {
 	}
 	
 	public AccionRespuesta actualizarNominaDesdeNominaDto(NominaDto nominaDto) {
+		
+		logger.debug("Entramos en el metodo actualizarNominaDesdeNominaDto() con la empresa={}", nominaDto.getEmpresaId() );
 		
 		Nomina nomina = new Nomina();
 
@@ -97,7 +101,7 @@ public class NominaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarNominaDesdeNominaDto() con la empresa{} ", nominaDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -106,6 +110,8 @@ public class NominaService {
 	}
 	
 	public AccionRespuesta eliminarNomina(Nomina nomina) {
+		
+		logger.debug("Entramos en el metodo eliminarNomina() con la empresa={}", nomina.getEmpresa().getId() );
 		
 		if(nomina == null || nomina.getId() == null) {
 			
@@ -118,7 +124,7 @@ public class NominaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarNomina() con la empresa{} ", nomina.getEmpresa().getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -127,6 +133,8 @@ public class NominaService {
 	}
 	
 	public NominaDto obtenerNominaDtoDesdeNomina(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerNominaDtoDesdeNomina() con la empresa={}", empresaId );
 
 		Nomina nomina = nominaRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -153,6 +161,8 @@ public class NominaService {
 			nominaDto.setApellidoSegundoEmpleado(nomina.getEmpleado().getApellidoSegundo());
 			nominaDto.setNifEmpleado(nomina.getEmpleado().getNif());
 		}
+		
+		logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
 		
 		return nominaDto;
 	}

@@ -43,9 +43,11 @@ public class ClienteService {
 	
 	public AccionRespuesta crearClienteDesdeClienteDto(ClienteDto clienteDto) {
 		
+		logger.debug("Entramos en el metodo crearClienteDesdeClienteDto() con la empresa={}", clienteDto.getEmpresaId() );
+		
 		Cliente cliente = new Cliente();
 		
-		if(clienteDto == null) {
+		if(clienteDto == null || clienteDto.getEmpresaId() == null ) {
 			
 			return new AccionRespuesta();
 		}
@@ -85,7 +87,7 @@ public class ClienteService {
 		}catch(Exception e) {
 			//Error, el cliente se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
 			
 			cliente.setDireccionPostal(null);			
 		}
@@ -98,7 +100,7 @@ public class ClienteService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -108,10 +110,13 @@ public class ClienteService {
 	
 	public AccionRespuesta actualizarClienteDesdeClienteDto(ClienteDto clienteDto) {
 		
+		logger.debug("Entramos en el metodo actualizarClienteDesdeClienteDto() con la empresa={}", clienteDto.getEmpresaId() );
+		
 		Cliente cliente = new Cliente();
 		
-		if(clienteDto == null) {
-			//return Boolean.FALSE;
+		if( clienteDto == null  || clienteDto.getEmpresaId() == null ) {
+			
+			return new AccionRespuesta();
 		}
 		
 		Empresa empresa = empresaRepository.findById(clienteDto.getEmpresaId()).orElse(new Empresa());
@@ -151,7 +156,7 @@ public class ClienteService {
 		}catch(Exception e) {
 			//Error, el cliente se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
 			
 			cliente.setDireccionPostal(null);
 		}
@@ -164,7 +169,7 @@ public class ClienteService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarClienteDesdeClienteDto() con la empresa{} ", clienteDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -173,6 +178,8 @@ public class ClienteService {
 	}
 	
 	public AccionRespuesta eliminarCliente(Cliente cliente) {
+		
+		logger.debug("Entramos en el metodo eliminarCliente() con la empresa={}", cliente.getId() );
 		
 		if(cliente == null || cliente.getId() == null) {
 			
@@ -183,7 +190,7 @@ public class ClienteService {
 		
 		if(direccionPostal == null) {
 			
-			System.out.println("Error al eliminar la direccion postal del cliente: " + cliente.getId() );
+			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -194,7 +201,7 @@ public class ClienteService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error al eliminar la direccion postal de un cliente: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -206,7 +213,7 @@ public class ClienteService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error al eliminar el cliente: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarCliente() con la empresa{} ", cliente.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -215,6 +222,8 @@ public class ClienteService {
 	}
 	
 	public ClienteDto obtenerClienteDtoDesdeCliente(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerClienteDtoDesdeCliente() con la empresa={}", empresaId );
 		
 		Cliente cliente = clienteRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -255,6 +264,8 @@ public class ClienteService {
 		
 		clienteDto.setProvinciaId(poblacion.getId() !=null ? poblacion.getId() : 0L);
 		clienteDto.setNombreProvincia(poblacion.getNombre() !=null ? poblacion.getNombre() : "SIN_POBLACION");
+		
+		logger.error("Error en el metodo obtenerClienteDtoDesdeCliente() con la empresa{} ", empresaId );
 		
 		return clienteDto;
 	}

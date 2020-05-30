@@ -27,6 +27,8 @@ public class ProveedorService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public AccionRespuesta crearProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
+		
+		logger.debug("Entramos en el metodo crearProveedorDesdeProveedorDto() con la empresa={}", proveedorDto.getEmpresaId() );
 
 		Proveedor proveedor = new Proveedor();
 		
@@ -52,7 +54,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearProveedorDesdeProveedorDto() con la empresa{} ", proveedorDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -61,6 +63,8 @@ public class ProveedorService {
 	}
 	
 	public AccionRespuesta actualizarProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
+		
+		logger.debug("Entramos en el metodo actualizarProveedorDesdeProveedorDto() con la empresa={}", proveedorDto.getEmpresaId() );
 
 		Proveedor proveedor = new Proveedor();
 		
@@ -87,7 +91,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarProveedorDesdeProveedorDto() con la empresa{} ", proveedorDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -96,6 +100,8 @@ public class ProveedorService {
 	}
 	
 	public AccionRespuesta eliminarProveedor(Proveedor proveedor) {
+		
+		logger.debug("Entramos en el metodo eliminarProveedor() con la empresa={}", proveedor.getId() );
 		
 		if(proveedor == null || proveedor.getId() == null) {
 			
@@ -108,7 +114,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarProveedor() con la empresa{} ", proveedor.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -118,6 +124,8 @@ public class ProveedorService {
 	
 	
 	public ProveedorDto obtenerProveedorDtoDesdeProveedor(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerProveedorDtoDesdeProveedor() con la empresa={}", empresaId );
 		
 		Proveedor proveedor = proveedorRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -135,6 +143,8 @@ public class ProveedorService {
 		proveedorDto.setArticulo(proveedor.getArticulo());
 		proveedorDto.setCantidad(proveedor.getCantidad());
 		proveedorDto.setTipoProveedor(proveedor.getTipoProveedor());
+		
+		logger.error("Error en el metodo obtenerProveedorDtoDesdeProveedor() con la empresa{} ", empresaId );
 		
 		return proveedorDto;
 	}

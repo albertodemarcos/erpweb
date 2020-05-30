@@ -45,6 +45,8 @@ public class ArticuloService {
 	
 	public AccionRespuesta crearArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
 		
+		logger.debug("Entramos en el metodo crearArticuloDesdeArticuloDto() con la empresa={}", articuloDto.getEmpresaId() );
+		
 		Articulo articulo = new Articulo();
 		
 		if(articuloDto.getEmpresaId() == null) {
@@ -86,7 +88,7 @@ public class ArticuloService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearArticuloDesdeArticuloDto() con la empresa{} ", articuloDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -95,6 +97,8 @@ public class ArticuloService {
 	}
 	
 	public AccionRespuesta actualizarArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
+		
+		logger.debug("Entramos en el metodo actualizarArticuloDesdeArticuloDto() con la empresa={}", articuloDto.getEmpresaId() );
 		
 		Articulo articulo = new Articulo();
 		
@@ -137,7 +141,7 @@ public class ArticuloService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarArticuloDesdeArticuloDto() con la empresa{} ", articuloDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -146,6 +150,8 @@ public class ArticuloService {
 	}
 	
 	public AccionRespuesta eliminarArticulo(Articulo articulo) {
+		
+		logger.debug("Entramos en el metodo eliminarArticulo() con la empresa={}", articulo.getId() );
 		
 		if(articulo == null || articulo.getId() == null) {
 			
@@ -158,7 +164,7 @@ public class ArticuloService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarArticulo() con la empresa{} ", articulo.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -167,6 +173,8 @@ public class ArticuloService {
 	}
 	
 	public ArticuloDto obtenerArticuloDtoDesdeArticulo(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerArticuloDtoDesdeArticulo() con la empresa={}", empresaId );
 		
 		Articulo articulo = articuloRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -205,6 +213,8 @@ public class ArticuloService {
 			articuloDto.setCodigoAlmacen(articulo.getAlmacen().getCodigo());
 			articuloDto.setNombreAlmacen(articulo.getAlmacen().getNombre());
 		}
+		
+		logger.error("Error en el metodo obtenerArticuloDtoDesdeArticulo() con la empresa{} ", empresaId );
 		
 		return articuloDto;
 	}

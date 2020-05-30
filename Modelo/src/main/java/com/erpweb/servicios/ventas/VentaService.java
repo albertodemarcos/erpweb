@@ -34,6 +34,8 @@ public class VentaService {
 	
 	public AccionRespuesta crearVentaDesdeVentaDto(VentaDto ventaDto) {
 		
+		logger.debug("Entramos en el metodo crearVentaDesdeVentaDto() con la empresa={}", ventaDto.getEmpresaId() );
+		
 		Venta venta = new Venta();
 
 		if(ventaDto.getEmpresaId() == null) {
@@ -65,7 +67,7 @@ public class VentaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearVentaDesdeVentaDto() con la empresa{} ", ventaDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -74,6 +76,8 @@ public class VentaService {
 	}
 	
 	public AccionRespuesta actualizarVentaDesdeVentaDto(VentaDto ventaDto) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", ventaDto.getEmpresaId() );
 		
 		Venta venta = new Venta();
 
@@ -107,7 +111,7 @@ public class VentaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarVentaDesdeVentaDto() con la empresa{} ", ventaDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -116,6 +120,8 @@ public class VentaService {
 	}
 	
 	public AccionRespuesta eliminarVenta(Venta venta) {
+		
+		logger.debug("Entramos en el metodo eliminarVenta() con la empresa={}", venta.getEmpresa().getId() );
 		
 		if(venta == null || venta.getId() == null) {
 			
@@ -128,7 +134,7 @@ public class VentaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarVenta() con la empresa{} ", venta.getEmpresa().getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -137,6 +143,8 @@ public class VentaService {
 	}
 	
 	public VentaDto obtenerVentaDtoDesdeVenta(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerVentaDtoDesdeVenta() con la empresa={}", empresaId );
 		
 		Venta venta = ventaRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -159,6 +167,8 @@ public class VentaService {
 		if(!CollectionUtils.isEmpty(venta.getLineasVenta())) {
 			ventaDto.getLineasVenta().addAll(venta.getLineasVenta());
 		}
+		
+		logger.error("Error en el metodo obtenerVentaDtoDesdeVenta() con la empresa{} ", empresaId );
 		
 		return ventaDto;
 	}

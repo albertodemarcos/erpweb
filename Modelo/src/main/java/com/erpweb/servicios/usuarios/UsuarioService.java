@@ -28,6 +28,8 @@ public class UsuarioService {
 	
 	public AccionRespuesta crearUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
+		logger.debug("Entramos en el metodo crearUsuarioDesdeUsuarioDto() con la empresa={}", usuarioDto.getEmpresaId() );
+		
 		Usuario usuario = new Usuario();
 
 		if(usuarioDto.getEmpresaId() == null) {
@@ -50,7 +52,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearUsuarioDesdeUsuarioDto() con la empresa{} ", usuarioDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -59,6 +61,8 @@ public class UsuarioService {
 	}
 	
 	public AccionRespuesta actualizarUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
+		
+		logger.debug("Entramos en el metodo actualizarUsuarioDesdeUsuarioDto() con la empresa={}", usuarioDto.getEmpresaId() );
 		
 		Usuario usuario = new Usuario();
 
@@ -83,7 +87,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarUsuarioDesdeUsuarioDto() con la empresa{} ", usuarioDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -92,6 +96,8 @@ public class UsuarioService {
 	}
 	
 	public AccionRespuesta eliminarUsuario(Usuario usuario) {
+		
+		logger.debug("Entramos en el metodo eliminarUsuario() con la empresa={}", usuario.getEmpresa().getId() );
 		
 		if(usuario == null || usuario.getId() == null) {
 			
@@ -104,7 +110,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarUsuario() con la empresa{} ", usuario.getEmpresa().getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -113,6 +119,8 @@ public class UsuarioService {
 	}
 	
 	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa={}", empresaId );
 		
 		Usuario usuario = usuarioRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -128,6 +136,8 @@ public class UsuarioService {
 		usuarioDto.setPassword(usuario.getPassword());
 		usuarioDto.setIdentidad(usuario.getIdentidad());
 		usuarioDto.setIdioma(usuario.getIdioma());
+		
+		logger.error("Error en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa{} ", empresaId );
 		
 		return usuarioDto;
 	}

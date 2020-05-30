@@ -26,6 +26,8 @@ public class CompraService {
 	
 	public AccionRespuesta crearCompraDesdeCompraDto(CompraDto compraDto) {
 		
+		logger.debug("Entramos en el metodo crearCompraDesdeCompraDto() con la empresa={}", compraDto.getEmpresaId() );
+		
 		Compra compra = new Compra();
 		
 		if(compraDto.getEmpresaId() == null) {
@@ -42,12 +44,13 @@ public class CompraService {
 		compra.setProveedor(compraDto.getProveedor());
 		
 		try {
+			
 			//Guardamos la compra en base de datos
 			compraRepository.save(compra);
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearCompraDesdeCompraDto() con la empresa{} ", compraDto.getEmpresaId() );
 						
 			return new AccionRespuesta();
 		}
@@ -56,6 +59,8 @@ public class CompraService {
 	}
 	
 	public AccionRespuesta actualizarCompraDesdeCompraDto(CompraDto compraDto) {
+		
+		logger.debug("Entramos en el metodo actualizarCompraDesdeCompraDto() con la empresa={}", compraDto.getEmpresaId() );
 		
 		Compra compra = new Compra();
 		
@@ -74,12 +79,13 @@ public class CompraService {
 		compra.setProveedor(compraDto.getProveedor());
 		
 		try {
+			
 			//Actualizamos la compra en base de datos
 			compraRepository.save(compra);
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarCompraDesdeCompraDto() con la empresa{} ", compraDto.getEmpresaId() );
 						
 			return new AccionRespuesta();
 		}
@@ -89,18 +95,21 @@ public class CompraService {
 	
 	public AccionRespuesta eliminarCompra(Compra compra) {
 		
+		logger.debug("Entramos en el metodo eliminarCompra() con la empresa={}", compra.getId() );
+		
 		if(compra == null || compra.getId() == null) {
 			
 			return new AccionRespuesta();
 		}
 		
 		try {
+			
 			//Elimnamos la compra
 			compraRepository.deleteById(compra.getId());
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarCompra() con la empresa{} ", compra.getId() );
 						
 			return new AccionRespuesta();
 		}
@@ -110,9 +119,12 @@ public class CompraService {
 		
 	public CompraDto obtenerCompraDtoDesdeCompra(Long id, Long empresaId) {
 		
+		logger.debug("Entramos en el metodo obtenerCompraDtoDesdeCompra() con la empresa={}", empresaId );
+		
 		Compra compra = compraRepository.findByIdAndEmpresaId(id, empresaId);
 		
 		if(compra == null) {
+			
 			return new CompraDto();
 		}
 		
@@ -123,6 +135,8 @@ public class CompraService {
 		compraDto.setFechaCompra(compra.getFechaCompra());
 		compraDto.setLineaCompra(compra.getLineaCompra());
 		compraDto.setProveedor(compra.getProveedor());
+		
+		logger.error("Error en el metodo obtenerCompraDtoDesdeCompra() con la empresa{} ", empresaId );
 		
 		return compraDto;
 	}

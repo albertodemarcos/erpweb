@@ -44,9 +44,11 @@ public class EmpleadoService {
 	
 	public AccionRespuesta crearEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
 		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empleadoDto.getEmpresaId() );
+		
 		Empleado empleado = new Empleado();
 		
-		if(empleadoDto == null) {
+		if(empleadoDto == null || empleadoDto.getEmpresaId() == null ) {
 			
 			return new AccionRespuesta();
 		}
@@ -96,7 +98,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -105,6 +107,8 @@ public class EmpleadoService {
 	}
 	
 	public AccionRespuesta actualizarEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empleadoDto.getEmpresaId() );
 		
 		Empleado empleado = new Empleado();
 		
@@ -159,7 +163,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -168,6 +172,8 @@ public class EmpleadoService {
 	}
 	
 	public AccionRespuesta eliminarEmpleado(Empleado empleado) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empleado.getEmpresa().getId() );
 		
 		if(empleado == null || empleado.getId() == null) {
 			
@@ -178,7 +184,7 @@ public class EmpleadoService {
 		
 		if(direccionPostal == null) {
 			
-			System.out.println("Error al eliminar la direccion postal del empleado: " + empleado.getId() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getCif(),  empleado.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -189,7 +195,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error al eliminar la direccion postal de un empleado: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getCif(),  empleado.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -201,7 +207,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error al eliminar el empleado: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa={} ", empleado.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -210,6 +216,8 @@ public class EmpleadoService {
 	}
 	
 	public EmpleadoDto obtenerEmpleadoDtoDesdeEmpleado(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empresaId );
 		
 		Empleado empleado = empleadoRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -249,6 +257,8 @@ public class EmpleadoService {
 		
 		empleadoDto.setProvinciaId(poblacion.getId() !=null ? poblacion.getId() : 0L);
 		empleadoDto.setNombreProvincia(poblacion.getNombre() !=null ? poblacion.getNombre() : "SIN_POBLACION");
+		
+		logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
 		
 		return empleadoDto;
 	}

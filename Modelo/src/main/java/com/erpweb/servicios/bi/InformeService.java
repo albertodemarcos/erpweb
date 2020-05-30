@@ -25,10 +25,12 @@ public class InformeService {
 	
 	public AccionRespuesta crearInformeDesdeInformeDto( InformeDto informeDto ) {
 		
+		logger.debug("Entramos en el metodo crearInformeDesdeInformeDto() con la empresa={}", informeDto.getEmpresaId() );
+		
 		Informe informe = new Informe();
 		
 		if(informeDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
 			return new AccionRespuesta();
 		}
 		
@@ -44,22 +46,24 @@ public class InformeService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearInformeDesdeInformeDto() con la empresa{} ", informeDto.getEmpresaId() );
 			
-			//return Boolean.FALSE;
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
 		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarInformeDesdeInformeDto( InformeDto informeDto ) {
 		
+		logger.debug("Entramos en el metodo actualizarInformeDesdeInformeDto() con la empresa={}", informeDto.getEmpresaId() );
+		
 		Informe informe = new Informe();
 		
 		if(informeDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
 			return new AccionRespuesta();
 		}
 		
@@ -75,44 +79,50 @@ public class InformeService {
 			informeRepository.save(informe);
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarInformeDesdeInformeDto() con la empresa{} ", informeDto.getEmpresaId() );
 			
-			//return Boolean.FALSE;
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
-		}
+		}		
 		
-		//return Boolean.TRUE;
 		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarInforme(Informe informe ) {
 		
+		logger.debug("Entramos en el metodo eliminarInforme() con la empresa={}", informe.getId() );
+		
 		if(informe == null || informe.getId() == null) {
-			//return Boolean.FALSE;
+			
 			return new AccionRespuesta();
 		}
 		
 		try {
+			
 			//Eliminamos el informe
 			informeRepository.deleteById(informe.getId());
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo eliminarInforme() con la empresa{} ", informe.getId() );
 			
-			//return Boolean.FALSE;
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
-		}
+		}		
 		
-		//return Boolean.TRUE;
 		return new AccionRespuesta();
 	}
 	
 	public InformeDto obtenerInformeDtoDesdeInforme(Long id, Long empresaId) {
 		
+		logger.debug("Entramos en el metodo obtenerInformeDtoDesdeInforme() con la empresa={}", empresaId );
+		
 		Informe informe = informeRepository.findByIdAndEmpresaId(id, empresaId);
 		
 		if(informe == null) {
+			
 			return new InformeDto();
 		}
 		
@@ -121,6 +131,8 @@ public class InformeService {
 		informeDto.setCodigo(informe.getCodigo());
 		informeDto.setEmpresaId(empresaId);
 		informeDto.setGenerado(informe.getGenerado());
+		
+		logger.error("Error en el metodo obtenerInformeDtoDesdeInforme() con la empresa{} ", empresaId );
 		
 		return informeDto;
 	}

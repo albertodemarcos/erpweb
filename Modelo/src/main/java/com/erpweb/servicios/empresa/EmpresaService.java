@@ -23,6 +23,8 @@ public class EmpresaService {
 	
 	
 	public AccionRespuesta crearEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
+		
+		logger.debug("Entramos en el metodo crearEmpresaDesdeEmpresaDto()" );
 
 		Empresa empresa = new Empresa();
 		
@@ -42,7 +44,7 @@ public class EmpresaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
+			logger.error("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
 			return new AccionRespuesta();
 		}
@@ -51,6 +53,8 @@ public class EmpresaService {
 	}
 	
 	public AccionRespuesta actualizarEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
+		
+		logger.debug("Entramos en el metodo actualizarEmpresaDesdeEmpresaDto() con la empresa={}", empresaDto.getId() );
 		
 		Empresa empresa = new Empresa();
 		
@@ -71,7 +75,7 @@ public class EmpresaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
+			logger.error("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
 			return new AccionRespuesta();
 		}
@@ -80,6 +84,8 @@ public class EmpresaService {
 	}
 	
 	public AccionRespuesta eliminarEmpresa(Empresa empresa) {
+		
+		logger.debug("Entramos en el metodo eliminarEmpresa() con la empresa={}", empresa.getId() );
 		
 		if(empresa == null || empresa.getId() == null) {
 			
@@ -92,7 +98,7 @@ public class EmpresaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarEmpresa() con la empresa{} ", empresa.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -101,6 +107,8 @@ public class EmpresaService {
 	}
 	
 	public EmpresaDto obtenerEmpresaDtoDesdeEmpresa(Long id) {
+		
+		logger.debug("Entramos en el metodo obtenerEmpresaDtoDesdeEmpresa() con la empresa={}", id );
 		
 		Empresa empresa = empresaRepository.findById(id).orElse(new Empresa());
 		
@@ -115,6 +123,8 @@ public class EmpresaService {
 		empresaDto.setNombre(empresa.getNombre());
 		empresaDto.setCif(empresa.getCif());
 		empresaDto.setTipoSociedadJuridica(empresa.getTipoSociedadJuridica());
+		
+		logger.error("Error en el metodo obtenerEmpresaDtoDesdeEmpresa() con la empresa{} ", id );
 		
 		return empresaDto;
 	}

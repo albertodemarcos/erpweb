@@ -31,7 +31,7 @@ public class GastoService {
 		Gasto gasto = new Gasto();
 
 		if(gastoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
 			return new AccionRespuesta();
 		}
 		
@@ -54,22 +54,22 @@ public class GastoService {
 			
 			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", gastoDto.getEmpresaId() );
 			
-			e.printStackTrace();
+			e.printStackTrace();			
 			
-			//return Boolean.FALSE;
 			return new AccionRespuesta();
 		}
-		
-		//return Boolean.TRUE;
+				
 		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarGastoDesdeGastoDto(GastoDto gastoDto) {
 		
+		logger.debug("Entramos en el metodo actualizarGastoDesdeGastoDto() con la empresa={}", gastoDto.getEmpresaId() );
+		
 		Gasto gasto = new Gasto();
 
 		if(gastoDto.getEmpresaId() == null) {
-			//return Boolean.FALSE;
+			
 			return new AccionRespuesta();
 		}
 		
@@ -91,20 +91,22 @@ public class GastoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarGastoDesdeGastoDto() con la empresa{} ", gastoDto.getEmpresaId() );
 			
-			//return Boolean.FALSE;
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
-		
-		//return Boolean.TRUE;
+				
 		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarGasto(Gasto gasto) {
 		
+		logger.error("Entramos en el metodo eliminarGasto() con la empresa{} ", gasto.getEmpresa().getId() );
+		
 		if(gasto == null || gasto.getId() == null) {
-			//return Boolean.FALSE;
+			
 			return new AccionRespuesta();
 		}
 		
@@ -114,17 +116,20 @@ public class GastoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarGasto() con la empresa{} ", gasto.getEmpresa().getId() );
 			
-			//return Boolean.FALSE;
+			e.printStackTrace();
+			
 			return new AccionRespuesta();
 		}
 		
-		//return Boolean.TRUE;
+		
 		return new AccionRespuesta();
 	}
 	
 	public GastoDto obtenerGastoDtoDesdeGasto(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerGastoDtoDesdeGasto() con la empresa={}", empresaId );
 		
 		if( (id ==  null || id.doubleValue() < 1 ) || (empresaId == null || empresaId.intValue() < 1 ) ) {
 			
@@ -148,8 +153,9 @@ public class GastoService {
 			
 		} catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo obtenerGastoDtoDesdeGasto() con la empresa{} ", gastoDto.getEmpresaId() );
 			
+			e.printStackTrace();
 		}
 		
 		return gastoDto;

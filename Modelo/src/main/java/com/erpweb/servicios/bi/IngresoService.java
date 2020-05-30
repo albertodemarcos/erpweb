@@ -26,6 +26,8 @@ public class IngresoService {
 	
 	public AccionRespuesta crearIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
 		
+		logger.debug("Entramos en el metodo crearIngresoDesdeIngresoDto() con la empresa={}", ingresoDto.getEmpresaId() );
+		
 		Ingreso ingreso = new Ingreso();
 		
 		if(ingresoDto.getEmpresaId() == null) {
@@ -45,12 +47,13 @@ public class IngresoService {
 		ingreso.setObservaciones(ingresoDto.getObservaciones()); 
 		
 		try {
+			
 			//Guardamos el ingreso en base de datos
 			ingresoRepository.save(ingreso);
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearIngresoDesdeIngresoDto() con la empresa{} ", ingresoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -59,6 +62,8 @@ public class IngresoService {
 	}
 	
 	public AccionRespuesta actualizarIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
+		
+		logger.debug("Entramos en el metodo actualizarIngresoDesdeIngresoDto() con la empresa={}", ingresoDto.getEmpresaId() );
 
 		Ingreso ingreso = new Ingreso();
 		
@@ -79,12 +84,13 @@ public class IngresoService {
 		ingreso.setObservaciones(ingresoDto.getObservaciones()); 
 		
 		try {
+			
 			//Guardamos el ingreso en base de datos
 			ingresoRepository.save(ingreso);
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarIngresoDesdeIngresoDto() con la empresa{} ", ingresoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -94,18 +100,21 @@ public class IngresoService {
 	
 	public AccionRespuesta eliminarIngreso(Ingreso ingreso) {
 		
+		logger.debug("Entramos en el metodo eliminarIngreso() con la empresa={}", ingreso.getId() );
+		
 		if(ingreso == null || ingreso.getId() == null) {
 			
 			return new AccionRespuesta();
 		}
 		
 		try {
+			
 			//Elimnamos el ingreso
 			ingresoRepository.deleteById(ingreso.getId());
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarIngreso() con la empresa{} ", ingreso.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -116,9 +125,12 @@ public class IngresoService {
 		
 	public IngresoDto obtenerIngresoDtoDesdeIngreso(Long id, Long empresaId) {
 		
+		logger.debug("Entramos en el metodo obtenerIngresoDtoDesdeIngreso() con la empresa={}", empresaId );
+		
 		Ingreso ingreso = ingresoRepository.findByIdAndEmpresaId(id, empresaId);
 		
 		if(ingreso == null) {
+			
 			return new IngresoDto();
 		}
 		
@@ -132,6 +144,8 @@ public class IngresoService {
 		ingresoDto.setImporteTotal(ingreso.getImporteTotal());
 		ingresoDto.setDescripcion(ingreso.getDescripcion());
 		ingresoDto.setObservaciones(ingreso.getObservaciones()); 
+		
+		logger.error("Error en el metodo obtenerIngresoDtoDesdeIngreso() con la empresa{} ", empresaId );
 		
 		return ingresoDto;
 	}	

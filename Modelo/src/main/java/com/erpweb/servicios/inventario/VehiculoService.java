@@ -30,6 +30,8 @@ public class VehiculoService {
 	
 	public AccionRespuesta crearVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", vehiculoDto.getEmpresaId() );
+		
 		Vehiculo vehiculo = new Vehiculo();
 
 		if(vehiculoDto.getEmpresaId() == null) {
@@ -48,12 +50,13 @@ public class VehiculoService {
 		vehiculo.setFechaMatriculacion(vehiculoDto.getFechaMatriculacion());
 		
 		try {
+			
 			//Guardamos el vehiculo en base de datos
 			vehiculoRepository.save(vehiculo);
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -62,6 +65,8 @@ public class VehiculoService {
 	}
 	
 	public AccionRespuesta actualizarVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", vehiculoDto.getEmpresaId() );
 		
 		Vehiculo vehiculo = new Vehiculo();
 
@@ -87,7 +92,7 @@ public class VehiculoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculoDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -96,6 +101,8 @@ public class VehiculoService {
 	}
 	
 	public AccionRespuesta eliminarVehiculo(Vehiculo vehiculo) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", vehiculo.getId() );
 		
 		if(vehiculo == null || vehiculo.getId() == null) {
 			
@@ -108,7 +115,7 @@ public class VehiculoService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", vehiculo.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -117,6 +124,8 @@ public class VehiculoService {
 	}
 	
 	public VehiculoDto obtenerVehiculoDtoDesdeVehiculo(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empresaId );
 		
 		Vehiculo vehiculo = vehiculoRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -133,6 +142,8 @@ public class VehiculoService {
 		vehiculoDto.setModelo(vehiculo.getModelo());
 		vehiculoDto.setTipoVehiculo(vehiculo.getTipoVehiculo());
 		vehiculoDto.setFechaMatriculacion(vehiculo.getFechaMatriculacion());
+		
+		logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
 		
 		return vehiculoDto;
 	}

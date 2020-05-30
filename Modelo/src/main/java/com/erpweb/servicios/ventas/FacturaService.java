@@ -30,6 +30,8 @@ public class FacturaService {
 	
 	public AccionRespuesta crearFacturaDesdeFacturaDto(FacturaDto facturaDto) {
 		
+		logger.debug("Entramos en el metodo crearFacturaDesdeFacturaDto() con la empresa={}", facturaDto.getEmpresaId() );
+		
 		Factura factura = new Factura();
 
 		if(facturaDto.getEmpresaId() == null) {
@@ -59,7 +61,7 @@ public class FacturaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearFacturaDesdeFacturaDto() con la empresa{} ", facturaDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -68,6 +70,8 @@ public class FacturaService {
 	}
 	
 	public AccionRespuesta actualizarFacturaDesdeFacturaDto(FacturaDto facturaDto) {
+		
+		logger.debug("Entramos en el metodo actualizarFacturaDesdeFacturaDto() con la empresa={}", facturaDto.getEmpresaId() );
 		
 		Factura factura = new Factura();
 
@@ -99,7 +103,7 @@ public class FacturaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarFacturaDesdeFacturaDto() con la empresa{} ", facturaDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -108,6 +112,8 @@ public class FacturaService {
 	}
 	
 	public AccionRespuesta eliminarFactura(Factura factura) {
+		
+		logger.debug("Entramos en el metodo eliminarFactura() con la empresa={}", factura.getEmpresa().getId() );
 		
 		if(factura == null || factura.getId() == null) {
 			
@@ -120,7 +126,7 @@ public class FacturaService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarFactura() con la empresa{} ", factura.getEmpresa().getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -129,6 +135,8 @@ public class FacturaService {
 	}
 	
 	public FacturaDto obtenerFacturaDtoDesdeFactura(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerFacturaDtoDesdeFactura() con la empresa={}", empresaId );
 
 		Factura factura = facturaRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -152,6 +160,8 @@ public class FacturaService {
 		if(!CollectionUtils.isEmpty(factura.getLineasFactura())) {
 			facturaDto.getLineasFactura().addAll(factura.getLineasFactura());
 		}
+		
+		logger.error("Error en el metodo obtenerFacturaDtoDesdeFactura() con la empresa{} ", empresaId );
 		
 		return facturaDto;
 	}

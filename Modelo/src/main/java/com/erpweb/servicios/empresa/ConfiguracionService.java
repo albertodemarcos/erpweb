@@ -25,6 +25,8 @@ public class ConfiguracionService {
 	
 	
 	public AccionRespuesta crearConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
+		
+		logger.debug("Entramos en el metodo crearConfiguracionDesdeConfiguracionDto() con la empresa={}", configuracionDto.getEmpresaId() );
 
 		Configuracion configuracion = new Configuracion();
 		
@@ -45,7 +47,7 @@ public class ConfiguracionService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo crearConfiguracionDesdeConfiguracionDto() con la empresa{} ", configuracionDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -54,6 +56,8 @@ public class ConfiguracionService {
 	}
 	
 	public AccionRespuesta actualizarConfiguracionDesdeConfiguracionDto(ConfiguracionDto configuracionDto) {
+		
+		logger.debug("Entramos en el metodo actualizarConfiguracionDesdeConfiguracionDto() con la empresa={}", configuracionDto.getEmpresaId() );
 
 		Configuracion configuracion = new Configuracion();
 		
@@ -75,7 +79,7 @@ public class ConfiguracionService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage() );
+			logger.error("Error en el metodo actualizarConfiguracionDesdeConfiguracionDto() con la empresa{} ", configuracionDto.getEmpresaId() );
 			
 			return new AccionRespuesta();
 		}
@@ -84,6 +88,8 @@ public class ConfiguracionService {
 	}
 	
 	public AccionRespuesta eliminarConfiguracion(Configuracion configuracion) {
+		
+		logger.debug("Entramos en el metodo eliminarConfiguracion() con la empresa={}", configuracion.getId() );
 		
 		if(configuracion == null || configuracion.getId() == null) {
 			
@@ -96,7 +102,7 @@ public class ConfiguracionService {
 			
 		}catch(Exception e) {
 			
-			System.out.println("Error: " + e.getLocalizedMessage());
+			logger.error("Error en el metodo eliminarConfiguracion() con la empresa{} ", configuracion.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -105,6 +111,8 @@ public class ConfiguracionService {
 	}
 	
 	public ConfiguracionDto obtenerConfiguracionDtoDesdeConfiguracion(Long id, Long empresaId) {
+		
+		logger.debug("Entramos en el metodo obtenerConfiguracionDtoDesdeConfiguracion() con la empresa={}", empresaId );
 
 		Configuracion configuracion = configuracionRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -118,6 +126,8 @@ public class ConfiguracionService {
 		configuracionDto.setCodigo(configuracion.getCodigo());
 		configuracionDto.setEmpresaId(configuracion.getEmpresa().getId());
 		configuracionDto.setIdiomaApp(configuracion.getIdiomaApp());
+		
+		logger.error("Error en el metodo obtenerConfiguracionDtoDesdeConfiguracion() con la empresa{} ", empresaId );
 		
 		return configuracionDto;
 	}
