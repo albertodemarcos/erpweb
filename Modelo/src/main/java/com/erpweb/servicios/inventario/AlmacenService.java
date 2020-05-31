@@ -122,6 +122,27 @@ public class AlmacenService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarAlmacenPorId(Long almacenId) {
+		
+		logger.error("Entramos en el metodo eliminarAlmacenPorId() con id={}", almacenId );
+				
+		try {
+			
+			//Elimnamos el almacen
+			almacenRepository.deleteById(almacenId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarAlmacenPorId() con id={}", almacenId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
+	
 	public AlmacenDto obtenerAlmacenDtoDesdeAlmacen(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerAlmacenDtoDesdeAlmacen() con la empresa={}", empresaId );

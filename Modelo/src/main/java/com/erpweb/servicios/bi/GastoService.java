@@ -131,6 +131,27 @@ public class GastoService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarGastoPorId(Long gastoId) {
+		
+		logger.error("Entramos en el metodo eliminarGastoPorId() con id={}", gastoId );
+				
+		try {
+			//Elimnamos el gasto
+			gastoRepository.deleteById(gastoId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarGastoPorId() con id={}", gastoId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public GastoDto obtenerGastoDtoDesdeGasto(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerGastoDtoDesdeGasto() con la empresa={}", empresaId );
@@ -202,6 +223,12 @@ public class GastoService {
 		}
 		
 		return AccionRespuesta;
+	}
+	
+	public AccionRespuesta getCrearEditarGasto(Long gastoId, Usuario user) {
+		
+		return null;
+		
 	}
 	
 	

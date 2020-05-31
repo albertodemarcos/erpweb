@@ -65,11 +65,15 @@ public class InformeController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarInforme")
-	public @ResponseBody AccionRespuesta postEliminarInforme() {
+	@PostMapping("/eliminarInforme/{informeId}")
+	public @ResponseBody AccionRespuesta postEliminarInforme( @PathVariable Long informeId, Usuario user ) throws Exception {
 		
+		if(informeId == null || informeId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.informeService.eliminarInformePorId(informeId);
 	}
 	
 	

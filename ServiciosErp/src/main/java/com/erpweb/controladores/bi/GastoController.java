@@ -70,15 +70,15 @@ public class GastoController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarGasto")
-	public @ResponseBody AccionRespuesta postEliminarGasto(GastoDto gasto) {
+	@PostMapping("/eliminarGasto/{gastoId}")
+	public @ResponseBody AccionRespuesta postEliminarGasto( @PathVariable Long gastoId, Usuario user ) throws Exception {
 		
-		if(gasto == null) {
+		if(gastoId == null || gastoId.longValue() < 1L ) {
 			
 			return new AccionRespuesta();
 		}
 		
-		return new AccionRespuesta();
+		return this.gastoService.eliminarGastoPorId(gastoId);
 	}
 
 }

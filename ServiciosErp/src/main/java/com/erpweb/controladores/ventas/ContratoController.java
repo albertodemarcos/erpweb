@@ -67,10 +67,14 @@ public class ContratoController {
 	}
 	
 	@PostMapping("/eliminarContrato")
-	public @ResponseBody AccionRespuesta postEliminarContrato(  ) {
+	public @ResponseBody AccionRespuesta postEliminarContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
 		
+		if(contratoId == null || contratoId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.contratoService.eliminarContratoPorId(contratoId);
 	}
 	
 	

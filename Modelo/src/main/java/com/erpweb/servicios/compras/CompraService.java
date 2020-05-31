@@ -125,6 +125,27 @@ public class CompraService {
 				
 		return new AccionRespuesta();
 	}
+	
+	public AccionRespuesta eliminarCompraPorId(Long compraId) {
+		
+		logger.error("Entramos en el metodo eliminarCompraPorId() con id={}", compraId );
+				
+		try {
+			
+			//Elimnamos el compra
+			compraRepository.deleteById(compraId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarCompraPorId() con id={}", compraId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
 		
 	public CompraDto obtenerCompraDtoDesdeCompra(Long id, Long empresaId) {
 		

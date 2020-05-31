@@ -66,11 +66,15 @@ public class ConfiguracionController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarConfiguracion")
-	public @ResponseBody AccionRespuesta postEliminarConfiguracion(  ) {
+	@PostMapping("/eliminarConfiguracion/{configuracionId}")
+	public @ResponseBody AccionRespuesta postEliminarConfiguracion( @PathVariable Long configuracionId, Usuario user) throws Exception {
 		
+		if(configuracionId == null || configuracionId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.configuracionService.eliminarConfiguracionPorId(configuracionId);		
 	}
 	
 	

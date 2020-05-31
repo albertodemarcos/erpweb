@@ -66,11 +66,15 @@ public class EmpresaController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarEmpresa")
-	public @ResponseBody AccionRespuesta postEliminarEmpresa(  ) {
+	@PostMapping("/eliminarEmpresa/empresaId")
+	public @ResponseBody AccionRespuesta postEliminarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
 		
+		if(empresaId == null || empresaId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.empresaService.eliminarEmpresaPorId(empresaId);
 	}
 	
 	

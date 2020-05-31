@@ -65,10 +65,15 @@ public class ProveedorController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarProveedor")
-	public @ResponseBody AccionRespuesta postEliminarProveedor(  ) {
+	@PostMapping("/eliminarProveedor/{proveedorId}")
+	public @ResponseBody AccionRespuesta postEliminarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
 		
-		return new AccionRespuesta();
+		if(proveedorId == null || proveedorId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
+		
+		return this.proveedorService.eliminarProveedorPorId(proveedorId);
 	}
 	
 }

@@ -119,6 +119,27 @@ public class ConfiguracionService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarConfiguracionPorId(Long configuracionId) {
+		
+		logger.error("Entramos en el metodo eliminarConfiguracionPorId() con id={}", configuracionId );
+				
+		try {
+			//Elimnamos el configuracion
+			configuracionRepository.deleteById(configuracionId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarConfiguracionPorId() con id={}", configuracionId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public ConfiguracionDto obtenerConfiguracionDtoDesdeConfiguracion(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerConfiguracionDtoDesdeConfiguracion() con la empresa={}", empresaId );

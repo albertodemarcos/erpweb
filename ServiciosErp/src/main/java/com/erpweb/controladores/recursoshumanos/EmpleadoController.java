@@ -65,11 +65,15 @@ public class EmpleadoController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarEmpleado")
-	public @ResponseBody AccionRespuesta postEliminarEmpleado(  ) {
+	@PostMapping("/eliminarEmpleado/{empleadoId}")
+	public @ResponseBody AccionRespuesta postEliminarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
 		
+		if(empleadoId == null || empleadoId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.empleadoService.eliminarEmpleadoPorId(empleadoId);
 	}
 	
 	

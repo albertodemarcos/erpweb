@@ -133,6 +133,27 @@ public class VehiculoService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarVehiculoPorId(Long vehiculoId) {
+		
+		logger.error("Entramos en el metodo eliminarVehiculoPorId() con id={}", vehiculoId );
+				
+		try {
+			
+			//Elimnamos el vehiculo
+			vehiculoRepository.deleteById(vehiculoId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarVehiculoPorId() con id={}", vehiculoId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
+	
 	public VehiculoDto obtenerVehiculoDtoDesdeVehiculo(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con la empresa={}", empresaId );

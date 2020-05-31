@@ -236,6 +236,28 @@ public class ClienteService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarClientePorId(Long clienteId) {
+		
+		logger.error("Entramos en el metodo eliminarClientePorId() con id={}", clienteId );
+				
+		try {
+			
+			//Elimnamos el cliente
+			clienteRepository.deleteById(clienteId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarClientePorId() con id={}", clienteId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public ClienteDto obtenerClienteDtoDesdeCliente(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerClienteDtoDesdeCliente() con la empresa={}", empresaId );

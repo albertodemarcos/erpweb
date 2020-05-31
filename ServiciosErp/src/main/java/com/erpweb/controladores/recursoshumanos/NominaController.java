@@ -64,10 +64,15 @@ public class NominaController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarNomina")
-	public @ResponseBody AccionRespuesta postEliminarNomina(  ) {
+	@PostMapping("/eliminarNomina/{nominaId}")
+	public @ResponseBody AccionRespuesta postEliminarNomina( @PathVariable Long nominaId, Usuario user) throws Exception {
 		
-		return new AccionRespuesta();
+		if(nominaId == null || nominaId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
+		
+		return this.nominaService.eliminarNominaPorId(nominaId);
 	}
 	
 	

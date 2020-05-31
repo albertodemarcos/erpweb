@@ -153,6 +153,28 @@ public class ContratoService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarContratoPorId(Long contratoId) {
+		
+		logger.error("Entramos en el metodo eliminarContratoPorId() con id={}", contratoId );
+				
+		try {
+			
+			//Elimnamos el contrato
+			contratoRepository.deleteById(contratoId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarContratoPorId() con id={}", contratoId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public ContratoDto obtenerContratoDtoDesdeContrato(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerContratoDtoDesdeContrato() con la empresa={}", empresaId );

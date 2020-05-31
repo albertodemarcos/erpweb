@@ -66,10 +66,15 @@ public class AlmacenController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarAlmacen")
-	public @ResponseBody AccionRespuesta postEliminarAlmacen(  ) {
+	@PostMapping("/eliminarAlmacen/{almacenId}")
+	public @ResponseBody AccionRespuesta postEliminarAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
 		
-		return new AccionRespuesta();
+		if(almacenId == null || almacenId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
+		
+		return this.almacenService.eliminarAlmacenPorId(almacenId);
 	}
 	
 	

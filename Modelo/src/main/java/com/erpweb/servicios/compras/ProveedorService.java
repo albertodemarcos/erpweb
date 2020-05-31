@@ -131,6 +131,25 @@ public class ProveedorService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarProveedorPorId(Long proveedorId) {
+		
+		logger.error("Entramos en el metodo eliminarProveedorPorId() con id={}", proveedorId );
+				
+		try {
+			//Elimnamos el proveedor
+			proveedorRepository.deleteById(proveedorId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarProveedorPorId() con id={}", proveedorId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
 	
 	public ProveedorDto obtenerProveedorDtoDesdeProveedor(Long id, Long empresaId) {
 		
@@ -165,7 +184,7 @@ public class ProveedorService {
 		return proveedorDto;
 	}
 	
-	public AccionRespuesta getproveedor(Long proveedorId, Usuario user) {
+	public AccionRespuesta getProveedor(Long proveedorId, Usuario user) {
 		
 		logger.debug("Entramos en el metodo getproveedor()");
 		

@@ -182,6 +182,28 @@ public class ArticuloService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarArticuloPorId(Long articuloId) {
+		
+		logger.error("Entramos en el metodo eliminarArticuloPorId() con id={}", articuloId );
+				
+		try {
+			
+			//Elimnamos el articulo
+			articuloRepository.deleteById(articuloId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarArticuloPorId() con id={}", articuloId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public ArticuloDto obtenerArticuloDtoDesdeArticulo(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerArticuloDtoDesdeArticulo() con la empresa={}", empresaId );

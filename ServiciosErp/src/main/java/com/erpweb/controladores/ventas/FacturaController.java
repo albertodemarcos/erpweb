@@ -66,11 +66,15 @@ public class FacturaController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarFactura")
-	public @ResponseBody AccionRespuesta postEliminarFactura(  ) {
+	@PostMapping("/eliminarFactura/{facturaId}")
+	public @ResponseBody AccionRespuesta postEliminarFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
 		
+		if(facturaId == null || facturaId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.facturaService.eliminarFacturaPorId(facturaId);
 	}
 	
 	

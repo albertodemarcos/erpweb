@@ -141,6 +141,27 @@ public class NominaService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarNominaPorId(Long nominaId) {
+		
+		logger.error("Entramos en el metodo eliminarNominaPorId() con id={}", nominaId );
+				
+		try {
+			
+			//Elimnamos la nomina
+			nominaRepository.deleteById(nominaId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarNominaPorId() con id={}", nominaId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
+	
 	public NominaDto obtenerNominaDtoDesdeNomina(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerNominaDtoDesdeNomina() con la empresa={}", empresaId );

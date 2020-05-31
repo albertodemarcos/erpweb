@@ -146,6 +146,28 @@ public class FacturaService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarFacturaPorId(Long facturaId) {
+		
+		logger.error("Entramos en el metodo eliminarFacturaPorId() con id={}", facturaId );
+				
+		try {
+			
+			//Elimnamos la factura
+			facturaRepository.deleteById(facturaId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarFacturaPorId() con id={}", facturaId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public FacturaDto obtenerFacturaDtoDesdeFactura(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerFacturaDtoDesdeFactura() con la empresa={}", empresaId );

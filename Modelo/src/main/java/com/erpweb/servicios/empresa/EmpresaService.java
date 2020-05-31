@@ -115,6 +115,27 @@ public class EmpresaService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarEmpresaPorId(Long empresaId) {
+		
+		logger.error("Entramos en el metodo eliminarEmpresaPorId() con id={}", empresaId );
+				
+		try {
+			
+			//Elimnamos la empresa
+			empresaRepository.deleteById(empresaId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarEmpresaPorId() con id={}", empresaId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
+	
 	public EmpresaDto obtenerEmpresaDtoDesdeEmpresa(Long id) {
 		
 		logger.debug("Entramos en el metodo obtenerEmpresaDtoDesdeEmpresa() con la empresa={}", id );

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.erpweb.dto.GastoDto;
 import com.erpweb.dto.InformeDto;
 import com.erpweb.entidades.bi.Informe;
 import com.erpweb.entidades.empresa.Empresa;
@@ -120,6 +119,27 @@ public class InformeService {
 		
 		return new AccionRespuesta();
 	}
+	
+	public AccionRespuesta eliminarInformePorId(Long informeId) {
+			
+			logger.error("Entramos en el metodo eliminarInformePorId() con id={}", informeId );
+					
+			try {
+				//Elimnamos el informe
+				informeRepository.deleteById(informeId);
+				
+			}catch(Exception e) {
+				
+				logger.error("Error en el metodo eliminarinformePorId() con id={}", informeId );
+				
+				e.printStackTrace();
+				
+				return new AccionRespuesta();
+			}
+			
+			
+			return new AccionRespuesta();
+		}
 	
 	public InformeDto obtenerInformeDtoDesdeInforme(Long id, Long empresaId) {
 		

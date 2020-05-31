@@ -65,11 +65,15 @@ public class UsuarioController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarUsuario")
-	public @ResponseBody AccionRespuesta postEliminarUsuario(  ) {
+	@PostMapping("/eliminarUsuario/{usuarioId}")
+	public @ResponseBody AccionRespuesta postEliminarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
 		
+		if(usuarioId == null || usuarioId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.usuarioService.eliminarUsuarioPorId(usuarioId);
 	}
 	
 	

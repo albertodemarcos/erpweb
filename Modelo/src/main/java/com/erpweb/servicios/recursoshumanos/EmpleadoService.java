@@ -233,6 +233,28 @@ public class EmpleadoService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarEmpleadoPorId(Long empleadoId) {
+		
+		logger.error("Entramos en el metodo eliminarEmpleadoPorId() con id={}", empleadoId );
+				
+		try {
+			
+			//Elimnamos el empleado
+			empleadoRepository.deleteById(empleadoId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarEmpleadoPorId() con id={}", empleadoId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		
+		return new AccionRespuesta();
+	}
+	
 	public EmpleadoDto obtenerEmpleadoDtoDesdeEmpleado(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo crearempleadoDesdeempleadoDto() con la empresa={}", empresaId );

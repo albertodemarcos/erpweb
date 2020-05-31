@@ -154,6 +154,27 @@ public class VentaService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarVentaPorId(Long ventaId) {
+		
+		logger.error("Entramos en el metodo eliminarVentaPorId() con id={}", ventaId );
+				
+		try {
+			
+			//Elimnamos la venta
+			ventaRepository.deleteById(ventaId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarVentaPorId() con id={}", ventaId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
+	
 	public VentaDto obtenerVentaDtoDesdeVenta(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerVentaDtoDesdeVenta() con la empresa={}", empresaId );

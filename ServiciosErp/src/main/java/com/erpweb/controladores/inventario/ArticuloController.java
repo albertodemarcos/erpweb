@@ -67,9 +67,14 @@ public class ArticuloController {
 	}
 	
 	@PostMapping("/eliminarArticulo")
-	public @ResponseBody AccionRespuesta postEliminarArticulo(  ) {
+	public @ResponseBody AccionRespuesta postEliminarArticulo( @PathVariable Long articuloId, Usuario user) throws Exception {
 		
-		return new AccionRespuesta();
+		if(articuloId == null || articuloId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
+		
+		return this.articuloService.eliminarArticuloPorId(articuloId);
 	}
 	
 	

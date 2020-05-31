@@ -64,11 +64,15 @@ public class VehiculoController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarVehiculo")
-	public @ResponseBody AccionRespuesta postEliminarVehiculo(  ) {
+	@PostMapping("/eliminarVehiculo/{vehiculoId}")
+	public @ResponseBody AccionRespuesta postEliminarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
 		
+		if(vehiculoId == null || vehiculoId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.vehiculoService.eliminarVehiculoPorId(vehiculoId);
 	}
 	
 	

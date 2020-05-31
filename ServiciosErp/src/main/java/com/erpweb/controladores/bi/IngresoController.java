@@ -66,10 +66,14 @@ public class IngresoController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarIngreso")
-	public @ResponseBody AccionRespuesta postEliminarIngreso() {
+	@PostMapping("/eliminarIngreso/{ingresoId}")
+	public @ResponseBody AccionRespuesta postEliminarIngreso( @PathVariable Long ingresoId, Usuario user ) throws Exception {
 		
+		if(ingresoId == null || ingresoId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.ingresoService.eliminarIngresoPorId(ingresoId);
 	}
 }

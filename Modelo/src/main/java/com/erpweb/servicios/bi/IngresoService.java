@@ -131,6 +131,27 @@ public class IngresoService {
 		return new AccionRespuesta();
 		
 	}
+	
+	public AccionRespuesta eliminarIngresoPorId(Long ingresoId) {
+		
+		logger.error("Entramos en el metodo eliminarIngresoPorId() con id={}", ingresoId );
+				
+		try {
+			
+			//Elimnamos el ingreso
+			ingresoRepository.deleteById(ingresoId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarIngresoPorId() con id={}", ingresoId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
 		
 	public IngresoDto obtenerIngresoDtoDesdeIngreso(Long id, Long empresaId) {
 		

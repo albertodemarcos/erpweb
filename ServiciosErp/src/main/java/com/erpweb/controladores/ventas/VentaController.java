@@ -66,11 +66,15 @@ public class VentaController {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/eliminarVenta")
-	public @ResponseBody AccionRespuesta postEliminarVenta(  ) {
+	@PostMapping("/eliminarVenta/{ventaId}")
+	public @ResponseBody AccionRespuesta postEliminarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
 		
+		if(ventaId == null || ventaId.longValue() < 1L ) {
+			
+			return new AccionRespuesta();
+		}
 		
-		return new AccionRespuesta();
+		return this.ventaService.eliminarVentaPorId(ventaId);
 	}
 	
 	

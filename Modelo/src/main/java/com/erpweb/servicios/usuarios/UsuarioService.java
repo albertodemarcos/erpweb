@@ -126,6 +126,27 @@ public class UsuarioService {
 		return new AccionRespuesta();
 	}
 	
+	public AccionRespuesta eliminarUsuarioPorId(Long usuarioId) {
+		
+		logger.error("Entramos en el metodo eliminarUsuarioPorId() con id={}", usuarioId );
+				
+		try {
+			
+			//Elimnamos el usuario
+			usuarioRepository.deleteById(usuarioId);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo eliminarUsuarioPorId() con id={}", usuarioId );
+			
+			e.printStackTrace();
+			
+			return new AccionRespuesta();
+		}
+		
+		return new AccionRespuesta();
+	}
+	
 	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id, Long empresaId) {
 		
 		logger.debug("Entramos en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa={}", empresaId );
