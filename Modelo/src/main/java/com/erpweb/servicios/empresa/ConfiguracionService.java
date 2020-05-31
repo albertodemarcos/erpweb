@@ -1,5 +1,7 @@
 package com.erpweb.servicios.empresa;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.erpweb.dto.ConfiguracionDto;
 import com.erpweb.entidades.empresa.Configuracion;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.ConfiguracionRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -42,7 +45,7 @@ public class ConfiguracionService {
 		configuracion.setIdiomaApp(configuracionDto.getIdiomaApp());
 		
 		try {
-			//Guardamos el gasto en base de datos
+			//Guardamos el Configuracion en base de datos
 			configuracionRepository.save(configuracion);
 			
 		}catch(Exception e) {
@@ -76,7 +79,7 @@ public class ConfiguracionService {
 		configuracion.setIdiomaApp(configuracionDto.getIdiomaApp());
 		
 		try {
-			//Guardamos el gasto en base de datos
+			//Guardamos el Configuracion en base de datos
 			configuracionRepository.save(configuracion);
 			
 		}catch(Exception e) {
@@ -143,6 +146,45 @@ public class ConfiguracionService {
 		}
 		
 		return configuracionDto;
+	}
+	
+	public AccionRespuesta getConfiguracion(Long ConfiguracionId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getConfiguracion()");
+		
+		if( ConfiguracionId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el configuración", Boolean.FALSE);
+		}
+		
+		ConfiguracionDto ConfiguracionDto = this.obtenerConfiguracionDtoDesdeConfiguracion(ConfiguracionId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( ConfiguracionDto != null ) {
+			
+			AccionRespuesta.setId( ConfiguracionDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("ConfiguracionDto", ConfiguracionDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar la configuración");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.erpweb.servicios.compras;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.compras.Compra;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.compras.CompraRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -152,6 +155,45 @@ public class CompraService {
 		}
 		
 		return compraDto;
+	}
+	
+	public AccionRespuesta getCompra(Long compraId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCompra()");
+		
+		if( compraId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe la compra", Boolean.FALSE);
+		}
+		
+		CompraDto compraDto = this.obtenerCompraDtoDesdeCompra(compraId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( compraDto != null ) {
+			
+			AccionRespuesta.setId( compraDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("compraDto", compraDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar la compra");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

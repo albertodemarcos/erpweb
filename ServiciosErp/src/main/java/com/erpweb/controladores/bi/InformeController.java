@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.bi.Informe;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.bi.InformeService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.bi.InformeValidator;
 
 
@@ -24,53 +28,61 @@ public class InformeController {
 	@Autowired
 	private InformeService informeService;
 
-	@GetMapping("/informe")
-	public String getInforme() {
-		return "";
+	@GetMapping("/informe/{informeId}")
+	public @ResponseBody AccionRespuesta getInforme(@PathVariable Long informeId, Usuario user) throws Exception {
+		
+		return this.informeService.getInforme(informeId, user);
 	}
 	
-	@GetMapping("/informes")
+	@GetMapping("/listado")
 	public String getInformes() {
 		return "";
 	}
 	
 	@GetMapping("/crearInforme")
-	public String getCrearInforme() {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearInforme() {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearInforme")
-	public String postCrearInforme( Informe informe, BindingResult result) {
+	public @ResponseBody AccionRespuesta postCrearInforme( Informe informe, BindingResult result) {
 		
 		this.informeValidator.validate(informe, result);
 		
 		if( result.hasErrors() ) {
-			return "";
+			
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
-	@GetMapping("/editarInforme")
-	public String getEditarInforme() {
-		return "";
+	@GetMapping("/editarInforme/{informeId}")
+	public @ResponseBody AccionRespuesta getEditarInforme(@PathVariable Long informeId, Usuario user) throws Exception {
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarInforme")
-	public String postEditarInforme( Informe informe, BindingResult result) {
+	public @ResponseBody AccionRespuesta postEditarInforme( Informe informe, BindingResult result) {
 		
 		this.informeValidator.validate(informe, result);
 		
 		if( result.hasErrors() ) {
-			return "";
+			
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarInforme")
-	public String postEliminarInforme() {
-		return "";
+	public @ResponseBody AccionRespuesta postEliminarInforme() {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	

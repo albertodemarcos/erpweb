@@ -1,5 +1,7 @@
 package com.erpweb.servicios.inventario;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.erpweb.dto.AlmacenDto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Almacen;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -104,7 +107,7 @@ public class AlmacenService {
 		}
 		
 		try {
-			//Elimnamos el gasto
+			//Elimnamos el almacen
 			almacenRepository.deleteById(almacen.getId());
 			
 		}catch(Exception e) {
@@ -146,6 +149,45 @@ public class AlmacenService {
 		}
 		
 		return almacenDto;
+	}
+	
+	public AccionRespuesta getAlmacen(Long almacenId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getAlmacen()");
+		
+		if( almacenId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el almacen", Boolean.FALSE);
+		}
+		
+		AlmacenDto almacenDto = this.obtenerAlmacenDtoDesdeAlmacen(almacenId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( almacenDto != null ) {
+			
+			AccionRespuesta.setId( almacenDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("almacenDto", almacenDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el almacen");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

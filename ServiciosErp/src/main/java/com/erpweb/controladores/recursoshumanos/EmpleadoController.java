@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.recursoshumanos.Empleado;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.recursoshumanos.EmpleadoService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.recursoshumanos.EmpleadoValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -23,55 +27,61 @@ public class EmpleadoController {
 	@Autowired
 	private EmpleadoService empleadoService;
 
-	@GetMapping("/empleado")
-	public String getEmpleado(  ) {
-		return "";
+	@GetMapping("/empleado/{empleadoId}")
+	public @ResponseBody AccionRespuesta getEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+		
+		return this.empleadoService.getEmpleado(empleadoId, user);
 	}
 	
-	@GetMapping("/empleados")
+	@GetMapping("/listado")
 	public String getEmpleados(  ) {
+		
 		return "";
 	}
 	
 	@GetMapping("/crearEmpleado")
-	public String getCrearEmpleado(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearEmpleado(  ) {
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearEmpleado")
-	public String postCrearEmpleado( Empleado empleado, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearEmpleado( Empleado empleado, BindingResult result ) {
 		
 		this.empleadoValidator.validate(empleado, result);
 		
 		if( result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@GetMapping("/editarEmpleado")
-	public String getEditarEmpleado(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getEditarEmpleado(  ) {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarEmpleado")
-	public String postEditarEmpleado( Empleado empleado, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarEmpleado( Empleado empleado, BindingResult result ) {
 
 		this.empleadoValidator.validate(empleado, result);
 		
 		if( result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarEmpleado")
-	public String postEliminarEmpleado(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta postEliminarEmpleado(  ) {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	

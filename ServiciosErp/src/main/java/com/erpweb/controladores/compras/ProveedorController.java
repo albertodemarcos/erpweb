@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.compras.Proveedor;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.compras.ProveedorService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.ProveedorValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -23,53 +27,59 @@ public class ProveedorController {
 	@Autowired
 	private ProveedorService proveedorService;
 	
-	@GetMapping("/proveedor")
-	public String getProveedor(  ) {
-		return "";
+	@GetMapping("/proveedor/{proveedorId}")
+	public @ResponseBody AccionRespuesta getProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+		
+		return this.proveedorService.getproveedor(proveedorId, user);
 	}
 	
-	@GetMapping("/proveedores")
+	@GetMapping("/listado")
 	public String getProveedores(  ) {
 		return "";
 	}
 	
 	@GetMapping("/crearProveedor")
-	public String getCrearProveedor(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearProveedor(  ) {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearProveedor")
-	public String postCrearProveedor( Proveedor proveedor, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearProveedor( Proveedor proveedor, BindingResult result ) {
 		
 		this.proveedorValidator.validate(proveedor, result);
 		
 		if(	result.hasErrors() ) {
-			return "";
+			
+			
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@GetMapping("/editarProveedor")
-	public String getEditarProveedor(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getEditarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarProveedor")
-	public String postEditarProveedor( Proveedor proveedor, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarProveedor( Proveedor proveedor, BindingResult result ) {
 		
 		this.proveedorValidator.validate(proveedor, result);
 		
 		if(	result.hasErrors() ) {
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarProveedor")
-	public String postEliminarProveedor(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta postEliminarProveedor(  ) {
+		
+		return new AccionRespuesta();
 	}
 	
 }

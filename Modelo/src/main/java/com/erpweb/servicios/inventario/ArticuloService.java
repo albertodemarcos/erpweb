@@ -1,5 +1,7 @@
 package com.erpweb.servicios.inventario;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.erpweb.entidades.comun.Impuesto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.entidades.inventario.Articulo;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.compras.ProveedorRepository;
 import com.erpweb.repositorios.comun.ImpuestoRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
@@ -164,7 +167,7 @@ public class ArticuloService {
 		}
 		
 		try {
-			//Elimnamos el gasto
+			//Elimnamos el articulo
 			articuloRepository.deleteById(articulo.getId());
 			
 		}catch(Exception e) {
@@ -231,6 +234,45 @@ public class ArticuloService {
 		}
 		
 		return articuloDto;
+	}
+	
+	public AccionRespuesta getArticulo(Long articuloId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getArticulo()");
+		
+		if( articuloId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el articulo", Boolean.FALSE);
+		}
+		
+		ArticuloDto articuloDto = this.obtenerArticuloDtoDesdeArticulo(articuloId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( articuloDto != null ) {
+			
+			AccionRespuesta.setId( articuloDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("articuloDto", articuloDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el articulo");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.erpweb.servicios.empresa;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.EmpresaDto;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -140,6 +143,45 @@ public class EmpresaService {
 		}
 		
 		return empresaDto;
+	}
+	
+	public AccionRespuesta getEmpresa(Long empresaId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getEmpresa()");
+		
+		if( empresaId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe la empresa", Boolean.FALSE);
+		}
+		
+		EmpresaDto empresaDto = this.obtenerEmpresaDtoDesdeEmpresa(empresaId);
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( empresaDto != null ) {
+			
+			AccionRespuesta.setId( empresaDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("empresaDto", empresaDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar la empresa");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 	
 }

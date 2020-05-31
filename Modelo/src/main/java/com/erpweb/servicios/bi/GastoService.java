@@ -1,5 +1,7 @@
 package com.erpweb.servicios.bi;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.erpweb.dto.GastoDto;
 import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.bi.GastoRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -160,6 +163,45 @@ public class GastoService {
 		}
 		
 		return gastoDto;
+	}
+	
+	public AccionRespuesta getGasto(Long gastoId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearGasto()");
+		
+		if( gastoId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el gasto", Boolean.FALSE);
+		}
+		
+		GastoDto gastoDto = this.obtenerGastoDtoDesdeGasto(gastoId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( gastoDto != null ) {
+			
+			AccionRespuesta.setId( gastoDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("gastoDto", gastoDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el gasto");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 	
 	

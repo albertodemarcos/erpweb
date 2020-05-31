@@ -4,12 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.GastoDto;
+import com.erpweb.entidades.bi.Gasto;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.bi.GastoService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.bi.GastoValidator;
 
 
@@ -25,65 +30,69 @@ public class GastoController {
 	@Autowired
 	private GastoService gastoService;
 	
-	@GetMapping("/gasto")
-	public String getGasto() {
-		return "";
+	@GetMapping("/gasto/{gastoId}")
+	public @ResponseBody AccionRespuesta getGasto(@PathVariable Long gastoId, Usuario user) throws Exception {
+		
+		return this.gastoService.getGasto(gastoId, user);
 	}
 	
-	@GetMapping("/gastos")
+	@GetMapping("/listado")
 	public String getGastos() {
+		
+		
 		return "";
 	}
 	
 	@GetMapping("/crearGasto")
-	public String getCrearGasto() {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearGasto() {
+
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearGasto")
-	public String postCrearGasto(GastoDto gasto, BindingResult result) {
+	public @ResponseBody AccionRespuesta postCrearGasto(GastoDto gasto, BindingResult result) {
 		
 		this.gastoValidator.validate(gasto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
-	@GetMapping("/editarGasto")
-	public String getEditarGasto() {
-		return "";
+	@GetMapping("/editarGasto/{gastoId}")
+	public @ResponseBody AccionRespuesta getEditarGasto(@PathVariable Long gastoId, Usuario user) {
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarGasto")
-	public String postEditarGasto(GastoDto gasto, BindingResult result) {
+	public @ResponseBody AccionRespuesta postEditarGasto(GastoDto gasto, BindingResult result) {
 		
 		this.gastoValidator.validate(gasto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarGasto")
-	public String postEliminarGasto(GastoDto gasto) {
+	public @ResponseBody AccionRespuesta postEliminarGasto(GastoDto gasto) {
 		
 		if(gasto == null) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		
-		
-		return "";
+		return new AccionRespuesta();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.erpweb.servicios.ventas;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.erpweb.dto.VentaDto;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
@@ -80,7 +83,7 @@ public class VentaService {
 	
 	public AccionRespuesta actualizarVentaDesdeVentaDto(VentaDto ventaDto) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", ventaDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearventaDesdeventaDto() con la empresa={}", ventaDto.getEmpresaId() );
 		
 		Venta venta = new Venta();
 
@@ -189,5 +192,43 @@ public class VentaService {
 		return ventaDto;
 	}
 	
+	public AccionRespuesta getVenta(Long ventaId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearventa()");
+		
+		if( ventaId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, no existe la venta", Boolean.FALSE);
+		}
+		
+		VentaDto ventaDto = this.obtenerVentaDtoDesdeVenta(ventaId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( ventaDto != null ) {
+			
+			AccionRespuesta.setId( ventaDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("ventaDto", ventaDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar la venta");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
+	}
 	
 }

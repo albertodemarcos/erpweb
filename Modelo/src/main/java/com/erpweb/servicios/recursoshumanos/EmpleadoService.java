@@ -1,5 +1,7 @@
 package com.erpweb.servicios.recursoshumanos;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.erpweb.entidades.comun.Poblacion;
 import com.erpweb.entidades.comun.Provincia;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.recursoshumanos.Empleado;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.comun.DireccionPostalRepository;
 import com.erpweb.repositorios.comun.PoblacionRepository;
 import com.erpweb.repositorios.comun.ProvinciaRepository;
@@ -44,7 +47,7 @@ public class EmpleadoService {
 	
 	public AccionRespuesta crearEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empleadoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearempleadoDesdeempleadoDto() con la empresa={}", empleadoDto.getEmpresaId() );
 		
 		Empleado empleado = new Empleado();
 		
@@ -89,7 +92,7 @@ public class EmpleadoService {
 		}catch(Exception e) {
 			//Error, el empleado se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al guardar la direccion postal", empleadoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} al guardar la direccion postal", empleadoDto.getEmpresaId() );
 			
 			e.printStackTrace();
 			
@@ -102,7 +105,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
 			
 			e.printStackTrace();
 			
@@ -114,7 +117,7 @@ public class EmpleadoService {
 	
 	public AccionRespuesta actualizarEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empleadoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearempleadoDesdeempleadoDto() con la empresa={}", empleadoDto.getEmpresaId() );
 		
 		Empleado empleado = new Empleado();
 		
@@ -159,7 +162,7 @@ public class EmpleadoService {
 		}catch(Exception e) {
 			//Error, el empleado se queda sin direccion postal por un error
 			//pero permitimos que continue la ejecucion
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al guardar la direccion postal ", empleadoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} al guardar la direccion postal ", empleadoDto.getEmpresaId() );
 			
 			e.printStackTrace();
 			
@@ -172,7 +175,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} ", empleadoDto.getEmpresaId() );
 			
 			e.printStackTrace();
 			
@@ -184,7 +187,7 @@ public class EmpleadoService {
 	
 	public AccionRespuesta eliminarEmpleado(Empleado empleado) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empleado.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo crearempleadoDesdeempleadoDto() con la empresa={}", empleado.getEmpresa().getId() );
 		
 		if(empleado == null || empleado.getId() == null) {
 			
@@ -195,7 +198,7 @@ public class EmpleadoService {
 		
 		if(direccionPostal == null) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getId(),  empleado.getId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getId(),  empleado.getId() );
 			
 			return new AccionRespuesta();
 		}
@@ -206,7 +209,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getId(),  empleado.getId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} al eliminar la direccion postal del empleado={} ", empleado.getEmpresa().getId(),  empleado.getId() );
 			
 			e.printStackTrace();
 			
@@ -220,7 +223,7 @@ public class EmpleadoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa={} ", empleado.getId() );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa={} ", empleado.getId() );
 			
 			e.printStackTrace();
 			
@@ -232,7 +235,7 @@ public class EmpleadoService {
 	
 	public EmpleadoDto obtenerEmpleadoDtoDesdeEmpleado(Long id, Long empresaId) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo crearempleadoDesdeempleadoDto() con la empresa={}", empresaId );
 		
 		Empleado empleado = empleadoRepository.findByIdAndEmpresaId(id, empresaId);
 		
@@ -277,12 +280,51 @@ public class EmpleadoService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con la empresa{} ", empresaId );
 			
 			e.printStackTrace();
 		}
 		
 		return empleadoDto;
+	}
+	
+	public AccionRespuesta getEmpleado(Long empleadoId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getEmpleado()");
+		
+		if( empleadoId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el empleado", Boolean.FALSE);
+		}
+		
+		EmpleadoDto empleadoDto = this.obtenerEmpleadoDtoDesdeEmpleado(empleadoId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( empleadoDto != null ) {
+			
+			AccionRespuesta.setId( empleadoDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("empleadoDto", empleadoDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el empleado");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

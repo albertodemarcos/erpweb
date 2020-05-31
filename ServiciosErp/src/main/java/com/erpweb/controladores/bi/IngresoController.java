@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.bi.Ingreso;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.bi.IngresoService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.bi.IngresoValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -23,52 +27,62 @@ public class IngresoController {
 	@Autowired
 	private IngresoService ingresoService;
 
-	@GetMapping("/ingreso")
-	public String getIngreso() {
-		return "";
+	@GetMapping("/ingreso/{ingresoId}")
+	public @ResponseBody AccionRespuesta getIngreso(@PathVariable Long ingresoId, Usuario user) {
+		
+		return this.ingresoService.getIngreso(ingresoId, user);
 	}
 	
-	@GetMapping("/ingresos")
+	@GetMapping("/listado")
 	public String getIngresos() {
+		
+		
 		return "";
 	}
 	
 	@GetMapping("/crearIngreso")
-	public String getCrearIngreso() {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearIngreso() {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearIngreso")
-	public String postCrearIngreso( Ingreso ingreso, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearIngreso( Ingreso ingreso, BindingResult result ) {
 		
 		this.ingresoValidator.validate(ingreso, result);
 		
 		if( result.hasErrors() ) {
-			return "";
+			
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
-	@GetMapping("/editarIngreso")
-	public String getEditarIngreso() {
-		return "";
+	@GetMapping("/editarIngreso/{ingresoId}")
+	public @ResponseBody AccionRespuesta getEditarIngreso(@PathVariable Long ingresoId, Usuario user) throws Exception {
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarIngreso")
-	public String postEditarIngreso( Ingreso ingreso, BindingResult result) {
+	public @ResponseBody AccionRespuesta postEditarIngreso( Ingreso ingreso, BindingResult result) {
 		
 		this.ingresoValidator.validate(ingreso, result);
 		
 		if( result.hasErrors() ) {
-			return "";
+			
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarIngreso")
-	public String postEliminarIngreso() {
-		return "";
+	public @ResponseBody AccionRespuesta postEliminarIngreso() {
+		
+		
+		return new AccionRespuesta();
 	}
 }

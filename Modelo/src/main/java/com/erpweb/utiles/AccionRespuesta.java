@@ -1,7 +1,7 @@
 package com.erpweb.utiles;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashMap;
 
 public class AccionRespuesta implements Serializable {
 
@@ -11,7 +11,7 @@ public class AccionRespuesta implements Serializable {
 	private String codigo;
 	private String respuesta;
 	private Boolean resultado;
-	private List<Object> data;
+	private HashMap<String, Object> data;
 	
 	
 	public AccionRespuesta() {
@@ -31,7 +31,7 @@ public class AccionRespuesta implements Serializable {
 		this.resultado = resultado;
 	}
 	
-	public AccionRespuesta(Long id, String codigo, Boolean resultado, List<Object> data) {
+	public AccionRespuesta(Long id, String codigo, Boolean resultado, HashMap<String, Object> data) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -71,11 +71,11 @@ public class AccionRespuesta implements Serializable {
 		this.resultado = resultado;
 	}
 	
-	public List<Object> getData() {
+	public HashMap<String, Object> getData() {
 		return data;
 	}
 	
-	public void setData(List<Object> data) {
+	public void setData(HashMap<String, Object> data) {
 		this.data = data;
 	}
 	

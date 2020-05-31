@@ -1,5 +1,7 @@
 package com.erpweb.servicios.recursoshumanos;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import com.erpweb.dto.NominaDto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.recursoshumanos.Empleado;
 import com.erpweb.entidades.recursoshumanos.Nomina;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.recursoshumanos.EmpleadoRepository;
 import com.erpweb.repositorios.recursoshumanos.NominaRepository;
@@ -56,7 +59,7 @@ public class NominaService {
 		nomina.setEmpleado(empleado);
 		
 		try {
-			//Guardamos el gasto en base de datos
+			//Guardamos el nomina en base de datos
 			nominaRepository.save(nomina);
 			
 		}catch(Exception e) {
@@ -98,7 +101,7 @@ public class NominaService {
 		nomina.setEmpleado(empleado);
 		
 		try {
-			//Guardamos el gasto en base de datos
+			//Guardamos el nomina en base de datos
 			nominaRepository.save(nomina);
 			
 		}catch(Exception e) {
@@ -172,7 +175,7 @@ public class NominaService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo crearnominaDesdenominaDto() con la empresa{} ", empresaId );
 			
 			e.printStackTrace();
 		}
@@ -180,4 +183,43 @@ public class NominaService {
 		return nominaDto;
 	}
 
+	public AccionRespuesta getNomina(Long nominaId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getNomina()");
+		
+		if( nominaId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe la nomina", Boolean.FALSE);
+		}
+		
+		NominaDto nominaDto = this.obtenerNominaDtoDesdeNomina(nominaId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( nominaDto != null ) {
+			
+			AccionRespuesta.setId( nominaDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("nominaDto", nominaDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar la nomina");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
+	}
+	
 }

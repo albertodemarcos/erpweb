@@ -1,5 +1,7 @@
 package com.erpweb.servicios.crm;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.erpweb.entidades.comun.Poblacion;
 import com.erpweb.entidades.comun.Provincia;
 import com.erpweb.entidades.crm.Cliente;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.comun.DireccionPostalRepository;
 import com.erpweb.repositorios.comun.PoblacionRepository;
 import com.erpweb.repositorios.comun.ProvinciaRepository;
@@ -287,6 +290,45 @@ public class ClienteService {
 		}
 		
 		return clienteDto;
+	}
+	
+	public AccionRespuesta getCliente(Long clienteId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCliente()");
+		
+		if( clienteId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el cliente", Boolean.FALSE);
+		}
+		
+		ClienteDto clienteDto = this.obtenerClienteDtoDesdeCliente(clienteId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( clienteDto != null ) {
+			
+			AccionRespuesta.setId( clienteDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("clienteDto", clienteDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el cliente");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

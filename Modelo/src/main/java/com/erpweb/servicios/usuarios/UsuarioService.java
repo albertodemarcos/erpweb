@@ -1,5 +1,7 @@
 package com.erpweb.servicios.usuarios;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,6 +155,45 @@ public class UsuarioService {
 		}
 		
 		return usuarioDto;
+	}
+	
+	public AccionRespuesta getUsuario(Long usuarioId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getUsuario()");
+		
+		if( usuarioId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el usuario", Boolean.FALSE);
+		}
+		
+		UsuarioDto usuarioDto = this.obtenerUsuarioDtoDesdeUsuario(usuarioId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( usuarioDto != null ) {
+			
+			AccionRespuesta.setId( usuarioDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("usuarioDto", usuarioDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el usuario");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.empresa.Configuracion;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.empresa.ConfiguracionService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.empresa.ConfiguracionValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -23,55 +27,61 @@ public class ConfiguracionController {
 	@Autowired
 	private ConfiguracionService configuracionService;
 	
-	@GetMapping("/configuracion")
-	public String getConfiguracion(  ) {
-		return "";
+	@GetMapping("/configuracion/{ConfiguracionId}")
+	public @ResponseBody AccionRespuesta getConfiguracion( @PathVariable Long ConfiguracionId, Usuario user) throws Exception {
+		
+		return this.configuracionService.getConfiguracion(ConfiguracionId, user);
 	}
 	
-	@GetMapping("/configuraciones")
+	@GetMapping("/listado")
 	public String getConfiguraciones(  ) {
 		return "";
 	}
 	
 	@GetMapping("/crearConfiguracion")
-	public String getCrearConfiguracion(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearConfiguracion(  ) {
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearConfiguracion")
-	public String postCrearConfiguracion( Configuracion configuracion, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearConfiguracion( Configuracion configuracion, BindingResult result ) {
 		
 		this.configuracionValidator.validate(configuracion, result);
 		
 		if(	result.hasErrors()	) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@GetMapping("/editarConfiguracion")
-	public String getEditarConfiguracion(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getEditarConfiguracion(  ) {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarConfiguracion")
-	public String postEditarConfiguracion( Configuracion configuracion, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarConfiguracion( Configuracion configuracion, BindingResult result ) {
 		
 		this.configuracionValidator.validate(configuracion, result);
 		
 		if(	result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarConfiguracion")
-	public String postEliminarConfiguracion(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta postEliminarConfiguracion(  ) {
+		
+		
+		return new AccionRespuesta();
 	}
 	
 	

@@ -1,6 +1,8 @@
 package com.erpweb.servicios.ventas;
 
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.erpweb.dto.FacturaDto;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
@@ -182,4 +185,43 @@ public class FacturaService {
 		return facturaDto;
 	}
 
+	public AccionRespuesta getFactura(Long facturaId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getFactura()");
+		
+		if( facturaId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe la factura", Boolean.FALSE);
+		}
+		
+		FacturaDto facturaDto = this.obtenerFacturaDtoDesdeFactura(facturaId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( facturaDto != null ) {
+			
+			AccionRespuesta.setId( facturaDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("facturaDto", facturaDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar la factura");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
+	}
+	
 }

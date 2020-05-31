@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.entidades.recursoshumanos.Nomina;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.recursoshumanos.NominaService;
+import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.recursoshumanos.NominaValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
@@ -23,55 +27,60 @@ public class NominaController {
 	@Autowired
 	private NominaService nominaService;
 
-	@GetMapping("/nomina")
-	public String getNomina(  ) {
-		return "";
+	@GetMapping("/nomina/{nominaId}")
+	public @ResponseBody AccionRespuesta getNomina( @PathVariable Long nominaId, Usuario user) throws Exception {
+		
+		return this.nominaService.getNomina(nominaId, user);
 	}
 	
-	@GetMapping("/nominas")
+	@GetMapping("/listado")
 	public String getNominas(  ) {
+		
 		return "";
 	}
 	
 	@GetMapping("/crearNomina")
-	public String getCrearNomina(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getCrearNomina(  ) {
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/crearNomina")
-	public String postCrearNomina( Nomina nomina, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearNomina( Nomina nomina, BindingResult result ) {
 		
 		this.nominaValidator.validate(nomina, result);
 		
 		if( result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@GetMapping("/editarNomina")
-	public String getEditarNomina(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta getEditarNomina(  ) {
+		
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/editarNomina")
-	public String postEditarNomina( Nomina nomina, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarNomina( Nomina nomina, BindingResult result ) {
 		
 		this.nominaValidator.validate(nomina, result);
 		
 		if( result.hasErrors() ) {
 			
-			return "";
+			return new AccionRespuesta();
 		}
 		
-		return "";
+		return new AccionRespuesta();
 	}
 	
 	@PostMapping("/eliminarNomina")
-	public String postEliminarNomina(  ) {
-		return "";
+	public @ResponseBody AccionRespuesta postEliminarNomina(  ) {
+		
+		return new AccionRespuesta();
 	}
 	
 	

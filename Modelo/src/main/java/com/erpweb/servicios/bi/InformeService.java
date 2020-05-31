@@ -1,13 +1,17 @@
 package com.erpweb.servicios.bi;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.GastoDto;
 import com.erpweb.dto.InformeDto;
 import com.erpweb.entidades.bi.Informe;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.bi.InformeRepository;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -144,6 +148,45 @@ public class InformeService {
 		}
 		
 		return informeDto;
+	}
+	
+	public AccionRespuesta getInforme(Long informeId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getIforme()");
+		
+		if( informeId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el informe", Boolean.FALSE);
+		}
+		
+		InformeDto informeDto = this.obtenerInformeDtoDesdeInforme(informeId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( informeDto != null ) {
+			
+			AccionRespuesta.setId( informeDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("informeDto", informeDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el informe");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
 	}
 
 }

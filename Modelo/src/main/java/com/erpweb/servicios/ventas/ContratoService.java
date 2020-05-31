@@ -1,6 +1,8 @@
 package com.erpweb.servicios.ventas;
 
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.empresa.Empresa;
+import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Contrato;
 import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
@@ -188,4 +191,43 @@ public class ContratoService {
 		return contratoDto;
 	}
 
+	public AccionRespuesta getContrato(Long contratoId, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getContrato()");
+		
+		if( contratoId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el contrato", Boolean.FALSE);
+		}
+		
+		ContratoDto contratoDto = this.obtenerContratoDtoDesdeContrato(contratoId, user.getEmpresa().getId());
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( contratoDto != null ) {
+			
+			AccionRespuesta.setId( contratoDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("contratoDto", contratoDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el contrato");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
+	}
+	
 }
