@@ -40,32 +40,14 @@ public class AlmacenController {
 		return "";
 	}
 	
-	@GetMapping("/crearAlmacen")
-	public @ResponseBody AccionRespuesta getCrearAlmacen(  ) {
+	@GetMapping( { "/crearAlmacen", "/editarAlmacen" } )
+	public @ResponseBody AccionRespuesta getCrearAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearAlmacen")
+	@PostMapping( { "/crearAlmacen", "/editarAlmacen" } )
 	public @ResponseBody AccionRespuesta postCrearAlmacen( Almacen almacen, BindingResult result ) {
-		
-		this.almacenValidator.validate(almacen, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarAlmacen")
-	public @ResponseBody AccionRespuesta getEditarAlmacen(  ) {
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarAlmacen")
-	public @ResponseBody AccionRespuesta postEditarAlmacen( Almacen almacen, BindingResult result ) {
 		
 		this.almacenValidator.validate(almacen, result);
 		

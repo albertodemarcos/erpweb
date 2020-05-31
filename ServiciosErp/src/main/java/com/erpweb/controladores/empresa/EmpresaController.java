@@ -40,34 +40,14 @@ public class EmpresaController {
 		return "";
 	}
 	
-	@GetMapping("/crearEmpresa")
-	public @ResponseBody AccionRespuesta getCrearEmpresa(  ) {
+	@GetMapping( { "/crearEmpresa", "/editarEmpresa" } )
+	public @ResponseBody AccionRespuesta getCrearEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearEmpresa")
+	@PostMapping( { "/crearEmpresa", "/editarEmpresa" } )
 	public @ResponseBody AccionRespuesta postCrearEmpresa( Empresa empresa, BindingResult result ) {
-		
-		this.empresaValidator.validate(empresa, result);
-		
-		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarEmpresa")
-	public @ResponseBody AccionRespuesta getEditarEmpresa(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarEmpresa")
-	public @ResponseBody AccionRespuesta postEditarEmpresa( Empresa empresa, BindingResult result ) {
 		
 		this.empresaValidator.validate(empresa, result);
 		

@@ -39,13 +39,13 @@ public class CompraController {
 		return "";
 	}
 	
-	@GetMapping("/crearCompra")
-	public @ResponseBody AccionRespuesta getCrearCompra(  ) {
+	@GetMapping( { "/crearCompra", "/editarCompra/{compraId}" } )
+	public @ResponseBody AccionRespuesta getCrearCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearCompra")
+	@PostMapping( { "/crearCompra", "/editarCompra" } )
 	public @ResponseBody AccionRespuesta postCrearCompra( Compra compra, BindingResult result ) {
 		
 		this.compraValidator.validate(compra, result);
@@ -55,24 +55,6 @@ public class CompraController {
 			return new AccionRespuesta();
 		}
 		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarCompra/{compraId}")
-	public @ResponseBody AccionRespuesta getEditarCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarCompra")
-	public @ResponseBody AccionRespuesta postEditarCompra( Compra compra, BindingResult result ) {
-		
-		this.compraValidator.validate(compra, result);
-		
-		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
 		return new AccionRespuesta();
 	}
 	

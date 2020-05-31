@@ -39,36 +39,16 @@ public class UsuarioController {
 		return "";
 	}
 	
-	@GetMapping("/crearUsuario")
-	public @ResponseBody AccionRespuesta getCrearUsuario(  ) {
+	@GetMapping( { "/crearUsuario" , "/editarUsuario" } )
+	public @ResponseBody AccionRespuesta getCrearUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
 		
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearUsuario")
+	@PostMapping( { "/crearUsuario" , "/editarUsuario" } )
 	public @ResponseBody AccionRespuesta postCrearUsuario( Usuario usuario, BindingResult result ) {
 		
-		this.usuarioValidator.validate(usuario, result);
-		
-		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarUsuario")
-	public @ResponseBody AccionRespuesta getEditarUsuario(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarUsuario")
-	public @ResponseBody AccionRespuesta postEditarUsuario( Usuario usuario, BindingResult result ) {
-
 		this.usuarioValidator.validate(usuario, result);
 		
 		if(	result.hasErrors() ) {

@@ -39,34 +39,15 @@ public class InformeController {
 		return "";
 	}
 	
-	@GetMapping("/crearInforme")
+	@GetMapping( { "/crearInforme/{informeId}", "/editarInforme/{informeId}" } )
 	public @ResponseBody AccionRespuesta getCrearInforme() {
 		
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearInforme")
+	@PostMapping( { "/crearInforme" , "/editarInforme" } )
 	public @ResponseBody AccionRespuesta postCrearInforme( Informe informe, BindingResult result) {
-		
-		this.informeValidator.validate(informe, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarInforme/{informeId}")
-	public @ResponseBody AccionRespuesta getEditarInforme(@PathVariable Long informeId, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarInforme")
-	public @ResponseBody AccionRespuesta postEditarInforme( Informe informe, BindingResult result) {
 		
 		this.informeValidator.validate(informe, result);
 		

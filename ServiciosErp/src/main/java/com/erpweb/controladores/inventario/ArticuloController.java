@@ -40,34 +40,15 @@ public class ArticuloController {
 		return "";
 	}
 	
-	@GetMapping("/crearArticulo")
-	public @ResponseBody AccionRespuesta getCrearArticulo(  ) {
+	@GetMapping( {"/crearArticulo", "/editarArticulo"} )
+	public @ResponseBody AccionRespuesta getCrearArticulo( @PathVariable Long articuloId, Usuario user) throws Exception {
 		
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearArticulo")
+	@PostMapping( {"/crearArticulo", "/editarArticulo"} )
 	public @ResponseBody AccionRespuesta postCrearArticulo( Articulo articulo, BindingResult result ) {
-		
-		this.articuloValidator.validate(articulo, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarArticulo")
-	public @ResponseBody AccionRespuesta getEditarArticulo(  ) {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarArticulo")
-	public @ResponseBody AccionRespuesta postEditarArticulo( Articulo articulo, BindingResult result ) {
 		
 		this.articuloValidator.validate(articulo, result);
 		

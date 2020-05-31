@@ -40,34 +40,15 @@ public class IngresoController {
 		return "";
 	}
 	
-	@GetMapping("/crearIngreso")
+	@GetMapping( { "/crearIngreso" , "/editarIngreso" })
 	public @ResponseBody AccionRespuesta getCrearIngreso() {
 		
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearIngreso")
+	@PostMapping( { "/crearIngreso", "/editarIngreso" } )
 	public @ResponseBody AccionRespuesta postCrearIngreso( Ingreso ingreso, BindingResult result ) {
-		
-		this.ingresoValidator.validate(ingreso, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarIngreso/{ingresoId}")
-	public @ResponseBody AccionRespuesta getEditarIngreso(@PathVariable Long ingresoId, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarIngreso")
-	public @ResponseBody AccionRespuesta postEditarIngreso( Ingreso ingreso, BindingResult result) {
 		
 		this.ingresoValidator.validate(ingreso, result);
 		

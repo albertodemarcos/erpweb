@@ -35,41 +35,23 @@ public class ConfiguracionController {
 	
 	@GetMapping("/listado")
 	public String getConfiguraciones(  ) {
+		
+		
 		return "";
 	}
 	
-	@GetMapping("/crearConfiguracion")
-	public @ResponseBody AccionRespuesta getCrearConfiguracion(  ) {
+	@GetMapping( { "/crearConfiguracion", "/editarConfiguracion" } )
+	public @ResponseBody AccionRespuesta getCrearConfiguracion( @PathVariable Long ConfiguracionId, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearConfiguracion")
+	@PostMapping( { "/crearConfiguracion", "/editarConfiguracion" } )
 	public @ResponseBody AccionRespuesta postCrearConfiguracion( Configuracion configuracion, BindingResult result ) {
 		
 		this.configuracionValidator.validate(configuracion, result);
 		
 		if(	result.hasErrors()	) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarConfiguracion")
-	public @ResponseBody AccionRespuesta getEditarConfiguracion(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarConfiguracion")
-	public @ResponseBody AccionRespuesta postEditarConfiguracion( Configuracion configuracion, BindingResult result ) {
-		
-		this.configuracionValidator.validate(configuracion, result);
-		
-		if(	result.hasErrors() ) {
 			
 			return new AccionRespuesta();
 		}

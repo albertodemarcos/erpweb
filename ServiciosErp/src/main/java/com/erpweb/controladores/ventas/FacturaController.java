@@ -40,35 +40,15 @@ public class FacturaController {
 		return "";
 	}
 	
-	@GetMapping("/crearFactura")
+	@GetMapping( { "/crearFactura", "/editarFactura" } )
 	public @ResponseBody AccionRespuesta getCrearFactura(  ) {
 		
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearFactura")
+	@PostMapping( { "/crearFactura", "/editarFactura" } )
 	public @ResponseBody AccionRespuesta postCrearFactura( Factura factura, BindingResult result ) {
-		
-		this.facturaValidator.validate(factura, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarFactura")
-	public @ResponseBody AccionRespuesta getEditarFactura(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarFactura")
-	public @ResponseBody AccionRespuesta postEditarFactura( Factura factura, BindingResult result ) {
 		
 		this.facturaValidator.validate(factura, result);
 		

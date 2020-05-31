@@ -40,35 +40,15 @@ public class ContratoController {
 		return "";
 	}
 	
-	@GetMapping("/crearContrato")
-	public @ResponseBody AccionRespuesta getCrearContrato(  ) {
+	@GetMapping( { "/crearContrato", "/editarContrato" } )
+	public @ResponseBody AccionRespuesta getCrearContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
 		
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearContrato")
+	@PostMapping( { "/crearContrato", "/editarContrato" } )
 	public @ResponseBody AccionRespuesta postCrearContrato( Contrato contrato, BindingResult result ) {
-		
-		this.contratoValidator.validate(contrato, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarContrato")
-	public @ResponseBody AccionRespuesta getEditarContrato(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarContrato")
-	public @ResponseBody AccionRespuesta postEditarContrato( Contrato contrato, BindingResult result ) {
 		
 		this.contratoValidator.validate(contrato, result);
 		

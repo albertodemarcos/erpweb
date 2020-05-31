@@ -38,14 +38,13 @@ public class ProveedorController {
 		return "";
 	}
 	
-	@GetMapping("/crearProveedor")
-	public @ResponseBody AccionRespuesta getCrearProveedor(  ) {
-		
+	@GetMapping( { "/crearProveedor", "/editarProveedor" } )
+	public @ResponseBody AccionRespuesta getCrearProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearProveedor")
+	@PostMapping({ "/crearProveedor", "/editarProveedor" })
 	public @ResponseBody AccionRespuesta postCrearProveedor( Proveedor proveedor, BindingResult result ) {
 		
 		this.proveedorValidator.validate(proveedor, result);
@@ -53,23 +52,6 @@ public class ProveedorController {
 		if(	result.hasErrors() ) {
 			
 			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarProveedor")
-	public @ResponseBody AccionRespuesta getEditarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarProveedor")
-	public @ResponseBody AccionRespuesta postEditarProveedor( Proveedor proveedor, BindingResult result ) {
-		
-		this.proveedorValidator.validate(proveedor, result);
-		
-		if(	result.hasErrors() ) {
 			return new AccionRespuesta();
 		}
 		

@@ -39,34 +39,14 @@ public class EmpleadoController {
 		return "";
 	}
 	
-	@GetMapping("/crearEmpleado")
-	public @ResponseBody AccionRespuesta getCrearEmpleado(  ) {
+	@GetMapping( { "/crearEmpleado", "/editarEmpleado" } )
+	public @ResponseBody AccionRespuesta getCrearEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearEmpleado")
+	@PostMapping( { "/crearEmpleado", "/editarEmpleado" } )
 	public @ResponseBody AccionRespuesta postCrearEmpleado( Empleado empleado, BindingResult result ) {
 		
-		this.empleadoValidator.validate(empleado, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarEmpleado")
-	public @ResponseBody AccionRespuesta getEditarEmpleado(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarEmpleado")
-	public @ResponseBody AccionRespuesta postEditarEmpleado( Empleado empleado, BindingResult result ) {
-
 		this.empleadoValidator.validate(empleado, result);
 		
 		if( result.hasErrors() ) {

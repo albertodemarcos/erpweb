@@ -36,37 +36,17 @@ public class ClienteController {
 	@GetMapping("/listado")
 	public String getClientes(  ) {
 		
-		
 		return "";
 	}
 	
-	@GetMapping("/crearCliente")
-	public @ResponseBody AccionRespuesta getCrearCliente(  ) {
+	@GetMapping( { "/crearCliente", "/editarCliente" } )
+	public @ResponseBody AccionRespuesta getCrearCliente(  @PathVariable Long clienteId, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearCliente")
+	@PostMapping( { "/crearCliente", "/editarCliente" } )
 	public @ResponseBody AccionRespuesta postCrearCliente( Cliente cliente, BindingResult result ) {
-		
-		this.clienteValidator.validate(cliente, result);
-		
-		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarCliente")
-	public @ResponseBody AccionRespuesta getEditarCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarCliente")
-	public @ResponseBody AccionRespuesta postEditarCliente( Cliente cliente, BindingResult result ) {
 		
 		this.clienteValidator.validate(cliente, result);
 		

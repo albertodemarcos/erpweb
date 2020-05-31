@@ -39,33 +39,14 @@ public class NominaController {
 		return "";
 	}
 	
-	@GetMapping("/crearNomina")
-	public @ResponseBody AccionRespuesta getCrearNomina(  ) {
+	@GetMapping( { "/crearNomina", "/editarNomina" } )
+	public @ResponseBody AccionRespuesta getCrearNomina( @PathVariable Long nominaId, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearNomina")
+	@PostMapping( { "/crearNomina", "/editarNomina" } )
 	public @ResponseBody AccionRespuesta postCrearNomina( Nomina nomina, BindingResult result ) {
-		
-		this.nominaValidator.validate(nomina, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarNomina")
-	public @ResponseBody AccionRespuesta getEditarNomina(  ) {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarNomina")
-	public @ResponseBody AccionRespuesta postEditarNomina( Nomina nomina, BindingResult result ) {
 		
 		this.nominaValidator.validate(nomina, result);
 		

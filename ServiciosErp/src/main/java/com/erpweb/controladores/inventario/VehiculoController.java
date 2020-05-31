@@ -28,7 +28,7 @@ public class VehiculoController {
 	private VehiculoService vehiculoService;
 
 	@GetMapping("/vehiculo/{vehiculoId}")
-	public @ResponseBody AccionRespuesta getVehiculo( @PathVariable Long vehiculoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
 		
 		return this.vehiculoService.getVehiculo(vehiculoId, user);
 	}
@@ -38,34 +38,15 @@ public class VehiculoController {
 		return "";
 	}
 	
-	@GetMapping("/crearVehiculo")
-	public @ResponseBody AccionRespuesta getCrearVehiculo(  ) {
+	@GetMapping( { "/crearVehiculo", "/editarVehiculo" } )
+	public @ResponseBody AccionRespuesta getCrearVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearVehiculo")
+	@PostMapping( { "/crearVehiculo", "/editarVehiculo" } )
 	public @ResponseBody AccionRespuesta postCrearVehiculo( Vehiculo vehiculo, BindingResult result ) {
 		
-		this.vehiculoValidator.validate(vehiculo, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarVehiculo")
-	public @ResponseBody AccionRespuesta getEditarVehiculo(  ) {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarVehiculo")
-	public @ResponseBody AccionRespuesta postEditarVehiculo( Vehiculo vehiculo, BindingResult result ) {
-
 		this.vehiculoValidator.validate(vehiculo, result);
 		
 		if( result.hasErrors() ) {

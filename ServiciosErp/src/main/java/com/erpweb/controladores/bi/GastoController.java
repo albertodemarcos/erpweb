@@ -43,35 +43,15 @@ public class GastoController {
 		return "";
 	}
 	
-	@GetMapping("/crearGasto")
+	@GetMapping( {"/crearGasto/{gastoId}", "/editarGasto/{gastoId}"} )
 	public @ResponseBody AccionRespuesta getCrearGasto() {
 
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearGasto")
+	@PostMapping( { "/crearGasto", "/editarGasto" } )
 	public @ResponseBody AccionRespuesta postCrearGasto(GastoDto gasto, BindingResult result) {
-		
-		this.gastoValidator.validate(gasto, result);
-		
-		if( result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarGasto/{gastoId}")
-	public @ResponseBody AccionRespuesta getEditarGasto(@PathVariable Long gastoId, Usuario user) {
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarGasto")
-	public @ResponseBody AccionRespuesta postEditarGasto(GastoDto gasto, BindingResult result) {
 		
 		this.gastoValidator.validate(gasto, result);
 		

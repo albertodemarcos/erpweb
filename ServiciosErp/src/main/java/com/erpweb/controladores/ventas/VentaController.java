@@ -40,34 +40,14 @@ public class VentaController {
 		return "";
 	}
 	
-	@GetMapping("/crearVenta")
+	@GetMapping( { "/crearVenta", "/editarVenta" } )
 	public @ResponseBody AccionRespuesta getCrearVenta(  ) {
 		
 		return new AccionRespuesta();
 	}
 	
-	@PostMapping("/crearVenta")
+	@PostMapping( { "/crearVenta", "/editarVenta" } )
 	public @ResponseBody AccionRespuesta postCrearVenta( Venta venta, BindingResult result ) {
-		
-		this.ventaValidator.validate(venta, result);
-		
-		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta();
-		}
-		
-		return new AccionRespuesta();
-	}
-	
-	@GetMapping("/editarVenta")
-	public @ResponseBody AccionRespuesta getEditarVenta(  ) {
-		
-		
-		return new AccionRespuesta();
-	}
-	
-	@PostMapping("/editarVenta")
-	public @ResponseBody AccionRespuesta postEditarVenta( Venta venta, BindingResult result ) {
 		
 		this.ventaValidator.validate(venta, result);
 		
