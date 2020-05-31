@@ -1,6 +1,7 @@
 package com.erpweb.controladores.usuarios;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,11 +40,16 @@ public class UsuarioController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearUsuario" , "/editarUsuario" } )
-	public @ResponseBody AccionRespuesta getCrearUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
-		
+	@GetMapping( "/crearUsuario" )
+	public @ResponseBody AccionRespuesta getCrearUsuario( Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarUsuario/{usuarioId}" )
+	public @ResponseBody AccionRespuesta getEditarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
+		
+		return this.usuarioService.getUsuario(usuarioId, user);
 	}
 	
 	@PostMapping( { "/crearUsuario" , "/editarUsuario" } )

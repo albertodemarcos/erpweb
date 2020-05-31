@@ -1,6 +1,7 @@
 package com.erpweb.controladores.empresa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +41,16 @@ public class EmpresaController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearEmpresa", "/editarEmpresa" } )
-	public @ResponseBody AccionRespuesta getCrearEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
+	@GetMapping( "/crearEmpresa" )
+	public @ResponseBody AccionRespuesta getCrearEmpresa( Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarEmpresa/{empresaId}" )
+	public @ResponseBody AccionRespuesta getEditarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
+		
+		return this.empresaService.getEmpresa(empresaId, user);
 	}
 	
 	@PostMapping( { "/crearEmpresa", "/editarEmpresa" } )

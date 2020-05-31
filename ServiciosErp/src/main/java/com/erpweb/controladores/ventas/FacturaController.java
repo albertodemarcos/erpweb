@@ -1,6 +1,7 @@
 package com.erpweb.controladores.ventas;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,11 +41,16 @@ public class FacturaController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearFactura", "/editarFactura" } )
-	public @ResponseBody AccionRespuesta getCrearFactura(  ) {
-		
+	@GetMapping( "/crearFactura" )
+	public @ResponseBody AccionRespuesta getCrearFactura(  Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarFactura/{facturaId}" )
+	public @ResponseBody AccionRespuesta getEditarFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
+		
+		return this.facturaService.getFactura(facturaId, user);
 	}
 	
 	@PostMapping( { "/crearFactura", "/editarFactura" } )

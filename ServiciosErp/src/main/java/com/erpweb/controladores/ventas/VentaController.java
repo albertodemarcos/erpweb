@@ -1,6 +1,7 @@
 package com.erpweb.controladores.ventas;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +41,16 @@ public class VentaController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearVenta", "/editarVenta" } )
-	public @ResponseBody AccionRespuesta getCrearVenta(  ) {
+	@GetMapping( "/crearVenta" )
+	public @ResponseBody AccionRespuesta getCrearVenta( Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarVenta/{ventaId}" )
+	public @ResponseBody AccionRespuesta getEditarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
+		
+		return this.ventaService.getVenta(ventaId, user);
 	}
 	
 	@PostMapping( { "/crearVenta", "/editarVenta" } )

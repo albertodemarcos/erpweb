@@ -1,6 +1,7 @@
 package com.erpweb.controladores.recursoshumanos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +40,16 @@ public class EmpleadoController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearEmpleado", "/editarEmpleado" } )
-	public @ResponseBody AccionRespuesta getCrearEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+	@GetMapping( "/crearEmpleado" )
+	public @ResponseBody AccionRespuesta getCrearEmpleado( Model model, Usuario user) throws Exception {
+		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarEmpleado/{empleadoId}" )
+	public @ResponseBody AccionRespuesta getEditarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+		
+		return this.empleadoService.getEmpleado(empleadoId, user);
 	}
 	
 	@PostMapping( { "/crearEmpleado", "/editarEmpleado" } )

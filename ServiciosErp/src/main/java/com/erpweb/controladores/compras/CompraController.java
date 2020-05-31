@@ -1,6 +1,7 @@
 package com.erpweb.controladores.compras;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +40,16 @@ public class CompraController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearCompra", "/editarCompra/{compraId}" } )
-	public @ResponseBody AccionRespuesta getCrearCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+	@GetMapping( "/crearCompra" )
+	public @ResponseBody AccionRespuesta getCrearCompra( Model model, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarCompra/{compraId}"  )
+	public @ResponseBody AccionRespuesta getCrearCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+		
+		return this.compraService.getCompra(compraId, user);
 	}
 	
 	@PostMapping( { "/crearCompra", "/editarCompra" } )

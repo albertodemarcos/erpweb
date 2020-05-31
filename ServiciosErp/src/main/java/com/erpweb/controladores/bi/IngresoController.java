@@ -1,6 +1,7 @@
 package com.erpweb.controladores.bi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,11 +41,16 @@ public class IngresoController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearIngreso" , "/editarIngreso" })
-	public @ResponseBody AccionRespuesta getCrearIngreso() {
-		
+	@GetMapping( "/crearIngreso" )
+	public @ResponseBody AccionRespuesta getCrearIngreso( Model model, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarIngreso/{ingresoId}" )
+	public @ResponseBody AccionRespuesta getEditarIngreso( @PathVariable Long ingresoId, Usuario user ) throws Exception {
+		
+		return this.ingresoService.getIngreso(ingresoId, user);
 	}
 	
 	@PostMapping( { "/crearIngreso", "/editarIngreso" } )

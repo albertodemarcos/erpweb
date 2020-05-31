@@ -1,6 +1,7 @@
 package com.erpweb.controladores.compras;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class ProveedorController {
 	@GetMapping("/proveedor/{proveedorId}")
 	public @ResponseBody AccionRespuesta getProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
 		
-		return this.proveedorService.getproveedor(proveedorId, user);
+		return this.proveedorService.getProveedor(proveedorId, user);
 	}
 	
 	@GetMapping("/listado")
@@ -38,10 +39,16 @@ public class ProveedorController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearProveedor", "/editarProveedor" } )
-	public @ResponseBody AccionRespuesta getCrearProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+	@GetMapping( "/crearProveedor" )
+	public @ResponseBody AccionRespuesta getCrearProveedor( Model model, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarProveedor/{proveedorId}" )
+	public @ResponseBody AccionRespuesta getEditarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+		
+		return this.proveedorService.getProveedor(proveedorId, user);
 	}
 	
 	@PostMapping({ "/crearProveedor", "/editarProveedor" })

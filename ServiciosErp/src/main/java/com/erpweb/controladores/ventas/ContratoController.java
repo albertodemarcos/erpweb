@@ -1,6 +1,7 @@
 package com.erpweb.controladores.ventas;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,11 +41,16 @@ public class ContratoController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearContrato", "/editarContrato" } )
-	public @ResponseBody AccionRespuesta getCrearContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
-		
+	@GetMapping( "/crearContrato" )
+	public @ResponseBody AccionRespuesta getCrearContrato( Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarContrato/{contratoId}" )
+	public @ResponseBody AccionRespuesta getEditarContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
+		
+		return this.contratoService.getContrato(contratoId, user);
 	}
 	
 	@PostMapping( { "/crearContrato", "/editarContrato" } )

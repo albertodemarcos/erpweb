@@ -1,6 +1,7 @@
 package com.erpweb.controladores.empresa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +28,10 @@ public class ConfiguracionController {
 	@Autowired
 	private ConfiguracionService configuracionService;
 	
-	@GetMapping("/configuracion/{ConfiguracionId}")
-	public @ResponseBody AccionRespuesta getConfiguracion( @PathVariable Long ConfiguracionId, Usuario user) throws Exception {
+	@GetMapping("/configuracion/{configuracionId}")
+	public @ResponseBody AccionRespuesta getConfiguracion( @PathVariable Long configuracionId, Usuario user) throws Exception {
 		
-		return this.configuracionService.getConfiguracion(ConfiguracionId, user);
+		return this.configuracionService.getConfiguracion(configuracionId, user);
 	}
 	
 	@GetMapping("/listado")
@@ -40,10 +41,16 @@ public class ConfiguracionController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearConfiguracion", "/editarConfiguracion" } )
-	public @ResponseBody AccionRespuesta getCrearConfiguracion( @PathVariable Long ConfiguracionId, Usuario user) throws Exception {
+	@GetMapping( "/crearConfiguracion" )
+	public @ResponseBody AccionRespuesta getCrearConfiguracion( Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarConfiguracion/{configuracionId}" )
+	public @ResponseBody AccionRespuesta getEditarConfiguracion( @PathVariable Long configuracionId, Usuario user) throws Exception {
+		
+		return this.configuracionService.getConfiguracion(configuracionId, user);
 	}
 	
 	@PostMapping( { "/crearConfiguracion", "/editarConfiguracion" } )

@@ -1,6 +1,7 @@
 package com.erpweb.controladores.crm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +40,16 @@ public class ClienteController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearCliente", "/editarCliente" } )
-	public @ResponseBody AccionRespuesta getCrearCliente(  @PathVariable Long clienteId, Usuario user ) throws Exception {
+	@GetMapping( "/crearCliente" )
+	public @ResponseBody AccionRespuesta getCrearCliente( Model model, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarCliente/{clienteId}" )
+	public @ResponseBody AccionRespuesta getEditarCliente(  @PathVariable Long clienteId, Usuario user ) throws Exception {
+		
+		return this.clienteService.getCliente(clienteId, user);
 	}
 	
 	@PostMapping( { "/crearCliente", "/editarCliente" } )

@@ -1,6 +1,7 @@
 package com.erpweb.controladores.inventario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,10 +39,16 @@ public class VehiculoController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearVehiculo", "/editarVehiculo" } )
-	public @ResponseBody AccionRespuesta getCrearVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
+	@GetMapping( "/crearVehiculo" )
+	public @ResponseBody AccionRespuesta getCrearVehiculo( Model model, Usuario user ) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarVehiculo/{vehiculoId}" )
+	public @ResponseBody AccionRespuesta getEditarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
+		
+		return this.vehiculoService.getVehiculo(vehiculoId, user);
 	}
 	
 	@PostMapping( { "/crearVehiculo", "/editarVehiculo" } )

@@ -1,6 +1,7 @@
 package com.erpweb.controladores.inventario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +41,16 @@ public class AlmacenController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearAlmacen", "/editarAlmacen" } )
-	public @ResponseBody AccionRespuesta getCrearAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
+	@GetMapping( "/crearAlmacen" )
+	public @ResponseBody AccionRespuesta getCrearAlmacen( Model model, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarAlmacen/{almacenId}" )
+	public @ResponseBody AccionRespuesta getEditarAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
+		
+		return this.almacenService.getAlmacen(almacenId, user);
 	}
 	
 	@PostMapping( { "/crearAlmacen", "/editarAlmacen" } )

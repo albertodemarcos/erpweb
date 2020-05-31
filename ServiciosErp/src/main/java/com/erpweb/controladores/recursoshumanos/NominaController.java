@@ -39,10 +39,16 @@ public class NominaController {
 		return "";
 	}
 	
-	@GetMapping( { "/crearNomina", "/editarNomina" } )
+	@GetMapping( "/crearNomina" )
 	public @ResponseBody AccionRespuesta getCrearNomina( @PathVariable Long nominaId, Usuario user) throws Exception {
 		
 		return new AccionRespuesta();
+	}
+	
+	@GetMapping( "/editarNomina/{nominaId}"  )
+	public @ResponseBody AccionRespuesta getEditarNomina( @PathVariable Long nominaId, Usuario user) throws Exception {
+		
+		return this.nominaService.getNomina(nominaId, user);
 	}
 	
 	@PostMapping( { "/crearNomina", "/editarNomina" } )
