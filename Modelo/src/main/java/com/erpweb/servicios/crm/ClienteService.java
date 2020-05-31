@@ -352,5 +352,23 @@ public class ClienteService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarCliente(ClienteDto clienteDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarCliente() con usuario={}", user.getId() );
+		
+		if( clienteDto.getId() != null && clienteDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Cliente con usuario={}", user.getId() );
+			
+			return this.actualizarClienteDesdeClienteDto(clienteDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Cliente con usuario={}", user.getId() );
+			
+			return this.crearClienteDesdeClienteDto(clienteDto);
+		}
+	}
 
 }

@@ -226,5 +226,23 @@ public class IngresoService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarIngreso(IngresoDto ingresoDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarIngreso() con usuario={}", user.getId() );
+		
+		if( ingresoDto.getId() != null && ingresoDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Ingreso con usuario={}", user.getId() );
+			
+			return this.actualizarIngresoDesdeIngresoDto(ingresoDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Ingreso con usuario={}", user.getId() );
+			
+			return this.crearIngresoDesdeIngresoDto(ingresoDto);
+		}
+	}
 
 }

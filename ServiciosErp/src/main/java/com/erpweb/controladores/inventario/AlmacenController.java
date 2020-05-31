@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.inventario.Almacen;
+import com.erpweb.dto.AlmacenDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.inventario.AlmacenService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -53,17 +53,17 @@ public class AlmacenController {
 		return this.almacenService.getAlmacen(almacenId, user);
 	}
 	
-	@PostMapping( { "/crearAlmacen", "/editarAlmacen" } )
-	public @ResponseBody AccionRespuesta postCrearAlmacen( Almacen almacen, BindingResult result ) {
+	@PostMapping( { "/crearAlmacen/almacen/{almacenDto}.json", "/editarAlmacen/almacen/{almacenDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearAlmacen( AlmacenDto almacenDto, Usuario user, BindingResult result ) {
 		
-		this.almacenValidator.validate(almacen, result);
+		this.almacenValidator.validate(almacenDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.almacenService.getAlmacen(almacenDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.almacenService.getCrearEditarAlmacen(almacenDto, user);
 	}
 	
 	@PostMapping("/eliminarAlmacen/{almacenId}")

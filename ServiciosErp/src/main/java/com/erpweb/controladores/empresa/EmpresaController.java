@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.dto.EmpresaDto;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.empresa.EmpresaService;
@@ -53,14 +54,14 @@ public class EmpresaController {
 		return this.empresaService.getEmpresa(empresaId, user);
 	}
 	
-	@PostMapping( { "/crearEmpresa", "/editarEmpresa" } )
-	public @ResponseBody AccionRespuesta postCrearEmpresa( Empresa empresa, BindingResult result ) {
+	@PostMapping( { "/crearEmpresa/empresa/{empresaDto}.json", "/editarEmpresa/empresa/{empresaDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearEmpresa( EmpresaDto empresaDto, Usuario user, BindingResult result ) {
 		
-		this.empresaValidator.validate(empresa, result);
+		this.empresaValidator.validate(empresaDto, result);
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.empresaService.getEmpresa(empresaDto.getId(), user);
 		}
 		
 		return new AccionRespuesta();

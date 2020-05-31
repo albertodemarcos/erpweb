@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.entidades.ventas.Contrato;
 import com.erpweb.servicios.ventas.ContratoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.ContratoValidator;
@@ -53,17 +53,17 @@ public class ContratoController {
 		return this.contratoService.getContrato(contratoId, user);
 	}
 	
-	@PostMapping( { "/crearContrato", "/editarContrato" } )
-	public @ResponseBody AccionRespuesta postCrearContrato( Contrato contrato, BindingResult result ) {
+	@PostMapping( { "/crearContrato/contrato/{contratoDto}.json", "/editarContrato/contrato/{contratoDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearContrato( ContratoDto contratoDto, Usuario user, BindingResult result ) {
 		
-		this.contratoValidator.validate(contrato, result);
+		this.contratoValidator.validate(contratoDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.contratoService.getContrato(contratoDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.contratoService.getCrearEditarContrato(contratoDto, user);
 	}
 	
 	@PostMapping("/eliminarContrato")

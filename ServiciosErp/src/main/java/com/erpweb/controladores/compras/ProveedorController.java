@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.compras.Proveedor;
+import com.erpweb.dto.ProveedorDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.compras.ProveedorService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -51,18 +51,17 @@ public class ProveedorController {
 		return this.proveedorService.getProveedor(proveedorId, user);
 	}
 	
-	@PostMapping({ "/crearProveedor", "/editarProveedor" })
-	public @ResponseBody AccionRespuesta postCrearProveedor( Proveedor proveedor, BindingResult result ) {
+	@PostMapping( { "/crearProveedor/proveedor/{proveedorDto}.json", "/editarProveedor/proveedor/{proveedorDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearProveedor( ProveedorDto proveedorDto, Usuario user, BindingResult result ) {
 		
-		this.proveedorValidator.validate(proveedor, result);
+		this.proveedorValidator.validate(proveedorDto, result);
 		
 		if(	result.hasErrors() ) {
 			
-			
-			return new AccionRespuesta();
+			return this.proveedorService.getProveedor(proveedorDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.proveedorService.getCrearEditarProveedor(proveedorDto, user);
 	}
 	
 	@PostMapping("/eliminarProveedor/{proveedorId}")

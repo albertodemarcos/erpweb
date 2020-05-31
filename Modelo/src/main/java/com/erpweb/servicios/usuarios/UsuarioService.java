@@ -216,5 +216,23 @@ public class UsuarioService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarUsuario(UsuarioDto usuarioDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarUsuario() con usuario={}", user.getId() );
+		
+		if( usuarioDto.getId() != null && usuarioDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Usuario con usuario={}", user.getId() );
+			
+			return this.actualizarUsuarioDesdeUsuarioDto(usuarioDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Usuario con usuario={}", user.getId() );
+			
+			return this.crearUsuarioDesdeUsuarioDto(usuarioDto);
+		}
+	}
 
 }

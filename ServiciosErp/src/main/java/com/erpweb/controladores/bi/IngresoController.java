@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.bi.Ingreso;
+import com.erpweb.dto.IngresoDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.bi.IngresoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -53,17 +53,17 @@ public class IngresoController {
 		return this.ingresoService.getIngreso(ingresoId, user);
 	}
 	
-	@PostMapping( { "/crearIngreso", "/editarIngreso" } )
-	public @ResponseBody AccionRespuesta postCrearIngreso( Ingreso ingreso, BindingResult result ) {
+	@PostMapping( { "/crearIngreso/ingreso/{ingresoDto}.json", "/editarIngreso/ingreso/{ingresoDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearIngreso( IngresoDto ingresoDto, Usuario user, BindingResult result ) {
 		
-		this.ingresoValidator.validate(ingreso, result);
+		this.ingresoValidator.validate(ingresoDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.ingresoService.getIngreso(ingresoDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.ingresoService.getCrearEditarIngreso(ingresoDto, user);
 	}
 	
 	@PostMapping("/eliminarIngreso/{ingresoId}")

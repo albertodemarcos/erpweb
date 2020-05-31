@@ -246,4 +246,22 @@ public class FacturaService {
 		return AccionRespuesta;
 	}
 	
+	public AccionRespuesta getCrearEditarFactura(FacturaDto facturaDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarFactura() con usuario={}", user.getId() );
+		
+		if( facturaDto.getId() != null && facturaDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion de la Factura con usuario={}", user.getId() );
+			
+			return this.actualizarFacturaDesdeFacturaDto(facturaDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear una Factura con usuario={}", user.getId() );
+			
+			return this.crearFacturaDesdeFacturaDto(facturaDto);
+		}
+	}
+	
 }

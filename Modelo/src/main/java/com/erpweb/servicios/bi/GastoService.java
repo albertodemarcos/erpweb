@@ -225,10 +225,22 @@ public class GastoService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarGasto(Long gastoId, Usuario user) {
+	public AccionRespuesta getCrearEditarGasto(GastoDto gastoDto, Usuario user) {
 		
-		return null;
+		logger.debug("Entramos en el metodo getCrearEditarGasto() con usuario={}", user.getId() );
 		
+		if( gastoDto.getId() != null && gastoDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del gasto con usuario={}", user.getId() );
+			
+			return this.actualizarGastoDesdeGastoDto(gastoDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un gasto con usuario={}", user.getId() );
+			
+			return this.crearGastoDesdeGastoDto(gastoDto);
+		}
 	}
 	
 	

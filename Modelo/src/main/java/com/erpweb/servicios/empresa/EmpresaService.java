@@ -205,4 +205,22 @@ public class EmpresaService {
 		return AccionRespuesta;
 	}
 	
+	public AccionRespuesta getCrearEditarEmpresa(EmpresaDto EmpresaDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarEmpresa() con usuario={}", user.getId() );
+		
+		if( EmpresaDto.getId() != null && EmpresaDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion de la Empresa con usuario={}", user.getId() );
+			
+			return this.actualizarEmpresaDesdeEmpresaDto(EmpresaDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear una Empresa con usuario={}", user.getId() );
+			
+			return this.crearEmpresaDesdeEmpresaDto(EmpresaDto);
+		}
+	}
+	
 }

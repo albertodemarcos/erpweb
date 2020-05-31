@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.dto.VentaDto;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.servicios.ventas.VentaService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.VentaValidator;
@@ -53,17 +53,17 @@ public class VentaController {
 		return this.ventaService.getVenta(ventaId, user);
 	}
 	
-	@PostMapping( { "/crearVenta", "/editarVenta" } )
-	public @ResponseBody AccionRespuesta postCrearVenta( Venta venta, BindingResult result ) {
+	@PostMapping( { "/crearVenta/venta/{ventaDto}.json", "/editarVenta/venta/{ventaDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearVenta( VentaDto ventaDto, Usuario user, BindingResult result ) {
 		
-		this.ventaValidator.validate(venta, result);
+		this.ventaValidator.validate(ventaDto, result);
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.ventaService.getVenta(ventaDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.ventaService.getCrearEditarVenta(ventaDto, user);
 	}
 	
 	@PostMapping("/eliminarVenta/{ventaId}")

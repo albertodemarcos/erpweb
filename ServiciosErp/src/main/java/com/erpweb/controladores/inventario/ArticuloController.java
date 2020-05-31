@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.inventario.Articulo;
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.inventario.ArticuloService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -53,17 +53,17 @@ public class ArticuloController {
 		return this.articuloService.getArticulo(articuloId, user);
 	}
 	
-	@PostMapping( {"/crearArticulo", "/editarArticulo"} )
-	public @ResponseBody AccionRespuesta postCrearArticulo( Articulo articulo, BindingResult result ) {
+	@PostMapping( {"/crearArticulo/articulo/{articuloDto}.json", "/editarArticulo/articulo/{articuloDto}.json"} )
+	public @ResponseBody AccionRespuesta postCrearArticulo( ArticuloDto articuloDto, Usuario user, BindingResult result ) {
 		
-		this.articuloValidator.validate(articulo, result);
+		this.articuloValidator.validate(articuloDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.articuloService.getArticulo(articuloDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.articuloService.getCrearEditarArticulo(articuloDto, user);
 	}
 	
 	@PostMapping("/eliminarArticulo")

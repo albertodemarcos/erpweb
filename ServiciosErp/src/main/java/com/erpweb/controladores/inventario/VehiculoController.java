@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.inventario.Vehiculo;
+import com.erpweb.dto.VehiculoDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.inventario.VehiculoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -51,17 +51,17 @@ public class VehiculoController {
 		return this.vehiculoService.getVehiculo(vehiculoId, user);
 	}
 	
-	@PostMapping( { "/crearVehiculo", "/editarVehiculo" } )
-	public @ResponseBody AccionRespuesta postCrearVehiculo( Vehiculo vehiculo, BindingResult result ) {
+	@PostMapping( { "/crearVehiculo/vehiculo/{vehiculoDto}.json", "/editarVehiculo/vehiculo/{vehiculoDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearVehiculo( VehiculoDto vehiculoDto, Usuario user, BindingResult result ) {
 		
-		this.vehiculoValidator.validate(vehiculo, result);
+		this.vehiculoValidator.validate(vehiculoDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.vehiculoService.getVehiculo(vehiculoDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);
 	}
 	
 	@PostMapping("/eliminarVehiculo/{vehiculoId}")

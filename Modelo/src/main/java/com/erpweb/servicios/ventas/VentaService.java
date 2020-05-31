@@ -252,4 +252,22 @@ public class VentaService {
 		return AccionRespuesta;
 	}
 	
+	public AccionRespuesta getCrearEditarVenta(VentaDto ventaDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarVenta() con usuario={}", user.getId() );
+		
+		if( ventaDto.getId() != null && ventaDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion de la Venta con usuario={}", user.getId() );
+			
+			return this.actualizarVentaDesdeVentaDto(ventaDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear una Venta con usuario={}", user.getId() );
+			
+			return this.crearVentaDesdeVentaDto(ventaDto);
+		}
+	}
+	
 }

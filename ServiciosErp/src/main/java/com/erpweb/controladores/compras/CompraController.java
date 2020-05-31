@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.compras.Compra;
+import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.compras.CompraService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -52,17 +52,17 @@ public class CompraController {
 		return this.compraService.getCompra(compraId, user);
 	}
 	
-	@PostMapping( { "/crearCompra", "/editarCompra" } )
-	public @ResponseBody AccionRespuesta postCrearCompra( Compra compra, BindingResult result ) {
+	@PostMapping( { "/crearCompra/compra/{compraDto}.json", "/editarCompra/compra/{compraDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearCompra( CompraDto compraDto, Usuario user, BindingResult result ) {
 		
-		this.compraValidator.validate(compra, result);
+		this.compraValidator.validate(compraDto, result);
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.compraService.getCompra(compraDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.compraService.getCrearEditarCompra(compraDto, user);
 	}
 	
 	@PostMapping("/eliminarCompra/{compraId}")

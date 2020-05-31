@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.empresa.Configuracion;
+import com.erpweb.dto.ConfiguracionDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.empresa.ConfiguracionService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -53,17 +53,17 @@ public class ConfiguracionController {
 		return this.configuracionService.getConfiguracion(configuracionId, user);
 	}
 	
-	@PostMapping( { "/crearConfiguracion", "/editarConfiguracion" } )
-	public @ResponseBody AccionRespuesta postCrearConfiguracion( Configuracion configuracion, BindingResult result ) {
+	@PostMapping( { "/crearConfiguracion/configuracion/{configuracionDto}.json", "/editarConfiguracion/configuracion/{configuracionDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearConfiguracion( ConfiguracionDto configuracionDto, Usuario user, BindingResult result ) {
 		
-		this.configuracionValidator.validate(configuracion, result);
+		this.configuracionValidator.validate(configuracionDto, result);
 		
 		if(	result.hasErrors()	) {
 			
-			return new AccionRespuesta();
+			return this.configuracionService.getConfiguracion(configuracionDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.configuracionService.getCrearEditarConfiguracion(configuracionDto, user);
 	}
 	
 	@PostMapping("/eliminarConfiguracion/{configuracionId}")

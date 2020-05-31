@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.GastoDto;
-import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.bi.GastoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -56,18 +55,17 @@ public class GastoController {
 		return this.gastoService.getGasto(gastoId, user);
 	}
 	
-	@PostMapping( { "/crearGasto", "/editarGasto" } )
-	public @ResponseBody AccionRespuesta postCrearGasto(GastoDto gasto, BindingResult result) {
+	@PostMapping( { "/crearGasto/gasto/{gastoDto}.json", "/editarGasto/gasto/{gastoDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearGasto(GastoDto gastoDto, Usuario user, BindingResult result) {
 		
-		this.gastoValidator.validate(gasto, result);
+		this.gastoValidator.validate(gastoDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.gastoService.getGasto(gastoDto.getId(), user);
 		}
 		
-		
-		return new AccionRespuesta();
+		return this.gastoService.getCrearEditarGasto(gastoDto, user);
 	}
 	
 	@PostMapping("/eliminarGasto/{gastoId}")

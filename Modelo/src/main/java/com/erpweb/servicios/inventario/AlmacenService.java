@@ -210,5 +210,23 @@ public class AlmacenService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarAlmacen(AlmacenDto almacenDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarAlmacen() con usuario={}", user.getId() );
+		
+		if( almacenDto.getId() != null && almacenDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del almacen con usuario={}", user.getId() );
+			
+			return this.actualizarAlmacenDesdeAlmacenDto(almacenDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un almacen con usuario={}", user.getId() );
+			
+			return this.crearAlmacenDesdeAlmacenDto(almacenDto);
+		}
+	}
 
 }

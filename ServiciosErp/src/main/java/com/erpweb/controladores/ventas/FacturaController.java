@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.dto.FacturaDto;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.servicios.ventas.FacturaService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.FacturaValidator;
@@ -53,17 +53,17 @@ public class FacturaController {
 		return this.facturaService.getFactura(facturaId, user);
 	}
 	
-	@PostMapping( { "/crearFactura", "/editarFactura" } )
-	public @ResponseBody AccionRespuesta postCrearFactura( Factura factura, BindingResult result ) {
+	@PostMapping( { "/crearFactura/factura/{facturaDto}.json", "/editarFactura/factura/{facturaDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearFactura( FacturaDto facturaDto, Usuario user, BindingResult result ) {
 		
-		this.facturaValidator.validate(factura, result);
+		this.facturaValidator.validate(facturaDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.facturaService.getFactura(facturaDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.facturaService.getCrearEditarFactura(facturaDto, user);
 	}
 	
 	@PostMapping("/eliminarFactura/{facturaId}")

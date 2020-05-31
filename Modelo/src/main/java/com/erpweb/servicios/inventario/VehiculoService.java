@@ -225,4 +225,22 @@ public class VehiculoService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarVehiculo(VehiculoDto vehiculoDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarVehiculo() con usuario={}", user.getId() );
+		
+		if( vehiculoDto.getId() != null && vehiculoDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Vehiculo con usuario={}", user.getId() );
+			
+			return this.actualizarVehiculoDesdeVehiculoDto(vehiculoDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Vehiculo con usuario={}", user.getId() );
+			
+			return this.crearVehiculoDesdeVehiculoDto(vehiculoDto);
+		}
+	}
 }

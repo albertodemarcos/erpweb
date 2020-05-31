@@ -207,5 +207,23 @@ public class ConfiguracionService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarConfiguracion(ConfiguracionDto configuracionDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarConfiguracion() con usuario={}", user.getId() );
+		
+		if( configuracionDto.getId() != null && configuracionDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion de la Configuracion con usuario={}", user.getId() );
+			
+			return this.actualizarConfiguracionDesdeConfiguracionDto(configuracionDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear una Configuracion con usuario={}", user.getId() );
+			
+			return this.crearConfiguracionDesdeConfiguracionDto(configuracionDto);
+		}
+	}
 
 }

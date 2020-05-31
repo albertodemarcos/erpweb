@@ -252,4 +252,22 @@ public class ContratoService {
 		return AccionRespuesta;
 	}
 	
+	public AccionRespuesta getCrearEditarContrato(ContratoDto contratoDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarContrato() con usuario={}", user.getId() );
+		
+		if( contratoDto.getId() != null && contratoDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Contrato con usuario={}", user.getId() );
+			
+			return this.actualizarContratoDesdeContratoDto(contratoDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Contrato con usuario={}", user.getId() );
+			
+			return this.crearContratoDesdeContratoDto(contratoDto);
+		}
+	}
+	
 }

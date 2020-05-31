@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.InformeDto;
+import com.erpweb.dto.InformeDto;
 import com.erpweb.entidades.bi.Informe;
 import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
@@ -207,6 +208,24 @@ public class InformeService {
 		}
 		
 		return AccionRespuesta;
+	}
+	
+	public AccionRespuesta getCrearEditarInforme(InformeDto informeDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarInforme() con usuario={}", user.getId() );
+		
+		if( informeDto.getId() != null && informeDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Informe con usuario={}", user.getId() );
+			
+			return this.actualizarInformeDesdeInformeDto(informeDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Informe con usuario={}", user.getId() );
+			
+			return this.crearInformeDesdeInformeDto(informeDto);
+		}
 	}
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.crm.Cliente;
+import com.erpweb.dto.ClienteDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.crm.ClienteService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -52,17 +52,17 @@ public class ClienteController {
 		return this.clienteService.getCliente(clienteId, user);
 	}
 	
-	@PostMapping( { "/crearCliente", "/editarCliente" } )
-	public @ResponseBody AccionRespuesta postCrearCliente( Cliente cliente, BindingResult result ) {
+	@PostMapping( { "/crearCliente/cliente/{clienteDto}.json", "/editarCliente/cliente/{clienteDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearCliente( ClienteDto clienteDto, Usuario user, BindingResult result ) {
 		
-		this.clienteValidator.validate(cliente, result);
+		this.clienteValidator.validate(clienteDto, result);
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.clienteService.getCliente(clienteDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.clienteService.getCrearEditarCliente(clienteDto, user);
 	}
 	
 	@PostMapping("/eliminarCliente")

@@ -296,5 +296,23 @@ public class ArticuloService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarArticulo(ArticuloDto articuloDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarArticulo() con usuario={}", user.getId() );
+		
+		if( articuloDto.getId() != null && articuloDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Articulo con usuario={}", user.getId() );
+			
+			return this.actualizarArticuloDesdeArticuloDto(articuloDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Articulo con usuario={}", user.getId() );
+			
+			return this.crearArticuloDesdeArticuloDto(articuloDto);
+		}
+	}
 
 }

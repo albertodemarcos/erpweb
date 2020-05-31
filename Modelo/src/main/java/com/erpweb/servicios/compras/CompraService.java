@@ -216,5 +216,23 @@ public class CompraService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarCompra(CompraDto compraDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarCompra() con usuario={}", user.getId() );
+		
+		if( compraDto.getId() != null && compraDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion de la Compra con usuario={}", user.getId() );
+			
+			return this.actualizarCompraDesdeCompraDto(compraDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear una Compra con usuario={}", user.getId() );
+			
+			return this.crearCompraDesdeCompraDto(compraDto);
+		}
+	}
 
 }

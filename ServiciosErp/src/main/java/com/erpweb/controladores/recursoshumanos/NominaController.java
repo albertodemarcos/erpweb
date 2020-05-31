@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.recursoshumanos.Nomina;
+import com.erpweb.dto.NominaDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.recursoshumanos.NominaService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -51,17 +51,17 @@ public class NominaController {
 		return this.nominaService.getNomina(nominaId, user);
 	}
 	
-	@PostMapping( { "/crearNomina", "/editarNomina" } )
-	public @ResponseBody AccionRespuesta postCrearNomina( Nomina nomina, BindingResult result ) {
+	@PostMapping( { "/crearNomina/nomina/{nominaDto}.json", "/editarNomina/nomina/{nominaDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearNomina( NominaDto nominaDto, Usuario user, BindingResult result ) {
 		
-		this.nominaValidator.validate(nomina, result);
+		this.nominaValidator.validate(nominaDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.nominaService.getNomina(nominaDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.nominaService.getCrearEditarNomina(nominaDto, user);
 	}
 	
 	@PostMapping("/eliminarNomina/{nominaId}")

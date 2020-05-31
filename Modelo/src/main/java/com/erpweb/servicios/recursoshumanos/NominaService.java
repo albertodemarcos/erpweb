@@ -243,4 +243,22 @@ public class NominaService {
 		return AccionRespuesta;
 	}
 	
+	public AccionRespuesta getCrearEditarNomina(NominaDto nominaDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarNomina() con usuario={}", user.getId() );
+		
+		if( nominaDto.getId() != null && nominaDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion de la Nomina con usuario={}", user.getId() );
+			
+			return this.actualizarNominaDesdeNominaDto(nominaDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear una Nomina con usuario={}", user.getId() );
+			
+			return this.crearNominaDesdeNominaDto(nominaDto);
+		}
+	}
+	
 }

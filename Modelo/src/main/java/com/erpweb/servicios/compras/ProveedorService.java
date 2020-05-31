@@ -222,4 +222,23 @@ public class ProveedorService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarProveedor(ProveedorDto proveedorDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarProveedor() con usuario={}", user.getId() );
+		
+		if( proveedorDto.getId() != null && proveedorDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Proveedor con usuario={}", user.getId() );
+			
+			return this.actualizarProveedorDesdeProveedorDto(proveedorDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Proveedor con usuario={}", user.getId() );
+			
+			return this.crearProveedorDesdeProveedorDto(proveedorDto);
+		}
+	}
+	
 }

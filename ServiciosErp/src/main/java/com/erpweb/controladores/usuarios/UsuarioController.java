@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erpweb.dto.UsuarioDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.usuarios.UsuarioService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -52,17 +53,17 @@ public class UsuarioController {
 		return this.usuarioService.getUsuario(usuarioId, user);
 	}
 	
-	@PostMapping( { "/crearUsuario" , "/editarUsuario" } )
-	public @ResponseBody AccionRespuesta postCrearUsuario( Usuario usuario, BindingResult result ) {
+	@PostMapping( { "/crearUsuario/usuario/{usuarioDto}.json" , "/editarUsuario/usuario/{usuarioDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearUsuario( UsuarioDto usuarioDto, Usuario user, BindingResult result ) {
 		
-		this.usuarioValidator.validate(usuario, result);
+		this.usuarioValidator.validate(usuarioDto, result);
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.usuarioService.getUsuario(usuarioDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);
 	}
 	
 	@PostMapping("/eliminarUsuario/{usuarioId}")

@@ -348,5 +348,23 @@ public class EmpleadoService {
 		
 		return AccionRespuesta;
 	}
+	
+	public AccionRespuesta getCrearEditarEmpleado(EmpleadoDto empleadoDto, Usuario user) {
+		
+		logger.debug("Entramos en el metodo getCrearEditarEmpleado() con usuario={}", user.getId() );
+		
+		if( empleadoDto.getId() != null && empleadoDto.getId().longValue() > 0) {
+			
+			logger.debug("Se va a realizar una actualizacion del Empleado con usuario={}", user.getId() );
+			
+			return this.actualizarEmpleadoDesdeEmpleadoDto(empleadoDto);
+			
+		} else {
+			
+			logger.debug("Se va a crear un Empleado con usuario={}", user.getId() );
+			
+			return this.crearEmpleadoDesdeEmpleadoDto(empleadoDto);
+		}
+	}
 
 }

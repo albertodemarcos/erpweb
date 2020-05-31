@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.recursoshumanos.Empleado;
+import com.erpweb.dto.EmpleadoDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.recursoshumanos.EmpleadoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -52,17 +52,17 @@ public class EmpleadoController {
 		return this.empleadoService.getEmpleado(empleadoId, user);
 	}
 	
-	@PostMapping( { "/crearEmpleado", "/editarEmpleado" } )
-	public @ResponseBody AccionRespuesta postCrearEmpleado( Empleado empleado, BindingResult result ) {
+	@PostMapping( { "/crearEmpleado/empleado/{empleadoDto}.json", "/editarEmpleado/empleado/{empleadoDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearEmpleado( EmpleadoDto empleadoDto, Usuario user, BindingResult result ) {
 		
-		this.empleadoValidator.validate(empleado, result);
+		this.empleadoValidator.validate(empleadoDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.empleadoService.getEmpleado(empleadoDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.empleadoService.getCrearEditarEmpleado(empleadoDto, user);
 	}
 	
 	@PostMapping("/eliminarEmpleado/{empleadoId}")

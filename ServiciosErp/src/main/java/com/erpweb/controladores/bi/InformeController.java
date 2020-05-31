@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpweb.entidades.bi.Informe;
+import com.erpweb.dto.InformeDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.bi.InformeService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -52,17 +52,17 @@ public class InformeController {
 		return this.informeService.getInforme(informeId, user);
 	}
 	
-	@PostMapping( { "/crearInforme" , "/editarInforme" } )
-	public @ResponseBody AccionRespuesta postCrearInforme( Informe informe, BindingResult result) {
+	@PostMapping( { "/crearInforme/informe/{informeDto}.json" , "/editarInforme/informe/{informeDto}.json" } )
+	public @ResponseBody AccionRespuesta postCrearInforme( InformeDto informeDto, Usuario user, BindingResult result) {
 		
-		this.informeValidator.validate(informe, result);
+		this.informeValidator.validate(informeDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta();
+			return this.informeService.getInforme(informeDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.informeService.getCrearEditarInforme(informeDto, user);
 	}
 	
 	@PostMapping("/eliminarInforme/{informeId}")
