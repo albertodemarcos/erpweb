@@ -1,7 +1,7 @@
 package com.erpweb.servicios.compras;
 
-
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.ProveedorDto;
 import com.erpweb.entidades.compras.Proveedor;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.compras.ProveedorRepository;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 
@@ -23,32 +21,20 @@ public class ProveedorService {
 
 	@Autowired
 	private ProveedorRepository proveedorRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public AccionRespuesta crearProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
 		
-		logger.debug("Entramos en el metodo crearProveedorDesdeProveedorDto() con la empresa={}", proveedorDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearProveedorDesdeProveedorDto() con ID={}", proveedorDto.getId() );
 
 		Proveedor proveedor = new Proveedor();
 		
-		if(proveedorDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(proveedorDto.getEmpresaId()).orElse(new Empresa());
-		
 		proveedor.setCodigo(proveedorDto.getCodigo());
-		proveedor.setEmpresa(empresa);
 		proveedor.setNombre(proveedorDto.getNombre());
 		proveedor.setNombreEmpresa(proveedorDto.getNombreEmpresa());
 		proveedor.setTelefono(proveedorDto.getTelefono());
-		proveedor.setArticulo(proveedorDto.getArticulo());
-		proveedor.setCantidad(proveedorDto.getCantidad());
 		proveedor.setTipoProveedor(proveedorDto.getTipoProveedor());
 		
 		try {
@@ -57,7 +43,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearProveedorDesdeProveedorDto() con la empresa{} ", proveedorDto.getEmpresaId() );
+			logger.error("Error en el metodo crearProveedorDesdeProveedorDto() con ID={}", proveedorDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -69,25 +55,15 @@ public class ProveedorService {
 	
 	public AccionRespuesta actualizarProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
 		
-		logger.debug("Entramos en el metodo actualizarProveedorDesdeProveedorDto() con la empresa={}", proveedorDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarProveedorDesdeProveedorDto() con ID={}", proveedorDto.getId() );
 
 		Proveedor proveedor = new Proveedor();
 		
-		if(proveedorDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(proveedorDto.getEmpresaId()).orElse(new Empresa());
-		
 		proveedor.setId(proveedorDto.getId());
 		proveedor.setCodigo(proveedorDto.getCodigo());
-		proveedor.setEmpresa(empresa);
 		proveedor.setNombre(proveedorDto.getNombre());
 		proveedor.setNombreEmpresa(proveedorDto.getNombreEmpresa());
 		proveedor.setTelefono(proveedorDto.getTelefono());
-		proveedor.setArticulo(proveedorDto.getArticulo());
-		proveedor.setCantidad(proveedorDto.getCantidad());
 		proveedor.setTipoProveedor(proveedorDto.getTipoProveedor());
 		
 		try {
@@ -96,7 +72,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarProveedorDesdeProveedorDto() con la empresa{} ", proveedorDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarProveedorDesdeProveedorDto() con ID={}", proveedorDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -108,7 +84,7 @@ public class ProveedorService {
 	
 	public AccionRespuesta eliminarProveedor(Proveedor proveedor) {
 		
-		logger.debug("Entramos en el metodo eliminarProveedor() con la empresa={}", proveedor.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarProveedor() con ID={}", proveedor.getId() );
 		
 		if(proveedor == null || proveedor.getId() == null) {
 			
@@ -121,7 +97,7 @@ public class ProveedorService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarProveedor() con la empresa{} ", proveedor.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarProveedor() con ID={}", proveedor.getId() );
 			
 			e.printStackTrace();
 			
@@ -151,11 +127,13 @@ public class ProveedorService {
 		return new AccionRespuesta();
 	}
 	
-	public ProveedorDto obtenerProveedorDtoDesdeProveedor(Long id, Long empresaId) {
+	public ProveedorDto obtenerProveedorDtoDesdeProveedor(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerProveedorDtoDesdeProveedor() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerProveedorDtoDesdeProveedor() con ID={}", id );
 		
-		Proveedor proveedor = proveedorRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Proveedor> proveedorOptional = proveedorRepository.findById(id );
+		
+		Proveedor proveedor = proveedorOptional.get();
 		
 		if(proveedor == null) {
 			return new ProveedorDto();
@@ -166,17 +144,14 @@ public class ProveedorService {
 		try {
 			
 			proveedorDto.setCodigo(proveedor.getCodigo());
-			proveedorDto.setEmpresaId(empresaId);
 			proveedorDto.setNombre(proveedor.getNombre());
 			proveedorDto.setNombreEmpresa(proveedor.getNombreEmpresa());
 			proveedorDto.setTelefono(proveedor.getTelefono());
-			proveedorDto.setArticulo(proveedor.getArticulo());
-			proveedorDto.setCantidad(proveedor.getCantidad());
 			proveedorDto.setTipoProveedor(proveedor.getTipoProveedor());
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerProveedorDtoDesdeProveedor() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerProveedorDtoDesdeProveedor() con ID={} ", id );
 			
 			e.printStackTrace();
 		}
@@ -193,7 +168,7 @@ public class ProveedorService {
 			return new AccionRespuesta(-1L, "Error, existe el proveedor", Boolean.FALSE);
 		}
 		
-		ProveedorDto proveedorDto = this.obtenerProveedorDtoDesdeProveedor(proveedorId, user.getEmpresa().getId());
+		ProveedorDto proveedorDto = this.obtenerProveedorDtoDesdeProveedor(proveedorId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

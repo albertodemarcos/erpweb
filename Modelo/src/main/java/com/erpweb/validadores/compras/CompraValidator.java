@@ -25,11 +25,6 @@ public class CompraValidator implements Validator {
 		
 		CompraDto compraDto = (CompraDto) target;
 		
-		if( compraDto.getEmpresaId() == null || compraDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "La compra no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( compraDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
@@ -38,10 +33,56 @@ public class CompraValidator implements Validator {
 		if(  compraDto.getFechaCompra() == null ) {
 			
 			errors.rejectValue("", "", "El campo fecha no puede estar vacio");
-			
 		} 
 		
-		//Crear validator especifico a las lineas de compras y al proveedor
+		if( StringUtils.isBlank( compraDto.getArticulo() )  ) {
+					
+			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
+		}
+		
+		if( compraDto.getCantidad() == null  ) {
+			
+			errors.rejectValue("", "", "El campo cantidad no puede estar vacío");
+			
+		}else if( compraDto.getCantidad().intValue() < 0  ) {
+			
+			errors.rejectValue("", "", "El campo cantidad no puede ser negativo");
+			
+		}else if( compraDto.getCantidad().intValue() == 0  ) {
+			
+			errors.rejectValue("", "", "El campo cantidad no puede ser cero");
+		}
+		
+		if( StringUtils.isBlank( compraDto.getImpuesto() )  ) {
+			
+			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
+		}
+		
+		if( compraDto.getBaseImponibleTotal() == null  ) {
+			
+			errors.rejectValue("", "", "El campo base imponible no puede estar vacío");
+			
+		}else if( compraDto.getBaseImponibleTotal().intValue() < 0  ) {
+			
+			errors.rejectValue("", "", "El campo base imponible no puede ser negativo");
+			
+		}else if( compraDto.getBaseImponibleTotal().intValue() == 0  ) {
+			
+			errors.rejectValue("", "", "El campo base imponible no puede ser cero");
+		}
+		
+		if( compraDto.getImporteTotal() == null  ) {
+			
+			errors.rejectValue("", "", "El campo importe total no puede estar vacío");
+			
+		}else if( compraDto.getImporteTotal().intValue() < 0  ) {
+			
+			errors.rejectValue("", "", "El campo importe total no puede ser negativo");
+			
+		}else if( compraDto.getImporteTotal().intValue() == 0  ) {
+			
+			errors.rejectValue("", "", "El campo importe total no puede ser cero");
+		}
 		
 		
 	}

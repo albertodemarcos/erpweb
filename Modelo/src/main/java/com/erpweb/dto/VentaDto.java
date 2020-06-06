@@ -3,26 +3,20 @@ package com.erpweb.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import com.erpweb.entidades.ventas.LineaVenta;
+
 
 public class VentaDto implements Serializable {
 
-	private static final long serialVersionUID = -4721127529620110334L;
 
 	private Long id;
 	private String codigo;
-	private Long empresaId;
-	private Date fechaCreacion;  														
-	private Date fechaInicio;    														
-	private Date fechaFin;       														
-	private String descripcion;																		
-	private BigDecimal baseImponibleTotal;												
-	private BigDecimal importeTotal;
-	private Long facturaId;															
-	private SortedSet<LineaVenta> lineasVenta = new TreeSet<LineaVenta>(); 				
+	private Date fechaCreacion;  														//Cuando se crea la factura
+	private Date fechaInicio;    														//Cuando empieza la factura
+	private Date fechaFin;       														//Cuando finaliza la factura
+	private String descripcion;															//Descripcion del contrato			
+	private BigDecimal baseImponibleTotal;												//Importe total de la venta sin impuestos
+	private BigDecimal importeTotal;	    											//Importe total de la venta con impuestos														
 	
 	public Long getId() {
 		return id;
@@ -38,14 +32,6 @@ public class VentaDto implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-	
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
 	}
 	
 	public Date getFechaCreacion() {
@@ -78,22 +64,6 @@ public class VentaDto implements Serializable {
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	
-	public SortedSet<LineaVenta> getLineasVenta() {
-		return lineasVenta;
-	}
-	
-	public void setLineasVenta(SortedSet<LineaVenta> lineasVenta) {
-		this.lineasVenta = lineasVenta;
-	}
-	
-	public Long getFacturaId() {
-		return facturaId;
-	}
-	
-	public void setFacturaId(Long facturaId) {
-		this.facturaId = facturaId;
 	}
 	
 	public BigDecimal getBaseImponibleTotal() {

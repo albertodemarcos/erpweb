@@ -25,10 +25,6 @@ public class AlmacenValidator implements Validator {
 		
 		AlmacenDto almacenDto = (AlmacenDto) target;
 		
-		if( almacenDto.getEmpresaId() == null || almacenDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El almacen no esta asociado a una empresa");
-		}
 		
 		if( StringUtils.isBlank( almacenDto.getCodigo() )  ) {
 			

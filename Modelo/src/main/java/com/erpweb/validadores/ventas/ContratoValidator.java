@@ -25,11 +25,6 @@ public class ContratoValidator implements Validator {
 
 		ContratoDto contratoDto = (ContratoDto) target;
 		
-		if( contratoDto.getEmpresaId() == null || contratoDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El contrato no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( contratoDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");

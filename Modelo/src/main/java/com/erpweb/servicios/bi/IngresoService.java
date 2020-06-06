@@ -2,6 +2,7 @@ package com.erpweb.servicios.bi;
 
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.IngresoDto;
 import com.erpweb.entidades.bi.Ingreso;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.bi.IngresoRepository;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 @Service
@@ -21,27 +20,18 @@ public class IngresoService {
 
 	@Autowired
 	private IngresoRepository ingresoRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public AccionRespuesta crearIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
 		
-		logger.debug("Entramos en el metodo crearIngresoDesdeIngresoDto() con la empresa={}", ingresoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearIngresoDesdeIngresoDto() con ID={}", ingresoDto.getId() );
 		
 		Ingreso ingreso = new Ingreso();
 		
-		if(ingresoDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(ingresoDto.getEmpresaId()).orElse(new Empresa());
 		
 		ingreso.setCodigo(ingresoDto.getCodigo());
-		ingreso.setEmpresa(empresa);
 		ingreso.setProcedencia(ingresoDto.getProcedencia());
 		ingreso.setBaseImponible(ingresoDto.getBaseImponible());
 		ingreso.setCuotaTributaria(ingresoDto.getCuotaTributaria());
@@ -56,7 +46,7 @@ public class IngresoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearIngresoDesdeIngresoDto() con la empresa{} ", ingresoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearIngresoDesdeIngresoDto() con ID={}", ingresoDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -68,19 +58,12 @@ public class IngresoService {
 	
 	public AccionRespuesta actualizarIngresoDesdeIngresoDto(IngresoDto ingresoDto) {
 		
-		logger.debug("Entramos en el metodo actualizarIngresoDesdeIngresoDto() con la empresa={}", ingresoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarIngresoDesdeIngresoDto() con ID={}", ingresoDto.getId() );
 
 		Ingreso ingreso = new Ingreso();
 		
-		if(ingresoDto.getEmpresaId() == null) {
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(ingresoDto.getEmpresaId()).orElse(new Empresa());
-		
 		ingreso.setId(ingresoDto.getId());
 		ingreso.setCodigo(ingresoDto.getCodigo());
-		ingreso.setEmpresa(empresa);
 		ingreso.setProcedencia(ingresoDto.getProcedencia());
 		ingreso.setBaseImponible(ingresoDto.getBaseImponible());
 		ingreso.setCuotaTributaria(ingresoDto.getCuotaTributaria());
@@ -95,7 +78,7 @@ public class IngresoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarIngresoDesdeIngresoDto() con la empresa{} ", ingresoDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarIngresoDesdeIngresoDto() con ID={}", ingresoDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -107,7 +90,7 @@ public class IngresoService {
 	
 	public AccionRespuesta eliminarIngreso(Ingreso ingreso) {
 		
-		logger.debug("Entramos en el metodo eliminarIngreso() con la empresa={}", ingreso.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarIngreso() con ID={}", ingreso.getId() );
 		
 		if(ingreso == null || ingreso.getId() == null) {
 			
@@ -121,7 +104,7 @@ public class IngresoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarIngreso() con la empresa{} ", ingreso.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarIngreso() con la empresa{} ", ingreso.getId() );
 			
 			e.printStackTrace();
 			
@@ -153,11 +136,13 @@ public class IngresoService {
 		return new AccionRespuesta();
 	}
 		
-	public IngresoDto obtenerIngresoDtoDesdeIngreso(Long id, Long empresaId) {
+	public IngresoDto obtenerIngresoDtoDesdeIngreso(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerIngresoDtoDesdeIngreso() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerIngresoDtoDesdeIngreso() con ID={}", id );
 		
-		Ingreso ingreso = ingresoRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Ingreso> ingresoOptional = ingresoRepository.findById(id);
+		
+		Ingreso ingreso = ingresoOptional.get();
 		
 		if(ingreso == null) {
 			
@@ -169,7 +154,6 @@ public class IngresoService {
 		try {
 			
 			ingresoDto.setCodigo(ingresoDto.getCodigo());
-			ingresoDto.setEmpresaId(empresaId);
 			ingresoDto.setProcedencia(ingreso.getProcedencia());
 			ingresoDto.setBaseImponible(ingreso.getBaseImponible());
 			ingresoDto.setCuotaTributaria(ingreso.getCuotaTributaria());
@@ -179,7 +163,7 @@ public class IngresoService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerIngresoDtoDesdeIngreso() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerIngresoDtoDesdeIngreso() con ID={}", id );
 			
 			e.printStackTrace();
 		}
@@ -197,7 +181,7 @@ public class IngresoService {
 			return new AccionRespuesta(-1L, "Error, existe el ingreso", Boolean.FALSE);
 		}
 		
-		IngresoDto ingresoDto = this.obtenerIngresoDtoDesdeIngreso(ingresoId, user.getEmpresa().getId());
+		IngresoDto ingresoDto = this.obtenerIngresoDtoDesdeIngreso(ingresoId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

@@ -25,11 +25,6 @@ public class VentaValidator implements Validator {
 		
 		VentaDto ventaDto = (VentaDto) target;
 		
-		if( ventaDto.getEmpresaId() == null || ventaDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "La venta no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( ventaDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");

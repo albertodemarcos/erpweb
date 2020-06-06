@@ -5,12 +5,18 @@ import java.io.Serializable;
 
 public class AlmacenDto implements Serializable {
 
-	private static final long serialVersionUID = 3348035210553124199L;
-
 	private Long id;
 	private String codigo;
-	private Long empresaId;
 	private String nombre;
+   	private String codigoPostal;
+   	private String direccion; 		
+   	private String edificio;        
+   	private String observaciones;
+   	private String telefono;
+   	private String poblacion;
+   	private String region;
+   	private String provincia;
+   	private String pais;
 	
 	public Long getId() {
 		return id;
@@ -28,20 +34,84 @@ public class AlmacenDto implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-	
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
-	}
-	
 	public String getNombre() {
 		return nombre;
 	}
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(String edificio) {
+		this.edificio = edificio;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 	
 	

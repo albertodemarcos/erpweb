@@ -1,6 +1,7 @@
 package com.erpweb.repositorios.inventario;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,8 @@ import com.erpweb.entidades.inventario.Almacen;
 public interface AlmacenRepository extends JpaRepository<Almacen, Long> {
 
 	
-	Almacen findByIdAndEmpresaId(Long id, Long empresaId);
+	Optional<Almacen> findById(Long id);
 	
-	List<Almacen> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Almacen> findByIdIn( List<Long> ids);
 	
 }

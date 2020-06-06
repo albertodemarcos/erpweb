@@ -50,6 +50,11 @@ public class EmpresaValidator implements Validator {
 			errors.rejectValue("", "", "El campo sociedad juridica no puede estar vacío");
 		}
 		
+		if( StringUtils.isBlank( empresaDto.getIdioma() )  ) {
+			
+			errors.rejectValue("", "", "Debes elegir el idioma");
+		}
+		
 
 	}
 

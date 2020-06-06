@@ -3,26 +3,19 @@ package com.erpweb.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import com.erpweb.entidades.ventas.LineaFactura;
 
 public class FacturaDto implements Serializable {
 
-	private static final long serialVersionUID = 553445342127999493L;
-
 	private Long id;
 	private String codigo;
-	private Long empresaId;
-	private Date fechaCreacion;
-	private Date fechaInicio;    				
-	private Date fechaFin;       				
-	private String descripcion;      			
-	private BigDecimal baseImponible;     		
-	private BigDecimal cuotaTributaria;   		
-	private BigDecimal importeTotal; 
-	private SortedSet<LineaFactura> lineasFactura = new TreeSet<LineaFactura>();
+	private Date fechaCreacion;  													//Cuando se crea la factura
+	private Date fechaInicio;    													//Cuando empieza la factura
+	private Date fechaFin;       													//Cuando finaliza la factura
+	private String descripcion;      												//Descripcion de la factura
+	private BigDecimal baseImponible;     											//Precio sin impuesto
+	private BigDecimal cuotaTributaria;   											//Valor del impuesto sobre el producto
+	private BigDecimal importeTotal;      											//Base imponible mas cuota tributaria 
 	
 	public Long getId() {
 		return id;
@@ -38,14 +31,6 @@ public class FacturaDto implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-	
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
 	}
 	
 	public Date getFechaCreacion() {
@@ -104,14 +89,5 @@ public class FacturaDto implements Serializable {
 		this.importeTotal = importeTotal;
 	}
 
-	public SortedSet<LineaFactura> getLineasFactura() {
-		return lineasFactura;
-	}
-
-	public void setLineasFactura(SortedSet<LineaFactura> lineasFactura) {
-		this.lineasFactura = lineasFactura;
-	}
-	
-	
 	
 }

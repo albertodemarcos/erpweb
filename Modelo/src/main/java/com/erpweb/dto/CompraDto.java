@@ -1,22 +1,20 @@
 package com.erpweb.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
-import com.erpweb.entidades.compras.LineaCompra;
-import com.erpweb.entidades.compras.Proveedor;
 
 public class CompraDto implements Serializable {
 
-	private static final long serialVersionUID = -2904706329060743892L;
-
 	private Long id;
 	private String codigo;
-	private Long empresaId;
 	private Date fechaCompra;
-	private Set<LineaCompra> lineaCompra;
-	private Proveedor proveedor;
+	private String articulo; 				//Articulo
+	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
+	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
+	private String impuesto; 				//Impuesto 
+	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
 	
 	public Long getId() {
 		return id;
@@ -33,14 +31,6 @@ public class CompraDto implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
-	}
 
 	public Date getFechaCompra() {
 		return fechaCompra;
@@ -49,21 +39,45 @@ public class CompraDto implements Serializable {
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
-	
-	public Set<LineaCompra> getLineaCompra() {
-		return lineaCompra;
+
+	public String getArticulo() {
+		return articulo;
 	}
-	
-	public void setLineaCompra(Set<LineaCompra> lineaCompra) {
-		this.lineaCompra = lineaCompra;
+
+	public void setArticulo(String articulo) {
+		this.articulo = articulo;
 	}
-	
-	public Proveedor getProveedor() {
-		return proveedor;
+
+	public BigDecimal getCantidad() {
+		return cantidad;
 	}
-	
-	public void setProveedor(Proveedor proveedor) {
-		this.proveedor = proveedor;
+
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public BigDecimal getBaseImponibleTotal() {
+		return baseImponibleTotal;
+	}
+
+	public void setBaseImponibleTotal(BigDecimal baseImponibleTotal) {
+		this.baseImponibleTotal = baseImponibleTotal;
+	}
+
+	public String getImpuesto() {
+		return impuesto;
+	}
+
+	public void setImpuesto(String impuesto) {
+		this.impuesto = impuesto;
+	}
+
+	public BigDecimal getImporteTotal() {
+		return importeTotal;
+	}
+
+	public void setImporteTotal(BigDecimal importeTotal) {
+		this.importeTotal = importeTotal;
 	}
 	
 	

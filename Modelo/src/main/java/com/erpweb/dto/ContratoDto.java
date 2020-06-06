@@ -3,26 +3,18 @@ package com.erpweb.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import com.erpweb.entidades.ventas.LineaContrato;
 
 public class ContratoDto implements Serializable {
 
-	private static final long serialVersionUID = 7361832268020684761L;
-
 	private Long id;
 	private String codigo;
-	private Long empresaId;
-	private Date fechaCreacion;  													
-	private Date fechaInicio;    													
-	private Date fechaFin;       													
-	private String descripcion;														
-	private BigDecimal baseImponibleTotal;											
-	private BigDecimal importeTotal;
-	private Long facturaId;
-	private SortedSet<LineaContrato> lineasContrato = new TreeSet<LineaContrato>();
+	private Date fechaCreacion;  													//Cuando se crea el contrato
+	private Date fechaInicio;    													//Cuando empieza el contrato
+	private Date fechaFin;       													//Cuando finaliza el contrato
+	private String descripcion;														//Descripcion del contrato
+	private BigDecimal baseImponibleTotal;											//Importe total del contrato sin impuestos
+	private BigDecimal importeTotal;	    										//Importe total del contro con impuestos
 	
 	public Long getId() {
 		return id;
@@ -40,14 +32,6 @@ public class ContratoDto implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
-	}
-
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
@@ -96,21 +80,5 @@ public class ContratoDto implements Serializable {
 		this.importeTotal = importeTotal;
 	}
 
-	public Long getFacturaId() {
-		return facturaId;
-	}
-
-	public void setFacturaId(Long facturaId) {
-		this.facturaId = facturaId;
-	}
-
-	public SortedSet<LineaContrato> getLineasContrato() {
-		return lineasContrato;
-	}
-
-	public void setLineasContrato(SortedSet<LineaContrato> lineasContrato) {
-		this.lineasContrato = lineasContrato;
-	}	
-	
 	
 }

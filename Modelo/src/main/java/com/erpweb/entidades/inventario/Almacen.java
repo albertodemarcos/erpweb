@@ -1,17 +1,12 @@
 package com.erpweb.entidades.inventario;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.erpweb.entidades.empresa.Empresa;
 
 
 @Entity
@@ -22,16 +17,24 @@ public class Almacen implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Empresa empresa;
 	private String nombre;
-	private Articulo articulo; 				//Articulo
-	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
+	
+	//Atributos de direccion postal
+   	private String codigoPostal;
+   	private String direccion; 		//Calle/avenida/plaza, etc. con numero
+   	private String edificio;        //Edificio planta y letra
+   	private String observaciones;
+   	private String telefono;
+   	
+   	//Atributos origen
+   	private String poblacion;
+   	private String region;
+   	private String provincia;
+   	private String pais;
 		
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-	//@SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq")
 	public Long getId() {
 		return id;
 	}
@@ -48,15 +51,6 @@ public class Almacen implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -64,22 +58,78 @@ public class Almacen implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(String edificio) {
+		this.edificio = edificio;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
 	
-	@ManyToOne(fetch=FetchType.LAZY,optional=false)
-	public Articulo getArticulo() {
-		return articulo;
-	}
-
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
-
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
-	}
 	
 }

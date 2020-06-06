@@ -25,11 +25,6 @@ public class ArticuloValidator implements Validator {
 		
 		ArticuloDto articuloDto = (ArticuloDto) target;
 		
-		if( articuloDto.getEmpresaId() == null || articuloDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El artículo no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( articuloDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
@@ -71,7 +66,10 @@ public class ArticuloValidator implements Validator {
 			errors.rejectValue("", "", "El campo importe total no puede ser cero");
 		}
 		
-		
+		if( StringUtils.isBlank( articuloDto.getImpuesto() )  ) {
+			
+			errors.rejectValue("", "", "El campo impuesto no puede estar vacío");
+		}
 		
 	}
 

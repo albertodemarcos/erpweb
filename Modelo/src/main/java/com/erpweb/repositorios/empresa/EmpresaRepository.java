@@ -15,7 +15,7 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 	
 	Optional<Empresa> findById(Long id);
 	
-	List<Empresa> findByIdIn( List<Long> empresasId);
+	List<Empresa> findByIdIn( List<Long> ids);
 	
 	
 }

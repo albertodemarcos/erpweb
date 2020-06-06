@@ -26,11 +26,6 @@ public class IngresoValidator implements Validator {
 		
 		IngresoDto ingresoDto = (IngresoDto) target;
 		
-		if( ingresoDto.getEmpresaId() == null || ingresoDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El ingreso no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( ingresoDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacio");

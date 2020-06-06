@@ -5,11 +5,27 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Persona {
 
+	//Atributos de Persona
 	private String nombre;
     private String apellidoPrimero;
     private String apellidoSegundo;
     private String nif;
     
+    //Atributos de direccion postal
+   	private String codigoPostal;
+   	private String direccion; 		//Calle/avenida/plaza, etc. con numero
+   	private String edificio;        //Edificio planta y letra
+   	private String observaciones;
+   	private String telefono;
+   	
+   	//Atributos origen
+   	private String poblacion;
+   	private String region;
+   	private String provincia;
+   	private String pais;
+
+   	
+   	
     public String getNombre() {
         return nombre;
     }
@@ -42,5 +58,73 @@ public abstract class Persona {
         this.nif = nif;
     }
     
-    
+    public String getCodigoPostal() {
+		return codigoPostal;
+	}
+	
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+	
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	public String getEdificio() {
+		return edificio;
+	}
+	
+	public void setEdificio(String edificio) {
+		this.edificio = edificio;
+	}
+	public String getObservaciones() {
+		return observaciones;
+	}
+	
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+	
+	public String getTelefono() {
+		return telefono;
+	}
+	
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	public String getPoblacion() {
+		return poblacion;
+	}
+	
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+	
+	public String getRegion() {
+		return region;
+	}
+	
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	
+	public String getProvincia() {
+		return provincia;
+	}
+	
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+	
+	public String getPais() {
+		return pais;
+	}
+	
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
 }

@@ -1,6 +1,7 @@
 package com.erpweb.servicios.bi;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.GastoDto;
 import com.erpweb.entidades.bi.Gasto;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.bi.GastoRepository;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 @Service
@@ -20,8 +19,6 @@ public class GastoService {
 	
 	@Autowired
 	private GastoRepository gastoRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
 
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -29,19 +26,11 @@ public class GastoService {
 	
 	public AccionRespuesta crearGastoDesdeGastoDto(GastoDto gastoDto) {
 		
-		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto() con la empresa={}", gastoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearGastoDesdeGastoDto()" );
 		
 		Gasto gasto = new Gasto();
-
-		if(gastoDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(gastoDto.getEmpresaId()).orElse(new Empresa());
 		
 		gasto.setCodigo(gastoDto.getCodigo());
-		gasto.setEmpresa(empresa);
 		gasto.setProcedencia(gastoDto.getProcedencia());
 		gasto.setBaseImponible(gastoDto.getBaseImponible());
 		gasto.setCuotaTributaria(gastoDto.getCuotaTributaria());
@@ -56,7 +45,7 @@ public class GastoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearGastoDesdeGastoDto() con la empresa{} ", gastoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearGastoDesdeGastoDto() " );
 			
 			e.printStackTrace();			
 			
@@ -68,20 +57,12 @@ public class GastoService {
 	
 	public AccionRespuesta actualizarGastoDesdeGastoDto(GastoDto gastoDto) {
 		
-		logger.debug("Entramos en el metodo actualizarGastoDesdeGastoDto() con la empresa={}", gastoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarGastoDesdeGastoDto() " );
 		
 		Gasto gasto = new Gasto();
 
-		if(gastoDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(gastoDto.getEmpresaId()).orElse(new Empresa());
-		
 		gasto.setId(gastoDto.getId());
 		gasto.setCodigo(gastoDto.getCodigo());
-		gasto.setEmpresa(empresa);
 		gasto.setProcedencia(gastoDto.getProcedencia());
 		gasto.setBaseImponible(gastoDto.getBaseImponible());
 		gasto.setCuotaTributaria(gastoDto.getCuotaTributaria());
@@ -95,7 +76,7 @@ public class GastoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarGastoDesdeGastoDto() con la empresa{} ", gastoDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarGastoDesdeGastoDto() con la empresa{} " );
 			
 			e.printStackTrace();
 			
@@ -107,7 +88,7 @@ public class GastoService {
 	
 	public AccionRespuesta eliminarGasto(Gasto gasto) {
 		
-		logger.error("Entramos en el metodo eliminarGasto() con la empresa{} ", gasto.getEmpresa().getId() );
+		logger.error("Entramos en el metodo eliminarGasto() con ID={} ", gasto.getId() );
 		
 		if(gasto == null || gasto.getId() == null) {
 			
@@ -120,7 +101,7 @@ public class GastoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarGasto() con la empresa{} ", gasto.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarGasto() con ID={} ", gasto.getId() );
 			
 			e.printStackTrace();
 			
@@ -152,11 +133,11 @@ public class GastoService {
 		return new AccionRespuesta();
 	}
 	
-	public GastoDto obtenerGastoDtoDesdeGasto(Long id, Long empresaId) {
+	public GastoDto obtenerGastoDtoDesdeGasto(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerGastoDtoDesdeGasto() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerGastoDtoDesdeGasto() con ID={} ", id );
 		
-		if( (id ==  null || id.doubleValue() < 1 ) || (empresaId == null || empresaId.intValue() < 1 ) ) {
+		if( (id ==  null || id.doubleValue() < 1 ) ) {
 			
 			return new GastoDto();
 		}
@@ -165,10 +146,11 @@ public class GastoService {
 		
 		try {
 			
-			Gasto gasto = gastoRepository.findByIdAndEmpresaId(id, empresaId);
+			Optional<Gasto> gastoOptional = gastoRepository.findById(id);
+			
+			Gasto gasto = gastoOptional.get();
 			
 			gastoDto.setCodigo(gasto.getCodigo());
-			gastoDto.setEmpresaId(gasto.getEmpresa().getId());
 			gastoDto.setProcedencia(gasto.getProcedencia());
 			gastoDto.setBaseImponible(gasto.getBaseImponible());
 			gastoDto.setCuotaTributaria(gasto.getCuotaTributaria());
@@ -178,7 +160,7 @@ public class GastoService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerGastoDtoDesdeGasto() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerGastoDtoDesdeGasto() con ID={} ", id  );
 			
 			e.printStackTrace();
 		}
@@ -195,7 +177,7 @@ public class GastoService {
 			return new AccionRespuesta(-1L, "Error, existe el gasto", Boolean.FALSE);
 		}
 		
-		GastoDto gastoDto = this.obtenerGastoDtoDesdeGasto(gastoId, user.getEmpresa().getId());
+		GastoDto gastoDto = this.obtenerGastoDtoDesdeGasto(gastoId );
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

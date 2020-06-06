@@ -1,40 +1,34 @@
-package com.erpweb.entidades.ventas;
+package com.erpweb.entidades.compras;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.erpweb.entidades.comun.Impuesto;
-import com.erpweb.entidades.inventario.Articulo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="lineacontrato")
-public class LineaContrato implements Serializable {
+@Table(name="pedido")
+public class Pedido implements Serializable {
 
-	private static final long serialVersionUID = -586260008990058436L;
+	private static final long serialVersionUID = -8171324347908674865L;
+	
 	
 	private Long id;
 	private String codigo;
-	private Contrato contrato;
-	private Articulo articulo;				//Articulo
+	private Date fechaPedido;
+	private String articulo; 				//Articulo
 	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
 	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
-	private Impuesto impuesto; 				//Impuesto 
+	private String impuesto; 				//Impuesto 
 	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-	//@SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq")
 	public Long getId() {
 		return id;
 	}
@@ -50,57 +44,53 @@ public class LineaContrato implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
-	@JsonIgnore
-	@ManyToOne
-	public Contrato getContrato() {
-		return contrato;
+	
+	public Date getFechaPedido() {
+		return fechaPedido;
 	}
 	
-	public void setContrato(Contrato contrato) {
-		this.contrato = contrato;
+	public void setFechaPedido(Date fechaPedido) {
+		this.fechaPedido = fechaPedido;
+	}
+	
+	public String getArticulo() {
+		return articulo;
+	}
+	
+	public void setArticulo(String articulo) {
+		this.articulo = articulo;
 	}
 	
 	public BigDecimal getCantidad() {
 		return cantidad;
 	}
-
+	
 	public void setCantidad(BigDecimal cantidad) {
 		this.cantidad = cantidad;
 	}
-
-	@ManyToOne(fetch=FetchType.LAZY,optional=false)
-	public Articulo getArticulo() {
-		return articulo;
-	}
-
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
-
+	
 	public BigDecimal getBaseImponibleTotal() {
 		return baseImponibleTotal;
 	}
-
+	
 	public void setBaseImponibleTotal(BigDecimal baseImponibleTotal) {
 		this.baseImponibleTotal = baseImponibleTotal;
 	}
-
-	public Impuesto getImpuesto() {
+	
+	public String getImpuesto() {
 		return impuesto;
 	}
-
-	public void setImpuesto(Impuesto impuesto) {
+	
+	public void setImpuesto(String impuesto) {
 		this.impuesto = impuesto;
 	}
-
+	
 	public BigDecimal getImporteTotal() {
 		return importeTotal;
 	}
-
+	
 	public void setImporteTotal(BigDecimal importeTotal) {
 		this.importeTotal = importeTotal;
 	}
-
 	
 }

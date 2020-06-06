@@ -1,6 +1,7 @@
 package com.erpweb.repositorios.bi;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.erpweb.entidades.bi.Informe;
 
 @Repository
-public interface InformeRepository extends JpaRepository<Informe, Long> {
+public interface InformeRepository extends JpaRepository<Informe, Long > {
 	
 	 
-	Informe findByIdAndEmpresaId(Long id, Long empresaId);
+	Optional<Informe> findById( Long id  );
 	
-	List<Informe> findByIdInAndEmpresaId(List<Long> ids, Long empresaId);
+	List<Informe> findByIdIn(List<Long> ids  );
 	
 	
 	

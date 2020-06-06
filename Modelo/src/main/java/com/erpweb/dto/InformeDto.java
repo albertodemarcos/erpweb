@@ -5,11 +5,8 @@ import java.io.Serializable;
 
 public class InformeDto implements Serializable {
 
-	private static final long serialVersionUID = -7179358966581049663L;
-
 	private Long id;
 	private String codigo;
-	private Long empresaId;
 	private Boolean generado = Boolean.FALSE;
 	
 	public Long getId() {
@@ -26,14 +23,6 @@ public class InformeDto implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-	
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
 	}
 	
 	public Boolean getGenerado() {

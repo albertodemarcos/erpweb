@@ -25,16 +25,10 @@ public class ClienteValidator implements Validator {
 		
 		ClienteDto clienteDto = (ClienteDto) target;
 		
-		if( clienteDto.getEmpresaId() == null || clienteDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El cliente no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( clienteDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
 		}
-		
 		
 		if( StringUtils.isBlank( clienteDto.getNombre() )  ) {
 			
@@ -54,12 +48,6 @@ public class ClienteValidator implements Validator {
 			
 			errors.rejectValue("", "", "El DNI no puede estar vacio");
 		}
-		
-		if( StringUtils.isBlank( clienteDto.getCodigoDireccionPostal() )  ) {
-			
-			errors.rejectValue("", "", "El campo codigo dirección postal no puede estar vacio");
-		}
-		
 		
 		if( StringUtils.isBlank( clienteDto.getCodigoPostal() )  ) {
 			
@@ -86,17 +74,25 @@ public class ClienteValidator implements Validator {
 			errors.rejectValue("", "", "El campo telefono no puede estar vacio");
 		}
 		
-		if( clienteDto.getProvinciaId() == null || clienteDto.getProvinciaId().longValue() < 1 ) {
+		if( StringUtils.isBlank( clienteDto.getPais()) ) {
 			
 			errors.rejectValue("", "", "Debe elegir la provincia");
 		}
 		
-		if( clienteDto.getPoblacionId() == null ||  clienteDto.getPoblacionId().longValue() < 1 ) {
+		if( StringUtils.isBlank( clienteDto.getProvincia() ) ) {
+			
+			errors.rejectValue("", "", "Debe elegir la provincia");
+		}
+		
+		if( StringUtils.isBlank( clienteDto.getPoblacion() ) ) {
 			
 			errors.rejectValue("", "", "Debe elegir la poblacion");
 		}
 		
-		
+		if( clienteDto.getTipoCliente() != null  ) {
+			
+			errors.rejectValue("", "", "Debe elegir el tipo de cliente");
+		}
 		
 	}
 

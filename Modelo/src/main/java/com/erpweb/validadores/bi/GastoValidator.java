@@ -26,10 +26,6 @@ public class GastoValidator implements Validator {
 		
 		GastoDto gastoDto = (GastoDto) target;
 		
-		if( gastoDto.getEmpresaId() == null || gastoDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El gasto no esta asociado a una empresa");
-		}
 		
 		if( StringUtils.isBlank( gastoDto.getCodigo() )  ) {
 			

@@ -25,11 +25,6 @@ public class ProveedorValidator implements Validator {
 		
 		ProveedorDto proveedorDto = (ProveedorDto) target;
 		
-		if( proveedorDto.getEmpresaId() == null || proveedorDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El proveedor no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( proveedorDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");

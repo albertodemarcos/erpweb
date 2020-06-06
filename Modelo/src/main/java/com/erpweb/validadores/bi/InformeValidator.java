@@ -26,11 +26,6 @@ public class InformeValidator implements Validator {
 		
 		InformeDto informeDto = (InformeDto) target;
 		
-		if( informeDto.getEmpresaId() == null || informeDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El informe no esta asociado a una empresa");
-		}
-	
 		
 		if( StringUtils.isBlank( informeDto.getCodigo() )  ) {
 			

@@ -26,11 +26,6 @@ public class VehiculoValidator implements Validator {
 		VehiculoDto vehiculoDto = (VehiculoDto) target;
 
 	
-		if( vehiculoDto.getEmpresaId() == null || vehiculoDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El vehículo no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( vehiculoDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");

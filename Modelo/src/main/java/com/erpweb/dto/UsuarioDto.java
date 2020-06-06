@@ -12,7 +12,6 @@ public class UsuarioDto implements Serializable {
 	private String name;
 	private String password;
     private String identidad;
-    private Long empresaId;
     private String idioma;
     
 	public Long getId() {
@@ -53,14 +52,6 @@ public class UsuarioDto implements Serializable {
 	
 	public void setIdentidad(String identidad) {
 		this.identidad = identidad;
-	}
-	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-	
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
 	}
 	
 	public String getIdioma() {

@@ -1,6 +1,7 @@
 package com.erpweb.servicios.bi;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.InformeDto;
 import com.erpweb.entidades.bi.Informe;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.bi.InformeRepository;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 @Service
@@ -20,27 +19,17 @@ public class InformeService {
 
 	@Autowired
 	private InformeRepository informeRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public AccionRespuesta crearInformeDesdeInformeDto( InformeDto informeDto ) {
 		
-		logger.debug("Entramos en el metodo crearInformeDesdeInformeDto() con la empresa={}", informeDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearInformeDesdeInformeDto() con ID={}", informeDto.getId() );
 		
 		Informe informe = new Informe();
-		
-		if(informeDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(informeDto.getEmpresaId()).orElse(new Empresa());
-		
+
 		informe.setCodigo(informeDto.getCodigo());
-		informe.setEmpresa(empresa);
 		informe.setGenerado(informeDto.getGenerado());
 		
 		try {
@@ -49,7 +38,7 @@ public class InformeService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearInformeDesdeInformeDto() con la empresa{} ", informeDto.getEmpresaId() );
+			logger.error("Error en el metodo crearInformeDesdeInformeDto() con ID={}", informeDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -61,20 +50,12 @@ public class InformeService {
 	
 	public AccionRespuesta actualizarInformeDesdeInformeDto( InformeDto informeDto ) {
 		
-		logger.debug("Entramos en el metodo actualizarInformeDesdeInformeDto() con la empresa={}", informeDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarInformeDesdeInformeDto() con ID={}", informeDto.getId() );
 		
 		Informe informe = new Informe();
 		
-		if(informeDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(informeDto.getEmpresaId()).orElse(new Empresa());
-		
 		informe.setId(informeDto.getId());
 		informe.setCodigo(informeDto.getCodigo());
-		informe.setEmpresa(empresa);
 		informe.setGenerado(informeDto.getGenerado());
 		
 		try {
@@ -84,7 +65,7 @@ public class InformeService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarInformeDesdeInformeDto() con la empresa{} ", informeDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarInformeDesdeInformeDto() con ID={}", informeDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -96,7 +77,7 @@ public class InformeService {
 	
 	public AccionRespuesta eliminarInforme(Informe informe ) {
 		
-		logger.debug("Entramos en el metodo eliminarInforme() con la empresa={}", informe.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarInforme() con ID={}", informe.getId() );
 		
 		if(informe == null || informe.getId() == null) {
 			
@@ -110,7 +91,7 @@ public class InformeService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarInforme() con la empresa{} ", informe.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarInforme() con ID={}", informe.getId() );
 			
 			e.printStackTrace();
 			
@@ -141,11 +122,13 @@ public class InformeService {
 			return new AccionRespuesta();
 		}
 	
-	public InformeDto obtenerInformeDtoDesdeInforme(Long id, Long empresaId) {
+	public InformeDto obtenerInformeDtoDesdeInforme(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerInformeDtoDesdeInforme() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerInformeDtoDesdeInforme() con ID={}", id );
 		
-		Informe informe = informeRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Informe> informeOptional = informeRepository.findById(id);
+		
+		Informe informe = informeOptional.get();
 		
 		if(informe == null) {
 			
@@ -157,12 +140,11 @@ public class InformeService {
 		try {
 			
 			informeDto.setCodigo(informe.getCodigo());
-			informeDto.setEmpresaId(empresaId);
 			informeDto.setGenerado(informe.getGenerado());
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerInformeDtoDesdeInforme() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerInformeDtoDesdeInforme() con ID={}", id );
 
 			e.printStackTrace();
 		}
@@ -179,7 +161,7 @@ public class InformeService {
 			return new AccionRespuesta(-1L, "Error, existe el informe", Boolean.FALSE);
 		}
 		
-		InformeDto informeDto = this.obtenerInformeDtoDesdeInforme(informeId, user.getEmpresa().getId());
+		InformeDto informeDto = this.obtenerInformeDtoDesdeInforme(informeId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

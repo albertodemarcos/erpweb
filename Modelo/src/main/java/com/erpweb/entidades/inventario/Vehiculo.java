@@ -4,14 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.utiles.enumerados.TipoVehiculo;
 
 @Entity
@@ -23,7 +20,6 @@ public class Vehiculo implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Empresa empresa;
 	private String matricula;
 	private String marca;
 	private String modelo;
@@ -33,8 +29,6 @@ public class Vehiculo implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-	//@SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq")
 	public Long getId() {
 		return id;
 	}
@@ -51,15 +45,6 @@ public class Vehiculo implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
 	public String getMatricula() {
 		return matricula;
 	}
@@ -100,8 +85,5 @@ public class Vehiculo implements Serializable {
 	public void setFechaMatriculacion(Date fechaMatriculacion) {
 		this.fechaMatriculacion = fechaMatriculacion;
 	}
-	
-	
-	
 	
 }

@@ -1,6 +1,7 @@
 package com.erpweb.repositorios.ventas;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,9 +12,9 @@ import com.erpweb.entidades.ventas.Venta;
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Long> {
 
-	Venta findByIdAndEmpresaId(Long id, Long empresaId);
+	Optional<Venta> findById(Long id);
 	
-	List<Venta> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Venta> findByIdIn( List<Long> ids);
 	
 	
 	

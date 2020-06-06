@@ -1,6 +1,7 @@
 package com.erpweb.servicios.inventario;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.AlmacenDto;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -22,29 +21,27 @@ public class AlmacenService {
 
 	@Autowired
 	private AlmacenRepository almacenRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
-	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	public AccionRespuesta crearAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
 		
-		logger.debug("Entramos en el metodo crearAlmacenDesdeAlmacenDto() con la empresa={}", almacenDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearAlmacenDesdeAlmacenDto() con ID={}", almacenDto.getId() );
 		
 		Almacen almacen = new Almacen();
 		
-		if(almacenDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(almacenDto.getEmpresaId()).orElse(new Empresa());
-		
 		almacen.setCodigo(almacenDto.getCodigo());
-		almacen.setEmpresa(empresa);
 		almacen.setNombre(almacenDto.getNombre());
+		almacen.setCodigoPostal(almacenDto.getCodigoPostal());
+		almacen.setDireccion(almacenDto.getDireccion());
+		almacen.setEdificio(almacenDto.getEdificio());
+		almacen.setObservaciones(almacenDto.getObservaciones());
+		almacen.setTelefono(almacenDto.getTelefono());
+		almacen.setPoblacion(almacenDto.getPoblacion());
+		almacen.setProvincia(almacenDto.getProvincia());
+		almacen.setRegion(almacenDto.getRegion());
+		almacen.setPais(almacenDto.getPais());
 		
 		try {
 			
@@ -53,7 +50,7 @@ public class AlmacenService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearAlmacenDesdeAlmacenDto() con la empresa{} ", almacenDto.getEmpresaId() );
+			logger.error("Error en el metodo crearAlmacenDesdeAlmacenDto() con ID={}", almacenDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -65,21 +62,22 @@ public class AlmacenService {
 	
 	public AccionRespuesta actualizarAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
 		
-		logger.debug("Entramos en el metodo actualizarAlmacenDesdeAlmacenDto() con la empresa={}", almacenDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarAlmacenDesdeAlmacenDto() con ID={}", almacenDto.getId() );
 		
 		Almacen almacen = new Almacen();
 		
-		if(almacenDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(almacenDto.getEmpresaId()).orElse(new Empresa());
-		
 		almacen.setId(almacenDto.getId());
 		almacen.setCodigo(almacenDto.getCodigo());
-		almacen.setEmpresa(empresa);
 		almacen.setNombre(almacenDto.getNombre());
+		almacen.setCodigoPostal(almacenDto.getCodigoPostal());
+		almacen.setDireccion(almacenDto.getDireccion());
+		almacen.setEdificio(almacenDto.getEdificio());
+		almacen.setObservaciones(almacenDto.getObservaciones());
+		almacen.setTelefono(almacenDto.getTelefono());
+		almacen.setPoblacion(almacenDto.getPoblacion());
+		almacen.setProvincia(almacenDto.getProvincia());
+		almacen.setRegion(almacenDto.getRegion());
+		almacen.setPais(almacenDto.getPais());
 		
 		try {
 			//Guardamos el almacen en base de datos
@@ -87,7 +85,7 @@ public class AlmacenService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarAlmacenDesdeAlmacenDto() con la empresa{} ", almacenDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarAlmacenDesdeAlmacenDto() con ID={}", almacenDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -99,7 +97,7 @@ public class AlmacenService {
 	
 	public AccionRespuesta eliminarAlmacen(Almacen almacen) {
 		
-		logger.debug("Entramos en el metodo eliminarAlmacen() con la empresa={}", almacen.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarAlmacen() con ID={}", almacen.getId() );
 		
 		if(almacen == null || almacen.getId() == null) {
 			
@@ -112,7 +110,7 @@ public class AlmacenService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarAlmacen() con la empresa{} ", almacen.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarAlmacen() con ID={}", almacen.getId() );
 			
 			e.printStackTrace();
 			
@@ -143,11 +141,13 @@ public class AlmacenService {
 		return new AccionRespuesta();
 	}
 	
-	public AlmacenDto obtenerAlmacenDtoDesdeAlmacen(Long id, Long empresaId) {
+	public AlmacenDto obtenerAlmacenDtoDesdeAlmacen(Long id ) {
 		
-		logger.debug("Entramos en el metodo obtenerAlmacenDtoDesdeAlmacen() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerAlmacenDtoDesdeAlmacen() con ID={}", id );
 		
-		Almacen almacen = almacenRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Almacen> almacenOptional = almacenRepository.findById(id);
+		
+		Almacen almacen = almacenOptional.get();
 		
 		if(almacen == null) {
 			return new AlmacenDto();
@@ -159,12 +159,20 @@ public class AlmacenService {
 			
 			almacenDto.setId(almacen.getId());
 			almacenDto.setCodigo(almacen.getCodigo());
-			almacenDto.setEmpresaId(almacen.getEmpresa().getId());
 			almacenDto.setNombre(almacen.getNombre());
+			almacenDto.setCodigoPostal(almacen.getCodigoPostal());
+			almacenDto.setDireccion(almacen.getDireccion());
+			almacenDto.setEdificio(almacen.getEdificio());
+			almacenDto.setObservaciones(almacen.getObservaciones());
+			almacenDto.setTelefono(almacen.getTelefono());
+			almacenDto.setPoblacion(almacen.getPoblacion());
+			almacenDto.setProvincia(almacen.getProvincia());
+			almacenDto.setRegion(almacen.getRegion());
+			almacenDto.setPais(almacen.getPais());
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerAlmacenDtoDesdeAlmacen() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerAlmacenDtoDesdeAlmacen() con ID={}", id );
 			
 			e.printStackTrace();
 		}
@@ -181,7 +189,7 @@ public class AlmacenService {
 			return new AccionRespuesta(-1L, "Error, existe el almacen", Boolean.FALSE);
 		}
 		
-		AlmacenDto almacenDto = this.obtenerAlmacenDtoDesdeAlmacen(almacenId, user.getEmpresa().getId());
+		AlmacenDto almacenDto = this.obtenerAlmacenDtoDesdeAlmacen(almacenId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

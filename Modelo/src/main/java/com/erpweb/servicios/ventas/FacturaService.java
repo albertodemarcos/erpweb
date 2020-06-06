@@ -2,18 +2,16 @@ package com.erpweb.servicios.ventas;
 
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.erpweb.dto.FacturaDto;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Factura;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -24,28 +22,17 @@ public class FacturaService {
 	@Autowired
 	private FacturaRepository facturaRepository;
 	
-	@Autowired
-	private EmpresaRepository empresaRepository;
-	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	public AccionRespuesta crearFacturaDesdeFacturaDto(FacturaDto facturaDto) {
 		
-		logger.debug("Entramos en el metodo crearFacturaDesdeFacturaDto() con la empresa={}", facturaDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 		
 		Factura factura = new Factura();
-
-		if(facturaDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(facturaDto.getEmpresaId()).orElse(new Empresa());
 		
 		factura.setCodigo(facturaDto.getCodigo());
-		factura.setEmpresa(empresa);
 		factura.setFechaCreacion(facturaDto.getFechaCreacion());
 		factura.setFechaInicio(facturaDto.getFechaInicio());
 		factura.setFechaFin(facturaDto.getFechaFin());
@@ -54,10 +41,6 @@ public class FacturaService {
 		factura.setCuotaTributaria(facturaDto.getCuotaTributaria());
 		factura.setImporteTotal(facturaDto.getImporteTotal());
 		
-		if(!CollectionUtils.isEmpty(facturaDto.getLineasFactura())) {
-			factura.getLineasFactura().addAll(facturaDto.getLineasFactura());
-		}
-		
 		try {
 			
 			//Guardamos la factura en base de datos
@@ -65,7 +48,7 @@ public class FacturaService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearFacturaDesdeFacturaDto() con la empresa{} ", facturaDto.getEmpresaId() );
+			logger.error("Error en el metodo crearFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -77,20 +60,12 @@ public class FacturaService {
 	
 	public AccionRespuesta actualizarFacturaDesdeFacturaDto(FacturaDto facturaDto) {
 		
-		logger.debug("Entramos en el metodo actualizarFacturaDesdeFacturaDto() con la empresa={}", facturaDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 		
 		Factura factura = new Factura();
-
-		if(facturaDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(facturaDto.getEmpresaId()).orElse(new Empresa());
 		
 		factura.setId(facturaDto.getId());
 		factura.setCodigo(facturaDto.getCodigo());
-		factura.setEmpresa(empresa);
 		factura.setFechaCreacion(facturaDto.getFechaCreacion());
 		factura.setFechaInicio(facturaDto.getFechaInicio());
 		factura.setFechaFin(facturaDto.getFechaFin());
@@ -99,10 +74,6 @@ public class FacturaService {
 		factura.setCuotaTributaria(facturaDto.getCuotaTributaria());
 		factura.setImporteTotal(facturaDto.getImporteTotal());
 		
-		if(!CollectionUtils.isEmpty(facturaDto.getLineasFactura())) {
-			factura.getLineasFactura().addAll(facturaDto.getLineasFactura());
-		}
-		
 		try {
 			
 			//Guardamos la factura en base de datos
@@ -110,7 +81,7 @@ public class FacturaService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarFacturaDesdeFacturaDto() con la empresa{} ", facturaDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -122,7 +93,7 @@ public class FacturaService {
 	
 	public AccionRespuesta eliminarFactura(Factura factura) {
 		
-		logger.debug("Entramos en el metodo eliminarFactura() con la empresa={}", factura.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarFactura() con ID={}", factura.getId() );
 		
 		if(factura == null || factura.getId() == null) {
 			
@@ -136,7 +107,7 @@ public class FacturaService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarFactura() con la empresa{} ", factura.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarFactura() con ID={}", factura.getId() );
 			
 			e.printStackTrace();
 			
@@ -168,11 +139,13 @@ public class FacturaService {
 		return new AccionRespuesta();
 	}
 	
-	public FacturaDto obtenerFacturaDtoDesdeFactura(Long id, Long empresaId) {
+	public FacturaDto obtenerFacturaDtoDesdeFactura(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerFacturaDtoDesdeFactura() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerFacturaDtoDesdeFactura() con ID={}", id );
 
-		Factura factura = facturaRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Factura> facturaOptional = facturaRepository.findById(id);
+		
+		Factura factura = facturaOptional.get(); 
 		
 		if(factura == null) {
 			return new FacturaDto();
@@ -184,7 +157,6 @@ public class FacturaService {
 			
 			facturaDto.setId(factura.getId());
 			facturaDto.setCodigo(factura.getCodigo());
-			facturaDto.setEmpresaId(factura.getEmpresa().getId());
 			facturaDto.setFechaCreacion(factura.getFechaCreacion());
 			facturaDto.setFechaInicio(factura.getFechaInicio());
 			facturaDto.setFechaFin(factura.getFechaFin());
@@ -193,13 +165,10 @@ public class FacturaService {
 			facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
 			facturaDto.setImporteTotal(factura.getImporteTotal());
 			
-			if(!CollectionUtils.isEmpty(factura.getLineasFactura())) {
-				facturaDto.getLineasFactura().addAll(factura.getLineasFactura());
-			}
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerFacturaDtoDesdeFactura() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerFacturaDtoDesdeFactura() con ID={}", id );
 			
 			e.printStackTrace();
 		}
@@ -216,7 +185,7 @@ public class FacturaService {
 			return new AccionRespuesta(-1L, "Error, existe la factura", Boolean.FALSE);
 		}
 		
-		FacturaDto facturaDto = this.obtenerFacturaDtoDesdeFactura(facturaId, user.getEmpresa().getId());
+		FacturaDto facturaDto = this.obtenerFacturaDtoDesdeFactura(facturaId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

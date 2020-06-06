@@ -1,24 +1,22 @@
 package com.erpweb.repositorios.bi;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-//import org.springframework.transaction.annotation.Transactional;
 
 import com.erpweb.entidades.bi.Gasto;
 import com.erpweb.repositorios.bi.interfaces.GastoRepositoryInterfaz;
 
-//@Transactional(readOnly = true)
 
 @Repository
 public interface GastoRepository extends JpaRepository<Gasto, Long>, GastoRepositoryInterfaz {
 
 		
-	Gasto findByIdAndEmpresaId(Long id, Long empresaId);
+	Optional<Gasto> findById(Long id);
 	
-	List<Gasto> findByIdInAndEmpresaId( List<Long> ids, Long empresaId);
+	List<Gasto> findByIdIn( List<Long> ids);
 	
-	Boolean deleteByIdAndEmpresaId(Long id, Long empresaId);
 	
 }

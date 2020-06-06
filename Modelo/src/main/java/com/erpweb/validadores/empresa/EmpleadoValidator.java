@@ -1,4 +1,4 @@
-package com.erpweb.validadores.recursoshumanos;
+package com.erpweb.validadores.empresa;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,11 +26,6 @@ public class EmpleadoValidator implements Validator {
 		EmpleadoDto empleadoDto = (EmpleadoDto) target;
 		
 		
-		if( empleadoDto.getEmpresaId() == null || empleadoDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El empleado no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( empleadoDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
@@ -54,11 +49,6 @@ public class EmpleadoValidator implements Validator {
 		if( StringUtils.isBlank( empleadoDto.getNif() )  ) {
 			
 			errors.rejectValue("", "", "El campo DNI no puede estar vacío");
-		}
-		
-		if( StringUtils.isBlank( empleadoDto.getCodigoDireccionPostal() )  ) {
-			
-			errors.rejectValue("", "", "El campo codigo de la dirección postal no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getCodigoPostal() )  ) {
@@ -86,14 +76,24 @@ public class EmpleadoValidator implements Validator {
 			errors.rejectValue("", "", "El campo telefono no puede estar vacío");
 		}
 		
-		if( empleadoDto.getProvinciaId() == null  ) {
+		if( StringUtils.isBlank( empleadoDto.getPais()) ) {
 			
-			errors.rejectValue("", "", "Debe elegir provincia");
+			errors.rejectValue("", "", "Debe elegir la provincia");
 		}
 		
-		if( empleadoDto.getPoblacionId() == null  ) {
+		if( StringUtils.isBlank( empleadoDto.getProvincia() ) ) {
 			
-			errors.rejectValue("", "", "Debe elegir poblacion");
+			errors.rejectValue("", "", "Debe elegir la provincia");
+		}
+		
+		if( StringUtils.isBlank( empleadoDto.getPoblacion() ) ) {
+			
+			errors.rejectValue("", "", "Debe elegir la poblacion");
+		}
+		
+		if( empleadoDto.getTipoEmpleado() != null  ) {
+			
+			errors.rejectValue("", "", "Debe elegir el tipo de empleado");
 		}
 		
 		

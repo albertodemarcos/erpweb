@@ -1,6 +1,7 @@
 package com.erpweb.servicios.compras;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.compras.Compra;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.compras.CompraRepository;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 
@@ -22,29 +21,17 @@ public class CompraService {
 
 	@Autowired
 	private CompraRepository compraRepository;
-	@Autowired
-	private EmpresaRepository empresaRepository;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public AccionRespuesta crearCompraDesdeCompraDto(CompraDto compraDto) {
 		
-		logger.debug("Entramos en el metodo crearCompraDesdeCompraDto() con la empresa={}", compraDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 		
 		Compra compra = new Compra();
 		
-		if(compraDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(compraDto.getEmpresaId()).orElse(new Empresa());
-		
 		compra.setCodigo(compraDto.getCodigo());
-		compra.setEmpresa(empresa);
 		compra.setFechaCompra(compraDto.getFechaCompra());
-		compra.setLineaCompra(compraDto.getLineaCompra());
-		compra.setProveedor(compraDto.getProveedor());
 		
 		try {
 			
@@ -53,7 +40,7 @@ public class CompraService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearCompraDesdeCompraDto() con la empresa{} ", compraDto.getEmpresaId() );
+			logger.error("Error en el metodo crearCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 			
 			e.printStackTrace();
 						
@@ -65,23 +52,14 @@ public class CompraService {
 	
 	public AccionRespuesta actualizarCompraDesdeCompraDto(CompraDto compraDto) {
 		
-		logger.debug("Entramos en el metodo actualizarCompraDesdeCompraDto() con la empresa={}", compraDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 		
 		Compra compra = new Compra();
 		
-		if(compraDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(compraDto.getEmpresaId()).orElse(new Empresa());
 		
 		compra.setId(compraDto.getId());
 		compra.setCodigo(compraDto.getCodigo());
-		compra.setEmpresa(empresa);
 		compra.setFechaCompra(compraDto.getFechaCompra());
-		compra.setLineaCompra(compraDto.getLineaCompra());
-		compra.setProveedor(compraDto.getProveedor());
 		
 		try {
 			
@@ -90,7 +68,7 @@ public class CompraService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarCompraDesdeCompraDto() con la empresa{} ", compraDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -102,7 +80,7 @@ public class CompraService {
 	
 	public AccionRespuesta eliminarCompra(Compra compra) {
 		
-		logger.debug("Entramos en el metodo eliminarCompra() con la empresa={}", compra.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarCompra() con ID={}", compra.getId() );
 		
 		if(compra == null || compra.getId() == null) {
 			
@@ -116,7 +94,7 @@ public class CompraService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarCompra() con la empresa{} ", compra.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarCompra() con ID={} ", compra.getId() );
 			
 			e.printStackTrace();
 						
@@ -147,11 +125,13 @@ public class CompraService {
 		return new AccionRespuesta();
 	}
 		
-	public CompraDto obtenerCompraDtoDesdeCompra(Long id, Long empresaId) {
+	public CompraDto obtenerCompraDtoDesdeCompra(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerCompraDtoDesdeCompra() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerCompraDtoDesdeCompra() con ID={}", id );
 		
-		Compra compra = compraRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Compra> compraOptional = compraRepository.findById(id);
+		
+		Compra compra = compraOptional.get();
 		
 		if(compra == null) {
 			
@@ -163,14 +143,11 @@ public class CompraService {
 		try {
 			
 			compraDto.setCodigo(compra.getCodigo());
-			compraDto.setEmpresaId(empresaId);
 			compraDto.setFechaCompra(compra.getFechaCompra());
-			compraDto.setLineaCompra(compra.getLineaCompra());
-			compraDto.setProveedor(compra.getProveedor());
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerCompraDtoDesdeCompra() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerCompraDtoDesdeCompra() con ID={} ", id );
 			
 			e.printStackTrace();
 		}
@@ -187,7 +164,7 @@ public class CompraService {
 			return new AccionRespuesta(-1L, "Error, existe la compra", Boolean.FALSE);
 		}
 		
-		CompraDto compraDto = this.obtenerCompraDtoDesdeCompra(compraId, user.getEmpresa().getId());
+		CompraDto compraDto = this.obtenerCompraDtoDesdeCompra(compraId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

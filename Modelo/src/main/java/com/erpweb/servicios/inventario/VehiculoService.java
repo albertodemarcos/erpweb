@@ -2,6 +2,7 @@ package com.erpweb.servicios.inventario;
 
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.VehiculoDto;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.inventario.Vehiculo;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.inventario.VehiculoRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -24,28 +23,17 @@ public class VehiculoService {
 	@Autowired
 	private VehiculoRepository vehiculoRepository;
 	
-	@Autowired
-	private EmpresaRepository empresaRepository;
-	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	public AccionRespuesta crearVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con la empresa={}", vehiculoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
 		
 		Vehiculo vehiculo = new Vehiculo();
 
-		if(vehiculoDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(vehiculoDto.getEmpresaId()).orElse(new Empresa());
-		
 		vehiculo.setCodigo(vehiculoDto.getCodigo());
-		vehiculo.setEmpresa(empresa);
 		vehiculo.setMatricula(vehiculoDto.getMatricula());
 		vehiculo.setMarca(vehiculoDto.getMarca());
 		vehiculo.setModelo(vehiculoDto.getModelo());
@@ -59,7 +47,7 @@ public class VehiculoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con la empresa{} ", vehiculoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -71,20 +59,12 @@ public class VehiculoService {
 	
 	public AccionRespuesta actualizarVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con la empresa={}", vehiculoDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
 		
 		Vehiculo vehiculo = new Vehiculo();
 
-		if(vehiculoDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(vehiculoDto.getEmpresaId()).orElse(new Empresa());
-		
 		vehiculo.setId(vehiculoDto.getId());
 		vehiculo.setCodigo(vehiculoDto.getCodigo());
-		vehiculo.setEmpresa(empresa);
 		vehiculo.setMatricula(vehiculoDto.getMatricula());
 		vehiculo.setMarca(vehiculoDto.getMarca());
 		vehiculo.setModelo(vehiculoDto.getModelo());
@@ -98,7 +78,7 @@ public class VehiculoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con la empresa{} ", vehiculoDto.getEmpresaId() );
+			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -110,7 +90,7 @@ public class VehiculoService {
 	
 	public AccionRespuesta eliminarVehiculo(Vehiculo vehiculo) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con la empresa={}", vehiculo.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculo.getId() );
 		
 		if(vehiculo == null || vehiculo.getId() == null) {
 			
@@ -123,7 +103,7 @@ public class VehiculoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con la empresa{} ", vehiculo.getEmpresa().getId() );
+			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculo.getId() );
 			
 			e.printStackTrace();
 			
@@ -154,11 +134,13 @@ public class VehiculoService {
 		return new AccionRespuesta();
 	}
 	
-	public VehiculoDto obtenerVehiculoDtoDesdeVehiculo(Long id, Long empresaId) {
+	public VehiculoDto obtenerVehiculoDtoDesdeVehiculo(Long id) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", id );
 		
-		Vehiculo vehiculo = vehiculoRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Vehiculo> vehiculoOptional = vehiculoRepository.findById(id);
+		
+		Vehiculo vehiculo = vehiculoOptional.get();
 		
 		if(vehiculo == null) {
 			return new VehiculoDto();
@@ -169,7 +151,6 @@ public class VehiculoService {
 		try {
 			
 			vehiculoDto.setCodigo(vehiculo.getCodigo());
-			vehiculoDto.setEmpresaId(vehiculo.getEmpresa().getId());
 			vehiculoDto.setMatricula(vehiculo.getMatricula());
 			vehiculoDto.setMarca(vehiculo.getMarca());
 			vehiculoDto.setModelo(vehiculo.getModelo());
@@ -178,7 +159,7 @@ public class VehiculoService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", id );
 			
 			e.printStackTrace();
 		}
@@ -196,7 +177,7 @@ public class VehiculoService {
 			return new AccionRespuesta(-1L, "Error, existe el vehiculo", Boolean.FALSE);
 		}
 		
-		VehiculoDto vehiculoDto = this.obtenerVehiculoDtoDesdeVehiculo(vehiculoId, user.getEmpresa().getId());
+		VehiculoDto vehiculoDto = this.obtenerVehiculoDtoDesdeVehiculo(vehiculoId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

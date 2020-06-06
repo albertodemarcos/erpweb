@@ -4,29 +4,25 @@ import java.io.Serializable;
 
 import com.erpweb.utiles.enumerados.TipoCliente;
 
+
 public class ClienteDto implements Serializable {
 
-	private static final long serialVersionUID = 4050171406101916788L;
-
 	private Long id;
-    private String codigo;   
-    private Long empresaId;
-    private String nombre;
-    private String apellidoPrimero;
-    private String apellidoSegundo;
-    private String nif;		
-    private Long direccionPostalId;
-	private Long poblacionId;
-	private String nombrePoblacion;
-	private String codigoDireccionPostal;
-	private String codigoPostal;
-	private String direccion; 		
-	private String edificio;        
-	private String observaciones;   
-	private Long provinciaId;   
-	private String nombreProvincia;
-	private String telefono;
-    private TipoCliente TipoCliente;
+    private String codigo;  
+    private TipoCliente tipoCliente;
+  	private String nombre;
+  	private String apellidoPrimero;
+  	private String apellidoSegundo;
+  	private String nif;
+ 	private String codigoPostal;
+ 	private String direccion; 		
+ 	private String edificio;        
+ 	private String observaciones;
+ 	private String telefono;
+ 	private String poblacion;
+ 	private String region;
+ 	private String provincia;
+ 	private String pais;
     
     
 	public Long getId() {
@@ -45,22 +41,22 @@ public class ClienteDto implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	public Long getEmpresaId() {
-		return empresaId;
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
 	}
 
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getApellidoPrimero() {
 		return apellidoPrimero;
 	}
@@ -83,38 +79,6 @@ public class ClienteDto implements Serializable {
 
 	public void setNif(String nif) {
 		this.nif = nif;
-	}
-	
-	public Long getDireccionPostalId() {
-		return direccionPostalId;
-	}
-
-	public void setDireccionPostalId(Long direccionPostalId) {
-		this.direccionPostalId = direccionPostalId;
-	}
-
-	public Long getPoblacionId() {
-		return poblacionId;
-	}
-
-	public void setPoblacionId(Long poblacionId) {
-		this.poblacionId = poblacionId;
-	}
-
-	public String getNombrePoblacion() {
-		return nombrePoblacion;
-	}
-
-	public void setNombrePoblacion(String nombrePoblacion) {
-		this.nombrePoblacion = nombrePoblacion;
-	}
-
-	public String getCodigoDireccionPostal() {
-		return codigoDireccionPostal;
-	}
-
-	public void setCodigoDireccionPostal(String codigoDireccionPostal) {
-		this.codigoDireccionPostal = codigoDireccionPostal;
 	}
 
 	public String getCodigoPostal() {
@@ -149,22 +113,6 @@ public class ClienteDto implements Serializable {
 		this.observaciones = observaciones;
 	}
 
-	public Long getProvinciaId() {
-		return provinciaId;
-	}
-
-	public void setProvinciaId(Long provinciaId) {
-		this.provinciaId = provinciaId;
-	}
-
-	public String getNombreProvincia() {
-		return nombreProvincia;
-	}
-
-	public void setNombreProvincia(String nombreProvincia) {
-		this.nombreProvincia = nombreProvincia;
-	}
-
 	public String getTelefono() {
 		return telefono;
 	}
@@ -173,12 +121,36 @@ public class ClienteDto implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public TipoCliente getTipoCliente() {
-		return TipoCliente;
+	public String getPoblacion() {
+		return poblacion;
 	}
-	
-	public void setTipoCliente(TipoCliente tipoCliente) {
-		TipoCliente = tipoCliente;
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
     
 }

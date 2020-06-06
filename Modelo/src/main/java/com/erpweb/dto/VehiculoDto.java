@@ -7,11 +7,8 @@ import com.erpweb.utiles.enumerados.TipoVehiculo;
 
 public class VehiculoDto implements Serializable {
 
-	private static final long serialVersionUID = 7053315606201630901L;
-
 	private Long id;
 	private String codigo;
-	private Long empresaId;
 	private String matricula;
 	private String marca;
 	private String modelo;
@@ -32,14 +29,6 @@ public class VehiculoDto implements Serializable {
 	
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-	
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
 	}
 	
 	public String getMatricula() {

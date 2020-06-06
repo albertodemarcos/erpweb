@@ -1,6 +1,7 @@
 package com.erpweb.servicios.usuarios;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.UsuarioDto;
-import com.erpweb.entidades.empresa.Empresa;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.repositorios.usuarios.UsuarioRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -21,28 +20,16 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private EmpresaRepository empresaRepository;
-	
-	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	public AccionRespuesta crearUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
-		logger.debug("Entramos en el metodo crearUsuarioDesdeUsuarioDto() con la empresa={}", usuarioDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo crearUsuarioDesdeUsuarioDto() con ID={}", usuarioDto.getId() );
 		
 		Usuario usuario = new Usuario();
-
-		if(usuarioDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(usuarioDto.getEmpresaId()).orElse(new Empresa());
 		
 		usuario.setCodigo(usuarioDto.getCodigo());
-		usuario.setEmpresa(empresa);
 		usuario.setName(usuarioDto.getName());
 		usuario.setPassword(usuarioDto.getPassword());
 		usuario.setIdentidad(usuarioDto.getIdentidad());
@@ -54,7 +41,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearUsuarioDesdeUsuarioDto() con la empresa{} ", usuarioDto.getEmpresaId() );
+			logger.error("Error en el metodo crearUsuarioDesdeUsuarioDto() con ID={}", usuarioDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -66,20 +53,12 @@ public class UsuarioService {
 	
 	public AccionRespuesta actualizarUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
-		logger.debug("Entramos en el metodo actualizarUsuarioDesdeUsuarioDto() con la empresa={}", usuarioDto.getEmpresaId() );
+		logger.debug("Entramos en el metodo actualizarUsuarioDesdeUsuarioDto() con ID={}", usuarioDto.getId() );
 		
 		Usuario usuario = new Usuario();
-
-		if(usuarioDto.getEmpresaId() == null) {
-			
-			return new AccionRespuesta();
-		}
-		
-		Empresa empresa = empresaRepository.findById(usuarioDto.getEmpresaId()).orElse(new Empresa());
 		
 		usuario.setId(usuarioDto.getId());
 		usuario.setCodigo(usuarioDto.getCodigo());
-		usuario.setEmpresa(empresa);
 		usuario.setName(usuarioDto.getName());
 		usuario.setPassword(usuarioDto.getPassword());
 		usuario.setIdentidad(usuarioDto.getIdentidad());
@@ -91,7 +70,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo actualizarUsuarioDesdeUsuarioDto() con la empresa{} ", usuarioDto.getEmpresaId() );
+			logger.error("Error en el metodo actualizarUsuarioDesdeUsuarioDto() con ID={}", usuarioDto.getId() );
 			
 			e.printStackTrace();
 			
@@ -103,7 +82,7 @@ public class UsuarioService {
 	
 	public AccionRespuesta eliminarUsuario(Usuario usuario) {
 		
-		logger.debug("Entramos en el metodo eliminarUsuario() con la empresa={}", usuario.getEmpresa().getId() );
+		logger.debug("Entramos en el metodo eliminarUsuario() con ID={}", usuario.getId() );
 		
 		if(usuario == null || usuario.getId() == null) {
 			
@@ -116,7 +95,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarUsuario() con la empresa{} ", usuario.getEmpresa().getId() );
+			logger.error("Error en el metodo eliminarUsuario() con ID={}", usuario.getId() );
 			
 			e.printStackTrace();
 			
@@ -128,7 +107,7 @@ public class UsuarioService {
 	
 	public AccionRespuesta eliminarUsuarioPorId(Long usuarioId) {
 		
-		logger.error("Entramos en el metodo eliminarUsuarioPorId() con id={}", usuarioId );
+		logger.error("Entramos en el metodo eliminarUsuarioPorId() con ID={}", usuarioId );
 				
 		try {
 			
@@ -137,7 +116,7 @@ public class UsuarioService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarUsuarioPorId() con id={}", usuarioId );
+			logger.error("Error en el metodo eliminarUsuarioPorId() con ID={}", usuarioId );
 			
 			e.printStackTrace();
 			
@@ -147,11 +126,13 @@ public class UsuarioService {
 		return new AccionRespuesta();
 	}
 	
-	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id, Long empresaId) {
+	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa={}", empresaId );
+		logger.debug("Entramos en el metodo obtenerUsuarioDtoDesdeUsuario() con ID={}", id );
 		
-		Usuario usuario = usuarioRepository.findByIdAndEmpresaId(id, empresaId);
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+		
+		Usuario usuario = usuarioOptional.get();
 		
 		if(usuario == null) {
 			return new UsuarioDto();
@@ -162,7 +143,6 @@ public class UsuarioService {
 		try {
 			
 			usuarioDto.setCodigo(usuario.getCodigo());
-			usuarioDto.setEmpresaId(usuario.getEmpresa().getId());
 			usuarioDto.setName(usuario.getName());
 			usuarioDto.setPassword(usuario.getPassword());
 			usuarioDto.setIdentidad(usuario.getIdentidad());
@@ -170,7 +150,7 @@ public class UsuarioService {
 			
 		} catch(Exception e) {
 			
-			logger.error("Error en el metodo obtenerUsuarioDtoDesdeUsuario() con la empresa{} ", empresaId );
+			logger.error("Error en el metodo obtenerUsuarioDtoDesdeUsuario() con ID={}", id );
 			
 			e.printStackTrace();
 		}
@@ -187,7 +167,7 @@ public class UsuarioService {
 			return new AccionRespuesta(-1L, "Error, existe el usuario", Boolean.FALSE);
 		}
 		
-		UsuarioDto usuarioDto = this.obtenerUsuarioDtoDesdeUsuario(usuarioId, user.getEmpresa().getId());
+		UsuarioDto usuarioDto = this.obtenerUsuarioDtoDesdeUsuario(usuarioId);
 		
 		AccionRespuesta AccionRespuesta = new AccionRespuesta();
 		

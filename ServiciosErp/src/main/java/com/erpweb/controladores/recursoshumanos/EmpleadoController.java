@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.EmpleadoDto;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.servicios.recursoshumanos.EmpleadoService;
+import com.erpweb.servicios.empresa.EmpleadoService;
 import com.erpweb.utiles.AccionRespuesta;
-import com.erpweb.validadores.recursoshumanos.EmpleadoValidator;
+import com.erpweb.validadores.empresa.EmpleadoValidator;
 
 @CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
 @RestController

@@ -1,20 +1,15 @@
 package com.erpweb.entidades.compras;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.erpweb.entidades.empresa.Empresa;
 
 @Entity
 @Table(name="compra")
@@ -24,15 +19,17 @@ public class Compra implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Empresa empresa;
 	private Date fechaCompra;
-	private Set<LineaCompra> lineaCompra;
-	private Proveedor proveedor;
+	private String articulo; 				//Articulo
+	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
+	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
+	private String impuesto; 				//Impuesto 
+	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
+	
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-	//@SequenceGenerator(name = "users_seq_gen", sequenceName = "users_id_seq")
 	public Long getId() {
 		return id;
 	}
@@ -49,15 +46,6 @@ public class Compra implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
 	public Date getFechaCompra() {
 		return fechaCompra;
 	}
@@ -66,27 +54,44 @@ public class Compra implements Serializable {
 		this.fechaCompra = fechaCompra;
 	}
 
-	@OneToMany(orphanRemoval=true,mappedBy="compra",cascade=CascadeType.ALL)
-	public Set<LineaCompra> getLineaCompra() {
-		return lineaCompra;
+	public String getArticulo() {
+		return articulo;
 	}
 
-	public void setLineaCompra(Set<LineaCompra> lineaCompra) {
-		this.lineaCompra = lineaCompra;
-	}
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	public Proveedor getProveedor() {
-		return proveedor;
+	public void setArticulo(String articulo) {
+		this.articulo = articulo;
 	}
 
-	public void setProveedor(Proveedor proveedor) {
-		this.proveedor = proveedor;
+	public BigDecimal getCantidad() {
+		return cantidad;
 	}
 
-	
-	
-	
-	
+	public void setCantidad(BigDecimal cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public BigDecimal getBaseImponibleTotal() {
+		return baseImponibleTotal;
+	}
+
+	public void setBaseImponibleTotal(BigDecimal baseImponibleTotal) {
+		this.baseImponibleTotal = baseImponibleTotal;
+	}
+
+	public String getImpuesto() {
+		return impuesto;
+	}
+
+	public void setImpuesto(String impuesto) {
+		this.impuesto = impuesto;
+	}
+
+	public BigDecimal getImporteTotal() {
+		return importeTotal;
+	}
+
+	public void setImporteTotal(BigDecimal importeTotal) {
+		this.importeTotal = importeTotal;
+	}
 	
 }

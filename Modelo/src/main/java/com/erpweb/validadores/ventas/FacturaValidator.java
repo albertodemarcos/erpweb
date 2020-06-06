@@ -25,11 +25,6 @@ public class FacturaValidator implements Validator {
 		
 		FacturaDto facturaDto = (FacturaDto) target;
 		
-		if( facturaDto.getEmpresaId() == null || facturaDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "La factura no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( facturaDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");

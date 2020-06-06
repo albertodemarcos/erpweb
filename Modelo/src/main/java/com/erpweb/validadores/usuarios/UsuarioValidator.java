@@ -25,11 +25,6 @@ public class UsuarioValidator implements Validator {
 		
 		UsuarioDto usuarioDto = (UsuarioDto) target;
 
-		if( usuarioDto.getEmpresaId() == null || usuarioDto.getEmpresaId().intValue() < 1 ) {
-			
-			errors.reject("ERROR_EMPRESA", "El usuario no esta asociado a una empresa");
-		}
-		
 		if( StringUtils.isBlank( usuarioDto.getCodigo() )  ) {
 			
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
@@ -52,7 +47,7 @@ public class UsuarioValidator implements Validator {
 		
 		if( StringUtils.isBlank( usuarioDto.getIdioma() )  ) {
 			
-			errors.rejectValue("", "", "El campo idiom no puede estar vacío");
+			errors.rejectValue("", "", "El campo idioma no puede estar vacío");
 		}
 		
 		

@@ -6,17 +6,15 @@ import java.math.BigDecimal;
 
 public class IngresoDto implements Serializable {
 
-	private static final long serialVersionUID = -5302205067845393881L;
 
 	private Long id;
 	private String codigo;
-	private Long empresaId;
-	private String procedencia; 			
-	private BigDecimal baseImponible;     
-	private BigDecimal cuotaTributaria;   
-	private BigDecimal importeTotal;      
-	private String descripcion;      
-	private String observaciones;
+	private String procedencia; 			//Procedencia del gasto (contrato o venta)
+	private BigDecimal baseImponible;     //Precio sin impuesto
+	private BigDecimal cuotaTributaria;   //Valor del impuesto sobre el producto
+	private BigDecimal importeTotal;      //Base imponible mas cuota tributaria
+	private String descripcion;      //Descripcion del gasto
+	private String observaciones;    //Observaciones que se quieran incluir
 	
 	public Long getId() {
 		return id;
@@ -34,14 +32,6 @@ public class IngresoDto implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	public Long getEmpresaId() {
-		return empresaId;
-	}
-
-	public void setEmpresaId(Long empresaId) {
-		this.empresaId = empresaId;
-	}
-
 	public String getProcedencia() {
 		return procedencia;
 	}
