@@ -1,4 +1,4 @@
-package com.erpweb.controladores.recursoshumanos;
+package com.erpweb.controladores.empresa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
