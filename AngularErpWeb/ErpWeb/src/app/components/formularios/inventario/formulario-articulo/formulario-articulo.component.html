@@ -1,0 +1,67 @@
+<div class="card bg-dark text-light">
+
+    <div class="card-header">Nuevo artículo</div>
+
+    <div class="card-body">
+
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearArticuloFormulario()">
+
+            <!-- NOMBRE -->
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="articulo.nombre" name="nombre">
+                </div>
+            </div>
+
+            <!-- CODIGO -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-2">Código articulo</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="articulo.codigo" name="codigo">
+                </div>
+            </div>
+
+            <!-- DESCRIPCION -->
+            <div class="form-group row">
+                <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">
+                </div>
+            </div>
+
+            <!-- BASE IMPONIBLE -->
+            <div class="form-group row">
+                <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="articulo.baseImponible" name="baseImponible">
+                </div>
+            </div>
+
+            <!-- IMPUESTO -->
+            <div class="form-group row">
+                <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="articulo.impuesto" name="impuesto">
+                </div>
+            </div>
+
+            <!-- IMPORTE TOTAL -->
+            <div class="form-group row">
+                <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="articulo.importeTotal" name="importeTotal">
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button">Crear articulo</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

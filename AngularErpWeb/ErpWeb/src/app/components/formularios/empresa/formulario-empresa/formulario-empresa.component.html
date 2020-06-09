@@ -1,0 +1,58 @@
+<div class="card bg-dark text-light">
+
+    <div class="card-header">Nueva empresa</div>
+
+    <div class="card-body">
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearEmpresaFormulario()">
+
+            <!-- NOMBRE -->
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="empresa.nombre" name="nombre">
+                </div>
+            </div>
+
+            <!-- CODIGO EMPRESA -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-2">Código empresa</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="empresa.codigo" name="codigo">
+                </div>
+            </div>
+
+            <!-- CIF -->
+            <div class="form-group row">
+                <label for="apellidoPrimero" class="col-form-label col-sm-2">CIF</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="empresa.cif" name="apellidoPrimero">
+                </div>
+            </div>
+
+            <!-- IDIOMA -->
+            <div class="form-group row">
+                <label for="idioma" class="col-form-label col-sm-2">Idioma</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="empresa.idioma" name="idioma">
+                </div>
+            </div>
+
+            <!-- TIPO SOCIEDAD JURIDICA -->
+            <div class="form-group row">
+                <label for="tipoSociedadJuridica" class="col-form-label col-sm-2">Tipo de sociedad jurídica</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="empresa.tipoSociedadJuridica" name="tipoSociedadJuridica">
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button">Crear empresa</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

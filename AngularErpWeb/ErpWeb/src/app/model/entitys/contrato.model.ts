@@ -1,4 +1,4 @@
-export interface Contrato {
+export class Contrato {
     id: number;
     codigo: string;
     empresaId: number;

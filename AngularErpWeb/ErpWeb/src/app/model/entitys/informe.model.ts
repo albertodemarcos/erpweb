@@ -1,4 +1,4 @@
-export interface Informe {
+export class Informe {
     id: number;
     codigo: string;
     empresaId: number;

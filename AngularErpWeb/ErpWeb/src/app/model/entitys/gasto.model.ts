@@ -1,7 +1,6 @@
-export interface Gasto {
+export class Gasto {
     id: number;
     codigo: string;
-    empresaId: number;
     procendecia: string;
     baseImponible: number;
     cuotaTributaria: number;

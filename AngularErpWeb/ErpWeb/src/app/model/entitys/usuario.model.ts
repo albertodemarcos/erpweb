@@ -1,4 +1,4 @@
-export interface Usuario {
+export class Usuario {
     id: number;
     codigo: string;
     empresaId: number;

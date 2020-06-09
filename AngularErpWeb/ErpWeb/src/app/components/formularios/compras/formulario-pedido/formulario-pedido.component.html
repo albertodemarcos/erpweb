@@ -1,0 +1,75 @@
+<div class="card bg-dark text-light">
+
+    <div class="card-header">Nuevo pedido</div>
+
+    <div class="card-body">
+
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearPedidoFormulario()">
+
+            <!-- CODIGO CLIENTE -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-2">Código pedido</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.codigo" name="codigo">
+                </div>
+            </div>
+
+            <!-- FECHA pedido -->
+            <div class="form-group row">
+                <label for="fechaPedido" class="col-form-label col-sm-2">Fecha pedido</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.fechaPedido" name="fechaPedido">
+                </div>
+            </div>
+
+            <!-- ARTICULO -->
+            <div class="form-group row">
+                <label for="articulo" class="col-form-label col-sm-2">Artículo</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.articulo" name="articulo">
+                </div>
+            </div>
+
+            <!-- CANTIDAD -->
+            <div class="form-group row">
+                <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.cantidad" name="cantidad">
+                </div>
+            </div>
+
+            <!-- BASE IMPONIBLE -->
+            <div class="form-group row">
+                <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.baseImponibleTotal" name="baseImponible">
+                </div>
+            </div>
+
+            <!-- IMPUESTO -->
+            <div class="form-group row">
+                <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.impuesto" name="impuesto">
+                </div>
+            </div>
+
+            <!-- IMPORTE TOTAL -->
+            <div class="form-group row">
+                <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="pedido.importeTotal" name="importeTotal">
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button">Crear pedido</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

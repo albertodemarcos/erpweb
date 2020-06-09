@@ -1,7 +1,6 @@
-export interface Venta {
+export class Venta {
     id: number;
     codigo: string;
-    empresaId: number;
     fechaCreacion: Date;
     fechaInicio: Date;
     fechaFin: Date;

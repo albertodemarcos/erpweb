@@ -1,0 +1,107 @@
+<div class="card bg-dark text-light">
+
+    <div class="card-header">Nuevo almacén</div>
+
+    <div class="card-body">
+
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearAlmacenFormulario()">
+
+            <!-- NOMBRE -->
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.nombre" name="nombre">
+                </div>
+            </div>
+
+            <!-- CODIGO -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-2">Código almacén</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.codigo" name="codigo">
+                </div>
+            </div>
+
+            <!-- CODIGO POSTAL -->
+            <div class="form-group row">
+                <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.codigoPostal" name="codigoPostal">
+                </div>
+            </div>
+
+            <!-- DIRECCION -->
+            <div class="form-group row">
+                <label for="direccion" class="col-form-label col-sm-2"></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.direccion" name="direccion">
+                </div>
+            </div>
+
+            <!-- EDIFICIO -->
+            <div class="form-group row">
+                <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.edificio" name="edificio">
+                </div>
+            </div>
+
+            <!-- OBSERVACIONES -->
+            <div class="form-group row">
+                <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.observaciones" name="observaciones">
+                </div>
+            </div>
+
+            <!-- TELEFONO -->
+            <div class="form-group row">
+                <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.telefono" name="telefono">
+                </div>
+            </div>
+
+            <!-- PAIS -->
+            <div class="form-group row">
+                <label for="pais" class="col-form-label col-sm-2">País</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.pais" name="pais">
+                </div>
+            </div>
+
+            <!-- REGION -->
+            <div class="form-group row">
+                <label for="region" class="col-form-label col-sm-2">Región</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.region" name="region">
+                </div>
+            </div>
+
+            <!-- PROVINCIA -->
+            <div class="form-group row">
+                <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.provincia" name="provincia">
+                </div>
+            </div>
+
+            <!-- POBLACION -->
+            <div class="form-group row">
+                <label for="poblacion" class="col-form-label col-sm-2">Población</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="almacen.poblacion" name="poblacion">
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button">Crear almacén</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

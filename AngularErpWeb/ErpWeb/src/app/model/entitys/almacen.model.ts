@@ -1,9 +1,16 @@
-export interface Almacen {
+export class Almacen {
     id: number;
     codigo: string;
-    empresaId: number;
     nombre: string;
-    articuloId: string;
-    cantidad: number;
+    codigoPostal: string;
+    direccion: string;
+    edificio: string;
+    observaciones: string;
+    telefono: string;
+    pais: string;
+    region: string;
+    provincia: string;
+    poblacion: string;
 }
+
 

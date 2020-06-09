@@ -1,6 +1,10 @@
-export interface Compra {
+export class Compra {
     id: number;
     codigo: string;
-    empresaId: number;
     fechaCompra: Date;
+    articulo: string;
+    cantidad: number;
+    baseImponibleTotal: number;
+    impuesto: string;
+    importeTotal: number;
 }

@@ -1,7 +1,6 @@
-export interface Ingreso {
+export class Ingreso {
     id: number;
     codigo: string;
-    empresaId: number;
     procendecia: string;
     baseImponible: number;
     cuotaTributaria: number;

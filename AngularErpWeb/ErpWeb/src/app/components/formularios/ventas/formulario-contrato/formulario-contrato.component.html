@@ -1,0 +1,75 @@
+<div class="card bg-dark text-light">
+
+    <div class="card-header">Nuevo contrato</div>
+
+    <div class="card-body">
+
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearContratoFormulario()">
+
+            <!-- CODIGO CLIENTE -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-2">Código contrato</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.codigo" name="codigo">
+                </div>
+            </div>
+
+            <!-- FECHA CREACION -->
+            <div class="form-group row">
+                <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.fechaCreacion" name="fechaCreacion">
+                </div>
+            </div>
+
+            <!-- FECHA INICIO -->
+            <div class="form-group row">
+                <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.fechaInicio" name="fechaInicio">
+                </div>
+            </div>
+
+            <!-- FECHA FIN -->
+            <div class="form-group row">
+                <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.fechaFin" name="fechaFin">
+                </div>
+            </div>
+
+            <!-- DESCRIPCION -->
+            <div class="form-group row">
+                <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.descripcion" name="descripcion">
+                </div>
+            </div>
+
+            <!-- BASE IMPONIBLE -->
+            <div class="form-group row">
+                <label for="baseImponibleTotal" class="col-form-label col-sm-2">Base imponible</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.baseImponibleTotal" name="baseImponibleTotal">
+                </div>
+            </div>
+
+            <!-- IMPORTE TOTAL -->
+            <div class="form-group row">
+                <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="contrato.importeTotal" name="importeTotal">
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button">Crear contrato</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

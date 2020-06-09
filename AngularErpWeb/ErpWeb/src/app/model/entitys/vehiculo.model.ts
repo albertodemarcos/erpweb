@@ -1,7 +1,6 @@
-export interface Vehiculo {
+export class Vehiculo {
     id: number;
     codigo: string;
-    empresaId: number;
     matricula: string;
     marca: string;
     modelo: string;

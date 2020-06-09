@@ -1,0 +1,59 @@
+<div class="card bg-dark text-light">
+
+    <div class="card-header">Nuevo proveedor</div>
+
+    <div class="card-body">
+
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearProveedorFormulario()">
+
+            <!-- NOMBRE -->
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre proveedor</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="proveedor.nombre" name="nombre">
+                </div>
+            </div>
+
+            <!-- CODIGO CLIENTE -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-2">Código proveedor</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="proveedor.codigo" name="codigo">
+                </div>
+            </div>
+
+            <!-- NOMBRE EMPRESA -->
+            <div class="form-group row">
+                <label for="nombreEmpresa" class="col-form-label col-sm-2">Nombre empresa</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="proveedor.nombreEmpresa" name="nombreEmpresa">
+                </div>
+            </div>
+
+            <!-- TELEFONO -->
+            <div class="form-group row">
+                <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="proveedor.telefono" name="telefono">
+                </div>
+            </div>
+
+            <!-- TIPO PROVEEDOR -->
+            <div class="form-group row">
+                <label for="tipoProveedor" class="col-form-label col-sm-2">Tipo proveedor</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="proveedor.tipoProveedor" name="tipoProveedor">
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button">Crear proveedor</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

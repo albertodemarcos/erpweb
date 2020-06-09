@@ -1,12 +1,9 @@
-export interface Articulo {
+export class Articulo {
     id: number;
     codigo: string;
-    empresaId: number;
     nombre: string;
     descripcion: string;
     baseImponible: number;
-    impuestoId: number;
+    impuesto: string;
     importeTotal: number;
-    proveedorId: number;
-    almacenId: number;
 }

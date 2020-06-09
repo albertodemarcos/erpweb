@@ -1,7 +1,6 @@
-export interface Factura {
+export class Factura {
     id: number;
-    codigo: string;
-    empresaId: number;
+    codigo: string;    
     fechaCreacion: Date;
     fechaInicio: Date;
     fechaFin: Date;
