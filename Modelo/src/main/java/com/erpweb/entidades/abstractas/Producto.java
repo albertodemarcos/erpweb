@@ -6,20 +6,11 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Producto {
 
-	private String codigo;
 	private String nombre;
 	private String descripcion;
 	
 	public Producto() {
 		
-	}
-	
-	public String getCodigo() {
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 	
 	public String getNombre() {

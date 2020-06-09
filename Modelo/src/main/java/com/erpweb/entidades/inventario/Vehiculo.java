@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.erpweb.utiles.enumerados.TipoCombustible;
 import com.erpweb.utiles.enumerados.TipoVehiculo;
 
 @Entity
@@ -24,6 +25,7 @@ public class Vehiculo implements Serializable {
 	private String marca;
 	private String modelo;
 	private TipoVehiculo tipoVehiculo;
+	private TipoCombustible tipoCombustible;
 	private Date fechaMatriculacion;
 	
 	
@@ -76,6 +78,14 @@ public class Vehiculo implements Serializable {
 
 	public void setTipoVehiculo(TipoVehiculo tipoVehiculo) {
 		this.tipoVehiculo = tipoVehiculo;
+	}
+
+	public TipoCombustible getTipoCombustible() {
+		return tipoCombustible;
+	}
+
+	public void setTipoCombustible(TipoCombustible tipoCombustible) {
+		this.tipoCombustible = tipoCombustible;
 	}
 
 	public Date getFechaMatriculacion() {

@@ -38,6 +38,7 @@ public class VehiculoService {
 		vehiculo.setMarca(vehiculoDto.getMarca());
 		vehiculo.setModelo(vehiculoDto.getModelo());
 		vehiculo.setTipoVehiculo(vehiculoDto.getTipoVehiculo());
+		vehiculo.setTipoCombustible(vehiculoDto.getTipoCombustible());
 		vehiculo.setFechaMatriculacion(vehiculoDto.getFechaMatriculacion());
 		
 		try {
@@ -69,6 +70,7 @@ public class VehiculoService {
 		vehiculo.setMarca(vehiculoDto.getMarca());
 		vehiculo.setModelo(vehiculoDto.getModelo());
 		vehiculo.setTipoVehiculo(vehiculoDto.getTipoVehiculo());
+		vehiculo.setTipoCombustible(vehiculoDto.getTipoCombustible());
 		vehiculo.setFechaMatriculacion(vehiculoDto.getFechaMatriculacion());
 		
 		try {
@@ -155,6 +157,7 @@ public class VehiculoService {
 			vehiculoDto.setMarca(vehiculo.getMarca());
 			vehiculoDto.setModelo(vehiculo.getModelo());
 			vehiculoDto.setTipoVehiculo(vehiculo.getTipoVehiculo());
+			vehiculoDto.setTipoCombustible(vehiculo.getTipoCombustible());
 			vehiculoDto.setFechaMatriculacion(vehiculo.getFechaMatriculacion());
 			
 		} catch(Exception e) {

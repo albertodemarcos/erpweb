@@ -51,6 +51,11 @@ public class VehiculoValidator implements Validator {
 			errors.rejectValue("", "", "El campo tipo de vehiculo no puede estar vacío");
 		}
 		
+		if( vehiculoDto.getTipoCombustible() == null  ) {
+			
+			errors.rejectValue("", "", "El campo tipo de combustible no puede estar vacío");
+		}
+		
 		if( vehiculoDto.getFechaMatriculacion() == null  ) {
 			
 			errors.rejectValue("", "", "El campo fecha de matriculación no puede estar vacío");

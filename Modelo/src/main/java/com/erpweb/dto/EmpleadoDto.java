@@ -16,8 +16,8 @@ public class EmpleadoDto implements Serializable {
     private String apellidoSegundo;
     private String nif;
    	private String codigoPostal;
-   	private String direccion; 		//Calle/avenida/plaza, etc. con numero
-   	private String edificio;        //Edificio planta y letra
+   	private String direccion; 		
+   	private String edificio;        
    	private String observaciones;
    	private String telefono;
    	private String poblacion;

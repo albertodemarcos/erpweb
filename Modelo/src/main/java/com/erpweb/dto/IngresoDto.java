@@ -10,11 +10,11 @@ public class IngresoDto implements Serializable {
 	private Long id;
 	private String codigo;
 	private String procedencia; 			//Procedencia del gasto (contrato o venta)
-	private BigDecimal baseImponible;     //Precio sin impuesto
-	private BigDecimal cuotaTributaria;   //Valor del impuesto sobre el producto
-	private BigDecimal importeTotal;      //Base imponible mas cuota tributaria
-	private String descripcion;      //Descripcion del gasto
-	private String observaciones;    //Observaciones que se quieran incluir
+	private BigDecimal baseImponible;     	//Precio sin impuesto
+	private BigDecimal cuotaTributaria;   	//Valor del impuesto sobre el producto
+	private BigDecimal importeTotal;      	//Base imponible mas cuota tributaria
+	private String descripcion;      		//Descripcion del gasto
+	private String observaciones;    		//Observaciones que se quieran incluir
 	
 	public Long getId() {
 		return id;

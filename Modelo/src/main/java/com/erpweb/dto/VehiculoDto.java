@@ -3,6 +3,7 @@ package com.erpweb.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.erpweb.utiles.enumerados.TipoCombustible;
 import com.erpweb.utiles.enumerados.TipoVehiculo;
 
 public class VehiculoDto implements Serializable {
@@ -13,6 +14,7 @@ public class VehiculoDto implements Serializable {
 	private String marca;
 	private String modelo;
 	private TipoVehiculo tipoVehiculo;
+	private TipoCombustible tipoCombustible;
 	private Date fechaMatriculacion;
 	
 	public Long getId() {
@@ -63,6 +65,14 @@ public class VehiculoDto implements Serializable {
 		this.tipoVehiculo = tipoVehiculo;
 	}
 	
+	public TipoCombustible getTipoCombustible() {
+		return tipoCombustible;
+	}
+
+	public void setTipoCombustible(TipoCombustible tipoCombustible) {
+		this.tipoCombustible = tipoCombustible;
+	}
+
 	public Date getFechaMatriculacion() {
 		return fechaMatriculacion;
 	}
