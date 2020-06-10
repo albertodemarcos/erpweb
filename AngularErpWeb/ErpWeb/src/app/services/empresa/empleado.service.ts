@@ -9,19 +9,19 @@ export class EmpleadoService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getEmpleado(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearEmpleado(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarEmpleado(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarEmpleado(){
     console.log('METODO GET');
    }
 }

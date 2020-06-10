@@ -9,19 +9,19 @@ export class ArticuloService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getArticulo(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearArticulo(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarArticulo(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarArticulo(){
     console.log('METODO GET');
    }
 }

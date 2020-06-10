@@ -9,19 +9,19 @@ export class FacturaService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getFactura(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearFactura(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarFactura(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarFactura(){
     console.log('METODO GET');
    }
 }

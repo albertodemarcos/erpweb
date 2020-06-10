@@ -9,19 +9,19 @@ export class CompraService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getCompra(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearCompra(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarCompra(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarCompra(){
     console.log('METODO GET');
    }
 }

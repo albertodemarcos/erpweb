@@ -9,19 +9,19 @@ export class UsuarioService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getUsuario(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearUsuario(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarUsuario(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarUsuario(){
     console.log('METODO GET');
    }
 }

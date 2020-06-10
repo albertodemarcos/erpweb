@@ -9,19 +9,19 @@ export class InformeService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getInforme(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearInforme(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarInforme(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarInforme(){
     console.log('METODO GET');
    }
 }

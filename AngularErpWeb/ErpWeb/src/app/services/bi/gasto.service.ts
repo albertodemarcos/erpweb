@@ -11,19 +11,19 @@ export class GastoService {
 
    // METODOS GENERALES
 
-   public getDatos(){
+   public getGasto(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearGasto(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarGasto(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarGasto(){
     console.log('METODO GET');
    }
 

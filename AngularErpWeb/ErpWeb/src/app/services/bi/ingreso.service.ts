@@ -9,19 +9,19 @@ export class IngresoService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getIngreso(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearIngreso(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarIngreso(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarIngreso(){
     console.log('METODO GET');
    }
 

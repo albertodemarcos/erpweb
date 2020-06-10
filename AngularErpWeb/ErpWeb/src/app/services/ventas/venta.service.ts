@@ -9,19 +9,19 @@ export class VentaService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getVenta(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearVenta(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarVenta(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarVenta(){
     console.log('METODO GET');
    }
 }

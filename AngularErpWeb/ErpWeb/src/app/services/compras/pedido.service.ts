@@ -9,19 +9,19 @@ export class PedidoService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getPedido(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearPedido(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarPedido(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarPedido(){
     console.log('METODO GET');
    }
 }

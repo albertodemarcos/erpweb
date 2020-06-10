@@ -9,19 +9,19 @@ export class ProveedorService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getProveedor(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearProveedor(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarProveedor(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarProveedor(){
     console.log('METODO GET');
    }
 }

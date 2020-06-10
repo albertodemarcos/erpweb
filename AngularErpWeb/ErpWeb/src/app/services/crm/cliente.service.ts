@@ -9,19 +9,19 @@ export class ClienteService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getCliente(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearCliente(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarCliente(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarCliente(){
     console.log('METODO GET');
    }
 }

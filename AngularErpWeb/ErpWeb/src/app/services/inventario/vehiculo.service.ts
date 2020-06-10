@@ -9,19 +9,19 @@ export class VehiculoService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getVehiculo(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearVehiculo(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarVehiculo(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarVehiculo(){
     console.log('METODO GET');
    }
 }

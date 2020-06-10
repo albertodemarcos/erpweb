@@ -9,19 +9,19 @@ export class ContratoService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getContrato(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearContrato(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarContrato(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarContrato(){
     console.log('METODO GET');
    }
 }

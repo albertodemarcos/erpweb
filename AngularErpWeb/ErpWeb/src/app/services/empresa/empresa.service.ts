@@ -9,19 +9,19 @@ export class EmpresaService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getEmpresa(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearEmpresa(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarEmpresa(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarEmpresa(){
     console.log('METODO GET');
    }
 }

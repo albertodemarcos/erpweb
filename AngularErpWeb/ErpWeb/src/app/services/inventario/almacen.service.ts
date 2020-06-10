@@ -9,19 +9,19 @@ export class AlmacenService {
 
   // METODOS GENERALES
 
-  public getDatos(){
+  public getAlmacen(){
     console.log('METODO obtener');
    }
 
-   public crearDatos(){
+   public crearAlmacen(){
     console.log('METODO crear');
    }
 
-   public actualizarDatos(){
+   public actualizarAlmacen(){
     console.log('METODO actualizar');
    }
 
-   public eliminarDatos(){
+   public eliminarAlmacen(){
     console.log('METODO GET');
    }
 }
