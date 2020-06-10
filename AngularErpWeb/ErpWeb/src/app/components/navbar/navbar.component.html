@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
     <!-- Inicio -->
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" [routerLink]="['inicio']">
         <img src="assets/img/navbar/inicio1.png" width="30" height="30" alt="">
     </a>
 
@@ -13,15 +13,15 @@
         <!--CRM-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/crm.png" width="20" height="20" alt=""> CRM
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Clientes</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Clientes</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo cliente</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar cliente</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['clientes']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['clientes','nuevo-cliente']">Nuevo cliente</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['clientes','buscar-cliente']">Buscar cliente</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -30,30 +30,30 @@
         <!--BI-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/bi.png" width="20" height="20" alt=""> BI
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--INGRESOS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Ingresos</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Ingresos</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo ingreso</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar ingreso</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['ingresos']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['ingresos','nuevo-ingreso']">Nuevo ingreso</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['ingresos','buscar-ingreso']">Buscar ingreso</a></li>
                         </ul>
                     </li>
                     <!--GASTOS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Gastos</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Gastos</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo gasto</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar gasto</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['gastos']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['gastos','nuevo-gasto']">Nuevo gasto</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['gastos','buscar-gasto']">Buscar gasto</a></li>
                         </ul>
                     </li>
                     <!--RESULTADOS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Resultados</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Resultados</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['resultados']">Listado</a></li>
                         </ul>
                     </li>
 
@@ -63,32 +63,32 @@
         <!--VENTAS-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/ventas.png" width="20" height="20" alt=""> Ventas
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--CONTRATOS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Contratos</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Contratos</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo contrato</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar contrato</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['contratos']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['contratos','nuevo-contrato']">Nuevo contrato</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['contratos','buscar-contrato']">Buscar contrato</a></li>
                         </ul>
                     </li>
                     <!--VENTAS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Ventas</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Ventas</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo venta</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar venta</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['ventas']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['ventas','nuevo-venta']">Nuevo venta</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['ventas','buscar-venta']">Buscar venta</a></li>
                         </ul>
                     </li>
                     <!--FACTURAS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Facturas</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Facturas</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo factura</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar facttura</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['facturas']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['facturas','nuevo-factura']">Nuevo factura</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['facturas','buscar-factura']">Buscar facttura</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -97,32 +97,32 @@
         <!--COMPRAS-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/compras.png" width="20" height="20" alt=""> Compras
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--COMPRAS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Compras</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Compras</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo compra</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar compra</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['compras']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['compras','nuevo-compra']">Nuevo compra</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['compras','buscar-compra']">Buscar compra</a></li>
                         </ul>
                     </li>
                     <!--PEDIDOS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Pedidos</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Pedidos</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar pedido</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['pedidos']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['pedidos','nuevo-pedido']">Nuevo pedido</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['pedidos','buscar-pedido']">Buscar pedido</a></li>
                         </ul>
                     </li>
                     <!--PROVEEDORES-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Proveedores</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Proveedores</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo proveedor</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar proveedor</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['proveedor']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['proveedor','nuevo-proveedor']">Nuevo proveedor</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['proveedor','buscar-proveedor']">Buscar proveedor</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -131,32 +131,32 @@
         <!--INVENTARIO-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/inventario.png" width="20" height="20" alt=""> Inventario
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--CATALOGO-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Catálogo</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Catálogo</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado artículos</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo artículo</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar artículo</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['catalgo','articulos']">Listado artículos</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['catalgo','articulos','nuevo-articulo']">Nuevo artículo</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['catalgo','articulos','buscar-articulo']">Buscar artículo</a></li>
                         </ul>
                     </li>
                     <!--ALMACENES-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Almacén</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Almacén</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo almacén</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar almacén</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['almacenes']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['almacenes','nuevo-almacen']">Nuevo almacén</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['almacenes','buscar-almacen']">Buscar almacén</a></li>
                         </ul>
                     </li>
                     <!--VEHICULOS-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Vehículos</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Vehículos</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo vehículo</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar vehículo</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['vehiculos']">Listado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['vehiculos','nuevo-vehiculo']">Nuevo vehículo</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['vehiculos','buscar-vehiculo']">Buscar vehículo</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -165,20 +165,20 @@
         <!--EMPRESA-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/empresa.png" width="20" height="20" alt=""> Empresa
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--EMPRESA-->
                     <li class="dropdown-item">
-                        <span>Información empresa</span>
+                        <span><a class="dropdown-item" [routerLink]="['empresa']">Información empresa</a></span>
                     </li>
                     <!--RRHH-->
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">RRHH</a>
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">RRHH</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Listado empleados</a></li>
-                            <li><a class="dropdown-item" href="#">Nuevo empleado</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar empleado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['rrhh']">Listado empleados</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['rrhh','nuevo-empleado']">Nuevo empleado</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['rrhh','buscar-empleado']">Buscar empleado</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -187,13 +187,13 @@
         <!--CUENTA-->
         <ul class="navbar-nav mt-rigth nav-flex-icons">
             <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/perfil.png" width="20" height="20" alt=""> Perfil
                 </a>
                 <!--PERFIL-->
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item">Mi cuenta</a></li>
-                    <li><a class="dropdown-item">Salir</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['perfil']">Mi cuenta</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['salir']">Salir</a></li>
                 </ul>
             </li>
         </ul>
