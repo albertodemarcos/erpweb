@@ -36,10 +36,27 @@ import { FormularioVehiculoComponent } from './components/formularios/inventario
 
 /* ------------------------------- SERVICIOS ------------------------------- */
 
+import { GastoService } from './services/bi/gasto.service';
+import { InformeService } from './services/bi/informe.service';
+import { IngresoService } from './services/bi/ingreso.service';
+import { CompraService } from './services/compras/compra.service';
+import { PedidoService } from './services/compras/pedido.service';
+import { ProveedorService } from './services/compras/proveedor.service';
+import { ClienteService } from './services/crm/cliente.service';
+import { EmpleadoService } from './services/empresa/empleado.service';
+import { EmpresaService } from './services/empresa/empresa.service';
+import { AlmacenService } from './services/inventario/almacen.service';
+import { ArticuloService } from './services/inventario/articulo.service';
+import { VehiculoService } from './services/inventario/vehiculo.service';
+import { UsuarioService } from './services/usuarios/usuario.service';
+import { ContratoService } from './services/ventas/contrato.service';
+import { FacturaService } from './services/ventas/factura.service';
+import { VentaService } from './services/ventas/venta.service';
+
 /* ------------------------------------------------------------------------- */
 
 @NgModule({
-  declarations: [
+  declarations: [ // Componentes
     AppComponent,
     NavbarComponent,
     HomeComponent,
@@ -58,14 +75,31 @@ import { FormularioVehiculoComponent } from './components/formularios/inventario
     FormularioAlmacenComponent,
     FormularioArticuloComponent,
     FormularioVehiculoComponent
-  ],
+  ], // Modulos
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ // Servicios
+    GastoService,
+    InformeService,
+    IngresoService,
+    CompraService,
+    PedidoService,
+    ProveedorService,
+    ClienteService,
+    EmpleadoService,
+    EmpresaService,
+    AlmacenService,
+    ArticuloService,
+    VehiculoService,
+    UsuarioService,
+    ContratoService,
+    FacturaService,
+    VentaService
+  ],
   bootstrap: [AppComponent]
 })
 
