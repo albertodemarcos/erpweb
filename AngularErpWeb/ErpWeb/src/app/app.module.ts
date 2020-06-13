@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AgGridModule } from 'ag-grid-angular';
 
-/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
 /* ------------------------ COMPONENTES PRINCIPALES ------------------------ */
 import { AppComponent } from './app.component';
@@ -13,10 +14,23 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-/* ------------------------------------------------------------------------- */
+/* ------------------------------ LISTADOS ------------------------------ */
+import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
+import { ListadoIngresosComponent } from './components/listados/bi/listado-ingresos/listado-ingresos.component';
+import { ListadoGastosComponent } from './components/listados/bi/listado-gastos/listado-gastos.component';
+import { ListadoResultadosComponent } from './components/listados/bi/listado-resultados/listado-resultados.component';
+import { ListadoContratosComponent } from './components/listados/ventas/listado-contratos/listado-contratos.component';
+import { ListadoVentasComponent } from './components/listados/ventas/listado-ventas/listado-ventas.component';
+import { ListadoFacturasComponent } from './components/listados/ventas/listado-facturas/listado-facturas.component';
+import { ListadoComprasComponent } from './components/listados/compras/listado-compras/listado-compras.component';
+import { ListadoPedidosComponent } from './components/listados/compras/listado-pedidos/listado-pedidos.component';
+import { ListadoProveedoresComponent } from './components/listados/compras/listado-proveedores/listado-proveedores.component';
+import { ListadoArticulosComponent } from './components/listados/inventario/listado-articulos/listado-articulos.component';
+import { ListadoAlmacenComponent } from './components/listados/inventario/listado-almacen/listado-almacen.component';
+import { ListadoVehiculosComponent } from './components/listados/inventario/listado-vehiculos/listado-vehiculos.component';
+import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
 
 /* ------------------------------ FORMULARIOS ------------------------------ */
-
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
 import { FormularioEmpleadoComponent } from './components/formularios/empresa/formulario-empleado/formulario-empleado.component';
 import { FormularioEmpresaComponent } from './components/formularios/empresa/formulario-empresa/formulario-empresa.component';
@@ -32,9 +46,10 @@ import { FormularioAlmacenComponent } from './components/formularios/inventario/
 import { FormularioArticuloComponent } from './components/formularios/inventario/formulario-articulo/formulario-articulo.component';
 import { FormularioVehiculoComponent } from './components/formularios/inventario/formulario-vehiculo/formulario-vehiculo.component';
 
-/* ------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
 
-/* ------------------------------- SERVICIOS ------------------------------- */
+
+/* --------------------------------------------------- SERVICIOS --------------------------------------------------------------------- */
 
 import { GastoService } from './services/bi/gasto.service';
 import { InformeService } from './services/bi/informe.service';
@@ -53,7 +68,7 @@ import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
 
-/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 
 @NgModule({
   declarations: [ // Componentes
@@ -74,13 +89,28 @@ import { VentaService } from './services/ventas/venta.service';
     FormularioProveedorComponent,
     FormularioAlmacenComponent,
     FormularioArticuloComponent,
-    FormularioVehiculoComponent
+    FormularioVehiculoComponent,
+    ListadoClientesComponent,
+    ListadoIngresosComponent,
+    ListadoGastosComponent,
+    ListadoResultadosComponent,
+    ListadoContratosComponent,
+    ListadoVentasComponent,
+    ListadoFacturasComponent,
+    ListadoComprasComponent,
+    ListadoPedidosComponent,
+    ListadoProveedoresComponent,
+    ListadoArticulosComponent,
+    ListadoAlmacenComponent,
+    ListadoVehiculosComponent,
+    ListadoEmpleadosComponent
   ], // Modulos
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [ // Servicios
     GastoService,

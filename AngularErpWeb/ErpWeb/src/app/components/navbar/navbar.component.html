@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary navBar">
+    <!--fixed-top-->
 
     <!-- Inicio -->
     <a class="navbar-brand" [routerLink]="['inicio']">
@@ -27,14 +28,14 @@
                 </ul>
             </li>
         </ul>
-        <!--BI-->
+        <!--
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/bi.png" width="20" height="20" alt=""> BI
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <!--INGRESOS-->
+                    
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Ingresos</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" [routerLink]="['ingresos']">Listado</a></li>
@@ -42,7 +43,7 @@
                             <li><a class="dropdown-item" [routerLink]="['ingresos','buscar-ingreso']">Buscar ingreso</a></li>
                         </ul>
                     </li>
-                    <!--GASTOS-->
+                    
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Gastos</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" [routerLink]="['gastos']">Listado</a></li>
@@ -50,7 +51,7 @@
                             <li><a class="dropdown-item" [routerLink]="['gastos','buscar-gasto']">Buscar gasto</a></li>
                         </ul>
                     </li>
-                    <!--RESULTADOS-->
+                    
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Resultados</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" [routerLink]="['resultados']">Listado</a></li>
@@ -59,7 +60,7 @@
 
                 </ul>
             </li>
-        </ul>
+        </ul>-->
         <!--VENTAS-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
@@ -171,7 +172,7 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--EMPRESA-->
                     <li class="dropdown-item">
-                        <span><a class="dropdown-item" [routerLink]="['empresa']">Información empresa</a></span>
+                        <a class="dropdown-item" [routerLink]="['empresa']">Información empresa</a>
                     </li>
                     <!--RRHH-->
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">RRHH</a>

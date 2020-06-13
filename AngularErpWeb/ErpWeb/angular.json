@@ -25,7 +25,10 @@
                         ],
                         "styles": [
                             "src/styles.css",
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css"
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "node_modules/ag-grid-community/dist/styles/ag-grid.min.css",
+                            "node_modules/ag-grid-community/dist/styles/ag-theme-material.min.css",
+                            "node_modules/ag-grid-community/dist/styles/agGridMaterialFont.min.css"
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.slim.min.js",

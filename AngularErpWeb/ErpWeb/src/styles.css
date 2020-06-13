@@ -2,10 +2,15 @@
 
 html,
 body {
-    margin: 0px;
     height: 100%;
     width: 100%;
 }
+
+
+/*.home {
+    margin-top: 50px;
+    border: black solid 1px;
+}*/
 
 footer {
     color: black;
