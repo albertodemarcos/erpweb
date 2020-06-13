@@ -20,9 +20,12 @@ export class ListadoArticulosComponent implements OnInit {
 
   // tslint:disable-next-line: member-ordering
   columnDefs = [
-    { headerName: 'Make', field: 'make' },
-    { headerName: 'Model', field: 'model' },
-    { headerName: 'Price', field: 'price' }
+    { headerName: '', field: 'id', hide: true, cellStyle: { textAlign: 'left' } },
+    { headerName: 'Código', field: 'codigo', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Nombre', field: 'nombre', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Base Imp.', field: 'baseImponible', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Impuesto', field: 'impuesto', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Importe total', field: 'importeTotal', cellStyle: { textAlign: 'left' } }
   ];
 
   defaultColDef = {
@@ -36,18 +39,7 @@ export class ListadoArticulosComponent implements OnInit {
   };
 
   rowData = [
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 },
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 },
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 },
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 }
+    { id: '1', codigo: 'MAD-1', nombre: 'ERP', baseImponible: 50, impuesto: 'IVA', importeTotal: 60.5 }
   ];
 
   onPageSizeChanged(): void {

@@ -20,9 +20,14 @@ export class ListadoVehiculosComponent implements OnInit {
 
   // tslint:disable-next-line: member-ordering
   columnDefs = [
-    { headerName: 'Make', field: 'make' },
-    { headerName: 'Model', field: 'model' },
-    { headerName: 'Price', field: 'price' }
+    { headerName: '', field: 'id', hide: true, cellStyle: { textAlign: 'left' } },
+    { headerName: 'Código', field: 'codigo', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Marca', field: 'marca', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Modelo', field: 'modelo', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Matricula', field: 'matricula', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Tipo', field: 'tipoVehiculo', cellStyle: { textAlign: 'left' } },
+    { headerName: 'Combustible', field: 'tipoCombustible', cellStyle: { textAlign: 'left' } },
+    { headerName: 'F. matriculación', field: 'fechaMatriculacion', cellStyle: { textAlign: 'left' } },
   ];
 
   defaultColDef = {
@@ -36,18 +41,7 @@ export class ListadoVehiculosComponent implements OnInit {
   };
 
   rowData = [
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 },
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 },
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 },
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 }
+    { id: '1', codigo: 'MAD-1', marca: 'Ford', modelo: 'Mondeo', matricula: '1234LKH', tipoVehiculo: 'Compacto', tipoCombustible: 'Gasoil', fechaMatriculacion: '02/02/2020' }
   ];
 
   onPageSizeChanged(): void {
