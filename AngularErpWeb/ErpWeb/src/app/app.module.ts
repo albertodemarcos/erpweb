@@ -30,7 +30,7 @@ import { ListadoAlmacenComponent } from './components/listados/inventario/listad
 import { ListadoVehiculosComponent } from './components/listados/inventario/listado-vehiculos/listado-vehiculos.component';
 import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
 
-/* ------------------------------ FORMULARIOS ------------------------------ */
+/* ---------------------------------------------------- FORMULARIOS ----------------------------------------------------------- */
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
 import { FormularioEmpleadoComponent } from './components/formularios/empresa/formulario-empleado/formulario-empleado.component';
 import { FormularioEmpresaComponent } from './components/formularios/empresa/formulario-empresa/formulario-empresa.component';
@@ -45,6 +45,25 @@ import { FormularioProveedorComponent } from './components/formularios/compras/f
 import { FormularioAlmacenComponent } from './components/formularios/inventario/formulario-almacen/formulario-almacen.component';
 import { FormularioArticuloComponent } from './components/formularios/inventario/formulario-articulo/formulario-articulo.component';
 import { FormularioVehiculoComponent } from './components/formularios/inventario/formulario-vehiculo/formulario-vehiculo.component';
+
+/* -------------------------------------------------- MODALES --------------------------------------------------------- */
+import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
+import { ModalEmpleadoComponent } from './components/modales/empresa/modal-empleado/modal-empleado.component';
+import { ModalEmpresaComponent } from './components/modales/empresa/modal-empresa/modal-empresa.component';
+import { ModalCompraComponent } from './components/modales/compras/modal-compra/modal-compra.component';
+import { ModalPedidoComponent } from './components/modales/compras/modal-pedido/modal-pedido.component';
+import { ModalProveedorComponent } from './components/modales/compras/modal-proveedor/modal-proveedor.component';
+import { ModalAlmacenComponent } from './components/modales/inventario/modal-almacen/modal-almacen.component';
+import { ModalArticuloComponent } from './components/modales/inventario/modal-articulo/modal-articulo.component';
+import { ModalVehiculoComponent } from './components/modales/inventario/modal-vehiculo/modal-vehiculo.component';
+import { ModalContratoComponent } from './components/modales/ventas/modal-contrato/modal-contrato.component';
+import { ModalVentaComponent } from './components/modales/ventas/modal-venta/modal-venta.component';
+import { ModalFacturaComponent } from './components/modales/ventas/modal-factura/modal-factura.component';
+import { ModalGastoComponent } from './components/modales/bi/modal-gasto/modal-gasto.component';
+import { ModalIngresoComponent } from './components/modales/bi/modal-ingreso/modal-ingreso.component';
+
+/* -------------------------------------------------- UTILES --------------------------------------------------------- */
+import { BotonVerComponent } from './components/utiles/boton-ver/boton-ver.component';
 
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -67,6 +86,7 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
+
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -103,14 +123,29 @@ import { VentaService } from './services/ventas/venta.service';
     ListadoArticulosComponent,
     ListadoAlmacenComponent,
     ListadoVehiculosComponent,
-    ListadoEmpleadosComponent
+    ListadoEmpleadosComponent,
+    ModalClienteComponent,
+    ModalEmpleadoComponent,
+    ModalEmpresaComponent,
+    ModalCompraComponent,
+    ModalPedidoComponent,
+    ModalProveedorComponent,
+    ModalAlmacenComponent,
+    ModalArticuloComponent,
+    ModalVehiculoComponent,
+    ModalContratoComponent,
+    ModalVentaComponent,
+    ModalFacturaComponent,
+    ModalGastoComponent,
+    ModalIngresoComponent,
+    BotonVerComponent
   ], // Modulos
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([BotonVerComponent])
   ],
   providers: [ // Servicios
     GastoService,

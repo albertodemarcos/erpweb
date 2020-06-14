@@ -34,12 +34,15 @@ import { FormularioVentaComponent } from './components/formularios/ventas/formul
 import { FormularioContratoComponent } from './components/formularios/ventas/formulario-contrato/formulario-contrato.component';
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
 
+import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
+
 const routes: Routes = [
   // RUTA INICIO
   { path: 'inicio', component: HomeComponent },
   // RUTAS CRM
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
+  { path: 'clientes/cliente', component: ModalClienteComponent },
   // RUTAS BI
   { path: 'ingresos', component: ListadoIngresosComponent },
   { path: 'ingresos/nuevo-ingreso', component: FormularioIngresoComponent },
