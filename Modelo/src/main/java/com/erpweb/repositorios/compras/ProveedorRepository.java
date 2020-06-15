@@ -14,7 +14,7 @@ public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
 	
 	Optional<Proveedor> findById(Long id);
 	
-	List<Proveedor> findByIdInAndEmpresaId( List<Long> ids);
+	List<Proveedor> findByIdIn( List<Long> ids);
 	
 	
 }

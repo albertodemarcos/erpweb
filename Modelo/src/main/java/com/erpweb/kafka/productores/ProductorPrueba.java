@@ -99,7 +99,7 @@ public class ProductorPrueba {
 	}
 
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		
 		ProductorPrueba productorPrueba = new ProductorPrueba();
@@ -107,7 +107,7 @@ public class ProductorPrueba {
 		productorPrueba.ejecutaFuncionProductor();
 		
 		
-	}
+	}*/
 	
 	
 	

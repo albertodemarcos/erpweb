@@ -139,7 +139,7 @@ public class GastoService {
 		
 		if( (id ==  null || id.doubleValue() < 1 ) ) {
 			
-			return new GastoDto();
+			return null;
 		}
 		
 		GastoDto gastoDto = new GastoDto();

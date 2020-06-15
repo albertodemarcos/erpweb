@@ -3,11 +3,13 @@ package com.erpweb.validadores.usuarios;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.erpweb.dto.UsuarioDto;
 
+@Component
 public class UsuarioValidator implements Validator {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

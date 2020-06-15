@@ -3,11 +3,13 @@ package com.erpweb.validadores.bi;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.erpweb.dto.IngresoDto;
 
+@Component
 public class IngresoValidator implements Validator {
 	
 	

@@ -1,0 +1,11 @@
+<!-- dayGridMonth-->
+
+<!--<full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="customButtons" [header]="headerCalendario" [plugins]="calendarPlugins" [weekends]="true" [locales]="locales" [locale]="locale" (eventClick)="crearEventoPlanificador()"
+    [events]="eventosCalendario">
+</full-calendar>-->
+
+<!-- Para editar eventos (eventClick)="crearEventoPlanificador()" -->
+
+<full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="configuracionCalendario.customButtons" [header]="configuracionCalendario.headerCalendario" [plugins]="configuracionCalendario.calendarPlugins" [weekends]="true"
+    [locales]="configuracionCalendario.locales" [locale]="configuracionCalendario.locale" [events]="configuracionCalendario.eventosCalendario">
+</full-calendar>

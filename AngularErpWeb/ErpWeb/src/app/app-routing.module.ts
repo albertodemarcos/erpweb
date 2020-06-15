@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {HomeComponent} from 'src/app/components/home/home.component';
 
+import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
+
 // LISTADOS
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
 import { ListadoIngresosComponent } from './components/listados/bi/listado-ingresos/listado-ingresos.component';
@@ -43,6 +45,8 @@ const routes: Routes = [
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
   { path: 'clientes/cliente', component: ModalClienteComponent },
+  // RUTAS PLANIFICADOR
+  { path: 'planificador/calendario', component: PlanificadorComponent },
   // RUTAS BI
   { path: 'ingresos', component: ListadoIngresosComponent },
   { path: 'ingresos/nuevo-ingreso', component: FormularioIngresoComponent },

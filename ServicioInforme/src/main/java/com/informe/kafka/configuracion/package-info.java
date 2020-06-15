@@ -1,0 +1,1 @@
+package com.informe.kafka.configuracion;

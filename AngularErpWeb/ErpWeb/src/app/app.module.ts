@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 /* ------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
@@ -13,6 +14,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 
 /* ------------------------------ LISTADOS ------------------------------ */
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
@@ -87,7 +89,6 @@ import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
 
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 @NgModule({
@@ -138,14 +139,16 @@ import { VentaService } from './services/ventas/venta.service';
     ModalFacturaComponent,
     ModalGastoComponent,
     ModalIngresoComponent,
-    BotonVerComponent
+    BotonVerComponent,
+    PlanificadorComponent
   ], // Modulos
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AgGridModule.withComponents([BotonVerComponent])
+    AgGridModule.withComponents([BotonVerComponent]),
+    FullCalendarModule
   ],
   providers: [ // Servicios
     GastoService,
