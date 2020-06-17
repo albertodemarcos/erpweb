@@ -36,7 +36,7 @@ import { FormularioVentaComponent } from './components/formularios/ventas/formul
 import { FormularioContratoComponent } from './components/formularios/ventas/formulario-contrato/formulario-contrato.component';
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
 
-import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
+import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
 
 const routes: Routes = [
   // RUTA INICIO
@@ -44,7 +44,7 @@ const routes: Routes = [
   // RUTAS CRM
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
-  { path: 'clientes/cliente', component: ModalClienteComponent },
+  { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} }, // Debe ponerse clientes/cliente/:id
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent },
   // RUTAS BI

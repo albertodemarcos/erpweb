@@ -7,16 +7,30 @@ import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
-/* ------------------------------------------------- COMPONENTES ------------------------------------------------------- */
+/* --------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
-/* ------------------------ COMPONENTES PRINCIPALES ------------------------ */
+/* --------------------------------------------------- PRINCIPALES ------------------------------------------------------ */
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 
-/* ------------------------------ LISTADOS ------------------------------ */
+/* ------------------------------------------------- VISUALIZACION ENTITYS --------------------------------------------- */
+import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
+import { ContratoComponent } from './components/cards/ventas/contrato/contrato.component';
+import { VentaComponent } from './components/cards/ventas/venta/venta.component';
+import { FacturaComponent } from './components/cards/ventas/factura/factura.component';
+import { CompraComponent } from './components/cards/compras/compra/compra.component';
+import { PedidoComponent } from './components/cards/compras/pedido/pedido.component';
+import { ProveedorComponent } from './components/cards/compras/proveedor/proveedor.component';
+import { AlmacenComponent } from './components/cards/inventario/almacen/almacen.component';
+import { ArticuloComponent } from './components/cards/inventario/articulo/articulo.component';
+import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehiculo.component';
+import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
+import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
+
+/* ------------------------------------------------------ LISTADOS ------------------------------------------------------ */
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
 import { ListadoIngresosComponent } from './components/listados/bi/listado-ingresos/listado-ingresos.component';
 import { ListadoGastosComponent } from './components/listados/bi/listado-gastos/listado-gastos.component';
@@ -88,6 +102,10 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
+import { BotonListadoClienteComponent } from './components/utiles/botonesListado/boton-listado-cliente/boton-listado-cliente.component';
+import { BotonListadoCompraComponent } from './components/utiles/botonesListado/boton-listado-compra/boton-listado-compra.component';
+import { BotonListadoPedidoComponent } from './components/utiles/botonesListado/boton-listado-pedido/boton-listado-pedido.component';
+import { BotonListadoProveedorComponent } from './components/utiles/botonesListado/boton-listado-proveedor/boton-listado-proveedor.component';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -140,7 +158,23 @@ import { VentaService } from './services/ventas/venta.service';
     ModalGastoComponent,
     ModalIngresoComponent,
     BotonVerComponent,
-    PlanificadorComponent
+    PlanificadorComponent,
+    ClienteComponent,
+    ContratoComponent,
+    VentaComponent,
+    FacturaComponent,
+    CompraComponent,
+    PedidoComponent,
+    ProveedorComponent,
+    ArticuloComponent,
+    AlmacenComponent,
+    VehiculoComponent,
+    EmpleadoComponent,
+    EmpresaComponent,
+    BotonListadoClienteComponent,
+    BotonListadoCompraComponent,
+    BotonListadoPedidoComponent,
+    BotonListadoProveedorComponent
   ], // Modulos
   imports: [
     BrowserModule,

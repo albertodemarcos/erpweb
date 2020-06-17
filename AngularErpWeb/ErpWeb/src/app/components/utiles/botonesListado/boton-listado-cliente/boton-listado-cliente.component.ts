@@ -1,33 +1,30 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams, IAfterGuiAttachedParams } from 'ag-grid';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-boton-ver',
-  templateUrl: './boton-ver.component.html',
-  styleUrls: ['./boton-ver.component.css']
+  selector: 'app-boton-listado-cliente',
+  templateUrl: './boton-listado-cliente.component.html',
+  styleUrls: ['./boton-listado-cliente.component.css']
 })
-export class BotonVerComponent implements ICellRendererAngularComp {
+export class BotonListadoClienteComponent implements ICellRendererAngularComp {
 
   params;
   label: string;
 
   constructor(private router: Router) {
-    console.log('Se crea el componente boton ver');
+    console.log('Se crea el componente boton ver del listado de clientes');
+   }
+  refresh(params: any): boolean {
+    return true;
   }
-
   agInit(params: any): void {
     this.params = params;
     this.label = this.params.label || null;
   }
-
-  refresh(params?: any): boolean {
-    return true;
-  }
-
-  afterGuiAttached?(params?: import('ag-grid-community').IAfterGuiAttachedParams): void {
-    console.log('Metodo raro');
+  afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
     throw new Error('Method not implemented.');
   }
 
@@ -40,8 +37,6 @@ export class BotonVerComponent implements ICellRendererAngularComp {
       let id = datos.id;
       this.router.navigate(['clientes', 'cliente', id ], { state: { cliente: datos } } ); // { queryParams: { datos: JSON.stringify(datos) } }
     }
-
   }
-
 
 }

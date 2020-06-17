@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BotonVerComponent } from 'src/app/components/utiles/boton-ver/boton-ver.component';
+import { BotonListadoClienteComponent } from 'src/app/components/utiles/botonesListado/boton-listado-cliente/boton-listado-cliente.component';
 
 
 declare var $: any;
@@ -21,7 +21,7 @@ export class ListadoClientesComponent implements OnInit {
     this.titlePageSize = 'Páginas';
     this.tituloListado = 'Listado de clientes';
     this.frameworkComponents = {
-      botonVer: BotonVerComponent
+      botonVer: BotonListadoClienteComponent
     };
    }
 
@@ -65,7 +65,7 @@ export class ListadoClientesComponent implements OnInit {
     this.gridApi.paginationSetPageSize(Number(numeroFilas));
   }
 
-  onClickCellValuePopUpModal(e) {
+  onClickCellValuePopUpModal(e: any) {
     console.log('Paso por aqui');
     this.rowDataClicked1 = e.rowData;
     console.log('JSON: ' + JSON.stringify(e.rowData));

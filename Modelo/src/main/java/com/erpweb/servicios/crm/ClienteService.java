@@ -29,7 +29,7 @@ public class ClienteService {
 	
 	public AccionRespuesta crearClienteDesdeClienteDto(ClienteDto clienteDto) {
 		
-		logger.debug("Entramos en el metodo crearClienteDesdeClienteDto() con ID={}", clienteDto.getId() );
+		logger.debug("Entramos en el metodo crearClienteDesdeClienteDto()" );
 		
 		Cliente cliente = new Cliente();
 		
@@ -51,7 +51,9 @@ public class ClienteService {
 	
 		try {
 			//Guardamos el cliente
-			clienteRepository.save(cliente);
+			Cliente clienteSave = clienteRepository.save(cliente);
+			
+			return this.devolverDatosClienteDto(clienteDto, clienteSave);
 			
 		}catch(Exception e) {
 			
@@ -59,10 +61,8 @@ public class ClienteService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarClienteDesdeClienteDto(ClienteDto clienteDto) {
@@ -251,6 +251,43 @@ public class ClienteService {
 			
 			return this.crearClienteDesdeClienteDto(clienteDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosClienteDto(ClienteDto clienteDto, Cliente clienteSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(clienteSave != null && clienteSave.getId() != null) {
+			
+			clienteDto.setId(clienteSave.getId());
+			
+			respuesta.setId(clienteSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("clienteDto", clienteDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("clienteDto", clienteDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 
 }

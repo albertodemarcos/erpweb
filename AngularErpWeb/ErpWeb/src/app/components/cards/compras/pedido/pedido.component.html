@@ -1,0 +1,55 @@
+<div class="card text-center">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+
+        <h5 class="card-title">Pedido</h5>
+
+        <!-- CODIGO CLIENTE -->
+        <div class="form-group row">
+            <label for="codigo" class="col-form-label col-sm-2">Código pedido</label>
+            <span>{{pedido.codigo}}</span>
+        </div>
+
+        <!-- FECHA pedido -->
+        <div class="form-group row">
+            <label for="fechaPedido" class="col-form-label col-sm-2">Fecha pedido</label>
+            <span>{{pedido.fechaPedido}}</span>
+        </div>
+
+        <!-- ARTICULO -->
+        <div class="form-group row">
+            <label for="articulo" class="col-form-label col-sm-2">Artículo</label>
+            <span>{{pedido.articulo}}</span>
+        </div>
+
+        <!-- CANTIDAD -->
+        <div class="form-group row">
+            <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
+            <span>{{pedido.cantidad}}</span>
+        </div>
+
+        <!-- BASE IMPONIBLE -->
+        <div class="form-group row">
+            <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
+            <span>{{pedido.baseImponibleTotal}}</span>
+        </div>
+
+        <!-- IMPUESTO -->
+        <div class="form-group row">
+            <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
+            <span>{{pedido.impuesto}}</span>
+        </div>
+
+        <!-- IMPORTE TOTAL -->
+        <div class="form-group row">
+            <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
+            <span>{{pedido.importeTotal}}</span>
+        </div>
+    </div>
+
+    <div class="card-footer text-muted">
+        <a href="#" class="btn btn-primary">Editar</a>
+        <a href="#" class="btn btn-primary">Borrar</a>
+    </div>
+</div>
