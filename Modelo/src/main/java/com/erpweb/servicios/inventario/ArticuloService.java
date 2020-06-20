@@ -1,8 +1,11 @@
 package com.erpweb.servicios.inventario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,7 @@ public class ArticuloService {
 		articulo.setNombre(articuloDto.getNombre());
 		articulo.setDescripcion(articuloDto.getDescripcion());
 		articulo.setBaseImponible(articuloDto.getBaseImponible());
+		articulo.setImpuesto(articuloDto.getImpuesto());
 		articulo.setImporteTotal(articuloDto.getImporteTotal());
 		
 		try {
@@ -67,6 +71,7 @@ public class ArticuloService {
 		articulo.setNombre(articuloDto.getNombre());
 		articulo.setDescripcion(articuloDto.getDescripcion());
 		articulo.setBaseImponible(articuloDto.getBaseImponible());
+		articulo.setImpuesto(articuloDto.getImpuesto());
 		articulo.setImporteTotal(articuloDto.getImporteTotal());
 		
 		try {
@@ -153,6 +158,7 @@ public class ArticuloService {
 			articuloDto.setNombre(articulo.getNombre());
 			articuloDto.setDescripcion(articulo.getDescripcion());
 			articuloDto.setBaseImponible(articulo.getBaseImponible());
+			articuloDto.setImpuesto(articulo.getImpuesto());
 			articuloDto.setImporteTotal(articulo.getImporteTotal());
 			
 		} catch(Exception e) {
@@ -163,6 +169,26 @@ public class ArticuloService {
 		}
 		
 		return articuloDto;
+	}
+	
+	public List<ArticuloDto> getListadoArticulos() {
+		
+		logger.debug("Entramos en el metodo getListadoArticulos()" );
+		
+		try {
+			
+			List<Articulo> articulos = articuloRepository.findAll();
+			
+			return this.obtieneListadoArticuloDtoDelRepository(articulos);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoArticulos()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<ArticuloDto>();
 	}
 	
 	public AccionRespuesta getArticulo(Long articuloId, Usuario user) {
@@ -220,6 +246,31 @@ public class ArticuloService {
 			
 			return this.crearArticuloDesdeArticuloDto(articuloDto);
 		}
+	}
+	
+	private List<ArticuloDto> obtieneListadoArticuloDtoDelRepository(List<Articulo> articulos){
+		
+		List<ArticuloDto> articulosDto = new ArrayList<ArticuloDto>();
+		
+		if(CollectionUtils.isNotEmpty(articulos) ) {
+			
+			for(Articulo articulo  : articulos) {
+				
+				ArticuloDto articuloDto = new ArticuloDto();
+				
+				articuloDto.setId(articulo.getId());
+				articuloDto.setCodigo(articulo.getCodigo());
+				articuloDto.setNombre(articulo.getNombre());
+				articuloDto.setDescripcion(articulo.getDescripcion());
+				articuloDto.setBaseImponible(articulo.getBaseImponible());
+				articuloDto.setImpuesto(articulo.getImpuesto());
+				articuloDto.setImporteTotal(articulo.getImporteTotal());
+				
+				articulosDto.add(articuloDto);				
+			}
+		}
+		
+		return articulosDto;
 	}
 
 }

@@ -60,7 +60,7 @@ public class ArticuloDto implements Serializable {
 		return impuesto;
 	}
 
-	public void setImpuestoId(String impuesto) {
+	public void setImpuesto(String impuesto) {
 		this.impuesto = impuesto;
 	}
 

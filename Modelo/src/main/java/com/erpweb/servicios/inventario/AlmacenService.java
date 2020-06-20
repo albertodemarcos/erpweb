@@ -1,8 +1,11 @@
 package com.erpweb.servicios.inventario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -180,6 +183,26 @@ public class AlmacenService {
 		return almacenDto;
 	}
 	
+	public List<AlmacenDto> getListadoAlmacenes() {
+		
+		logger.debug("Entramos en el metodo getListadoAlmacenes()" );
+		
+		try {
+			
+			List<Almacen> almacenes = almacenRepository.findAll();
+			
+			return this.obtieneListadoAlmacenDtoDelRepository(almacenes);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoAlmacenes()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<AlmacenDto>();
+	}
+	
 	public AccionRespuesta getAlmacen(Long almacenId, Usuario user) {
 		
 		logger.debug("Entramos en el metodo getAlmacen()");
@@ -237,4 +260,33 @@ public class AlmacenService {
 		}
 	}
 
+	private List<AlmacenDto> obtieneListadoAlmacenDtoDelRepository(List<Almacen> almacenes){
+		
+		List<AlmacenDto> almacenesDto = new ArrayList<AlmacenDto>();
+		
+		if(CollectionUtils.isNotEmpty(almacenes) ) {
+			
+			for(Almacen almacen : almacenes) {
+				
+				AlmacenDto almacenDto = new AlmacenDto();
+				
+				almacenDto.setId(almacen.getId());
+				almacenDto.setCodigo(almacen.getCodigo());
+				almacenDto.setNombre(almacen.getNombre());
+				almacenDto.setCodigoPostal(almacen.getCodigoPostal());
+				almacenDto.setDireccion(almacen.getDireccion());
+				almacenDto.setEdificio(almacen.getEdificio());
+				almacenDto.setObservaciones(almacen.getObservaciones());
+				almacenDto.setTelefono(almacen.getTelefono());
+				almacenDto.setPoblacion(almacen.getPoblacion());
+				almacenDto.setProvincia(almacen.getProvincia());
+				almacenDto.setRegion(almacen.getRegion());
+				almacenDto.setPais(almacen.getPais());
+				
+				almacenesDto.add(almacenDto);			
+			}
+		}
+		
+		return almacenesDto;
+	}
 }

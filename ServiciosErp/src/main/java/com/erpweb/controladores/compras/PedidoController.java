@@ -1,5 +1,7 @@
 package com.erpweb.controladores.compras;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.compras.PedidoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.PedidoValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -35,10 +37,10 @@ public class PedidoController {
 		return this.pedidoService.getPedido(pedidoId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getPedidos(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<PedidoDto> getPedidos(  ) {
 		
-		return "";
+		return this.pedidoService.getListadoPedidos();
 	}
 	
 	@GetMapping( "/crearPedido" )

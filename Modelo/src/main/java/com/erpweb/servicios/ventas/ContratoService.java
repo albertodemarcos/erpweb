@@ -1,9 +1,12 @@
 package com.erpweb.servicios.ventas;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +155,7 @@ public class ContratoService {
 		
 		try {
 			
+			contratoDto.setId(contrato.getId());
 			contratoDto.setCodigo(contrato.getCodigo());
 			contratoDto.setFechaCreacion(contrato.getFechaCreacion());
 			contratoDto.setFechaInicio(contrato.getFechaInicio());
@@ -159,7 +163,6 @@ public class ContratoService {
 			contratoDto.setDescripcion(contrato.getDescripcion());
 			contratoDto.setBaseImponibleTotal(contrato.getBaseImponibleTotal());
 			contratoDto.setImporteTotal(contrato.getImporteTotal());
-			
 			
 		} catch(Exception e) {
 			
@@ -169,6 +172,26 @@ public class ContratoService {
 		}
 		
 		return contratoDto;
+	}
+	
+	public List<ContratoDto> getListadoContratos() {
+		
+		logger.debug("Entramos en el metodo getListadoContratos()" );
+		
+		try {
+			
+			List<Contrato> contratos = contratoRepository.findAll();
+			
+			return this.obtieneListadoContratoDtoDelRepository(contratos);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoContratos()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<ContratoDto>();
 	}
 
 	public AccionRespuesta getContrato(Long contratoId, Usuario user) {
@@ -226,6 +249,32 @@ public class ContratoService {
 			
 			return this.crearContratoDesdeContratoDto(contratoDto);
 		}
+	}
+	
+	private List<ContratoDto> obtieneListadoContratoDtoDelRepository(List<Contrato> contratos){
+		
+		List<ContratoDto> contratosDto = new ArrayList<ContratoDto>();
+		
+		if(CollectionUtils.isNotEmpty(contratos) ) {
+			
+			for(Contrato contrato : contratos) {
+				
+				ContratoDto contratoDto = new ContratoDto();
+				
+				contratoDto.setId(contrato.getId());
+				contratoDto.setCodigo(contrato.getCodigo());
+				contratoDto.setFechaCreacion(contrato.getFechaCreacion());
+				contratoDto.setFechaInicio(contrato.getFechaInicio());
+				contratoDto.setFechaFin(contrato.getFechaFin());
+				contratoDto.setDescripcion(contrato.getDescripcion());
+				contratoDto.setBaseImponibleTotal(contrato.getBaseImponibleTotal());
+				contratoDto.setImporteTotal(contrato.getImporteTotal());
+				
+				contratosDto.add(contratoDto);		
+			}
+		}
+		
+		return contratosDto;
 	}
 	
 }

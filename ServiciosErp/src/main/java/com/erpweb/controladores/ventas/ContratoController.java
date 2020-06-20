@@ -1,5 +1,7 @@
 package com.erpweb.controladores.ventas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.ventas.ContratoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.ContratoValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/contratos")
 public class ContratoController {
@@ -34,11 +36,10 @@ public class ContratoController {
 		return this.contratoService.getContrato(contratoId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getContratos(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<ContratoDto> getContratos( ) {
 		
-		
-		return "";
+		return this.contratoService.getListadoContratos();
 	}
 	
 	@GetMapping( "/crearContrato" )

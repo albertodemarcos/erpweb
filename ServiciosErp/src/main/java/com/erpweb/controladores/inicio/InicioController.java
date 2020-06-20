@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/inicio")
 public class InicioController {

@@ -1,5 +1,7 @@
 package com.erpweb.controladores.empresa;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.empresa.EmpleadoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.empresa.EmpleadoValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/empleados")
 public class EmpleadoController {
@@ -34,10 +36,10 @@ public class EmpleadoController {
 		return this.empleadoService.getEmpleado(empleadoId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getEmpleados(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<EmpleadoDto> getEmpleados() {
 		
-		return "";
+		return this.empleadoService.getListadoEmpleados();
 	}
 	
 	@GetMapping( "/crearEmpleado" )

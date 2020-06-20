@@ -1,5 +1,7 @@
 package com.erpweb.controladores.inventario;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.inventario.VehiculoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.inventario.VehiculoValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/vehiculos")
 public class VehiculoController {
@@ -34,9 +36,10 @@ public class VehiculoController {
 		return this.vehiculoService.getVehiculo(vehiculoId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getVehiculos(  ) {
-		return "";
+	@GetMapping("/listado.json")
+	public @ResponseBody List<VehiculoDto> getVehiculos( ) {
+		
+		return this.vehiculoService.getListadoVehiculos();
 	}
 	
 	@GetMapping( "/crearVehiculo" )

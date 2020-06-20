@@ -27,8 +27,7 @@ public class ClienteService {
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(ClienteService.class.getName());
-	
-	
+
 	
 	public AccionRespuesta crearClienteDesdeClienteDto(ClienteDto clienteDto) {
 		

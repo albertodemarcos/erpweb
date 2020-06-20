@@ -1,8 +1,11 @@
 package com.erpweb.servicios.empresa;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,6 +200,26 @@ public class EmpleadoService {
 		return empleadoDto;
 	}
 	
+	public List<EmpleadoDto> getListadoEmpleados() {
+		
+		logger.debug("Entramos en el metodo getListadoEmpleados()" );
+		
+		try {
+			
+			List<Empleado> clientes = empleadoRepository.findAll();
+			
+			return this.obtieneListadoEmpleadoDtoDelRepository(clientes);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListado()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<EmpleadoDto>();
+	}
+	
 	public AccionRespuesta getEmpleado(Long empleadoId, Usuario user) {
 		
 		logger.debug("Entramos en el metodo getEmpleado()");
@@ -252,6 +275,40 @@ public class EmpleadoService {
 			
 			return this.crearEmpleadoDesdeEmpleadoDto(empleadoDto);
 		}
+	}
+	
+	private List<EmpleadoDto> obtieneListadoEmpleadoDtoDelRepository(List<Empleado> empleados){
+		
+		List<EmpleadoDto> empleadosDto = new ArrayList<EmpleadoDto>();
+		
+		if(CollectionUtils.isNotEmpty(empleados) ) {
+			
+			for(Empleado empleado : empleados) {
+				
+				EmpleadoDto empleadoDto = new EmpleadoDto();
+				
+				empleadoDto.setId(empleado.getId());
+				empleadoDto.setCodigo(empleado.getCodigo());
+				empleadoDto.setNombre(empleado.getNombre());
+				empleadoDto.setApellidoPrimero(empleado.getApellidoPrimero());
+				empleadoDto.setApellidoSegundo(empleado.getApellidoSegundo());
+				empleadoDto.setNif(empleado.getNif());
+				empleadoDto.setCodigoPostal(empleado.getCodigoPostal());
+				empleadoDto.setDireccion(empleado.getDireccion());
+				empleadoDto.setEdificio(empleado.getEdificio());
+				empleadoDto.setObservaciones(empleado.getObservaciones());
+				empleadoDto.setTelefono(empleado.getTelefono());
+				empleadoDto.setProvincia(empleado.getProvincia());
+				empleadoDto.setPoblacion(empleado.getPoblacion());
+				empleadoDto.setRegion(empleado.getRegion());
+				empleadoDto.setPais(empleado.getPais());
+				empleadoDto.setTipoEmpleado(empleado.getTipoEmpleado());
+				
+				empleadosDto.add(empleadoDto);				
+			}
+		}
+		
+		return empleadosDto;
 	}
 
 }

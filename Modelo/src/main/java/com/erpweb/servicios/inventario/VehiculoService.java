@@ -1,9 +1,12 @@
 package com.erpweb.servicios.inventario;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +155,7 @@ public class VehiculoService {
 		
 		try {
 			
+			vehiculoDto.setId(vehiculo.getId());
 			vehiculoDto.setCodigo(vehiculo.getCodigo());
 			vehiculoDto.setMatricula(vehiculo.getMatricula());
 			vehiculoDto.setMarca(vehiculo.getMarca());
@@ -170,6 +174,25 @@ public class VehiculoService {
 		return vehiculoDto;
 	}
 	
+	public List<VehiculoDto> getListadoVehiculos() {
+		
+		logger.debug("Entramos en el metodo getListadoVehiculos()" );
+		
+		try {
+			
+			List<Vehiculo> vehiculos = vehiculoRepository.findAll();
+			
+			return this.obtieneListadoVehiculoDtoDelRepository(vehiculos);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoVehiculos()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<VehiculoDto>();
+	}
 	
 	public AccionRespuesta getVehiculo(Long vehiculoId, Usuario user) {
 		
@@ -226,5 +249,31 @@ public class VehiculoService {
 			
 			return this.crearVehiculoDesdeVehiculoDto(vehiculoDto);
 		}
+	}
+	
+	private List<VehiculoDto> obtieneListadoVehiculoDtoDelRepository(List<Vehiculo> vehiculos){
+		
+		List<VehiculoDto> vehiculosDto = new ArrayList<VehiculoDto>();
+		
+		if(CollectionUtils.isNotEmpty(vehiculos) ) {
+			
+			for(Vehiculo vehiculo  : vehiculos) {
+				
+				VehiculoDto vehiculoDto = new VehiculoDto();
+				
+				vehiculoDto.setId(vehiculo.getId());
+				vehiculoDto.setCodigo(vehiculo.getCodigo());
+				vehiculoDto.setMatricula(vehiculo.getMatricula());
+				vehiculoDto.setMarca(vehiculo.getMarca());
+				vehiculoDto.setModelo(vehiculo.getModelo());
+				vehiculoDto.setTipoVehiculo(vehiculo.getTipoVehiculo());
+				vehiculoDto.setTipoCombustible(vehiculo.getTipoCombustible());
+				vehiculoDto.setFechaMatriculacion(vehiculo.getFechaMatriculacion());
+				
+				vehiculosDto.add(vehiculoDto);				
+			}
+		}
+		
+		return vehiculosDto;
 	}
 }

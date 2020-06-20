@@ -1,8 +1,11 @@
 package com.erpweb.servicios.compras;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,11 @@ public class CompraService {
 		
 		compra.setCodigo(compraDto.getCodigo());
 		compra.setFechaCompra(compraDto.getFechaCompra());
+		compra.setArticulo(compraDto.getArticulo());
+		compra.setCantidad(compraDto.getCantidad());
+		compra.setBaseImponibleTotal(compraDto.getBaseImponibleTotal());
+		compra.setImpuesto(compraDto.getImpuesto());
+		compra.setImporteTotal(compraDto.getImporteTotal());
 		
 		try {
 			
@@ -55,11 +63,15 @@ public class CompraService {
 		logger.debug("Entramos en el metodo actualizarCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 		
 		Compra compra = new Compra();
-		
-		
+
 		compra.setId(compraDto.getId());
 		compra.setCodigo(compraDto.getCodigo());
 		compra.setFechaCompra(compraDto.getFechaCompra());
+		compra.setArticulo(compraDto.getArticulo());
+		compra.setCantidad(compraDto.getCantidad());
+		compra.setBaseImponibleTotal(compraDto.getBaseImponibleTotal());
+		compra.setImpuesto(compraDto.getImpuesto());
+		compra.setImporteTotal(compraDto.getImporteTotal());
 		
 		try {
 			
@@ -144,6 +156,11 @@ public class CompraService {
 			
 			compraDto.setCodigo(compra.getCodigo());
 			compraDto.setFechaCompra(compra.getFechaCompra());
+			compraDto.setArticulo(compra.getArticulo());
+			compraDto.setCantidad(compra.getCantidad());
+			compraDto.setBaseImponibleTotal(compra.getBaseImponibleTotal());
+			compraDto.setImpuesto(compra.getImpuesto());
+			compraDto.setImporteTotal(compra.getImporteTotal());
 			
 		} catch(Exception e) {
 			
@@ -153,6 +170,26 @@ public class CompraService {
 		}
 		
 		return compraDto;
+	}
+	
+	public List<CompraDto> getListadoCompras() {
+		
+		logger.debug("Entramos en el metodo getListado()" );
+		
+		try {
+			
+			List<Compra> compras = compraRepository.findAll();
+			
+			return this.obtieneListadoCompraDtoDelRepository(compras);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListado()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<CompraDto>();
 	}
 	
 	public AccionRespuesta getCompra(Long compraId, Usuario user) {
@@ -210,6 +247,32 @@ public class CompraService {
 			
 			return this.crearCompraDesdeCompraDto(compraDto);
 		}
+	}
+	
+	private List<CompraDto> obtieneListadoCompraDtoDelRepository(List<Compra> compras){
+		
+		List<CompraDto> comprasDto = new ArrayList<CompraDto>();
+		
+		if(CollectionUtils.isNotEmpty(compras) ) {
+			
+			for( Compra compra : compras) {
+				
+				CompraDto compraDto = new CompraDto();
+				
+				compraDto.setId(compra.getId());
+				compraDto.setCodigo(compra.getCodigo());
+				compraDto.setFechaCompra(compra.getFechaCompra());
+				compraDto.setArticulo(compra.getArticulo());
+				compraDto.setCantidad(compra.getCantidad());
+				compraDto.setBaseImponibleTotal(compra.getBaseImponibleTotal());
+				compraDto.setImpuesto(compra.getImpuesto());
+				compraDto.setImporteTotal(compra.getImporteTotal());
+				
+				comprasDto.add(compraDto);			
+			}
+		}
+		
+		return comprasDto;
 	}
 
 }

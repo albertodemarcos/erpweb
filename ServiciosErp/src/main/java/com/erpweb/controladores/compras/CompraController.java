@@ -1,5 +1,7 @@
 package com.erpweb.controladores.compras;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.compras.CompraService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.CompraValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/compras")
 public class CompraController {
@@ -34,10 +36,10 @@ public class CompraController {
 		return this.compraService.getCompra(compraId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getCompras(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<CompraDto> getCompras() {
 		
-		return "";
+		return this.compraService.getListadoCompras();
 	}
 	
 	@GetMapping( "/crearCompra" )

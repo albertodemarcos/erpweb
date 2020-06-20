@@ -1,8 +1,11 @@
 package com.erpweb.servicios.ventas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +154,7 @@ public class VentaService {
 		
 		try {
 			
+			ventaDto.setId(venta.getId());
 			ventaDto.setCodigo(venta.getCodigo());
 			ventaDto.setFechaCreacion(venta.getFechaCreacion());
 			ventaDto.setFechaInicio(venta.getFechaInicio());
@@ -167,6 +171,26 @@ public class VentaService {
 		}
 		
 		return ventaDto;
+	}
+	
+	public List<VentaDto> getListadoVentas() {
+		
+		logger.debug("Entramos en el metodo getListadoVentas()" );
+		
+		try {
+			
+			List<Venta> ventas = ventaRepository.findAll();
+			
+			return this.obtieneListadoVentaDtoDelRepository(ventas);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoVentas()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<VentaDto>();
 	}
 	
 	public AccionRespuesta getVenta(Long ventaId, Usuario user) {
@@ -224,6 +248,32 @@ public class VentaService {
 			
 			return this.crearVentaDesdeVentaDto(ventaDto);
 		}
+	}
+	
+	private List<VentaDto> obtieneListadoVentaDtoDelRepository(List<Venta> ventas){
+		
+		List<VentaDto> ventasDto = new ArrayList<VentaDto>();
+		
+		if(CollectionUtils.isNotEmpty(ventas) ) {
+			
+			for(Venta venta : ventas) {
+				
+				VentaDto ventaDto = new VentaDto();
+				
+				ventaDto.setId(venta.getId());
+				ventaDto.setCodigo(venta.getCodigo());
+				ventaDto.setFechaCreacion(venta.getFechaCreacion());
+				ventaDto.setFechaInicio(venta.getFechaInicio());
+				ventaDto.setFechaFin(venta.getFechaFin());
+				ventaDto.setDescripcion(venta.getDescripcion());
+				ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
+				ventaDto.setImporteTotal(venta.getImporteTotal());
+				
+				ventasDto.add(ventaDto);				
+			}
+		}
+		
+		return ventasDto;
 	}
 	
 }

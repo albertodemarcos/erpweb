@@ -1,5 +1,7 @@
 package com.erpweb.controladores.compras;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.compras.ProveedorService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.ProveedorValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/proveedores")
 public class ProveedorController {
@@ -34,9 +36,10 @@ public class ProveedorController {
 		return this.proveedorService.getProveedor(proveedorId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getProveedores(  ) {
-		return "";
+	@GetMapping("/listado.json")
+	public @ResponseBody List<ProveedorDto> getProveedores() {
+		
+		return this.proveedorService.getListadoProveedores();
 	}
 	
 	@GetMapping( "/crearProveedor" )

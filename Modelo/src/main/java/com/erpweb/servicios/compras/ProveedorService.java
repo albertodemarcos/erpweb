@@ -1,8 +1,11 @@
 package com.erpweb.servicios.compras;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,6 +162,26 @@ public class ProveedorService {
 		return proveedorDto;
 	}
 	
+	public List<ProveedorDto> getListadoProveedores() {
+		
+		logger.debug("Entramos en el metodo getListado()" );
+		
+		try {
+			
+			List<Proveedor> proveedores = proveedorRepository.findAll();
+			
+			return this.obtieneListadoProveedorDtoDelRepository(proveedores);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListado()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<ProveedorDto>();
+	}
+	
 	public AccionRespuesta getProveedor(Long proveedorId, Usuario user) {
 		
 		logger.debug("Entramos en el metodo getproveedor()");
@@ -214,6 +237,29 @@ public class ProveedorService {
 			
 			return this.crearProveedorDesdeProveedorDto(proveedorDto);
 		}
+	}
+	
+	private List<ProveedorDto> obtieneListadoProveedorDtoDelRepository(List<Proveedor> proveedores){
+		
+		List<ProveedorDto> proveedoresDto = new ArrayList<ProveedorDto>();
+		
+		if(CollectionUtils.isNotEmpty(proveedores) ) {
+			
+			for(Proveedor proveedor  : proveedores) {
+				
+				ProveedorDto proveedorDto = new ProveedorDto();
+				
+				proveedorDto.setCodigo(proveedor.getCodigo());
+				proveedorDto.setNombre(proveedor.getNombre());
+				proveedorDto.setNombreEmpresa(proveedor.getNombreEmpresa());
+				proveedorDto.setTelefono(proveedor.getTelefono());
+				proveedorDto.setTipoProveedor(proveedor.getTipoProveedor());
+				
+				proveedoresDto.add(proveedorDto);				
+			}
+		}
+		
+		return proveedoresDto;
 	}
 	
 }

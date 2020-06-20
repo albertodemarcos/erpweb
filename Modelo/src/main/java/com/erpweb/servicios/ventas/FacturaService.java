@@ -1,9 +1,12 @@
 package com.erpweb.servicios.ventas;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,7 +168,6 @@ public class FacturaService {
 			facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
 			facturaDto.setImporteTotal(factura.getImporteTotal());
 			
-			
 		} catch(Exception e) {
 			
 			logger.error("Error en el metodo obtenerFacturaDtoDesdeFactura() con ID={}", id );
@@ -174,6 +176,26 @@ public class FacturaService {
 		}
 		
 		return facturaDto;
+	}
+	
+	public List<FacturaDto> getListadoFacturas() {
+		
+		logger.debug("Entramos en el metodo getListadoFacturas()" );
+		
+		try {
+			
+			List<Factura> facturas = facturaRepository.findAll();
+			
+			return this.obtieneListadoFacturaDtoDelRepository(facturas);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoFacturas()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<FacturaDto>();
 	}
 
 	public AccionRespuesta getFactura(Long facturaId, Usuario user) {
@@ -231,6 +253,33 @@ public class FacturaService {
 			
 			return this.crearFacturaDesdeFacturaDto(facturaDto);
 		}
+	}
+	
+	private List<FacturaDto> obtieneListadoFacturaDtoDelRepository(List<Factura> facturas){
+		
+		List<FacturaDto> facturasDto = new ArrayList<FacturaDto>();
+		
+		if(CollectionUtils.isNotEmpty(facturas) ) {
+			
+			for(Factura factura  : facturas) {
+				
+				FacturaDto facturaDto = new FacturaDto();
+				
+				facturaDto.setId(factura.getId());
+				facturaDto.setCodigo(factura.getCodigo());
+				facturaDto.setFechaCreacion(factura.getFechaCreacion());
+				facturaDto.setFechaInicio(factura.getFechaInicio());
+				facturaDto.setFechaFin(factura.getFechaFin());
+				facturaDto.setDescripcion(factura.getDescripcion());
+				facturaDto.setBaseImponible(factura.getBaseImponible());
+				facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
+				facturaDto.setImporteTotal(factura.getImporteTotal());
+				
+				facturasDto.add(facturaDto);				
+			}
+		}
+		
+		return facturasDto;
 	}
 	
 }

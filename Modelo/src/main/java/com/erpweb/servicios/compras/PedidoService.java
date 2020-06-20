@@ -1,8 +1,11 @@
 package com.erpweb.servicios.compras;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,11 @@ public class PedidoService {
 		
 		pedido.setCodigo(pedidoDto.getCodigo());
 		pedido.setFechaPedido(pedidoDto.getFechaPedido());
+		pedido.setArticulo(pedidoDto.getArticulo());
+		pedido.setCantidad(pedidoDto.getCantidad());
+		pedido.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
+		pedido.setImpuesto(pedidoDto.getImpuesto());
+		pedido.setImporteTotal(pedidoDto.getImporteTotal());
 		
 		try {
 			
@@ -54,10 +62,14 @@ public class PedidoService {
 		
 		Pedido pedido = new Pedido();
 		
-		
 		pedido.setId(pedidoDto.getId());
 		pedido.setCodigo(pedidoDto.getCodigo());
 		pedido.setFechaPedido(pedidoDto.getFechaPedido());
+		pedido.setArticulo(pedidoDto.getArticulo());
+		pedido.setCantidad(pedidoDto.getCantidad());
+		pedido.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
+		pedido.setImpuesto(pedidoDto.getImpuesto());
+		pedido.setImporteTotal(pedidoDto.getImporteTotal());
 		
 		try {
 			
@@ -153,6 +165,26 @@ public class PedidoService {
 		return pedidoDto;
 	}
 	
+	public List<PedidoDto> getListadoPedidos() {
+		
+		logger.debug("Entramos en el metodo getListadoPedidos()" );
+		
+		try {
+			
+			List<Pedido> pedidos = pedidoRepository.findAll();
+			
+			return this.obtieneListadoPedidoDtoDelRepository(pedidos);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListado()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<PedidoDto>();
+	}
+	
 	public AccionRespuesta getPedido(Long pedidoId, Usuario user) {
 		
 		logger.debug("Entramos en el metodo getPedido()");
@@ -210,7 +242,31 @@ public class PedidoService {
 		}
 	}
 	
-	
+	private List<PedidoDto> obtieneListadoPedidoDtoDelRepository(List<Pedido> pedidos){
+		
+		List<PedidoDto> pedidosDto = new ArrayList<PedidoDto>();
+		
+		if(CollectionUtils.isNotEmpty(pedidos) ) {
+			
+			for(Pedido pedido  : pedidos) {
+				
+				PedidoDto pedidoDto = new PedidoDto();	
+				
+				pedidoDto.setId(pedido.getId());
+				pedidoDto.setCodigo(pedido.getCodigo());
+				pedidoDto.setFechaPedido(pedido.getFechaPedido());
+				pedidoDto.setArticulo(pedido.getArticulo());
+				pedidoDto.setCantidad(pedido.getCantidad());
+				pedidoDto.setBaseImponibleTotal(pedido.getBaseImponibleTotal());
+				pedidoDto.setImpuesto(pedido.getImpuesto());
+				pedidoDto.setImporteTotal(pedido.getImporteTotal());
+				
+				pedidosDto.add(pedidoDto);				
+			}
+		}
+		
+		return pedidosDto;
+	}
 	
 	
 }

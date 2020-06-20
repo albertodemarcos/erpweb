@@ -1,5 +1,7 @@
 package com.erpweb.controladores.inventario;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.inventario.AlmacenService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.inventario.AlmacenValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/almacenes")
 public class AlmacenController {
@@ -34,11 +36,10 @@ public class AlmacenController {
 		return this.almacenService.getAlmacen(almacenId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getAlmacenes(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<AlmacenDto> getAlmacenes( ) {
 		
-		
-		return "";
+		return this.almacenService.getListadoAlmacenes();
 	}
 	
 	@GetMapping( "/crearAlmacen" )

@@ -1,5 +1,7 @@
 package com.erpweb.controladores.inventario;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.inventario.ArticuloService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.inventario.ArticuloValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/articulos")
 public class ArticuloController {
@@ -34,11 +36,10 @@ public class ArticuloController {
 		return this.articuloService.getArticulo(articuloId, user);
 	}
 	
-	@GetMapping("/articulos")
-	public String getArticulos(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<ArticuloDto> getArticulos() {
 		
-		
-		return "";
+		return this.articuloService.getListadoArticulos();
 	}
 	
 	@GetMapping( "/crearArticulo" )

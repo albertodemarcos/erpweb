@@ -17,7 +17,7 @@ import com.erpweb.servicios.usuarios.UsuarioService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.usuarios.UsuarioValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {

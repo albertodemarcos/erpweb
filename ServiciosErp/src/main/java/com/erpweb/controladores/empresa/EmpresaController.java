@@ -17,7 +17,7 @@ import com.erpweb.servicios.empresa.EmpresaService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.empresa.EmpresaValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/empresas")
 public class EmpresaController {
@@ -34,12 +34,12 @@ public class EmpresaController {
 		return this.empresaService.getEmpresa(empresaId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getEmpresas(  ) {
+	/*@GetMapping("/listado.json")
+	public @ResponseBody List<Dto> getEmpresas( ) {
 		
 		
-		return "";
-	}
+		return this.empresaService.getListado();
+	}*/
 	
 	@GetMapping( "/crearEmpresa" )
 	public @ResponseBody AccionRespuesta getCrearEmpresa( Model model, Usuario user) throws Exception {

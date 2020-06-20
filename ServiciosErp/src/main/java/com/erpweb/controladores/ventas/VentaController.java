@@ -1,5 +1,7 @@
 package com.erpweb.controladores.ventas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import com.erpweb.servicios.ventas.VentaService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.VentaValidator;
 
-@CrossOrigin(origins = {"http://localhost:4200"}) //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
 @RestController
 @RequestMapping("/ventas")
 public class VentaController {
@@ -34,11 +36,10 @@ public class VentaController {
 		return this.ventaService.getVenta(ventaId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getVentas(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<VentaDto> getVentas( ) {
 		
-		
-		return "";
+		return this.ventaService.getListadoVentas();
 	}
 	
 	@GetMapping( "/crearVenta" )
