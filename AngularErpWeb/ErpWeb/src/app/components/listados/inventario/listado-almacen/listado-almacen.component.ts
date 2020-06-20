@@ -1,68 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AlmacenService } from 'src/app/services/inventario/almacen.service';
+import { Almacen } from 'src/app/model/entitys/almacen.model';
 
-declare var $: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-listado-almacen',
   templateUrl: './listado-almacen.component.html',
   styleUrls: ['./listado-almacen.component.css']
 })
-export class ListadoAlmacenComponent implements OnInit {
+export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
 
-  public titlePageSize: string;
   public tituloListado: string;
-  public gridApi: any;
+  private jqGridId: string;
+  private jqGridPagerId: string;
+  private jqGridColNames: string[];
+  private jqGridColModel: {};
+  private jqGridData: Almacen[];
 
-  constructor() {
-    this.titlePageSize = 'Páginas';
-    this.tituloListado = 'Listado de almacenes';
+  constructor(private clienteService: AlmacenService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.tituloListado = 'Listado de almcenes';
+    this.jqGridId = 'almcenes-grid';
+    this.jqGridPagerId = 'almcenes-pager';
+    this.jqGridColNames = ['', 'Código', 'Nombre', 'Dirección', 'Población', 'Región' ];
+    this.jqGridColModel = [
+      { name: 'id', index: '', width: '40', search: false, sortable: false },
+      { name: 'codigo', index: '', width: '', search: true, sortable: true },
+      { name: 'nombre', index: '', width: '', search: true, sortable: true },
+      { name: 'direccion', index: '', width: '', search: true, sortable: true },
+      { name: 'poblacion', index: '', width: '', search: true, sortable: true },
+      { name: 'region', index: '', width: '', search: true, sortable: true }
+    ];
+    this.jqGridData = new Array<Almacen>();
   }
 
-  // tslint:disable-next-line: member-ordering
-  columnDefs = [
-    { headerName: '', field: 'id', hide: true, cellStyle: { textAlign: 'left' } },
-    { headerName: 'Código', field: 'codigo', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Nombre', field: 'nombre', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Dirección', field: 'direccion', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Población', field: 'poblacion', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Región', field: 'region', cellStyle: { textAlign: 'left' } },
-  ];
+  getListadoClientes(): void{
 
-  defaultColDef = {
-    sortingOrder: ['desc', 'asc'],
-    sortable: true,
-    filter: true,
-    resizable: true,
-    editable: false,
-    flex: 1,
-    minWidth: 25,
-  };
+    /*console.log('Entramos en el metodo getListadoClientes()');
 
-  rowData = [
-    { id: '1', codigo: 'MAD-1', nombre: 'Mercamadrid S.A.', direccion: 'Av. Madrid, S/N', poblacion: 'Madrid', region: 'C. Madrid' }
-  ];
-
-  onPageSizeChanged(): void {
-    // tslint:disable-next-line: prefer-const
-    let numeroFilas = $('page-size').val();
-    this.gridApi.paginationSetPageSize(Number(numeroFilas));
+    this.clienteService.getClientes().then( (clientes) => {
+        try {
+          // Introducimos los datos
+          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          // Reload JqGrid
+          jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
+        } catch (errores){
+          console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+        }
+      }, (error) => {
+        console.log('Error, no se ha obtenido la informacion');
+      }
+    );*/
   }
 
-  onGridReady() {
-   /*setTimeout(function(){
-      var selector = '<div class="example-header">Page Size:
-      <select (change)="onPageSizeChanged()" id="page-size">
-      <option value="10" selected="">10</option><option value="100">100
-      </option><option value="500">500</option><option value="1000">1000</option>
-      </select></div>';
-      // tslint:disable-next-line: align
-      $('ag-paging-panel ag-unselectable').append( selector );
-      // tslint:disable-next-line: align
-      console.log("Hay: " + $('ag-paging-panel ag-unselectable').hide());
-   }, 5000);*/
+  ngAfterViewInit(): void {
+
+    // JqGrid
+    ( jQuery ('#' + this.jqGridId ) ).jqGrid({
+      colNames: this.jqGridColNames,
+      colModel: this.jqGridColModel,
+      pager: this.jqGridPagerId,
+      caption: '',
+      rowNum: 10,
+      rowList: [10, 20],
+      viewrecords: true,
+      gridview: true,
+      autowidth: true
+    });
+
+    // Filtros
+    jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+
   }
 
   ngOnInit(): void {
+    this.getListadoClientes();
   }
+
+ 
+
 
 }

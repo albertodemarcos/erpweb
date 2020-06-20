@@ -3,6 +3,8 @@ package com.erpweb.entidades.empresa;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,6 +54,7 @@ public class Empresa implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public TipoSociedadJuridica getTipoSociedadJuridica() {
 		return tipoSociedadJuridica;
 	}

@@ -5,13 +5,9 @@ import {HomeComponent} from 'src/app/components/home/home.component';
 
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 
-import { PruebaListadoJqgridComponent } from './components/listados/prueba-listado-jqgrid/prueba-listado-jqgrid.component';
 
 // LISTADOS
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
-import { ListadoIngresosComponent } from './components/listados/bi/listado-ingresos/listado-ingresos.component';
-import { ListadoGastosComponent } from './components/listados/bi/listado-gastos/listado-gastos.component';
-import { ListadoResultadosComponent } from './components/listados/bi/listado-resultados/listado-resultados.component';
 import { ListadoContratosComponent } from './components/listados/ventas/listado-contratos/listado-contratos.component';
 import { ListadoVentasComponent } from './components/listados/ventas/listado-ventas/listado-ventas.component';
 import { ListadoFacturasComponent } from './components/listados/ventas/listado-facturas/listado-facturas.component';
@@ -47,15 +43,15 @@ const routes: Routes = [
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
   { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
-  { path: 'prueba', component: PruebaListadoJqgridComponent},
+  // { path: 'prueba', component: PruebaListadoJqgridComponent},
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent },
   // RUTAS BI
-  { path: 'ingresos', component: ListadoIngresosComponent },
+  /*{ path: 'ingresos', component: ListadoIngresosComponent },
   { path: 'ingresos/nuevo-ingreso', component: FormularioIngresoComponent },
   { path: 'gastos', component: ListadoGastosComponent },
   { path: 'gastos/nuevo-gasto', component: FormularioGastoComponent },
-  { path: 'resultados', component: ListadoResultadosComponent },
+  { path: 'resultados', component: ListadoResultadosComponent },*/
   // RUTAS VENTAS
   { path: 'contratos', component: ListadoContratosComponent },
   { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent },

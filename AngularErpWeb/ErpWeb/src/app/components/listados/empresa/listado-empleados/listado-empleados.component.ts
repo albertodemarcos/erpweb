@@ -1,70 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EmpleadoService } from 'src/app/services/empresa/empleado.service';
+import { Empleado } from 'src/app/model/entitys/empleado.model';
 
-declare var $: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-listado-empleados',
   templateUrl: './listado-empleados.component.html',
   styleUrls: ['./listado-empleados.component.css']
 })
-export class ListadoEmpleadosComponent implements OnInit {
+export class ListadoEmpleadosComponent implements OnInit, AfterViewInit {
 
-  public titlePageSize: string;
   public tituloListado: string;
-  public gridApi: any;
+  private jqGridId: string;
+  private jqGridPagerId: string;
+  private jqGridColNames: string[];
+  private jqGridColModel: {};
+  private jqGridData: Empleado[];
 
-  constructor() {
-    this.titlePageSize = 'Páginas';
+  constructor(private empleadoService: EmpleadoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de empleados';
+    this.jqGridId = 'empleados-grid';
+    this.jqGridPagerId = 'empleados-pager';
+    this.jqGridColNames = ['', 'Código', 'Nombre', 'Apellido', 'CIF/NIF', 'Teléfono', 'Tipo Empleado'];
+    this.jqGridColModel = [
+      { name: 'id', index: '', width: '40', search: false, sortable: false },
+      { name: 'codigo', index: '', width: '', search: true, sortable: true },
+      { name: 'nombre', index: '', width: '', search: true, sortable: true },
+      { name: 'apellido', index: '', width: '', search: true, sortable: true },
+      { name: 'nif', index: '', width: '', search: true, sortable: true },
+      { name: 'telefono', index: '', width: '', search: true, sortable: true },
+      { name: 'tipoEmpleado', index: '', width: '', search: true, sortable: true}
+    ];
+    this.jqGridData = new Array<Empleado>();
   }
 
-   // tslint:disable-next-line: member-ordering
-  columnDefs = [
-    { headerName: '', field: 'id', hide: true, cellStyle: { textAlign: 'left' } },
-    { headerName: 'Código', field: 'codigo', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Nombre', field: 'nombre', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Apellido', field: 'apellido', cellStyle: { textAlign: 'left' } },
-    { headerName: 'CIF/NIF', field: 'nif', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Teléfono', field: 'telefono', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Tipo empleado', field: 'tipoCliente', cellStyle: { textAlign: 'left' } }
-  ];
+  getListadoEmpleados(): void{
 
-  defaultColDef = {
-    sortingOrder: ['desc', 'asc'],
-    sortable: true,
-    filter: true,
-    resizable: true,
-    editable: false,
-    flex: 1,
-    minWidth: 25,
-  };
+    console.log('Entramos en el metodo getListadoEmpleados()');
 
-  rowData = [
-    { id: '1', codigo: 'MAD-1', nombre: 'Alberto', apellido: 'de Marcos', nif: '09063447K', telefono: '666777888', tipoCliente: 'INTERNO' },
-    { id: '1', codigo: 'GUA-1', nombre: 'Lucia', apellido: 'Alvarez', nif: '12345678L', telefono: '666777888', tipoCliente: 'EXTERNO' }
-  ];
-
-  onPageSizeChanged(): void {
-    // tslint:disable-next-line: prefer-const
-    let numeroFilas = $('page-size').val();
-    this.gridApi.paginationSetPageSize(Number(numeroFilas));
+    this.empleadoService.getEmpleados().then( (empleados) => {
+        try {
+          // Introducimos los datos
+          empleados.forEach(empleado => this.jqGridData.push(empleado));
+          // Reload JqGrid
+          jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
+        } catch (errores){
+          console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+        }
+      }, (error) => {
+        console.log('Error, no se ha obtenido la informacion');
+      }
+    );
   }
 
-  onGridReady() {
-   /*setTimeout(function(){
-      var selector = '<div class="example-header">Page Size:
-      <select (change)="onPageSizeChanged()" id="page-size">
-      <option value="10" selected="">10</option><option value="100">100
-      </option><option value="500">500</option><option value="1000">1000</option>
-      </select></div>';
-      // tslint:disable-next-line: align
-      $('ag-paging-panel ag-unselectable').append( selector );
-      // tslint:disable-next-line: align
-      console.log("Hay: " + $('ag-paging-panel ag-unselectable').hide());
-   }, 5000);*/
+  ngAfterViewInit(): void {
+
+    // JqGrid
+    ( jQuery ('#' + this.jqGridId ) ).jqGrid({
+      colNames: this.jqGridColNames,
+      colModel: this.jqGridColModel,
+      pager: this.jqGridPagerId,
+      caption: '',
+      rowNum: 10,
+      rowList: [10, 20],
+      viewrecords: true,
+      gridview: true,
+      autowidth: true
+    });
+
+    // Filtros
+    jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+
   }
 
   ngOnInit(): void {
+    this.getListadoEmpleados();
   }
+
+
 
 }

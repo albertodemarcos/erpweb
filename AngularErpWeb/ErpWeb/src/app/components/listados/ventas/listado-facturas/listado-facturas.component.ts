@@ -1,68 +1,82 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FacturaService } from 'src/app/services/ventas/factura.service';
+import { Factura } from 'src/app/model/entitys/factura.model';
 
-declare var $: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-listado-facturas',
   templateUrl: './listado-facturas.component.html',
   styleUrls: ['./listado-facturas.component.css']
 })
-export class ListadoFacturasComponent implements OnInit {
+export class ListadoFacturasComponent implements OnInit, AfterViewInit {
 
-  public titlePageSize: string;
   public tituloListado: string;
-  public gridApi: any;
+  private jqGridId: string;
+  private jqGridPagerId: string;
+  private jqGridColNames: string[];
+  private jqGridColModel: {};
+  private jqGridData: Factura[];
 
-  constructor() {
-    this.titlePageSize = 'Páginas';
-    this.tituloListado = 'Listado de facturas';
-   }
-
-  // tslint:disable-next-line: member-ordering
-  columnDefs = [
-    { headerName: '', field: 'id', hide: true, cellStyle: { textAlign: 'left' } },
-    { headerName: 'Código', field: 'codigo', cellStyle: { textAlign: 'left' } },
-    { headerName: 'F. Inicio', field: 'fechaInicio', cellStyle: { textAlign: 'left' } },
-    { headerName: 'F. Fín', field: 'fechaFin', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Base Impl.', field: 'baseImponibleTotal', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Importe Total', field: 'importeTotal', cellStyle: { textAlign: 'left' } }
-  ];
-
-  defaultColDef = {
-    sortingOrder: ['desc', 'asc'],
-    sortable: true,
-    filter: true,
-    resizable: true,
-    editable: false,
-    flex: 1,
-    minWidth: 25,
-  };
-
-  rowData = [
-    { id: '1', codigo: 'MAD-1', fechaInicio: '01/05/2020', fechaFin: '01/05/2021', baseImponibleTotal: 200, importeTotal: 242 }
-  ];
-
-  onPageSizeChanged(): void {
-    // tslint:disable-next-line: prefer-const
-    let numeroFilas = $('page-size').val();
-    this.gridApi.paginationSetPageSize(Number(numeroFilas));
+  constructor(private clienteService: FacturaService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.tituloListado = 'Listado de clientes';
+    this.jqGridId = 'clientes-grid';
+    this.jqGridPagerId = 'clientes-pager';
+    this.jqGridColNames = ['', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
+    this.jqGridColModel = [
+      { name: 'id', index: '', width: '40', search: false, sortable: false },
+      { name: 'codigo', index: '', width: '', search: true, sortable: true },
+      { name: 'fechaInicio', index: '', width: '', search: true, sortable: true },
+      { name: 'fechaFin', index: '', width: '', search: true, sortable: true },
+      { name: 'baseImponibleTotal', index: '', width: '', search: true, sortable: true },
+      { name: 'importeTotal', index: '', width: '', search: true, sortable: true }
+    ];
+    this.jqGridData = new Array<Factura>();
   }
 
-  onGridReady() {
-   /*setTimeout(function(){
-      var selector = '<div class="example-header">Page Size:
-      <select (change)="onPageSizeChanged()" id="page-size">
-      <option value="10" selected="">10</option><option value="100">100
-      </option><option value="500">500</option><option value="1000">1000</option>
-      </select></div>';
-      // tslint:disable-next-line: align
-      $('ag-paging-panel ag-unselectable').append( selector );
-      // tslint:disable-next-line: align
-      console.log("Hay: " + $('ag-paging-panel ag-unselectable').hide());
-   }, 5000);*/
+  getListadoClientes(): void{
+
+    /*console.log('Entramos en el metodo getListadoClientes()');
+
+    this.clienteService.getClientes().then( (clientes) => {
+        try {
+          // Introducimos los datos
+          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          // Reload JqGrid
+          jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
+        } catch (errores){
+          console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+        }
+      }, (error) => {
+        console.log('Error, no se ha obtenido la informacion');
+      }
+    );*/
+  }
+
+  ngAfterViewInit(): void {
+
+    // JqGrid
+    ( jQuery ('#' + this.jqGridId ) ).jqGrid({
+      colNames: this.jqGridColNames,
+      colModel: this.jqGridColModel,
+      pager: this.jqGridPagerId,
+      caption: '',
+      rowNum: 10,
+      rowList: [10, 20],
+      viewrecords: true,
+      gridview: true,
+      autowidth: true
+    });
+
+    // Filtros
+    jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+
   }
 
   ngOnInit(): void {
+    this.getListadoClientes();
   }
+
 
 }

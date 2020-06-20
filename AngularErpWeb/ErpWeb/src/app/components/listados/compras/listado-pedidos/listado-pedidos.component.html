@@ -2,18 +2,10 @@
     <div class="card-header text-center">
         {{tituloListado}}
     </div>
-    <div class="card-body text-center">
-        <div class="caja">
-            <div class="text-left"> {{titlePageSize}}:
-                <select (change)="onPageSizeChanged()" id="page-size">
-                    <option value="10" selected="true">10</option>
-                    <option value="100">20</option>
-                    <option value="500">50</option>
-                    <option value="1000">100</option>
-                </select>
-            </div>
-            <ag-grid-angular class="ag-theme-material tabla" [rowData]="rowData" [columnDefs]="columnDefs" [pagination]="true" [paginationAutoPageSize]="true" [defaultColDef]="defaultColDef">
-            </ag-grid-angular>
+    <div class="card-body">
+        <div class="tabla-clientes">
+            <table id="pedidos-grid"></table>
         </div>
+        <div id="pedidos-pager"></div>
     </div>
 </div>

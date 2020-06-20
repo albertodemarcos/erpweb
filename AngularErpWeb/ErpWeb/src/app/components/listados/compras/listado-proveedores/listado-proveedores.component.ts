@@ -1,68 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProveedorService } from 'src/app/services/compras/proveedor.service';
+import { Proveedor } from 'src/app/model/entitys/proveedor.model';
 
-declare var $: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-listado-proveedores',
   templateUrl: './listado-proveedores.component.html',
   styleUrls: ['./listado-proveedores.component.css']
 })
-export class ListadoProveedoresComponent implements OnInit {
+export class ListadoProveedoresComponent implements OnInit, AfterViewInit {
 
-  public titlePageSize: string;
   public tituloListado: string;
-  public gridApi: any;
+  private jqGridId: string;
+  private jqGridPagerId: string;
+  private jqGridColNames: string[];
+  private jqGridColModel: {};
+  private jqGridData: Proveedor[];
 
-  constructor() {
-    this.titlePageSize = 'Páginas';
-    this.tituloListado = 'Listado de proveedores';
+  constructor(private proveedorService: ProveedorService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.tituloListado = 'Listado de proveedor';
+    this.jqGridId = 'proveedores-grid';
+    this.jqGridPagerId = 'proveedores-pager';
+    this.jqGridColNames = ['', 'Código', 'Nombre', 'Empresa', 'Teléfono', 'Tipo proveedor'];
+    this.jqGridColModel = [
+      { name: 'id', index: '', width: '40', search: false, sortable: false },
+      { name: 'codigo', index: '', width: '', search: true, sortable: true },
+      { name: 'nombre', index: '', width: '', search: true, sortable: true },
+      { name: 'nombreEmpresa', index: '', width: '', search: true, sortable: true },
+      { name: 'telefono', index: '', width: '', search: true, sortable: true },
+      { name: 'tipoProveedor', index: '', width: '', search: true, sortable: true}
+    ];
+    this.jqGridData = new Array<Proveedor>();
   }
 
-  // tslint:disable-next-line: member-ordering
-  columnDefs = [
-    { headerName: '', field: 'id', hide: true, cellStyle: { textAlign: 'left' } },
-    { headerName: 'Código', field: 'codigo', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Nombre', field: 'nombre', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Empresa', field: 'nombreEmpresa', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Teléfono', field: 'telefono', cellStyle: { textAlign: 'left' } },
-    { headerName: 'Tipo', field: 'tipoProveedor', cellStyle: { textAlign: 'left' } },
-  ];
+  getListadoProveedores(): void{
 
-  defaultColDef = {
-    sortingOrder: ['desc', 'asc'],
-    sortable: true,
-    filter: true,
-    resizable: true,
-    editable: false,
-    flex: 1,
-    minWidth: 25,
-  };
+    console.log('Entramos en el metodo getListadoProveedors()');
 
-  rowData = [
-    { id: '1', codigo: 'codigo', nombre: 'Antonio', nombreEmpresa: 'Grefusa', telefono: '666888999', tipoProveedor: 'ALIMENTACION'  }
-  ];
-
-  onPageSizeChanged(): void {
-    // tslint:disable-next-line: prefer-const
-    let numeroFilas = $('page-size').val();
-    this.gridApi.paginationSetPageSize(Number(numeroFilas));
+    this.proveedorService.getProveedores().then( (proveedores) => {
+        try {
+          // Introducimos los datos
+          proveedores.forEach(proveedor => this.jqGridData.push(proveedor));
+          // Reload JqGrid
+          jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
+        } catch (errores){
+          console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+        }
+      }, (error) => {
+        console.log('Error, no se ha obtenido la informacion');
+      }
+    );
   }
 
-  onGridReady() {
-   /*setTimeout(function(){
-      var selector = '<div class="example-header">Page Size:
-      <select (change)="onPageSizeChanged()" id="page-size">
-      <option value="10" selected="">10</option><option value="100">100
-      </option><option value="500">500</option><option value="1000">1000</option>
-      </select></div>';
-      // tslint:disable-next-line: align
-      $('ag-paging-panel ag-unselectable').append( selector );
-      // tslint:disable-next-line: align
-      console.log("Hay: " + $('ag-paging-panel ag-unselectable').hide());
-   }, 5000);*/
+  ngAfterViewInit(): void {
+
+    // JqGrid
+    ( jQuery ('#' + this.jqGridId ) ).jqGrid({
+      colNames: this.jqGridColNames,
+      colModel: this.jqGridColModel,
+      pager: this.jqGridPagerId,
+      caption: '',
+      rowNum: 10,
+      rowList: [10, 20],
+      viewrecords: true,
+      gridview: true,
+      autowidth: true
+    });
+
+    // Filtros
+    jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+
   }
 
   ngOnInit(): void {
+    this.getListadoProveedores();
   }
+
+
+
 
 }

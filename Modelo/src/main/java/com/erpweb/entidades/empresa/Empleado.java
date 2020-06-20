@@ -3,6 +3,8 @@ package com.erpweb.entidades.empresa;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,6 +44,7 @@ public class Empleado extends Persona implements Serializable {
 		this.codigo = codigo;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public TipoEmpleado getTipoEmpleado() {
 		return tipoEmpleado;
 	}

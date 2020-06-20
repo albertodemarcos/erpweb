@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,7 +57,6 @@ public class Vehiculo implements Serializable {
 		this.matricula = matricula;
 	}
 
-
 	public String getMarca() {
 		return marca;
 	}
@@ -72,6 +73,7 @@ public class Vehiculo implements Serializable {
 		this.modelo = modelo;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public TipoVehiculo getTipoVehiculo() {
 		return tipoVehiculo;
 	}
@@ -80,6 +82,7 @@ public class Vehiculo implements Serializable {
 		this.tipoVehiculo = tipoVehiculo;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public TipoCombustible getTipoCombustible() {
 		return tipoCombustible;
 	}

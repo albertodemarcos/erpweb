@@ -32,9 +32,6 @@ import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.co
 
 /* ------------------------------------------------------ LISTADOS ------------------------------------------------------ */
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
-import { ListadoIngresosComponent } from './components/listados/bi/listado-ingresos/listado-ingresos.component';
-import { ListadoGastosComponent } from './components/listados/bi/listado-gastos/listado-gastos.component';
-import { ListadoResultadosComponent } from './components/listados/bi/listado-resultados/listado-resultados.component';
 import { ListadoContratosComponent } from './components/listados/ventas/listado-contratos/listado-contratos.component';
 import { ListadoVentasComponent } from './components/listados/ventas/listado-ventas/listado-ventas.component';
 import { ListadoFacturasComponent } from './components/listados/ventas/listado-facturas/listado-facturas.component';
@@ -85,16 +82,12 @@ import { BotonListadoCompraComponent } from './components/utiles/botonesListado/
 import { BotonListadoPedidoComponent } from './components/utiles/botonesListado/boton-listado-pedido/boton-listado-pedido.component';
 import { BotonListadoProveedorComponent } from './components/utiles/botonesListado/boton-listado-proveedor/boton-listado-proveedor.component';
 
-import { PruebaListadoJqgridComponent } from './components/listados/prueba-listado-jqgrid/prueba-listado-jqgrid.component';
 
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
 
 /* --------------------------------------------------- SERVICIOS --------------------------------------------------------------------- */
 
-import { GastoService } from './services/bi/gasto.service';
-import { InformeService } from './services/bi/informe.service';
-import { IngresoService } from './services/bi/ingreso.service';
 import { CompraService } from './services/compras/compra.service';
 import { PedidoService } from './services/compras/pedido.service';
 import { ProveedorService } from './services/compras/proveedor.service';
@@ -133,9 +126,6 @@ import { VentaService } from './services/ventas/venta.service';
     FormularioArticuloComponent,
     FormularioVehiculoComponent,
     ListadoClientesComponent,
-    ListadoIngresosComponent,
-    ListadoGastosComponent,
-    ListadoResultadosComponent,
     ListadoContratosComponent,
     ListadoVentasComponent,
     ListadoFacturasComponent,
@@ -177,8 +167,7 @@ import { VentaService } from './services/ventas/venta.service';
     BotonListadoClienteComponent,
     BotonListadoCompraComponent,
     BotonListadoPedidoComponent,
-    BotonListadoProveedorComponent,
-    PruebaListadoJqgridComponent
+    BotonListadoProveedorComponent
   ], // Modulos
   imports: [
     BrowserModule,
@@ -189,9 +178,6 @@ import { VentaService } from './services/ventas/venta.service';
     FullCalendarModule
   ],
   providers: [ // Servicios
-    GastoService,
-    InformeService,
-    IngresoService,
     CompraService,
     PedidoService,
     ProveedorService,

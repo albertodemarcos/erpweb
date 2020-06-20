@@ -3,6 +3,8 @@ package com.erpweb.entidades.compras;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,6 +67,7 @@ public class Proveedor implements Serializable {
 		this.telefono = telefono;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public TipoProveedor getTipoProveedor() {
 		return tipoProveedor;
 	}
