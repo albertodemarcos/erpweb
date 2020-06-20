@@ -73,6 +73,14 @@ export class ListadoEmpleadosComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de empleados');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-empleados' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {

@@ -19,7 +19,7 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Almacen[];
 
-  constructor(private clienteService: AlmacenService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private almacenService: AlmacenService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de almcenes';
     this.jqGridId = 'almcenes-grid';
     this.jqGridPagerId = 'almcenes-pager';
@@ -35,14 +35,14 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Almacen>();
   }
 
-  getListadoClientes(): void{
+  getListadoAlmacens(): void{
 
-    /*console.log('Entramos en el metodo getListadoClientes()');
+    console.log('Entramos en el metodo getListadoAlmacens()');
 
-    this.clienteService.getClientes().then( (clientes) => {
+    this.almacenService.getAlmacenes().then( (almacenes) => {
         try {
           // Introducimos los datos
-          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          almacenes.forEach(almacen => this.jqGridData.push(almacen));
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -51,7 +51,7 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
       }, (error) => {
         console.log('Error, no se ha obtenido la informacion');
       }
-    );*/
+    );
   }
 
   ngAfterViewInit(): void {
@@ -72,10 +72,18 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de almacenes');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-almacenes' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {
-    this.getListadoClientes();
+    this.getListadoAlmacens();
   }
 
  

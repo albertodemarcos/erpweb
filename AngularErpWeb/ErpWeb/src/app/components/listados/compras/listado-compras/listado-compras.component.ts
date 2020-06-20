@@ -53,6 +53,14 @@ export class ListadoComprasComponent implements OnInit, AfterViewInit {
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de compras');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-compras' , escape: 'false'} );
+
+    });
   }
 
   getListadoCompras(): void{

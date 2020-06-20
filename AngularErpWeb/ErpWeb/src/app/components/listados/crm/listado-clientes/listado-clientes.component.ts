@@ -36,17 +36,6 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Cliente>();
   }
 
-  public getJqGridToExcel(): void {
-
-
-
-    jQuery().on('#export', () => { console.log('Entro al boton eaxcel'); });
-
-
-
-  }
-
-
   getListadoClientes(): void{
 
     console.log('Entramos en el metodo getListadoClientes()');
@@ -84,15 +73,11 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
-    /*jQuery('#export').on('click', function(){
-      jQuery('#' + this.jqGridId).jqGrid('excelExport');
-    });*/
+    jQuery('#exportar').on('click', () => {
 
-    jQuery('#export').on('click', () => {
+      console.log('Se inicia la exportacion a excel del listado de clientes');
 
-      console.log('Entro al boton eaxcel');
-
-      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', escape: 'false'} );
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listadoClientes' , escape: 'false'} );
 
     });
 

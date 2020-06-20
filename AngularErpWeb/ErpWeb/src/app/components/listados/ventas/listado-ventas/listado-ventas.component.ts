@@ -19,7 +19,7 @@ export class ListadoVentasComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Venta[];
 
-  constructor(private clienteService: VentaService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private ventaService: VentaService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de ventas';
     this.jqGridId = 'ventas-grid';
     this.jqGridPagerId = 'ventas-pager';
@@ -35,14 +35,14 @@ export class ListadoVentasComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Venta>();
   }
 
-  getListadoClientes(): void{
+  getListadoVentas(): void{
 
-    /*console.log('Entramos en el metodo getListadoClientes()');
+    console.log('Entramos en el metodo getListadoVentas()');
 
-    this.clienteService.getClientes().then( (clientes) => {
+    this.ventaService.getVentas().then( (ventas) => {
         try {
           // Introducimos los datos
-          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          ventas.forEach(venta => this.jqGridData.push(venta));
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -51,7 +51,7 @@ export class ListadoVentasComponent implements OnInit, AfterViewInit {
       }, (error) => {
         console.log('Error, no se ha obtenido la informacion');
       }
-    );*/
+    );
   }
 
   ngAfterViewInit(): void {
@@ -72,10 +72,18 @@ export class ListadoVentasComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de ventas');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-ventas' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {
-    this.getListadoClientes();
+    this.getListadoVentas();
   }
 
 }

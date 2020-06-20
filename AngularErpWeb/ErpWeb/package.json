@@ -40,6 +40,7 @@
         "perfect-scrollbar": "^1.5.0",
         "popper.js": "^1.16.1",
         "rxjs": "~6.5.4",
+        "tableexport": "^5.2.0",
         "tableexport.jquery.plugin": "^1.9.0",
         "tslib": "^1.10.0",
         "xlsx": "^0.16.2",

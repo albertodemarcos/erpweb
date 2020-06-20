@@ -19,7 +19,7 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Vehiculo[];
 
-  constructor(private clienteService: VehiculoService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private vhiculoService: VehiculoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de vehículos';
     this.jqGridId = 'vehiculos-grid';
     this.jqGridPagerId = 'vehiculos-pager';
@@ -37,14 +37,14 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Vehiculo>();
   }
 
-  getListadoClientes(): void{
+  getListadoVehiculos(): void{
 
-    /*console.log('Entramos en el metodo getListadoClientes()');
+    console.log('Entramos en el metodo getListadoVehiculos()');
 
-    this.clienteService.getClientes().then( (clientes) => {
+    this.vhiculoService.getVehiculos().then( (vehiculos) => {
         try {
           // Introducimos los datos
-          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          vehiculos.forEach(vehiculo => this.jqGridData.push(vehiculo));
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -53,7 +53,7 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
       }, (error) => {
         console.log('Error, no se ha obtenido la informacion');
       }
-    );*/
+    );
   }
 
   ngAfterViewInit(): void {
@@ -74,10 +74,18 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de vehiculos');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-vehiculos' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {
-    this.getListadoClientes();
+    this.getListadoVehiculos();
   }
 
 

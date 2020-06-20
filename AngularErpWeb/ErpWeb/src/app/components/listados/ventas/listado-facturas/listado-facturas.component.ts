@@ -19,10 +19,10 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Factura[];
 
-  constructor(private clienteService: FacturaService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.tituloListado = 'Listado de clientes';
-    this.jqGridId = 'clientes-grid';
-    this.jqGridPagerId = 'clientes-pager';
+  constructor(private facturaService: FacturaService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.tituloListado = 'Listado de Facturas';
+    this.jqGridId = 'facturas-grid';
+    this.jqGridPagerId = 'facturas-pager';
     this.jqGridColNames = ['', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
     this.jqGridColModel = [
       { name: 'id', index: '', width: '40', search: false, sortable: false },
@@ -35,14 +35,14 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Factura>();
   }
 
-  getListadoClientes(): void{
+  getListadoFacturas(): void{
 
-    /*console.log('Entramos en el metodo getListadoClientes()');
+    console.log('Entramos en el metodo getListadoFacturas()');
 
-    this.clienteService.getClientes().then( (clientes) => {
+    this.facturaService.getFacturas().then( (facturas) => {
         try {
           // Introducimos los datos
-          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          facturas.forEach(factura => this.jqGridData.push(factura));
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -51,7 +51,7 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
       }, (error) => {
         console.log('Error, no se ha obtenido la informacion');
       }
-    );*/
+    );
   }
 
   ngAfterViewInit(): void {
@@ -72,10 +72,18 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de facturas');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-facturas' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {
-    this.getListadoClientes();
+    this.getListadoFacturas();
   }
 
 

@@ -19,8 +19,8 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Contrato[];
 
-  constructor(private clienteService: ContratoService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.tituloListado = 'Listado de clientes';
+  constructor(private contratoService: ContratoService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.tituloListado = 'Listado de Contratos';
     this.jqGridId = 'contratos-grid';
     this.jqGridPagerId = 'contratos-pager';
     this.jqGridColNames = ['', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
@@ -35,14 +35,14 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Contrato>();
   }
 
-  getListadoClientes(): void{
+  getListadoContratos(): void{
 
-    /*console.log('Entramos en el metodo getListadoClientes()');
+    console.log('Entramos en el metodo getListadoContratos()');
 
-    this.clienteService.getClientes().then( (clientes) => {
+    this.contratoService.getContratos().then( (contratos) => {
         try {
           // Introducimos los datos
-          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          contratos.forEach(contrato => this.jqGridData.push(contrato));
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -51,7 +51,7 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
       }, (error) => {
         console.log('Error, no se ha obtenido la informacion');
       }
-    );*/
+    );
   }
 
   ngAfterViewInit(): void {
@@ -71,10 +71,18 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de contratos');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-contratos' , escape: 'false'} );
+
+    });
   }
 
   ngOnInit(): void {
-    this.getListadoClientes();
+    this.getListadoContratos();
   }
 
 }

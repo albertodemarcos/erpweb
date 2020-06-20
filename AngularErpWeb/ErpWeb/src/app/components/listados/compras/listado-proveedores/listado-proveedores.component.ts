@@ -72,6 +72,14 @@ export class ListadoProveedoresComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de proveedores');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-proveedores' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {

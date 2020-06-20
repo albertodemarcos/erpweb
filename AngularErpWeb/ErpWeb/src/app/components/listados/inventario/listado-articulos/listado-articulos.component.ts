@@ -19,8 +19,8 @@ export class ListadoArticulosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Articulo[];
 
-  constructor(private clienteService: ArticuloService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.tituloListado = 'Listado de clientes';
+  constructor(private articuloService: ArticuloService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.tituloListado = 'Listado de Articulos';
     this.jqGridId = 'articulos-grid';
     this.jqGridPagerId = 'articulos-pager';
     this.jqGridColNames = ['', 'Código', 'Nombre', 'Base Imp.', 'Impuesto', 'Importe total' ];
@@ -35,14 +35,14 @@ export class ListadoArticulosComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Articulo>();
   }
 
-  getListadoClientes(): void{
+  getListadoArticulos(): void{
 
-    /*console.log('Entramos en el metodo getListadoClientes()');
+    console.log('Entramos en el metodo getListadoArticulos()');
 
-    this.clienteService.getClientes().then( (clientes) => {
+    this.articuloService.getArticulos().then( (articulos) => {
         try {
           // Introducimos los datos
-          clientes.forEach(cliente => this.jqGridData.push(cliente));
+          articulos.forEach(articulo => this.jqGridData.push(articulo));
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -51,7 +51,7 @@ export class ListadoArticulosComponent implements OnInit, AfterViewInit {
       }, (error) => {
         console.log('Error, no se ha obtenido la informacion');
       }
-    );*/
+    );
   }
 
   ngAfterViewInit(): void {
@@ -72,10 +72,18 @@ export class ListadoArticulosComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de articulos');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-articulos' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {
-    this.getListadoClientes();
+    this.getListadoArticulos();
   }
 
 }

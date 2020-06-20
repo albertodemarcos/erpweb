@@ -74,6 +74,14 @@ export class ListadoPedidosComponent implements OnInit, AfterViewInit {
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de pedidos');
+
+      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-pedidos' , escape: 'false'} );
+
+    });
+
   }
 
   ngOnInit(): void {
