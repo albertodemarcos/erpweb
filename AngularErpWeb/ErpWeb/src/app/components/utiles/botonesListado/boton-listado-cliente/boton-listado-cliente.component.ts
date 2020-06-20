@@ -30,11 +30,11 @@ export class BotonListadoClienteComponent implements ICellRendererAngularComp {
 
   onClick($event: any) {
 
-    let datos = this.params.data;
+    const datos = this.params.data;
 
     // Si la fila no esta vacia y tiene id, pueden ver su ficha
     if (datos != null && datos.id != null){
-      let id = datos.id;
+      const id = datos.id;
       this.router.navigate(['clientes', 'cliente', id ], { state: { cliente: datos } } ); // { queryParams: { datos: JSON.stringify(datos) } }
     }
   }

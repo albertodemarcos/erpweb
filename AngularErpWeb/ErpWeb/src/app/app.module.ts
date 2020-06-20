@@ -80,6 +80,12 @@ import { ModalIngresoComponent } from './components/modales/bi/modal-ingreso/mod
 
 /* -------------------------------------------------- UTILES --------------------------------------------------------- */
 import { BotonVerComponent } from './components/utiles/boton-ver/boton-ver.component';
+import { BotonListadoClienteComponent } from './components/utiles/botonesListado/boton-listado-cliente/boton-listado-cliente.component';
+import { BotonListadoCompraComponent } from './components/utiles/botonesListado/boton-listado-compra/boton-listado-compra.component';
+import { BotonListadoPedidoComponent } from './components/utiles/botonesListado/boton-listado-pedido/boton-listado-pedido.component';
+import { BotonListadoProveedorComponent } from './components/utiles/botonesListado/boton-listado-proveedor/boton-listado-proveedor.component';
+
+import { PruebaListadoJqgridComponent } from './components/listados/prueba-listado-jqgrid/prueba-listado-jqgrid.component';
 
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -102,10 +108,7 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
-import { BotonListadoClienteComponent } from './components/utiles/botonesListado/boton-listado-cliente/boton-listado-cliente.component';
-import { BotonListadoCompraComponent } from './components/utiles/botonesListado/boton-listado-compra/boton-listado-compra.component';
-import { BotonListadoPedidoComponent } from './components/utiles/botonesListado/boton-listado-pedido/boton-listado-pedido.component';
-import { BotonListadoProveedorComponent } from './components/utiles/botonesListado/boton-listado-proveedor/boton-listado-proveedor.component';
+
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -174,7 +177,8 @@ import { BotonListadoProveedorComponent } from './components/utiles/botonesLista
     BotonListadoClienteComponent,
     BotonListadoCompraComponent,
     BotonListadoPedidoComponent,
-    BotonListadoProveedorComponent
+    BotonListadoProveedorComponent,
+    PruebaListadoJqgridComponent
   ], // Modulos
   imports: [
     BrowserModule,

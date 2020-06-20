@@ -1,8 +1,11 @@
 package com.erpweb.servicios.crm;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 	
 	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger logger = LoggerFactory.getLogger(ClienteService.class.getName());
 	
 	
 	
@@ -196,13 +199,33 @@ public class ClienteService {
 		return clienteDto;
 	}
 	
+	public List<ClienteDto> getListadoClientes() {
+		
+		logger.debug("Entramos en el metodo getListadoClientes()" );
+		
+		try {
+			
+			List<Cliente> clientes = clienteRepository.findAll();
+			
+			return this.obtieneListadoClienteDtoDelRepository(clientes);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoClientes()" );
+			
+			e.printStackTrace();
+		}
+		
+		return new ArrayList<ClienteDto>();
+	}
+	
 	public AccionRespuesta getCliente(Long clienteId, Usuario user) {
 		
 		logger.debug("Entramos en el metodo getCliente()");
 		
 		if( clienteId == null) {
 			
-			return new AccionRespuesta(-1L, "Error, existe el cliente", Boolean.FALSE);
+			return new AccionRespuesta(-1L, "Error, NO existe el cliente", Boolean.FALSE);
 		}
 		
 		ClienteDto clienteDto = this.obtenerClienteDtoDesdeCliente(clienteId);
@@ -289,5 +312,41 @@ public class ClienteService {
 		
 		return respuesta;
 	}
+	
+	private List<ClienteDto> obtieneListadoClienteDtoDelRepository(List<Cliente> clientes){
+		
+		List<ClienteDto> clientesDto = new ArrayList<ClienteDto>();
+		
+		if(CollectionUtils.isNotEmpty(clientes) ) {
+			
+			for(Cliente cliente : clientes) {
+				
+				ClienteDto clienteDto = new ClienteDto();
 
+				clienteDto.setId(cliente.getId());
+				clienteDto.setCodigo(cliente.getCodigo());
+				clienteDto.setNombre(cliente.getNombre());
+				clienteDto.setApellidoPrimero(cliente.getApellidoPrimero());
+				clienteDto.setApellidoSegundo(cliente.getApellidoSegundo());
+				clienteDto.setNif(cliente.getNif());
+				clienteDto.setCodigoPostal(cliente.getCodigoPostal());
+				clienteDto.setDireccion(cliente.getDireccion());
+				clienteDto.setEdificio(cliente.getEdificio());
+				clienteDto.setTelefono(cliente.getTelefono());
+				clienteDto.setObservaciones(cliente.getObservaciones());
+				clienteDto.setProvincia(cliente.getProvincia());
+				clienteDto.setPoblacion(cliente.getPoblacion());
+				clienteDto.setRegion(cliente.getRegion());
+				clienteDto.setPais(cliente.getPais());
+				clienteDto.setTipoCliente(cliente.getTipoCliente());
+				
+				clientesDto.add(clienteDto);				
+			}
+		}
+		
+		return clientesDto;
+	}
+	
+	
+	
 }

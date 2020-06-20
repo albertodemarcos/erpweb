@@ -1,7 +1,9 @@
 package com.erpweb.controladores.crm;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,8 @@ import com.erpweb.servicios.crm.ClienteService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.crm.ClienteValidator;
 
-
-@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true" ) //Conexion con angular /*,"http://localhost:4200", "http://127.0.0.1:4200", "http://192.168.1.39:4200"*/ 
+/*,"http://localhost:4200", "http://127.0.0.1:4200", "http://192.168.1.39:4200"*/
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true" ) //Conexion con angular  
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -36,17 +38,11 @@ public class ClienteController {
 		return this.clienteService.getCliente(clienteId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getClientes(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<ClienteDto> getClientes() {
 		
-		return "";
+		return this.clienteService.getListadoClientes();
 	}
-	
-	/*@GetMapping( "/crearCliente" )
-	public @ResponseBody AccionRespuesta getCrearCliente( Model model, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}*/
 	
 	@GetMapping( "/editarCliente/{clienteId}" )
 	public @ResponseBody AccionRespuesta getEditarCliente(  @PathVariable Long clienteId, Usuario user ) throws Exception {
@@ -54,8 +50,23 @@ public class ClienteController {
 		return this.clienteService.getCliente(clienteId, user);
 	}
 	
-	@PostMapping( { "/crearCliente", "/editarCliente" } ) /*/{clienteDto}.json */
-	public @ResponseBody AccionRespuesta postCrearCliente(ClienteDto clienteDto, BindingResult result ) {
+	@PostMapping( { "/crearCliente" } )
+	public @ResponseBody AccionRespuesta postCrearCliente(@RequestBody ClienteDto clienteDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.clienteValidator.validate(clienteDto, result);
+		
+		if(	result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.clienteService.getCrearEditarCliente(clienteDto, user);
+	}
+	
+	@GetMapping( "/editarCliente" )
+	public @ResponseBody AccionRespuesta getCrearCliente( @RequestBody ClienteDto clienteDto, BindingResult result ) throws Exception {
 		
 		Usuario user = new Usuario();
 		

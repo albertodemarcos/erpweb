@@ -5,6 +5,8 @@ import {HomeComponent} from 'src/app/components/home/home.component';
 
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 
+import { PruebaListadoJqgridComponent } from './components/listados/prueba-listado-jqgrid/prueba-listado-jqgrid.component';
+
 // LISTADOS
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
 import { ListadoIngresosComponent } from './components/listados/bi/listado-ingresos/listado-ingresos.component';
@@ -44,7 +46,8 @@ const routes: Routes = [
   // RUTAS CRM
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
-  { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} }, // Debe ponerse clientes/cliente/:id
+  { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'prueba', component: PruebaListadoJqgridComponent},
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent },
   // RUTAS BI

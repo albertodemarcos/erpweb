@@ -12,11 +12,12 @@ import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 export class FormularioClienteComponent implements OnInit {
 
   public cliente: Cliente;
+  public tiposClientes: string[];
 
   constructor(private clienteService: ClienteService, private router: Router) {
 
     this.cliente = new Cliente();
-
+    this.tiposClientes = ['PARTICULAR', 'AUTONOMO', 'EMPRESA'];
    }
 
   ngOnInit(): void {
@@ -29,6 +30,11 @@ export class FormularioClienteComponent implements OnInit {
 
     this.clienteService.crearCliente(this.cliente).subscribe( accionRespuesta => {
       console.log('Esta registrado' + accionRespuesta.resultado);
+      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+      // Si el resultado es true, navegamos hasta la vista
+      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+        this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+      }
     });
 
   }

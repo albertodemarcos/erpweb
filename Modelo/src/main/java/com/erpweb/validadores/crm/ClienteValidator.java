@@ -37,15 +37,15 @@ public class ClienteValidator implements Validator {
 			errors.rejectValue("", "", "El campo nombre no puede estar vacio");
 		}
 		
-		if( StringUtils.isBlank( clienteDto.getApellidoPrimero() )  ) {
+		/*if( StringUtils.isBlank( clienteDto.getApellidoPrimero() )  ) {
 			
 			errors.rejectValue("", "", "El campo apellido no puede estar vacio");
-		}
+		}*/
 		
-		if( StringUtils.isBlank( clienteDto.getApellidoSegundo() )  ) {
+		/*if( StringUtils.isBlank( clienteDto.getApellidoSegundo() )  ) {
 			
 			errors.rejectValue("", "", "El campo segundo apellido no puede estar vacio");
-		}
+		}*/
 		if( StringUtils.isBlank( clienteDto.getNif() )  ) {
 			
 			errors.rejectValue("", "", "El DNI no puede estar vacio");
@@ -61,15 +61,15 @@ public class ClienteValidator implements Validator {
 			errors.rejectValue("", "", "El campo dirección no puede estar vacio");
 		}
 		
-		if( StringUtils.isBlank( clienteDto.getEdificio() )  ) {
+		/*if( StringUtils.isBlank( clienteDto.getEdificio() )  ) {
 			
 			errors.rejectValue("", "", "El campo edificio no puede estar vacio");
-		}
+		}*/
 		
-		if( StringUtils.isBlank( clienteDto.getObservaciones() )  ) {
+		/*if( StringUtils.isBlank( clienteDto.getObservaciones() )  ) {
 			
 			errors.rejectValue("", "", "El campo observaciones no puede estar vacio");
-		}
+		}*/
 		
 		if( StringUtils.isBlank( clienteDto.getTelefono() )  ) {
 			
@@ -91,7 +91,7 @@ public class ClienteValidator implements Validator {
 			errors.rejectValue("", "", "Debe elegir la poblacion");
 		}
 		
-		if( clienteDto.getTipoCliente() != null  ) {
+		if( clienteDto.getTipoCliente() == null ) {
 			
 			errors.rejectValue("", "", "Debe elegir el tipo de cliente");
 		}

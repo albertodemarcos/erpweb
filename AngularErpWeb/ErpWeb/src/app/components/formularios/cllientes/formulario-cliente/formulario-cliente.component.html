@@ -50,7 +50,12 @@
             <div class="form-group row">
                 <label for="tipoCliente" class="col-form-label col-sm-2">Tipo de cliente</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.tipoCliente" name="tipoCliente">
+                    <p>
+                        <select name="tipoCliente" title="" [(ngModel)]="cliente.tipoCliente">
+                            <option disabled="true"  selected >Selecciona tipo cliente</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposClientes">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 
