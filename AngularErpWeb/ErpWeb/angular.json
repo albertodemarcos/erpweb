@@ -43,7 +43,8 @@
                             "node_modules/free-jqgrid/js/grid.import.js",
                             "node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js",
                             "node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js",
-                            "node_modules/tableexport.jquery.plugin/tableExport.min.js"
+                            "node_modules/tableexport.jquery.plugin/tableExport.min.js",
+                            "node_modules/jquery-ui/ui/widgets/datepicker.js"
                         ]
                     },
                     "configurations": {

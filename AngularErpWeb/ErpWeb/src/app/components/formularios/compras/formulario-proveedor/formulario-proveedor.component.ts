@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Proveedor } from 'src/app/model/entitys/proveedor.model';
 
 @Component({

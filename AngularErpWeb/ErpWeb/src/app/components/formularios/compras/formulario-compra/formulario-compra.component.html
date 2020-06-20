@@ -19,7 +19,7 @@
             <div class="form-group row">
                 <label for="fechaCompra" class="col-form-label col-sm-2">Fecha compra</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="compra.fechaCompra" name="fechaCompra">
+                    <input type="text" id="fechaCompraDatePicker" class="form-control" [(ngModel)]="compra.fechaCompra" name="fechaCompra">
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
             <div class="form-group row">
                 <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="compra.cantidad" name="cantidad">
+                    <input type="number" class="form-control" [(ngModel)]="compra.cantidad" name="cantidad">
                 </div>
             </div>
 
