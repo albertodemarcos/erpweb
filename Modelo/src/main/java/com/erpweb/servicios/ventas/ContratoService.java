@@ -79,16 +79,16 @@ public class ContratoService {
 			//Guardamos el contrato en base de datos
 			contratoRepository.save(contrato);
 			
+			return this.devolverDatosActualizadosContratoDto(contratoDto, contrato);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarContrato(Contrato contrato) {
@@ -286,6 +286,42 @@ public class ContratoService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosContratoDto(ContratoDto contratoDto, Contrato contratoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(contratoSave != null && contratoDto != null) {
+			
+			respuesta.setId(contratoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("contratoDto", contratoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("contratoDto", contratoDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<ContratoDto> obtieneListadoContratoDtoDelRepository(List<Contrato> contratos){

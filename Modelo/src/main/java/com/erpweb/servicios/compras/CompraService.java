@@ -78,7 +78,7 @@ public class CompraService {
 			//Actualizamos la compra en base de datos
 			compraRepository.save(compra);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosCompraDto(compraDto, compra);
 			
 		}catch(Exception e) {
 			
@@ -284,6 +284,42 @@ public class CompraService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosCompraDto(CompraDto compraDto, Compra compraSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(compraDto != null && compraSave != null) {
+			
+			respuesta.setId(compraSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("compraDto", compraDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("compraDto", compraDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<CompraDto> obtieneListadoCompraDtoDelRepository(List<Compra> compras){

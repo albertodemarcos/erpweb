@@ -82,7 +82,7 @@ public class FacturaService {
 			//Guardamos la factura en base de datos
 			facturaRepository.save(factura);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosFacturaDto(facturaDto, factura);
 			
 		}catch(Exception e) {
 			
@@ -90,7 +90,7 @@ public class FacturaService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 	}
 	
@@ -290,6 +290,42 @@ public class FacturaService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosFacturaDto(FacturaDto facturaDto, Factura facturaSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(facturaSave != null && facturaDto != null) {
+			
+			respuesta.setId(facturaSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("facturaDto", facturaDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("facturaDto", facturaDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<FacturaDto> obtieneListadoFacturaDtoDelRepository(List<Factura> facturas){

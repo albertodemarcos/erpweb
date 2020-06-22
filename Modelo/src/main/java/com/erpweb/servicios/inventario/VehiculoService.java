@@ -63,7 +63,7 @@ public class VehiculoService {
 	
 	public AccionRespuesta actualizarVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
+		logger.debug("Entramos en el metodo actualizarVehiculoDesdeVehiculoDto() con ID={}", vehiculoDto.getId() );
 		
 		Vehiculo vehiculo = new Vehiculo();
 
@@ -81,15 +81,15 @@ public class VehiculoService {
 			//Guardamos el vehiculo en base de datos
 			vehiculoRepository.save(vehiculo);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosVehiculoDto(vehiculoDto, vehiculo);
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
+			logger.error("Error en el metodo actualizarVehiculoDesdeVehiculoDto() con ID={}", vehiculoDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 	}
 	
@@ -286,6 +286,42 @@ public class VehiculoService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosVehiculoDto(VehiculoDto vehiculoDto, Vehiculo vehiculoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(vehiculoSave != null && vehiculoDto != null) {
+			
+			respuesta.setId(vehiculoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("vehiculoDto", vehiculoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("vehiculoDto", vehiculoDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<VehiculoDto> obtieneListadoVehiculoDtoDelRepository(List<Vehiculo> vehiculos){

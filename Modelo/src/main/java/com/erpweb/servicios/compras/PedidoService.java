@@ -76,7 +76,7 @@ public class PedidoService {
 			//Actualizamos el pedido en base de datos
 			pedidoRepository.save(pedido);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosPedidoDto(pedidoDto, pedido);
 			
 		}catch(Exception e) {
 			
@@ -277,6 +277,42 @@ public class PedidoService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosPedidoDto(PedidoDto pedidoDto, Pedido pedidoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(pedidoDto != null && pedidoSave != null) {
+			
+			respuesta.setId(pedidoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("pedidoDto", pedidoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("pedidoDto", pedidoDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<PedidoDto> obtieneListadoPedidoDtoDelRepository(List<Pedido> pedidos){

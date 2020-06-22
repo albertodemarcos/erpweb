@@ -79,16 +79,16 @@ public class VentaService {
 			//Guardamos la venta en base de datos
 			ventaRepository.save(venta);
 			
+			return this.devolverDatosActualizadosVentaDto(ventaDto, venta);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarVentaDesdeVentaDto() con ID={}", ventaDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarVenta(Venta venta) {
@@ -285,6 +285,42 @@ public class VentaService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosVentaDto(VentaDto ventaDto, Venta ventaSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(ventaSave != null && ventaDto != null) {
+			
+			respuesta.setId(ventaSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("ventaDto", ventaDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("ventaDto", ventaDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<VentaDto> obtieneListadoVentaDtoDelRepository(List<Venta> ventas){

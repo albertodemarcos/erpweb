@@ -86,7 +86,7 @@ public class AlmacenService {
 			//Guardamos el almacen en base de datos
 			almacenRepository.save(almacen);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosAlmacenDto(almacenDto, almacen);
 			
 		}catch(Exception e) {
 			
@@ -94,7 +94,7 @@ public class AlmacenService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 	}
 	
@@ -295,6 +295,42 @@ public class AlmacenService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosAlmacenDto(AlmacenDto almacenDto, Almacen almacenSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(almacenSave != null && almacenDto != null) {
+			
+			respuesta.setId(almacenSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("almacenDto", almacenDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("almacenDto", almacenDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 
 	private List<AlmacenDto> obtieneListadoAlmacenDtoDelRepository(List<Almacen> almacenes){

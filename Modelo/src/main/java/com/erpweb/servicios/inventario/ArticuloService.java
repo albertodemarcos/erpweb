@@ -65,7 +65,6 @@ public class ArticuloService {
 		
 		Articulo articulo = new Articulo();
 		
-		
 		articulo.setId(articuloDto.getId());
 		articulo.setCodigo(articuloDto.getCodigo());
 		articulo.setNombre(articuloDto.getNombre());
@@ -78,16 +77,16 @@ public class ArticuloService {
 			//Guardamos el articulo en base de datos
 			articuloRepository.save(articulo);
 			
+			return this.devolverDatosActualizadosArticuloDto(articuloDto, articulo);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarArticuloDesdeArticuloDto() con ID={}", articuloDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarArticulo(Articulo articulo) {
@@ -283,6 +282,42 @@ public class ArticuloService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosArticuloDto(ArticuloDto articuloDto, Articulo articuloSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(articuloSave != null && articuloDto != null) {
+			
+			respuesta.setId(articuloSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("articuloDto", articuloDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("articuloDto", articuloDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<ArticuloDto> obtieneListadoArticuloDtoDelRepository(List<Articulo> articulos){

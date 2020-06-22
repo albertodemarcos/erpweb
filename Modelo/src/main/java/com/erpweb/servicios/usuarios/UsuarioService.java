@@ -68,7 +68,7 @@ public class UsuarioService {
 			//Guardamos el usuario en base de datos
 			usuarioRepository.save(usuario);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosUsuarioDto(usuarioDto, usuario);
 			
 		}catch(Exception e) {
 			
@@ -250,6 +250,42 @@ public class UsuarioService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosUsuarioDto(UsuarioDto usuarioDto, Usuario usuarioSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(usuarioSave != null && usuarioDto != null) {
+			
+			respuesta.setId(usuarioSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("usuarioDto", usuarioDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("usuarioDto", usuarioDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 
 }

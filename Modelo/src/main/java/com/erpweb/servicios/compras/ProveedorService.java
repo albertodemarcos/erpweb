@@ -72,6 +72,8 @@ public class ProveedorService {
 		try {
 			//Actualizamos el proveedor en base de datos
 			proveedorRepository.save(proveedor);
+
+			return this.devolverDatosActualizadosProveedorDto(proveedorDto, proveedor);
 			
 		}catch(Exception e) {
 			
@@ -81,8 +83,6 @@ public class ProveedorService {
 			
 			return new AccionRespuesta();
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarProveedor(Proveedor proveedor) {
@@ -274,6 +274,42 @@ public class ProveedorService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosProveedorDto(ProveedorDto proveedorDto, Proveedor proveedorSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(proveedorDto != null && proveedorSave != null) {
+			
+			respuesta.setId(proveedorSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("proveedorDto", proveedorDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("proveedorDto", proveedorDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<ProveedorDto> obtieneListadoProveedorDtoDelRepository(List<Proveedor> proveedores){

@@ -94,7 +94,7 @@ public class ClienteService {
 			//Guardamos el cliente
 			clienteRepository.save(cliente);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosClienteDto(clienteDto, cliente);
 			
 		}catch(Exception e) {
 			
@@ -309,6 +309,42 @@ public class ClienteService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosClienteDto(ClienteDto clienteDto, Cliente clienteSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(clienteSave != null && clienteDto != null) {
+			
+			respuesta.setId(clienteSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("clienteDto", clienteDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("clienteDto", clienteDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<ClienteDto> obtieneListadoClienteDtoDelRepository(List<Cliente> clientes){

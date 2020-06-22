@@ -97,7 +97,7 @@ public class EmpleadoService {
 			//Guardamos el empleado
 			empleadoRepository.save(empleado);
 			
-			return new AccionRespuesta();
+			return this.devolverDatosActualizadosEmpleadoDto(empleadoDto, empleado);
 			
 		}catch(Exception e) {
 			
@@ -105,7 +105,7 @@ public class EmpleadoService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 	}
 	
@@ -312,6 +312,42 @@ public class EmpleadoService {
 		}
 		
 		return respuesta;
+	}
+	
+	private AccionRespuesta devolverDatosActualizadosEmpleadoDto(EmpleadoDto empleadoDto, Empleado empleadoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		if(empleadoSave != null && empleadoDto != null) {
+			
+			respuesta.setId(empleadoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("empleadoDto", empleadoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setId(-1L);
+			
+			respuesta.setCodigo("NOK");
+			
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("empleadoDto", empleadoDto);
+			
+			respuesta.setData(data);			
+		}
+		
+		return respuesta;		
 	}
 	
 	private List<EmpleadoDto> obtieneListadoEmpleadoDtoDelRepository(List<Empleado> empleados){
