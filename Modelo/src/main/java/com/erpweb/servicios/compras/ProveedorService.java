@@ -44,16 +44,16 @@ public class ProveedorService {
 			//Guardamos el proveedor en base de datos
 			proveedorRepository.save(proveedor);
 			
+			return this.devolverDatosProveedorDto(proveedorDto, proveedor);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearProveedorDesdeProveedorDto() con ID={}", proveedorDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarProveedorDesdeProveedorDto(ProveedorDto proveedorDto) {
@@ -237,6 +237,43 @@ public class ProveedorService {
 			
 			return this.crearProveedorDesdeProveedorDto(proveedorDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosProveedorDto(ProveedorDto proveedorDto, Proveedor proveedorSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(proveedorSave != null && proveedorSave.getId() != null) {
+			
+			proveedorDto.setId(proveedorSave.getId());
+			
+			respuesta.setId(proveedorSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("proveedorDto", proveedorDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("proveedorDto", proveedorDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<ProveedorDto> obtieneListadoProveedorDtoDelRepository(List<Proveedor> proveedores){

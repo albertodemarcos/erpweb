@@ -73,7 +73,6 @@ public class ClienteService {
 		
 		Cliente cliente = new Cliente();
 		
-		
 		cliente.setId(clienteDto.getId());
 		cliente.setCodigo(clienteDto.getCodigo());
 		cliente.setNombre(clienteDto.getNombre());
@@ -95,6 +94,8 @@ public class ClienteService {
 			//Guardamos el cliente
 			clienteRepository.save(cliente);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarClienteDesdeClienteDto() con ID={}", clienteDto.getId() );
@@ -103,8 +104,6 @@ public class ClienteService {
 			
 			return new AccionRespuesta();
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarCliente(Cliente cliente) {

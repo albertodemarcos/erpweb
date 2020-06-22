@@ -46,16 +46,16 @@ public class CompraService {
 			//Guardamos la compra en base de datos
 			compraRepository.save(compra);
 			
+			return this.devolverDatosCompraDto(compraDto, compra);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 			
 			e.printStackTrace();
 						
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarCompraDesdeCompraDto(CompraDto compraDto) {
@@ -78,6 +78,8 @@ public class CompraService {
 			//Actualizamos la compra en base de datos
 			compraRepository.save(compra);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarCompraDesdeCompraDto() con ID={}", compraDto.getId() );
@@ -86,8 +88,6 @@ public class CompraService {
 			
 			return new AccionRespuesta();
 		}
-				
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarCompra(Compra compra) {
@@ -247,6 +247,43 @@ public class CompraService {
 			
 			return this.crearCompraDesdeCompraDto(compraDto);
 		}
+	}
+
+	private AccionRespuesta devolverDatosCompraDto(CompraDto compraDto, Compra compraSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(compraSave != null && compraSave.getId() != null) {
+			
+			compraDto.setId(compraSave.getId());
+			
+			respuesta.setId(compraSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("compraDto", compraDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("compraDto", compraDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<CompraDto> obtieneListadoCompraDtoDelRepository(List<Compra> compras){

@@ -51,16 +51,16 @@ public class AlmacenService {
 			//Guardamos el almacen en base de datos
 			almacenRepository.save(almacen);
 			
+			return this.devolverDatosAlmacenDto(almacenDto, almacen);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearAlmacenDesdeAlmacenDto() con ID={}", almacenDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarAlmacenDesdeAlmacenDto(AlmacenDto almacenDto) {
@@ -86,6 +86,8 @@ public class AlmacenService {
 			//Guardamos el almacen en base de datos
 			almacenRepository.save(almacen);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarAlmacenDesdeAlmacenDto() con ID={}", almacenDto.getId() );
@@ -94,8 +96,6 @@ public class AlmacenService {
 			
 			return new AccionRespuesta();
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarAlmacen(Almacen almacen) {
@@ -258,6 +258,43 @@ public class AlmacenService {
 			
 			return this.crearAlmacenDesdeAlmacenDto(almacenDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosAlmacenDto(AlmacenDto almacenDto, Almacen almacenSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(almacenSave != null && almacenSave.getId() != null) {
+			
+			almacenDto.setId(almacenSave.getId());
+			
+			respuesta.setId(almacenSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("almacenDto", almacenDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("almacenDto", almacenDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 
 	private List<AlmacenDto> obtieneListadoAlmacenDtoDelRepository(List<Almacen> almacenes){

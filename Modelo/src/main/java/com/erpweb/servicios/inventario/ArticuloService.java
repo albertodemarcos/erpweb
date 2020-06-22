@@ -47,16 +47,16 @@ public class ArticuloService {
 			//Guardamos el articulo en base de datos
 			articuloRepository.save(articulo);
 			
+			return this.devolverDatosArticuloDto(articuloDto, articulo);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearArticuloDesdeArticuloDto() con ID={}", articuloDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarArticuloDesdeArticuloDto(ArticuloDto articuloDto) {
@@ -246,6 +246,43 @@ public class ArticuloService {
 			
 			return this.crearArticuloDesdeArticuloDto(articuloDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosArticuloDto(ArticuloDto articuloDto, Articulo articuloSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(articuloSave != null && articuloSave.getId() != null) {
+			
+			articuloDto.setId(articuloSave.getId());
+			
+			respuesta.setId(articuloSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("articuloDto", articuloDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("articuloDto", articuloDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<ArticuloDto> obtieneListadoArticuloDtoDelRepository(List<Articulo> articulos){

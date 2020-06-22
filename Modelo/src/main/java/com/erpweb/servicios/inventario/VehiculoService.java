@@ -49,16 +49,16 @@ public class VehiculoService {
 			//Guardamos el vehiculo en base de datos
 			vehiculoRepository.save(vehiculo);
 			
+			return this.devolverDatosVehiculoDto(vehiculoDto, vehiculo);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
@@ -81,6 +81,8 @@ public class VehiculoService {
 			//Guardamos el vehiculo en base de datos
 			vehiculoRepository.save(vehiculo);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
@@ -89,8 +91,6 @@ public class VehiculoService {
 			
 			return new AccionRespuesta();
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarVehiculo(Vehiculo vehiculo) {
@@ -249,6 +249,43 @@ public class VehiculoService {
 			
 			return this.crearVehiculoDesdeVehiculoDto(vehiculoDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosVehiculoDto(VehiculoDto vehiculoDto, Vehiculo vehiculoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(vehiculoSave != null && vehiculoSave.getId() != null) {
+			
+			vehiculoDto.setId(vehiculoSave.getId());
+			
+			respuesta.setId(vehiculoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("vehiculoDto", vehiculoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("vehiculoDto", vehiculoDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<VehiculoDto> obtieneListadoVehiculoDtoDelRepository(List<Vehiculo> vehiculos){

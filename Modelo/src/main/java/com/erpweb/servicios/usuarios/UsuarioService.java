@@ -39,16 +39,16 @@ public class UsuarioService {
 			//Guardamos el usuario en base de datos
 			usuarioRepository.save(usuario);
 			
+			return this.devolverDatosUsuarioDto(usuarioDto, usuario);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearUsuarioDesdeUsuarioDto() con ID={}", usuarioDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
@@ -68,16 +68,16 @@ public class UsuarioService {
 			//Guardamos el usuario en base de datos
 			usuarioRepository.save(usuario);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarUsuarioDesdeUsuarioDto() con ID={}", usuarioDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarUsuario(Usuario usuario) {
@@ -213,6 +213,43 @@ public class UsuarioService {
 			
 			return this.crearUsuarioDesdeUsuarioDto(usuarioDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosUsuarioDto(UsuarioDto usuarioDto, Usuario usuarioSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(usuarioSave != null && usuarioSave.getId() != null) {
+			
+			usuarioDto.setId(usuarioSave.getId());
+			
+			respuesta.setId(usuarioSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("usuarioDto", usuarioDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("usuarioDto", usuarioDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 
 }

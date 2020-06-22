@@ -44,16 +44,16 @@ public class PedidoService {
 			//Guardamos el pedido en base de datos
 			pedidoRepository.save(pedido);
 			
+			return this.devolverDatosPedidoDto(pedidoDto, pedido);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearPedidoDesdePedidoDto() con ID={}", pedidoDto.getId() );
 			
 			e.printStackTrace();
 						
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarPedidoDesdePedidoDto(PedidoDto pedidoDto) {
@@ -76,6 +76,8 @@ public class PedidoService {
 			//Actualizamos el pedido en base de datos
 			pedidoRepository.save(pedido);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarPedidoDesdePedidoDto() con ID={}", pedidoDto.getId() );
@@ -84,8 +86,6 @@ public class PedidoService {
 			
 			return new AccionRespuesta();
 		}
-				
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarPedido(Pedido pedido) {
@@ -240,6 +240,43 @@ public class PedidoService {
 			
 			return this.crearPedidoDesdePedidoDto(pedidoDto);
 		}
+	}
+
+	private AccionRespuesta devolverDatosPedidoDto(PedidoDto pedidoDto, Pedido pedidoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(pedidoSave != null && pedidoSave.getId() != null) {
+			
+			pedidoDto.setId(pedidoSave.getId());
+			
+			respuesta.setId(pedidoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("pedidoDto", pedidoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("pedidoDto", pedidoDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<PedidoDto> obtieneListadoPedidoDtoDelRepository(List<Pedido> pedidos){

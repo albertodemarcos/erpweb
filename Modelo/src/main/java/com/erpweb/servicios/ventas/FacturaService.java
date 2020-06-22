@@ -49,16 +49,16 @@ public class FacturaService {
 			//Guardamos la factura en base de datos
 			facturaRepository.save(factura);
 			
+			return this.devolverDatosFacturaDto(facturaDto, factura);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarFacturaDesdeFacturaDto(FacturaDto facturaDto) {
@@ -82,6 +82,8 @@ public class FacturaService {
 			//Guardamos la factura en base de datos
 			facturaRepository.save(factura);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo actualizarFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
@@ -90,8 +92,6 @@ public class FacturaService {
 			
 			return new AccionRespuesta();
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarFactura(Factura factura) {
@@ -253,6 +253,43 @@ public class FacturaService {
 			
 			return this.crearFacturaDesdeFacturaDto(facturaDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosFacturaDto(FacturaDto facturaDto, Factura facturaSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(facturaSave != null && facturaSave.getId() != null) {
+			
+			facturaDto.setId(facturaSave.getId());
+			
+			respuesta.setId(facturaSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("facturaDto", facturaDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("facturaDto", facturaDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<FacturaDto> obtieneListadoFacturaDtoDelRepository(List<Factura> facturas){

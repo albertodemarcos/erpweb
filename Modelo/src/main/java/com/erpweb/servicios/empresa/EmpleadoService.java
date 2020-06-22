@@ -56,16 +56,16 @@ public class EmpleadoService {
 			//Guardamos el empleado
 			empleadoRepository.save(empleado);
 			
+			return this.devolverDatosEmpleadoDto(empleadoDto, empleado);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con ID={}", empleadoDto.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarEmpleadoDesdeEmpleadoDto(EmpleadoDto empleadoDto) {
@@ -97,6 +97,8 @@ public class EmpleadoService {
 			//Guardamos el empleado
 			empleadoRepository.save(empleado);
 			
+			return new AccionRespuesta();
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con ID={}", empleadoDto.getId() );
@@ -105,8 +107,6 @@ public class EmpleadoService {
 			
 			return new AccionRespuesta();
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarEmpleado(Empleado empleado) {
@@ -275,6 +275,43 @@ public class EmpleadoService {
 			
 			return this.crearEmpleadoDesdeEmpleadoDto(empleadoDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosEmpleadoDto(EmpleadoDto empleadoDto, Empleado empleadoSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(empleadoSave != null && empleadoSave.getId() != null) {
+			
+			empleadoDto.setId(empleadoSave.getId());
+			
+			respuesta.setId(empleadoSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("empleadoDto", empleadoDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("empleadoDto", empleadoDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 	private List<EmpleadoDto> obtieneListadoEmpleadoDtoDelRepository(List<Empleado> empleados){

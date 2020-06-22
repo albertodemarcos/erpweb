@@ -45,16 +45,16 @@ public class EmpresaService {
 			//Guardamos la empresa en base de datos
 			empresaRepository.save(empresa);
 			
+			return this.devolverDatosEmpresaDto(empresaDto, empresa);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error al guardar la empresa" + empresaDto.getNombre() + " en base de datos: " + e.getLocalizedMessage() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta actualizarEmpresaDesdeEmpresaDto(EmpresaDto empresaDto) {
@@ -221,6 +221,43 @@ public class EmpresaService {
 			
 			return this.crearEmpresaDesdeEmpresaDto(EmpresaDto);
 		}
+	}
+	
+	private AccionRespuesta devolverDatosEmpresaDto(EmpresaDto empresaDto, Empresa empresaSave) {
+		
+		AccionRespuesta respuesta = new AccionRespuesta();
+		
+		//Guardado el cliente se devuelve en su dto
+		if(empresaSave != null && empresaSave.getId() != null) {
+			
+			empresaDto.setId(empresaSave.getId());
+			
+			respuesta.setId(empresaSave.getId());
+			
+			respuesta.setCodigo("OK");
+						
+			respuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("empresaDto", empresaDto);
+			
+			respuesta.setData(data);
+			
+		}else {
+			
+			respuesta.setCodigo("NOK");
+						
+			respuesta.setResultado(Boolean.FALSE);
+			
+			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			data.put("empresaDto", empresaDto);
+			
+			respuesta.setData(data);
+		}
+		
+		return respuesta;
 	}
 	
 }
