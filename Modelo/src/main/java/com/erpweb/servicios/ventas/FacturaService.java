@@ -96,11 +96,13 @@ public class FacturaService {
 	
 	public AccionRespuesta eliminarFactura(Factura factura) {
 		
-		logger.debug("Entramos en el metodo eliminarFactura() con ID={}", factura.getId() );
+		logger.debug("Entramos en el metodo eliminarFactura()" );
 		
 		if(factura == null || factura.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarFactura()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
@@ -108,26 +110,35 @@ public class FacturaService {
 			//Elimnamos la factura
 			facturaRepository.deleteById(factura.getId());
 			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarFactura() con ID={}", factura.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarFacturaPorId(Long facturaId) {
 		
-		logger.error("Entramos en el metodo eliminarFacturaPorId() con id={}", facturaId );
-				
+		logger.error("Entramos en el metodo eliminarFacturaPorId()" );
+		
+		if( facturaId == null) {
+			
+			logger.error("ERROR en el metodo eliminarFacturaPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+		
 		try {
 			
 			//Elimnamos la factura
 			facturaRepository.deleteById(facturaId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -135,11 +146,8 @@ public class FacturaService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		
-		return new AccionRespuesta();
 	}
 	
 	public FacturaDto obtenerFacturaDtoDesdeFactura(Long id) {

@@ -91,12 +91,16 @@ public class EmpresaService {
 		
 		if(empresa == null || empresa.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarEmpresa()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
 			//Elimnamos la empresa
 			empresaRepository.deleteById(empresa.getId());
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -104,20 +108,27 @@ public class EmpresaService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarEmpresaPorId(Long empresaId) {
 		
-		logger.error("Entramos en el metodo eliminarEmpresaPorId() con id={}", empresaId );
-				
+		logger.error("Entramos en el metodo eliminarEmpresaPorId()" );
+			
+		if( empresaId == null) {
+			
+			logger.error("ERROR en el metodo eliminarEmpresaPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+		
 		try {
 			
 			//Elimnamos la empresa
 			empresaRepository.deleteById(empresaId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -125,10 +136,8 @@ public class EmpresaService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public EmpresaDto obtenerEmpresaDtoDesdeEmpresa(Long id) {

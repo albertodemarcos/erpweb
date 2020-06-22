@@ -100,16 +100,20 @@ public class AlmacenService {
 	
 	public AccionRespuesta eliminarAlmacen(Almacen almacen) {
 		
-		logger.debug("Entramos en el metodo eliminarAlmacen() con ID={}", almacen.getId() );
+		logger.debug("Entramos en el metodo eliminarAlmacen()" );
 		
 		if(almacen == null || almacen.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarAlmacen()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
 			//Elimnamos el almacen
 			almacenRepository.deleteById(almacen.getId());
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -117,20 +121,27 @@ public class AlmacenService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarAlmacenPorId(Long almacenId) {
 		
-		logger.error("Entramos en el metodo eliminarAlmacenPorId() con id={}", almacenId );
+		logger.error("Entramos en el metodo eliminarAlmacenPorId()" );
+		
+		if( almacenId == null) {
+			
+			logger.error("ERROR en el metodo eliminarAlmacenPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
 				
 		try {
 			
 			//Elimnamos el almacen
 			almacenRepository.deleteById(almacenId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -138,10 +149,8 @@ public class AlmacenService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AlmacenDto obtenerAlmacenDtoDesdeAlmacen(Long id ) {

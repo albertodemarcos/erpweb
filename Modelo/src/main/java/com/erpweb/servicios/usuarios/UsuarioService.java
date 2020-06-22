@@ -86,12 +86,16 @@ public class UsuarioService {
 		
 		if(usuario == null || usuario.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarUsuario()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
 			//Elimnamos el usuario
 			usuarioRepository.deleteById(usuario.getId());
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -99,20 +103,27 @@ public class UsuarioService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarUsuarioPorId(Long usuarioId) {
 		
-		logger.error("Entramos en el metodo eliminarUsuarioPorId() con ID={}", usuarioId );
-				
+		logger.error("Entramos en el metodo eliminarUsuarioPorId()" );
+		
+		if( usuarioId == null) {
+			
+			logger.error("ERROR en el metodo eliminarUsuarioPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+		
 		try {
 			
 			//Elimnamos el usuario
 			usuarioRepository.deleteById(usuarioId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -120,10 +131,8 @@ public class UsuarioService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id) {

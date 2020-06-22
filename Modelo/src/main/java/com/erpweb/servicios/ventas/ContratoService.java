@@ -93,11 +93,13 @@ public class ContratoService {
 	
 	public AccionRespuesta eliminarContrato(Contrato contrato) {
 		
-		logger.debug("Entramos en el metodo eliminarContrato() con ID={}", contrato.getId() );
+		logger.debug("Entramos en el metodo eliminarContrato()" );
 		
 		if(contrato == null || contrato.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarContrato()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
@@ -105,26 +107,35 @@ public class ContratoService {
 			//Elimnamos el contrato
 			contratoRepository.deleteById(contrato.getId());
 			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarContrato() con ID={}", contrato.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarContratoPorId(Long contratoId) {
 		
-		logger.error("Entramos en el metodo eliminarContratoPorId() con id={}", contratoId );
-				
+		logger.error("Entramos en el metodo eliminarContratoPorId()" );
+		
+		if( contratoId == null) {
+			
+			logger.error("ERROR en el metodo eliminarContratoPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+		
 		try {
 			
 			//Elimnamos el contrato
 			contratoRepository.deleteById(contratoId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -132,11 +143,8 @@ public class ContratoService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		
-		return new AccionRespuesta();
 	}
 	
 	public ContratoDto obtenerContratoDtoDesdeContrato(Long id ) {

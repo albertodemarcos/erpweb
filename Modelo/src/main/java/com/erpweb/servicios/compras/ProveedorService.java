@@ -87,16 +87,20 @@ public class ProveedorService {
 	
 	public AccionRespuesta eliminarProveedor(Proveedor proveedor) {
 		
-		logger.debug("Entramos en el metodo eliminarProveedor() con ID={}", proveedor.getId() );
+		logger.debug("Entramos en el metodo eliminarProveedor()" );
 		
 		if(proveedor == null || proveedor.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarProveedor()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
 			//Elimnamos el proveedor
 			proveedorRepository.deleteById(proveedor.getId());
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -104,19 +108,26 @@ public class ProveedorService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarProveedorPorId(Long proveedorId) {
 		
-		logger.error("Entramos en el metodo eliminarProveedorPorId() con id={}", proveedorId );
+		logger.error("Entramos en el metodo eliminarProveedorPorId()" );
+		
+		if(proveedorId == null) {
+			
+			logger.error("ERROR en el metodo eliminarProveedorPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
 				
 		try {
 			//Elimnamos el proveedor
 			proveedorRepository.deleteById(proveedorId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -124,10 +135,8 @@ public class ProveedorService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public ProveedorDto obtenerProveedorDtoDesdeProveedor(Long id) {

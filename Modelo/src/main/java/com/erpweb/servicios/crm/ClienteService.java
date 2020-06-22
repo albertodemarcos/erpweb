@@ -108,11 +108,13 @@ public class ClienteService {
 	
 	public AccionRespuesta eliminarCliente(Cliente cliente) {
 		
-		logger.debug("Entramos en el metodo eliminarCliente() con ID={}", cliente.getId() );
+		logger.debug("Entramos en el metodo eliminarCliente()" );
 		
 		if(cliente == null || cliente.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarCliente()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
@@ -120,26 +122,35 @@ public class ClienteService {
 			//Eliminamos el cliente
 			clienteRepository.deleteById(cliente.getId());
 			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarCliente() con ID={}", cliente.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarClientePorId(Long clienteId) {
 		
-		logger.error("Entramos en el metodo eliminarClientePorId() con id={}", clienteId );
+		logger.error("Entramos en el metodo eliminarClientePorId()" );
+		
+		if( clienteId == null) {
+			
+			logger.error("ERROR en el metodo eliminarClientePorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
 				
 		try {
 			
 			//Elimnamos el cliente
 			clienteRepository.deleteById(clienteId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -147,11 +158,8 @@ public class ClienteService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		
-		return new AccionRespuesta();
 	}
 	
 	public ClienteDto obtenerClienteDtoDesdeCliente(Long id) {

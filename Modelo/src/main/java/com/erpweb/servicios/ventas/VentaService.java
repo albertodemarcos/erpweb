@@ -93,11 +93,13 @@ public class VentaService {
 	
 	public AccionRespuesta eliminarVenta(Venta venta) {
 		
-		logger.debug("Entramos en el metodo eliminarVenta() con ID={}", venta.getId() );
+		logger.debug("Entramos en el metodo eliminarVenta()" );
 		
 		if(venta == null || venta.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarVenta()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
@@ -105,26 +107,35 @@ public class VentaService {
 			//Elimnamos la venta
 			ventaRepository.deleteById(venta.getId());
 			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarVenta() con ID={}", venta.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarVentaPorId(Long ventaId) {
 		
-		logger.error("Entramos en el metodo eliminarVentaPorId() con id={}", ventaId );
-				
+		logger.error("Entramos en el metodo eliminarVentaPorId()" );
+		
+		if( ventaId == null) {
+			
+			logger.error("ERROR en el metodo eliminarVentaPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+		
 		try {
 			
 			//Elimnamos la venta
 			ventaRepository.deleteById(ventaId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -132,10 +143,8 @@ public class VentaService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public VentaDto obtenerVentaDtoDesdeVenta(Long id) {

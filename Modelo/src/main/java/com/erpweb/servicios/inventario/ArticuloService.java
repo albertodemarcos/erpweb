@@ -91,16 +91,20 @@ public class ArticuloService {
 	
 	public AccionRespuesta eliminarArticulo(Articulo articulo) {
 		
-		logger.debug("Entramos en el metodo eliminarArticulo() con la empresa={}", articulo.getId() );
+		logger.debug("Entramos en el metodo eliminarArticulo()" );
 		
 		if(articulo == null || articulo.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarArticulo()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
 			//Elimnamos el articulo
 			articuloRepository.deleteById(articulo.getId());
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -108,20 +112,27 @@ public class ArticuloService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarArticuloPorId(Long articuloId) {
 		
-		logger.error("Entramos en el metodo eliminarArticuloPorId() con id={}", articuloId );
+		logger.error("Entramos en el metodo eliminarArticuloPorId()" );
+		
+		if( articuloId == null) {
+			
+			logger.error("ERROR en el metodo eliminarArticuloPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
 				
 		try {
 			
 			//Elimnamos el articulo
 			articuloRepository.deleteById(articuloId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -129,11 +140,8 @@ public class ArticuloService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		
-		return new AccionRespuesta();
 	}
 	
 	public ArticuloDto obtenerArticuloDtoDesdeArticulo(Long id) {

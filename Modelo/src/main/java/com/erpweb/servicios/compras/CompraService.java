@@ -86,17 +86,19 @@ public class CompraService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 	}
 	
 	public AccionRespuesta eliminarCompra(Compra compra) {
 		
-		logger.debug("Entramos en el metodo eliminarCompra() con ID={}", compra.getId() );
+		logger.debug("Entramos en el metodo eliminarCompra()");
 		
 		if(compra == null || compra.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarCompra()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
@@ -104,26 +106,35 @@ public class CompraService {
 			//Elimnamos la compra
 			compraRepository.deleteById(compra.getId());
 			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo eliminarCompra() con ID={} ", compra.getId() );
 			
 			e.printStackTrace();
 						
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-				
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarCompraPorId(Long compraId) {
 		
-		logger.error("Entramos en el metodo eliminarCompraPorId() con id={}", compraId );
+		logger.error("Entramos en el metodo eliminarCompraPorId()" );
+		
+		if( compraId == null) {
+			
+			logger.error("ERROR en el metodo eliminarCompra()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
 				
 		try {
 			
 			//Elimnamos el compra
 			compraRepository.deleteById(compraId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -131,10 +142,8 @@ public class CompraService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 		
 	public CompraDto obtenerCompraDtoDesdeCompra(Long id) {

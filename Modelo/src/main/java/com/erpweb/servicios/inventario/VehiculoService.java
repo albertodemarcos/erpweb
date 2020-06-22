@@ -95,16 +95,20 @@ public class VehiculoService {
 	
 	public AccionRespuesta eliminarVehiculo(Vehiculo vehiculo) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculo.getId() );
+		logger.debug("Entramos en el metodo eliminarVehiculo() con ID={}", vehiculo.getId() );
 		
 		if(vehiculo == null || vehiculo.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarVehiculo()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
 			//Elimnamos el vehiculo
 			vehiculoRepository.deleteById(vehiculo.getId());
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -112,20 +116,27 @@ public class VehiculoService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarVehiculoPorId(Long vehiculoId) {
 		
-		logger.error("Entramos en el metodo eliminarVehiculoPorId() con id={}", vehiculoId );
-				
+		logger.error("Entramos en el metodo eliminarVehiculoPorId()"  );
+		
+		if( vehiculoId == null) {
+			
+			logger.error("ERROR en el metodo eliminarVehiculoPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+		
 		try {
 			
 			//Elimnamos el vehiculo
 			vehiculoRepository.deleteById(vehiculoId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -133,10 +144,8 @@ public class VehiculoService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public VehiculoDto obtenerVehiculoDtoDesdeVehiculo(Long id) {

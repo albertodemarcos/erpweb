@@ -111,11 +111,13 @@ public class EmpleadoService {
 	
 	public AccionRespuesta eliminarEmpleado(Empleado empleado) {
 		
-		logger.debug("Entramos en el metodo crearempleadoDesdeempleadoDto() con ID={}", empleado.getId() );
+		logger.debug("Entramos en el metodo eliminarEmpleado()" );
 		
 		if(empleado == null || empleado.getId() == null) {
 			
-			return new AccionRespuesta();
+			logger.error("ERROR en el metodo eliminarEmpleado()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		try {
@@ -123,26 +125,36 @@ public class EmpleadoService {
 			//Eliminamos el empleado
 			empleadoRepository.deleteById(empleado.getId());
 			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
+			
 		}catch(Exception e) {
 			
 			logger.error("Error en el metodo crearempleadoDesdeempleadoDto() con ID={} ", empleado.getId() );
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		return new AccionRespuesta();
 	}
 	
 	public AccionRespuesta eliminarEmpleadoPorId(Long empleadoId) {
 		
-		logger.error("Entramos en el metodo eliminarEmpleadoPorId() con ID={}", empleadoId );
+		logger.error("Entramos en el metodo eliminarEmpleadoPorId()" );
+		
+		if( empleadoId == null) {
+			
+			logger.error("ERROR en el metodo eliminarEmpleadoPorId()");
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+		}
+
 				
 		try {
 			
 			//Elimnamos el empleado
 			empleadoRepository.deleteById(empleadoId);
+			
+			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			
 		}catch(Exception e) {
 			
@@ -150,11 +162,8 @@ public class EmpleadoService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
-		
-		
-		return new AccionRespuesta();
 	}
 	
 	public EmpleadoDto obtenerEmpleadoDtoDesdeEmpleado(Long id) {
