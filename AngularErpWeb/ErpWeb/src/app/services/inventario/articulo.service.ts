@@ -17,8 +17,8 @@ export class ArticuloService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearArticulo = '/Articulos/crearArticulo';
-    this.urlListadoArticulos = '/Articulos/listado.json';
+    this.urlCrearArticulo = '/articulos/crearArticulo';
+    this.urlListadoArticulos = '/articulos/listado.json';
   }
 
   // METODOS GENERALES

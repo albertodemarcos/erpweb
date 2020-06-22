@@ -13,13 +13,12 @@ export class EmpresaService {
 
   private urlGeneral: string;
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
-  private urlCrearEmpleado: string;
-  private urlListadoEmpleados: string;
+  private urlCrearEmpresa: string;
+
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearEmpleado = '/clientes/crearCliente';
-    this.urlListadoEmpleados = '/clientes/listado.json';
+    this.urlCrearEmpresa = '/empresas/crearEmpresa';
   }
 
   // METODOS GENERALES
@@ -30,7 +29,7 @@ export class EmpresaService {
 
    public crearEmpresa(empresa: Empresa): Observable<AccionRespuesta> {
     console.log('METODO crear');
-    const urlPost = this.urlGeneral + this.urlCrearEmpleado;
+    const urlPost = this.urlGeneral + this.urlCrearEmpresa;
     return this.httpClient.post<AccionRespuesta>(urlPost, empresa, {headers: this.httpHeaders});
    }
 

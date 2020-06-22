@@ -18,8 +18,8 @@ export class CompraService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearCompra = '/clientes/crearCliente';
-    this.urlListadoCompras = '/clientes/listado.json';
+    this.urlCrearCompra = '/compras/crearCompra';
+    this.urlListadoCompras = '/compras/listado.json';
   }
 
   // METODOS GENERALES

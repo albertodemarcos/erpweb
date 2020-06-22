@@ -34,7 +34,7 @@ export class FormularioEmpleadoComponent implements OnInit {
       console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
-        this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+        this.router.navigate(['rrhh', 'empleado', accionRespuesta.id]);
       }
     });
 

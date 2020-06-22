@@ -17,8 +17,8 @@ export class FacturaService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearFactura = '/Facturas/crearFactura';
-    this.urlListadoFacturas = '/Facturas/listado.json';
+    this.urlCrearFactura = '/facturas/crearFactura';
+    this.urlListadoFacturas = '/facturas/listado.json';
   }
 
   // METODOS GENERALES

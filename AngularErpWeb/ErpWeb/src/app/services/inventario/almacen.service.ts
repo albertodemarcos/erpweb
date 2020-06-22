@@ -17,8 +17,8 @@ export class AlmacenService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearAlmacen = '/clientes/crearCliente';
-    this.urlListadoAlmacenes = '/clientes/listado.json';
+    this.urlCrearAlmacen = '/almacenes/crearAlmacen';
+    this.urlListadoAlmacenes = '/almacenes/listado.json';
   }
 
   // METODOS GENERALES

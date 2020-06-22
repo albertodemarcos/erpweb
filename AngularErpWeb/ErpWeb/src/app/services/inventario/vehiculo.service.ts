@@ -17,8 +17,8 @@ export class VehiculoService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearVehiculo = '/Vehiculos/crearVehiculo';
-    this.urlListadoVehiculos = '/Vehiculos/listado.json';
+    this.urlCrearVehiculo = '/vehiculos/crearVehiculo';
+    this.urlListadoVehiculos = '/vehiculos/listado.json';
   }
 
   // METODOS GENERALES

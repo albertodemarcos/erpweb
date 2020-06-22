@@ -18,8 +18,8 @@ export class EmpleadoService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearEmpleado = '/clientes/crearCliente';
-    this.urlListadoEmpleados = '/clientes/listado.json';
+    this.urlCrearEmpleado = '/empleados/crearEmpleado';
+    this.urlListadoEmpleados = '/empleados/listado.json';
   }
 
   // METODOS GENERALES

@@ -43,40 +43,43 @@ const routes: Routes = [
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
   { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
-  // { path: 'prueba', component: PruebaListadoJqgridComponent},
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent },
-  // RUTAS BI
-  /*{ path: 'ingresos', component: ListadoIngresosComponent },
-  { path: 'ingresos/nuevo-ingreso', component: FormularioIngresoComponent },
-  { path: 'gastos', component: ListadoGastosComponent },
-  { path: 'gastos/nuevo-gasto', component: FormularioGastoComponent },
-  { path: 'resultados', component: ListadoResultadosComponent },*/
   // RUTAS VENTAS
   { path: 'contratos', component: ListadoContratosComponent },
   { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent },
+  { path: 'contratos/contrato/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   { path: 'ventas', component: ListadoVentasComponent },
   { path: 'ventas/nueva-venta', component: FormularioVentaComponent },
+  { path: 'ventas/venta/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   { path: 'facturas', component: ListadoFacturasComponent },
   { path: 'facturas/nuevo-factura', component: FormularioFacturaComponent },
+  { path: 'facturas/factura/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   // RUTAS COMPRAS
   { path: 'compras', component: ListadoComprasComponent },
   { path: 'compras/nueva-compra', component: FormularioCompraComponent },
+  { path: 'compras/compra/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   { path: 'pedidos', component: ListadoPedidosComponent },
   { path: 'pedidos/nuevo-pedido', component: FormularioPedidoComponent },
+  { path: 'pedidos/pedido/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   { path: 'proveedor', component: ListadoProveedoresComponent },
   { path: 'proveedor/nuevo-proveedor', component: FormularioProveedorComponent },
+  { path: 'proveedor/proveedor/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   // RUTAS INVENTARIO
   { path: 'catalgo/articulos', component: ListadoArticulosComponent },
   { path: 'catalgo/articulos/nuevo-articulo', component: FormularioArticuloComponent },
+  { path: 'catalgo/articulo/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   { path: 'almacenes', component: ListadoAlmacenComponent },
   { path: 'almacenes/nuevo-almacen', component: FormularioAlmacenComponent },
+  { path: 'almacenes/almacen/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   { path: 'vehiculos', component: ListadoVehiculosComponent },
   { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent },
+  { path: 'vehiculos/vehiculo/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   // RUTAS EMPRESA
   { path: 'empresa', component: FormularioClienteComponent }, // CAMBIAR
   { path: 'rrhh', component: ListadoEmpleadosComponent },
   { path: 'rrhh/nuevo-empleado', component: FormularioEmpleadoComponent },
+  { path: 'rrhh/empleado/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   // RUTAS PERFIL
   { path: 'perfil', component: FormularioClienteComponent }, // CAMBIAR
   { path: 'salir', component: FormularioClienteComponent }, // CAMBIAR

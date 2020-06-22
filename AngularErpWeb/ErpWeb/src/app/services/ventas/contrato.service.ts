@@ -17,8 +17,8 @@ export class ContratoService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearContrato = '/Contratos/crearContrato';
-    this.urlListadoContratos = '/Contratos/listado.json';
+    this.urlCrearContrato = '/contratos/crearContrato';
+    this.urlListadoContratos = '/contratos/listado.json';
   }
 
   // METODOS GENERALES

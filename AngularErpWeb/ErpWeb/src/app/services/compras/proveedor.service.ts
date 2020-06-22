@@ -17,8 +17,8 @@ export class ProveedorService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearProveedor = '/Proveedors/crearProveedor';
-    this.urlListadoProveedores = '/Proveedors/listado.json';
+    this.urlCrearProveedor = '/proveedores/crearProveedor';
+    this.urlListadoProveedores = '/proveedores/listado.json';
   }
 
   // METODOS GENERALES

@@ -17,8 +17,8 @@ export class PedidoService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearPedido = '/clientes/crearCliente';
-    this.urlListadoPedidos = '/clientes/listado.json';
+    this.urlCrearPedido = '/pedidos/crearPedido';
+    this.urlListadoPedidos = '/pedidos/listado.json';
   }
 
   // METODOS GENERALES

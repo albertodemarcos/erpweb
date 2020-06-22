@@ -17,8 +17,8 @@ export class VentaService {
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
-    this.urlCrearVenta = '/Ventas/crearVenta';
-    this.urlListadoVentas = '/Ventas/listado.json';
+    this.urlCrearVenta = '/ventas/crearVenta';
+    this.urlListadoVentas = '/ventas/listado.json';
   }
 
   // METODOS GENERALES
