@@ -1,9 +1,9 @@
 package com.erpweb.controladores.inventario;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,20 +42,31 @@ public class VehiculoController {
 		return this.vehiculoService.getListadoVehiculos();
 	}
 	
-	@GetMapping( "/crearVehiculo" )
-	public @ResponseBody AccionRespuesta getCrearVehiculo( Model model, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
 	@GetMapping( "/editarVehiculo/{vehiculoId}" )
 	public @ResponseBody AccionRespuesta getEditarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
 		
 		return this.vehiculoService.getVehiculo(vehiculoId, user);
 	}
 	
-	@PostMapping( { "/crearVehiculo/vehiculo/{vehiculoDto}.json", "/editarVehiculo/vehiculo/{vehiculoDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearVehiculo( VehiculoDto vehiculoDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearVehiculo" )
+	public @ResponseBody AccionRespuesta postCrearVehiculo( VehiculoDto vehiculoDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.vehiculoValidator.validate(vehiculoDto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);
+	}
+	
+	@PostMapping( "/editarVehiculo"  )
+	public @ResponseBody AccionRespuesta postEditarVehiculo( VehiculoDto vehiculoDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.vehiculoValidator.validate(vehiculoDto, result);
 		

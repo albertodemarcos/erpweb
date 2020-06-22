@@ -1,14 +1,15 @@
 package com.erpweb.controladores.compras;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,21 +42,32 @@ public class CompraController {
 		
 		return this.compraService.getListadoCompras();
 	}
-	
-	@GetMapping( "/crearCompra" )
-	public @ResponseBody AccionRespuesta getCrearCompra( Model model, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
+			
 	@GetMapping( "/editarCompra/{compraId}"  )
-	public @ResponseBody AccionRespuesta getCrearCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
 		
 		return this.compraService.getCompra(compraId, user);
 	}
 	
-	@PostMapping( { "/crearCompra/compra/{compraDto}.json", "/editarCompra/compra/{compraDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearCompra( CompraDto compraDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearCompra" )
+	public @ResponseBody AccionRespuesta postCrearCompra(@RequestBody CompraDto compraDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.compraValidator.validate(compraDto, result);
+		
+		if(	result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.compraService.getCrearEditarCompra(compraDto, user);
+	}
+	
+	@PostMapping( "/editarCompra" )
+	public @ResponseBody AccionRespuesta postEditarCompra(@RequestBody CompraDto compraDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.compraValidator.validate(compraDto, result);
 		

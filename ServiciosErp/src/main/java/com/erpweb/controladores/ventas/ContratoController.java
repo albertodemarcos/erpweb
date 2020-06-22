@@ -1,5 +1,6 @@
 package com.erpweb.controladores.ventas;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,25 @@ public class ContratoController {
 		return this.contratoService.getContrato(contratoId, user);
 	}
 	
-	@PostMapping( { "/crearContrato/contrato/{contratoDto}.json", "/editarContrato/contrato/{contratoDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearContrato( ContratoDto contratoDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearContrato" )
+	public @ResponseBody AccionRespuesta postCrearContrato( ContratoDto contratoDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.contratoValidator.validate(contratoDto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.contratoService.getCrearEditarContrato(contratoDto, user);
+	}
+	
+	@PostMapping( "/editarContrato"  )
+	public @ResponseBody AccionRespuesta postEditarContrato( ContratoDto contratoDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.contratoValidator.validate(contratoDto, result);
 		

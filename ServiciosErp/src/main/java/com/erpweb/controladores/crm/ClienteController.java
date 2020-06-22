@@ -65,8 +65,8 @@ public class ClienteController {
 		return this.clienteService.getCrearEditarCliente(clienteDto, user);
 	}
 	
-	@GetMapping( "/editarCliente" )
-	public @ResponseBody AccionRespuesta getCrearCliente( @RequestBody ClienteDto clienteDto, BindingResult result ) throws Exception {
+	@PostMapping( "/editarCliente" )
+	public @ResponseBody AccionRespuesta postEditarCliente( @RequestBody ClienteDto clienteDto, BindingResult result ) throws Exception {
 		
 		Usuario user = new Usuario();
 		

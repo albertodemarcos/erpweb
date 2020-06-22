@@ -1,5 +1,6 @@
 package com.erpweb.controladores.inventario;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,25 @@ public class AlmacenController {
 		return this.almacenService.getAlmacen(almacenId, user);
 	}
 	
-	@PostMapping( { "/crearAlmacen/almacen/{almacenDto}.json", "/editarAlmacen/almacen/{almacenDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearAlmacen( AlmacenDto almacenDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearAlmacen" )
+	public @ResponseBody AccionRespuesta postCrearAlmacen( AlmacenDto almacenDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.almacenValidator.validate(almacenDto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.almacenService.getCrearEditarAlmacen(almacenDto, user);
+	}
+	
+	@PostMapping( "/editarAlmacen" )
+	public @ResponseBody AccionRespuesta postEditarAlmacen( AlmacenDto almacenDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.almacenValidator.validate(almacenDto, result);
 		

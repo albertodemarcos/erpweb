@@ -1,5 +1,7 @@
 package com.erpweb.controladores.usuarios;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,8 +55,25 @@ public class UsuarioController {
 		return this.usuarioService.getUsuario(usuarioId, user);
 	}
 	
-	@PostMapping( { "/crearUsuario/usuario/{usuarioDto}.json" , "/editarUsuario/usuario/{usuarioDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearUsuario( UsuarioDto usuarioDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearUsuario" )
+	public @ResponseBody AccionRespuesta postCrearUsuario( UsuarioDto usuarioDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.usuarioValidator.validate(usuarioDto, result);
+		
+		if(	result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);
+	}
+	
+	@PostMapping( "/editarUsuario"  )
+	public @ResponseBody AccionRespuesta postEditarUsuario( UsuarioDto usuarioDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.usuarioValidator.validate(usuarioDto, result);
 		

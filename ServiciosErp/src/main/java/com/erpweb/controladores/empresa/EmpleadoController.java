@@ -1,9 +1,9 @@
 package com.erpweb.controladores.empresa;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,20 +42,29 @@ public class EmpleadoController {
 		return this.empleadoService.getListadoEmpleados();
 	}
 	
-	@GetMapping( "/crearEmpleado" )
-	public @ResponseBody AccionRespuesta getCrearEmpleado( Model model, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
 	@GetMapping( "/editarEmpleado/{empleadoId}" )
 	public @ResponseBody AccionRespuesta getEditarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
 		
 		return this.empleadoService.getEmpleado(empleadoId, user);
 	}
 	
-	@PostMapping( { "/crearEmpleado/empleado/{empleadoDto}.json", "/editarEmpleado/empleado/{empleadoDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearEmpleado( EmpleadoDto empleadoDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearEmpleado" )
+	public @ResponseBody AccionRespuesta postCrearEmpleado( EmpleadoDto empleadoDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.empleadoValidator.validate(empleadoDto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.empleadoService.getCrearEditarEmpleado(empleadoDto, user);
+	}
+	
+	@PostMapping( "/editarEmpleado" )
+	public @ResponseBody AccionRespuesta postEditarEmpleado( EmpleadoDto empleadoDto, Usuario user, BindingResult result ) {
 		
 		this.empleadoValidator.validate(empleadoDto, result);
 		

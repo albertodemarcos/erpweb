@@ -1,9 +1,9 @@
 package com.erpweb.controladores.compras;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,20 +42,31 @@ public class ProveedorController {
 		return this.proveedorService.getListadoProveedores();
 	}
 	
-	@GetMapping( "/crearProveedor" )
-	public @ResponseBody AccionRespuesta getCrearProveedor( Model model, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
 	@GetMapping( "/editarProveedor/{proveedorId}" )
 	public @ResponseBody AccionRespuesta getEditarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
 		
 		return this.proveedorService.getProveedor(proveedorId, user);
 	}
 	
-	@PostMapping( { "/crearProveedor/proveedor/{proveedorDto}.json", "/editarProveedor/proveedor/{proveedorDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearProveedor( ProveedorDto proveedorDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearProveedor" )
+	public @ResponseBody AccionRespuesta postCrearProveedor( ProveedorDto proveedorDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.proveedorValidator.validate(proveedorDto, result);
+		
+		if(	result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.proveedorService.getCrearEditarProveedor(proveedorDto, user);
+	}
+	
+	@PostMapping( "/editarProveedor" )
+	public @ResponseBody AccionRespuesta postEditarProveedor( ProveedorDto proveedorDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.proveedorValidator.validate(proveedorDto, result);
 		

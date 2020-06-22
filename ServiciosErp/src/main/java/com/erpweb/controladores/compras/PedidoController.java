@@ -1,9 +1,9 @@
 package com.erpweb.controladores.compras;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,20 +43,30 @@ public class PedidoController {
 		return this.pedidoService.getListadoPedidos();
 	}
 	
-	@GetMapping( "/crearPedido" )
-	public @ResponseBody AccionRespuesta getCrearPedido( Model model, Usuario user ) throws Exception {
-		
-		return new AccionRespuesta();
-	}
 	
 	@GetMapping( "/editarPedido/{pedidoId}"  )
-	public @ResponseBody AccionRespuesta getCrearPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
 		
 		return this.pedidoService.getPedido(pedidoId, user);
 	}
 	
-	@PostMapping( { "/crearPedido/pedido/{pedidoDto}.json", "/editarPedido/pedido/{pedidoDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearPedido( PedidoDto pedidoDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearPedido" )
+	public @ResponseBody AccionRespuesta postCrearPedido( PedidoDto pedidoDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.pedidoValidator.validate(pedidoDto, result);
+		
+		if(	result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.pedidoService.getCrearEditarPedido(pedidoDto, user);
+	}
+	
+	@PostMapping( "/editarPedido" )
+	public @ResponseBody AccionRespuesta postEditarPedido( PedidoDto pedidoDto, Usuario user, BindingResult result ) {
 		
 		this.pedidoValidator.validate(pedidoDto, result);
 		

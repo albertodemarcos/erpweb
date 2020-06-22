@@ -1,7 +1,7 @@
 package com.erpweb.controladores.empresa;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,27 +34,16 @@ public class EmpresaController {
 		return this.empresaService.getEmpresa(empresaId, user);
 	}
 	
-	/*@GetMapping("/listado.json")
-	public @ResponseBody List<Dto> getEmpresas( ) {
-		
-		
-		return this.empresaService.getListado();
-	}*/
-	
-	@GetMapping( "/crearEmpresa" )
-	public @ResponseBody AccionRespuesta getCrearEmpresa( Model model, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
 	@GetMapping( "/editarEmpresa/{empresaId}" )
 	public @ResponseBody AccionRespuesta getEditarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
 		
 		return this.empresaService.getEmpresa(empresaId, user);
 	}
 	
-	@PostMapping( { "/crearEmpresa/empresa/{empresaDto}.json", "/editarEmpresa/empresa/{empresaDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearEmpresa( EmpresaDto empresaDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/editarEmpresa" )
+	public @ResponseBody AccionRespuesta postEditarEmpresa( EmpresaDto empresaDto,  BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.empresaValidator.validate(empresaDto, result);
 		

@@ -1,9 +1,9 @@
 package com.erpweb.controladores.inventario;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,20 +42,31 @@ public class ArticuloController {
 		return this.articuloService.getListadoArticulos();
 	}
 	
-	@GetMapping( "/crearArticulo" )
-	public @ResponseBody AccionRespuesta getCrearArticulo( Model model, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
 	@GetMapping( "/editarArticulo/{articuloId}" )
 	public @ResponseBody AccionRespuesta getEditarArticulo( @PathVariable Long articuloId, Usuario user) throws Exception {
 		
 		return this.articuloService.getArticulo(articuloId, user);
 	}
 	
-	@PostMapping( {"/crearArticulo/articulo/{articuloDto}.json", "/editarArticulo/articulo/{articuloDto}.json"} )
-	public @ResponseBody AccionRespuesta postCrearArticulo( ArticuloDto articuloDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearArticulo" )
+	public @ResponseBody AccionRespuesta postCrearArticulo( ArticuloDto articuloDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.articuloValidator.validate(articuloDto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.articuloService.getCrearEditarArticulo(articuloDto, user);
+	}
+	
+	@PostMapping( "/editarArticulo" )
+	public @ResponseBody AccionRespuesta postEditarArticulo( ArticuloDto articuloDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.articuloValidator.validate(articuloDto, result);
 		

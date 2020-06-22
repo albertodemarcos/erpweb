@@ -1,5 +1,6 @@
 package com.erpweb.controladores.ventas;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,25 @@ public class VentaController {
 		return this.ventaService.getVenta(ventaId, user);
 	}
 	
-	@PostMapping( { "/crearVenta/venta/{ventaDto}.json", "/editarVenta/venta/{ventaDto}.json" } )
-	public @ResponseBody AccionRespuesta postCrearVenta( VentaDto ventaDto, Usuario user, BindingResult result ) {
+	@PostMapping( "/crearVenta" )
+	public @ResponseBody AccionRespuesta postCrearVenta( VentaDto ventaDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
+		
+		this.ventaValidator.validate(ventaDto, result);
+		
+		if(	result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.ventaService.getCrearEditarVenta(ventaDto, user);
+	}
+	
+	@PostMapping( "/editarVenta" )
+	public @ResponseBody AccionRespuesta postEditarVenta( VentaDto ventaDto, BindingResult result ) {
+		
+		Usuario user = new Usuario();
 		
 		this.ventaValidator.validate(ventaDto, result);
 		

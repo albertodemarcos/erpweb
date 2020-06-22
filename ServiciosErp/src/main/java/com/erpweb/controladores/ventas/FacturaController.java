@@ -1,5 +1,6 @@
 package com.erpweb.controladores.ventas;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,21 @@ public class FacturaController {
 		return this.facturaService.getFactura(facturaId, user);
 	}
 	
-	@PostMapping( { "/crearFactura/factura/{facturaDto}.json", "/editarFactura/factura/{facturaDto}.json" } )
+	@PostMapping( "/crearFactura" )
 	public @ResponseBody AccionRespuesta postCrearFactura( FacturaDto facturaDto, Usuario user, BindingResult result ) {
+		
+		this.facturaValidator.validate(facturaDto, result);
+		
+		if( result.hasErrors() ) {
+			
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+		}
+		
+		return this.facturaService.getCrearEditarFactura(facturaDto, user);
+	}
+	
+	@PostMapping( "/editarFactura" )
+	public @ResponseBody AccionRespuesta postEditarFactura( FacturaDto facturaDto, Usuario user, BindingResult result ) {
 		
 		this.facturaValidator.validate(facturaDto, result);
 		
