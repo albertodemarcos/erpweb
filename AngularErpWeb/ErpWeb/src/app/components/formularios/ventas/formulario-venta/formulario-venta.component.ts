@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import { VentaService } from 'src/app/services/ventas/venta.service';
 import { Venta } from 'src/app/model/entitys/venta.model';
 
 declare var jQuery: any;
@@ -15,7 +17,7 @@ export class FormularioVentaComponent implements OnInit {
   private idDatePickerInicio: string;
   private idDatePickerFin: string;
 
-  constructor() {
+  constructor(private ventaService: VentaService, private router: Router) {
     this.venta = new Venta();
     this.idDatePickerCreacion = 'fechaVentaDatePickerCreacion';
     this.idDatePickerInicio = 'fechaVentaDatePickerInicio';
@@ -44,6 +46,15 @@ export class FormularioVentaComponent implements OnInit {
   public crearVentaFormulario(): void {
 
     console.log('Estamos dentro del metodo crear formulario');
+
+    this.ventaService.crearVenta(this.venta).subscribe( accionRespuesta => {
+      console.log('Esta registrado' + accionRespuesta.resultado);
+      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+      // Si el resultado es true, navegamos hasta la vista
+      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+        this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+      }
+    });
 
   }
 

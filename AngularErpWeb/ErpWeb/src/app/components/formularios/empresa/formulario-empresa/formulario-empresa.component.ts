@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import {Router, ActivatedRoute} from '@angular/router';
+import { EmpresaService } from 'src/app/services/empresa/empresa.service';
 import { Empresa } from 'src/app/model/entitys/empresa.model';
 
 @Component({
@@ -11,7 +12,7 @@ export class FormularioEmpresaComponent implements OnInit {
 
   public empresa: Empresa;
 
-  constructor() {
+  constructor(private empresaService: EmpresaService, private router: Router) {
 
     this.empresa = new Empresa();
 
@@ -25,6 +26,15 @@ export class FormularioEmpresaComponent implements OnInit {
  public crearEmpresaFormulario(): void {
 
   console.log('Estamos dentro del metodo crear formulario');
+
+  this.empresaService.crearEmpresa(this.empresa).subscribe( accionRespuesta => {
+    console.log('Esta registrado' + accionRespuesta.resultado);
+    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // Si el resultado es true, navegamos hasta la vista
+    if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+      this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+    }
+  });
 
  }
 

@@ -15,7 +15,6 @@ export class FormularioClienteComponent implements OnInit {
   public tiposClientes: string[];
 
   constructor(private clienteService: ClienteService, private router: Router) {
-
     this.cliente = new Cliente();
     this.tiposClientes = ['PARTICULAR', 'AUTONOMO', 'EMPRESA'];
    }

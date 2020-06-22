@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import { CompraService } from 'src/app/services/compras/compra.service';
+import { Compra } from 'src/app/model/entitys/compra.model';
 
 declare var jQuery: any;
 
-import { Compra } from 'src/app/model/entitys/compra.model';
 
 @Component({
   selector: 'app-formulario-compra',
@@ -14,7 +16,7 @@ export class FormularioCompraComponent implements OnInit {
   public compra: Compra;
   private idDatePicker: string;
 
-  constructor() {
+  constructor(private compraService: CompraService, private router: Router) {
     this.compra = new Compra();
     this.idDatePicker = 'fechaCompraDatePicker';
   }
@@ -41,6 +43,15 @@ export class FormularioCompraComponent implements OnInit {
   public crearCompraFormulario(): void {
 
     console.log('Estamos dentro del metodo crear formulario');
+
+    this.compraService.crearCompra(this.compra).subscribe( accionRespuesta => {
+      console.log('Esta registrado' + accionRespuesta.resultado);
+      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+      // Si el resultado es true, navegamos hasta la vista
+      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+      this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+      }
+    });
 
   }
 

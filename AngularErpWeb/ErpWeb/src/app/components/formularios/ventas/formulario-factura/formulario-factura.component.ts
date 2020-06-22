@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import { FacturaService } from 'src/app/services/ventas/factura.service';
 import { Factura } from 'src/app/model/entitys/factura.model';
 
 declare var jQuery: any;
@@ -15,7 +17,7 @@ export class FormularioFacturaComponent implements OnInit {
   private idDatePickerInicio: string;
   private idDatePickerFin: string;
 
-  constructor() {
+  constructor(private facturaService: FacturaService, private router: Router) {
     this.factura = new Factura();
     this.idDatePickerCreacion = 'fechaFacturaDatePickerCreacion';
     this.idDatePickerInicio = 'fechaFacturaDatePickerInicio';
@@ -43,6 +45,15 @@ export class FormularioFacturaComponent implements OnInit {
   public crearFacturaFormulario(): void {
 
     console.log('Estamos dentro del metodo crear formulario');
+
+    this.facturaService.crearFactura(this.factura).subscribe( accionRespuesta => {
+      console.log('Esta registrado' + accionRespuesta.resultado);
+      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+      // Si el resultado es true, navegamos hasta la vista
+      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+        this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+      }
+    });
 
   }
 
