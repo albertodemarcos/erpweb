@@ -50,8 +50,6 @@ import { FormularioEmpresaComponent } from './components/formularios/empresa/for
 import { FormularioVentaComponent } from './components/formularios/ventas/formulario-venta/formulario-venta.component';
 import { FormularioContratoComponent } from './components/formularios/ventas/formulario-contrato/formulario-contrato.component';
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
-import { FormularioGastoComponent } from './components/formularios/bi/formulario-gasto/formulario-gasto.component';
-import { FormularioIngresoComponent } from './components/formularios/bi/formulario-ingreso/formulario-ingreso.component';
 import { FormularioCompraComponent } from './components/formularios/compras/formulario-compra/formulario-compra.component';
 import { FormularioPedidoComponent } from './components/formularios/compras/formulario-pedido/formulario-pedido.component';
 import { FormularioProveedorComponent } from './components/formularios/compras/formulario-proveedor/formulario-proveedor.component';
@@ -117,8 +115,6 @@ import { VentaService } from './services/ventas/venta.service';
     FormularioVentaComponent,
     FormularioContratoComponent,
     FormularioFacturaComponent,
-    FormularioGastoComponent,
-    FormularioIngresoComponent,
     FormularioCompraComponent,
     FormularioPedidoComponent,
     FormularioProveedorComponent,

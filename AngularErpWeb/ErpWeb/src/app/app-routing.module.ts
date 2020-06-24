@@ -21,8 +21,6 @@ import { ListadoEmpleadosComponent } from './components/listados/empresa/listado
 
 // FORMULARIOS
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
-import { FormularioGastoComponent } from './components/formularios/bi/formulario-gasto/formulario-gasto.component';
-import { FormularioIngresoComponent } from './components/formularios/bi/formulario-ingreso/formulario-ingreso.component';
 import { FormularioCompraComponent } from './components/formularios/compras/formulario-compra/formulario-compra.component';
 import { FormularioPedidoComponent } from './components/formularios/compras/formulario-pedido/formulario-pedido.component';
 import { FormularioProveedorComponent } from './components/formularios/compras/formulario-proveedor/formulario-proveedor.component';
@@ -35,6 +33,17 @@ import { FormularioContratoComponent } from './components/formularios/ventas/for
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
 
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
+import { ContratoComponent } from './components/cards/ventas/contrato/contrato.component';
+import { VentaComponent } from './components/cards/ventas/venta/venta.component';
+import { FacturaComponent } from './components/cards/ventas/factura/factura.component';
+import { CompraComponent } from './components/cards/compras/compra/compra.component';
+import { PedidoComponent } from './components/cards/compras/pedido/pedido.component';
+import { ProveedorComponent } from './components/cards/compras/proveedor/proveedor.component';
+import { AlmacenComponent } from './components/cards/inventario/almacen/almacen.component';
+import { ArticuloComponent } from './components/cards/inventario/articulo/articulo.component';
+import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehiculo.component';
+import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
+import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
 
 const routes: Routes = [
   // RUTA INICIO
@@ -48,38 +57,38 @@ const routes: Routes = [
   // RUTAS VENTAS
   { path: 'contratos', component: ListadoContratosComponent },
   { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent },
-  { path: 'contratos/contrato/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'contratos/contrato/:id', component: ContratoComponent, data: {contrato: 'contrato'} },
   { path: 'ventas', component: ListadoVentasComponent },
   { path: 'ventas/nueva-venta', component: FormularioVentaComponent },
-  { path: 'ventas/venta/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'ventas/venta/:id', component: VentaComponent, data: {venta: 'venta'} },
   { path: 'facturas', component: ListadoFacturasComponent },
   { path: 'facturas/nuevo-factura', component: FormularioFacturaComponent },
-  { path: 'facturas/factura/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'facturas/factura/:id', component: FacturaComponent, data: {factura: 'factura'} },
   // RUTAS COMPRAS
   { path: 'compras', component: ListadoComprasComponent },
   { path: 'compras/nueva-compra', component: FormularioCompraComponent },
-  { path: 'compras/compra/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'compras/compra/:id', component: CompraComponent, data: {compra: 'compra'} },
   { path: 'pedidos', component: ListadoPedidosComponent },
   { path: 'pedidos/nuevo-pedido', component: FormularioPedidoComponent },
-  { path: 'pedidos/pedido/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'pedidos/pedido/:id', component: PedidoComponent, data: {pedido: 'pedido'} },
   { path: 'proveedor', component: ListadoProveedoresComponent },
   { path: 'proveedor/nuevo-proveedor', component: FormularioProveedorComponent },
-  { path: 'proveedor/proveedor/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'proveedor/proveedor/:id', component: ProveedorComponent, data: {proveedor: 'proveedor'} },
   // RUTAS INVENTARIO
   { path: 'catalgo/articulos', component: ListadoArticulosComponent },
   { path: 'catalgo/articulos/nuevo-articulo', component: FormularioArticuloComponent },
-  { path: 'catalgo/articulo/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'catalgo/articulo/:id', component: ArticuloComponent, data: {articulo: 'articulo'} },
   { path: 'almacenes', component: ListadoAlmacenComponent },
   { path: 'almacenes/nuevo-almacen', component: FormularioAlmacenComponent },
-  { path: 'almacenes/almacen/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'almacenes/almacen/:id', component: AlmacenComponent, data: {almacen: 'almacen'} },
   { path: 'vehiculos', component: ListadoVehiculosComponent },
   { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent },
-  { path: 'vehiculos/vehiculo/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'vehiculos/vehiculo/:id', component: VehiculoComponent, data: {vehiculo: 'vehiculo'} },
   // RUTAS EMPRESA
   { path: 'empresa', component: FormularioClienteComponent }, // CAMBIAR
   { path: 'rrhh', component: ListadoEmpleadosComponent },
   { path: 'rrhh/nuevo-empleado', component: FormularioEmpleadoComponent },
-  { path: 'rrhh/empleado/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'rrhh/empleado/:id', component: EmpleadoComponent, data: {empleado: 'empleado'} },
   // RUTAS PERFIL
   { path: 'perfil', component: FormularioClienteComponent }, // CAMBIAR
   { path: 'salir', component: FormularioClienteComponent }, // CAMBIAR
