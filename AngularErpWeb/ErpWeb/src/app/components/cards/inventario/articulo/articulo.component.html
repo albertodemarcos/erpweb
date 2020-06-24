@@ -8,37 +8,37 @@
         <!-- NOMBRE -->
         <div class="form-group row">
             <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span>{{articulo.nombre}}</span>
+            <span *ngIf="articulo.nombre">{{articulo.nombre}}</span>
         </div>
 
         <!-- CODIGO -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código articulo</label>
-            <span>{{articulo.codigo}}</span>
+            <span *ngIf="articulo.codigo">{{articulo.codigo}}</span>
         </div>
 
         <!-- DESCRIPCION -->
         <div class="form-group row">
             <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-            <span>{{articulo.descripcion}}</span>
+            <span *ngIf="articulo.descripcion">{{articulo.descripcion}}</span>
         </div>
 
         <!-- BASE IMPONIBLE -->
         <div class="form-group row">
             <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <span>{{articulo.baseImponible}}</span>
+            <span *ngIf="articulo.baseImponible">{{articulo.baseImponible}}</span>
         </div>
 
         <!-- IMPUESTO -->
         <div class="form-group row">
             <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-            <span>{{articulo.impuesto}}</span>
+            <span *ngIf="articulo.impuesto">{{articulo.impuesto}}</span>
         </div>
 
         <!-- IMPORTE TOTAL -->
         <div class="form-group row">
             <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span>{{articulo.importeTotal}}</span>
+            <span *ngIf="articulo.importeTotal">{{articulo.importeTotal}}</span>
         </div>
 
     </div>

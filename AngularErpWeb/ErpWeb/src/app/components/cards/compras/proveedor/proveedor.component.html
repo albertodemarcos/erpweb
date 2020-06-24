@@ -8,31 +8,31 @@
         <!-- NOMBRE -->
         <div class="form-group row">
             <label for="nombre" class="col-form-label col-sm-2">Nombre proveedor</label>
-            <span>{{proveedor.nombre}}</span>
+            <span *ngIf="proveedor.nombre">{{proveedor.nombre}}</span>
         </div>
 
-        <!-- CODIGO CLIENTE -->
+        <!-- CODIGO PROVEEDOR -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código proveedor</label>
-            <span>{{proveedor.codigo}}</span>
+            <span *ngIf="proveedor.codigo">{{proveedor.codigo}}</span>
         </div>
 
         <!-- NOMBRE EMPRESA -->
         <div class="form-group row">
             <label for="nombreEmpresa" class="col-form-label col-sm-2">Nombre empresa</label>
-            <span>{{proveedor.nombreEmpresa}}</span>
+            <span *ngIf="proveedor.nombreEmpresa">{{proveedor.nombreEmpresa}}</span>
         </div>
 
         <!-- TELEFONO -->
         <div class="form-group row">
             <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-            <span>{{proveedor.telefono}}</span>
+            <span *ngIf="proveedor.telefono">{{proveedor.telefono}}</span>
         </div>
 
         <!-- TIPO PROVEEDOR -->
         <div class="form-group row">
             <label for="tipoProveedor" class="col-form-label col-sm-2">Tipo proveedor</label>
-            <span>{{proveedor.tipoProveedor}}</span>
+            <span *ngIf="proveedor.tipoProveedor">{{proveedor.tipoProveedor}}</span>
         </div>
 
     </div>

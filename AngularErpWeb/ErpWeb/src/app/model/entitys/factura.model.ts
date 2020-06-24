@@ -1,6 +1,6 @@
 export class Factura {
     id: number;
-    codigo: string;    
+    codigo: string;
     fechaCreacion: Date;
     fechaInicio: Date;
     fechaFin: Date;

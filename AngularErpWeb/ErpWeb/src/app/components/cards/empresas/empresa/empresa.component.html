@@ -6,31 +6,31 @@
         <!-- NOMBRE -->
         <div class="form-group row">
             <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span>{{empresa.nombre}}</span>
+            <span *ngIf="empresa.nombre">{{empresa.nombre}}</span>
         </div>
 
         <!-- CODIGO EMPRESA -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código empresa</label>
-            <span>{{empresa.codigo}}</span>
+            <span *ngIf="empresa.codigo">{{empresa.codigo}}</span>
         </div>
 
         <!-- CIF -->
         <div class="form-group row">
             <label for="apellidoPrimero" class="col-form-label col-sm-2">CIF</label>
-            <span>{{empresa.cif}}</span>
+            <span *ngIf="empresa.cif">{{empresa.cif}}</span>
         </div>
 
         <!-- IDIOMA -->
         <div class="form-group row">
             <label for="idioma" class="col-form-label col-sm-2">Idioma</label>
-            <span>{{empresa.idioma}}</span>
+            <span *ngIf="empresa.idioma">{{empresa.idioma}}</span>
         </div>
 
         <!-- TIPO SOCIEDAD JURIDICA -->
         <div class="form-group row">
             <label for="tipoSociedadJuridica" class="col-form-label col-sm-2">Tipo de sociedad jurídica</label>
-            <span>{{empresa.tipoSociedadJuridica}}</span>
+            <span *ngIf="empresa.tipoSociedadJuridica">{{empresa.tipoSociedadJuridica}}</span>
         </div>
 
     </div>

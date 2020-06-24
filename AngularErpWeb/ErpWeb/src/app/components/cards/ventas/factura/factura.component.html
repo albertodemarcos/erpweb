@@ -5,68 +5,52 @@
 
         <h5 class="card-title">Factura</h5>
 
-        <!-- CODIGO CLIENTE -->
+        <!-- CODIGO FACTURA -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código factura</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.codigo" name="codigo">
-            </div>
+            <span *ngIf="factura.codigo">{{factura.codigo}}</span>
         </div>
 
         <!-- FECHA CREACION -->
         <div class="form-group row">
             <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.fechaCreacion" name="fechaCreacion">
-            </div>
+            <span *ngIf="factura.fechaCreacion">{{factura.fechaCreacion | date}}</span>
         </div>
 
         <!-- FECHA INICIO -->
         <div class="form-group row">
             <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.fechaInicio" name="fechaInicio">
-            </div>
+            <span *ngIf="factura.fechaInicio">{{factura.fechaInicio | date}}</span>
         </div>
 
         <!-- FECHA FIN -->
         <div class="form-group row">
             <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.fechaFin" name="fechaFin">
-            </div>
+            <span *ngIf="factura.fechaFin">{{factura.fechaFin | date}}</span>
         </div>
 
         <!-- DESCRIPCION -->
         <div class="form-group row">
             <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.descripcion" name="descripcion">
-            </div>
+            <span *ngIf="factura.descripcion">{{factura.descripcion}}</span>
         </div>
 
         <!-- BASE IMPONIBLE -->
         <div class="form-group row">
             <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.baseImponible" name="baseImponible">
-            </div>
+            <span *ngIf="factura.baseImponible">{{factura.baseImponible}}</span>
         </div>
 
         <!-- IMPUESTOS -->
         <div class="form-group row">
             <label for="cuotaTributaria" class="col-form-label col-sm-2">Impuestos</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.cuotaTributaria" name="cuotaTributaria">
-            </div>
+            <span *ngIf="factura.cuotaTributaria">{{factura.cuotaTributaria}}</span>
         </div>
 
         <!-- IMPORTE TOTAL -->
         <div class="form-group row">
             <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="factura.importeTotal" name="importeTotal">
-            </div>
+            <span *ngIf="factura.importeTotal">{{factura.importeTotal}}</span>
         </div>
 
     </div>

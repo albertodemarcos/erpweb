@@ -9,91 +9,91 @@
         <!-- NOMBRE -->
         <div class="form-group row">
             <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span>{{empleado.nombre}}</span>
+            <span *ngIf="empleado.nombre">{{empleado.nombre}}</span>
         </div>
 
         <!-- CODIGO empleado -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código empleado</label>
-            <span>{{empleado.codigo}}</span>
+            <span *ngIf="empleado.codigo">{{empleado.codigo}}</span>
         </div>
 
         <!-- PRIMER APELLIDO -->
         <div class="form-group row">
             <label for="apellidoPrimero" class="col-form-label col-sm-2">Primer apellido</label>
-            <span>{{empleado.apellidoPrimero}}</span>
+            <span *ngIf="empleado.apellidoPrimero">{{empleado.apellidoPrimero}}</span>
         </div>
 
         <!-- SEGUNDO APELLIDO -->
         <div class="form-group row">
             <label for="apellidoSegundo" class="col-form-label col-sm-2">Segundo apellido</label>
-            <span>{{empleado.apellidoSegundo}}</span>
+            <span *ngIf="empleado.apellidoSegundo">{{empleado.apellidoSegundo}}</span>
         </div>
 
         <!-- NIF -->
         <div class="form-group row">
             <label for="nif" class="col-form-label col-sm-2">NIF/DNI</label>
-            <span>{{empleado.nif}}</span>
+            <span *ngIf="empleado.nif">{{empleado.nif}}</span>
         </div>
 
         <!-- TIPO empleado -->
         <div class="form-group row">
             <label for="tipoempleado" class="col-form-label col-sm-2">Tipo de empleado</label>
-            <span>{{empleado.tipoEmpleado}}</span>
+            <span *ngIf="empleado.tipoEmpleado">{{empleado.tipoEmpleado}}</span>
         </div>
 
         <!-- CODIGO POSTAL -->
         <div class="form-group row">
             <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
-            <span>{{empleado.codigoPostal}}</span>
+            <span *ngIf="empleado.codigoPostal">{{empleado.codigoPostal}}</span>
         </div>
 
         <!-- DIRECCION -->
         <div class="form-group row">
             <label for="direccion" class="col-form-label col-sm-2">Dirección</label>
-            <span>{{empleado.direccion}}</span>
+            <span *ngIf="empleado.direccion">{{empleado.direccion}}</span>
         </div>
 
         <!-- EDIFICIO -->
         <div class="form-group row">
             <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
-            <span>{{empleado.edificio}}</span>
+            <span *ngIf="empleado.edificio">{{empleado.edificio}}</span>
         </div>
 
         <!-- OBSERVACIONES -->
         <div class="form-group row">
             <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-            <span>{{empleado.observaciones}}</span>
+            <span *ngIf="empleado.observaciones">{{empleado.observaciones}}</span>
         </div>
 
         <!-- TELEFONO -->
         <div class="form-group row">
             <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-            <span>{{empleado.telefono}}</span>
+            <span *ngIf="empleado.telefono">{{empleado.telefono}}</span>
         </div>
 
         <!-- PAIS -->
         <div class="form-group row">
             <label for="pais" class="col-form-label col-sm-2">País</label>
-            <span>{{empleado.pais}}</span>
+            <span *ngIf="empleado.pais">{{empleado.pais}}</span>
         </div>
 
         <!-- REGION -->
         <div class="form-group row">
             <label for="region" class="col-form-label col-sm-2">Región</label>
-            <span>{{empleado.region}}</span>
+            <span *ngIf="empleado.region">{{empleado.region}}</span>
         </div>
 
         <!-- PROVINCIA -->
         <div class="form-group row">
             <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
-            <span>{{empleado.provincia}}</span>
+            <span *ngIf="empleado.provincia">{{empleado.provincia}}</span>
         </div>
 
         <!-- POBLACION -->
         <div class="form-group row">
             <label for="poblacion" class="col-form-label col-sm-2">Población</label>
-            <span>{{empleado.poblacion}}</span>
+            <span *ngIf="empleado.poblacion">{{empleado.poblacion}}</span>
         </div>
 
     </div>

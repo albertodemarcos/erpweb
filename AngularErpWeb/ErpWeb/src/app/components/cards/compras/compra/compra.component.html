@@ -3,46 +3,46 @@
     </div>
     <div class="card-body">
         <h5 class="card-title">Compra</h5>
-        <!-- CODIGO CLIENTE -->
+        <!-- CODIGO COMPRA -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código compra</label>
-            <span>{{compra.codigo}}</span>
+            <span *ngIf="compra.codigo">{{compra.codigo}}</span>
         </div>
 
         <!-- FECHA COMPRA -->
         <div class="form-group row">
             <label for="fechaCompra" class="col-form-label col-sm-2">Fecha compra</label>
-            <span>{{compra.fechaCompra}}</span>
+            <span *ngIf="compra.fechaCompra">{{compra.fechaCompra | date}}</span>
         </div>
 
         <!-- ARTICULO -->
         <div class="form-group row">
             <label for="articulo" class="col-form-label col-sm-2">Artículo</label>
-            <span>{{compra.articulo}}</span>
+            <span *ngIf="compra.articulo">{{compra.articulo}}</span>
         </div>
 
         <!-- CANTIDAD -->
         <div class="form-group row">
             <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
-            <span>{{compra.cantidad}}</span>
+            <span *ngIf="compra.cantidad">{{compra.cantidad}}</span>
         </div>
 
         <!-- BASE IMPONIBLE -->
         <div class="form-group row">
             <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <span>{{compra.baseImponibleTotal}}</span>
+            <span *ngIf="compra.baseImponibleTotal">{{compra.baseImponibleTotal}}</span>
         </div>
 
         <!-- IMPUESTO -->
         <div class="form-group row">
             <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-            <span>{{compra.impuesto}}</span>
+            <span *ngIf="compra.impuesto">{{compra.impuesto}}</span>
         </div>
 
         <!-- IMPORTE TOTAL -->
         <div class="form-group row">
             <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span>{{compra.importeTotal}}</span>
+            <span *ngIf="compra.importeTotal">{{compra.importeTotal}}</span>
         </div>
     </div>
 

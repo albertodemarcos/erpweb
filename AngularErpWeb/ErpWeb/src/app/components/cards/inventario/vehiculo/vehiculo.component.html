@@ -5,40 +5,40 @@
 
         <h5 class="card-title">Vehículo</h5>
 
-        <!-- CODIGO CLIENTE -->
+        <!-- CODIGO vehiculo -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código vehículo</label>
-            <span>{{vehiculo.codigo}}</span>
+            <span *ngIf="vehiculo.codigo">{{vehiculo.codigo}}</span>
         </div>
 
         <!-- MATRICULA -->
         <div class="form-group row">
             <label for="matricula" class="col-form-label col-sm-2">Matrícula</label>
-            <span>{{vehiculo.matricula}}</span>
+            <span *ngIf="vehiculo.matricula">{{vehiculo.matricula}}</span>
         </div>
 
         <!-- MARCA -->
         <div class="form-group row">
             <label for="marca" class="col-form-label col-sm-2">Marca</label>
-            <span>{{vehiculo.marca}}</span>
+            <span *ngIf="vehiculo.marca">{{vehiculo.marca}}</span>
         </div>
 
         <!-- MODELO -->
         <div class="form-group row">
             <label for="modelo" class="col-form-label col-sm-2">Modelo</label>
-            <span>{{vehiculo.modelo}}</span>
+            <span *ngIf="vehiculo.modelo">{{vehiculo.modelo}}</span>
         </div>
 
         <!-- FECHA METRICULACION -->
         <div class="form-group row">
             <label for="fechaMatriculacion" class="col-form-label col-sm-2">Fecha matriculación</label>
-            <span>{{vehiculo.fechaMatriculacion}}</span>
+            <span *ngIf="vehiculo.fechaMatriculacion">{{vehiculo.fechaMatriculacion | date}}</span>
         </div>
 
         <!-- TIPO VEHICULO -->
         <div class="form-group row">
             <label for="tipoVehiculo" class="col-form-label col-sm-2">Tipo de vehículo</label>
-            <span>{{vehiculo.tipoVehiculo}}</span>
+            <span *ngIf="vehiculo.tipoVehiculo">{{vehiculo.tipoVehiculo}}</span>
         </div>
 
     </div>

@@ -7,109 +7,109 @@
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-                <span>{{cliente.nombre}}</span>
+                <span *ngIf="cliente.nombre">{{cliente.nombre}}</span>
             </div>
         </div>
         <!-- CODIGO CLIENTE -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="nombre" class="col-form-label col-sm-2">Código cliente</label>
-                <span>{{cliente.codigo}}</span>
+                <span *ngIf="cliente.codigo">{{cliente.codigo}}</span>
             </div>
         </div>
         <!-- PRIMER APELLIDO -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="nombre" class="col-form-label col-sm-2">Primer apellido</label>
-                <span>{{cliente.apellidoPrimero}}</span>
+                <span *ngIf="cliente.apellidoPrimero">{{cliente.apellidoPrimero}}</span>
             </div>
         </div>
         <!-- SEGUNDO APELLIDO -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="apellidoSegundo" class="col-form-label col-sm-2">Segundo apellido</label>
-                <span>{{cliente.apellidoSegundo}}</span>
+                <span *ngIf="cliente.apellidoSegundo">{{cliente.apellidoSegundo}}</span>
             </div>
         </div>
         <!-- NIF -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="nif" class="col-form-label col-sm-2">NIF/DNI</label>
-                <span>{{cliente.nif}}</span>
+                <span *ngIf="cliente.nif">{{cliente.nif}}</span>
             </div>
         </div>
         <!-- TIPO CLIENTE -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="tipoCliente" class="col-form-label col-sm-2">Tipo de cliente</label>
-                <span>{{cliente.tipoCliente}}</span>
+                <span *ngIf="cliente.tipoCliente">{{cliente.tipoCliente}}</span>
             </div>
         </div>
         <!-- CODIGO POSTAL -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
-                <span>{{cliente.codigoPostal}}</span>
+                <span *ngIf="cliente.codigoPostal">{{cliente.codigoPostal}}</span>
             </div>
         </div>
         <!-- DIRECCION -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="direccion" class="col-form-label col-sm-2">Dirección</label>
-                <span>{{cliente.direccion}}</span>
+                <span *ngIf="cliente.direccion">{{cliente.direccion}}</span>
             </div>
         </div>
         <!-- EDIFICIO -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
-                <span>{{cliente.edificio}}</span>
+                <span *ngIf="cliente.edificio">{{cliente.edificio}}</span>
             </div>
         </div>
         <!-- OBSERVACIONES -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-                <span>{{cliente.observaciones}}</span>
+                <span *ngIf="cliente.observaciones">{{cliente.observaciones}}</span>
             </div>
         </div>
         <!-- TELEFONO -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-                <span>{{cliente.telefono}}</span>
+                <span *ngIf="cliente.telefono">{{cliente.telefono}}</span>
             </div>
         </div>
         <!-- PAIS -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="nombre" class="col-form-label col-sm-2">País</label>
-                <span>{{cliente.pais}}</span>
+                <span *ngIf="cliente.pais">{{cliente.pais}}</span>
             </div>
         </div>
         <!-- REGION -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="nombre" class="col-form-label col-sm-2">Región</label>
-                <span>{{cliente.region}}</span>
+                <span *ngIf="cliente.region">{{cliente.region}}</span>
             </div>
         </div>
         <!-- PROVINCIA -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
-                <span>{{cliente.provincia}}</span>
+                <span *ngIf="cliente.provincia">{{cliente.provincia}}</span>
             </div>
         </div>
         <!-- POBLACION -->
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="poblacion" class="col-form-label col-sm-2">Población</label>
-                <span>{{cliente.poblacion}}</span>
+                <span *ngIf="cliente.poblacion">{{cliente.poblacion}}</span>
             </div>
         </div>
     </div>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+
     <div class="card-footer text-muted">
     </div>
 </div>

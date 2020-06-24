@@ -5,46 +5,46 @@
 
         <h5 class="card-title">Pedido</h5>
 
-        <!-- CODIGO CLIENTE -->
+        <!-- CODIGO PEDIDO -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código pedido</label>
-            <span>{{pedido.codigo}}</span>
+            <span *ngIf="pedido.codigo">{{pedido.codigo}}</span>
         </div>
 
         <!-- FECHA pedido -->
         <div class="form-group row">
             <label for="fechaPedido" class="col-form-label col-sm-2">Fecha pedido</label>
-            <span>{{pedido.fechaPedido}}</span>
+            <span *ngIf="pedido.fechaPedido">{{pedido.fechaPedido}}</span>
         </div>
 
         <!-- ARTICULO -->
         <div class="form-group row">
             <label for="articulo" class="col-form-label col-sm-2">Artículo</label>
-            <span>{{pedido.articulo}}</span>
+            <span *ngIf="pedido.articulo">{{pedido.articulo}}</span>
         </div>
 
         <!-- CANTIDAD -->
         <div class="form-group row">
             <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
-            <span>{{pedido.cantidad}}</span>
+            <span *ngIf="pedido.cantidad">{{pedido.cantidad}}</span>
         </div>
 
         <!-- BASE IMPONIBLE -->
         <div class="form-group row">
             <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <span>{{pedido.baseImponibleTotal}}</span>
+            <span *ngIf="pedido.baseImponibleTotal">{{pedido.baseImponibleTotal}}</span>
         </div>
 
         <!-- IMPUESTO -->
         <div class="form-group row">
             <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-            <span>{{pedido.impuesto}}</span>
+            <span *ngIf="pedido.impuesto">{{pedido.impuesto}}</span>
         </div>
 
         <!-- IMPORTE TOTAL -->
         <div class="form-group row">
             <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span>{{pedido.importeTotal}}</span>
+            <span *ngIf="pedido.importeTotal">{{pedido.importeTotal}}</span>
         </div>
     </div>
 

@@ -5,60 +5,46 @@
 
         <h5 class="card-title">Contrato</h5>
 
-        <!-- CODIGO CLIENTE -->
+        <!-- CODIGO CONTRATO -->
         <div class="form-group row">
             <label for="codigo" class="col-form-label col-sm-2">Código contrato</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.codigo" name="codigo">
-            </div>
+            <span *ngIf="contrato.codigo">{{contrato.codigo}}</span>
         </div>
 
         <!-- FECHA CREACION -->
         <div class="form-group row">
             <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.fechaCreacion" name="fechaCreacion">
-            </div>
+            <span *ngIf="contrato.fechaCreacion">{{contrato.fechaCreacion | date}}</span>
         </div>
 
         <!-- FECHA INICIO -->
         <div class="form-group row">
             <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.fechaInicio" name="fechaInicio">
-            </div>
+            <span *ngIf="contrato.fechaInicio">{{contrato.fechaInicio | date}}</span>
         </div>
 
         <!-- FECHA FIN -->
         <div class="form-group row">
             <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.fechaFin" name="fechaFin">
-            </div>
+            <span *ngIf="contrato.fechaFin">{{contrato.fechaFin | date}}</span>
         </div>
 
         <!-- DESCRIPCION -->
         <div class="form-group row">
             <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.descripcion" name="descripcion">
-            </div>
+            <span *ngIf="contrato.descripcion">{{contrato.descripcion}}</span>
         </div>
 
         <!-- BASE IMPONIBLE -->
         <div class="form-group row">
             <label for="baseImponibleTotal" class="col-form-label col-sm-2">Base imponible</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.baseImponibleTotal" name="baseImponibleTotal">
-            </div>
+            <span *ngIf="contrato.baseImponibleTotal">{{contrato.baseImponibleTotal}}</span>
         </div>
 
         <!-- IMPORTE TOTAL -->
         <div class="form-group row">
             <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="contrato.importeTotal" name="importeTotal">
-            </div>
+            <span *ngIf="contrato.importeTotal">{{contrato.importeTotal}}</span>
         </div>
 
     </div>
