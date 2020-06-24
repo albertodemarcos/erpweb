@@ -25,6 +25,7 @@
         "@fullcalendar/interaction": "^4.4.2",
         "@fullcalendar/resource-timegrid": "^4.4.2",
         "@fullcalendar/timegrid": "^4.4.2",
+        "@ngx-translate/core": "^12.1.2",
         "ag-grid": "^18.1.2",
         "ag-grid-angular": "^23.2.0",
         "ag-grid-community": "^23.2.0",

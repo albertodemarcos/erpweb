@@ -1,18 +1,4 @@
-<!-- dayGridMonth-->
-
-<!--<full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="customButtons" [header]="headerCalendario" [plugins]="calendarPlugins" [weekends]="true" [locales]="locales" [locale]="locale" (eventClick)="crearEventoPlanificador()"
-    [events]="eventosCalendario">
-</full-calendar>-->
-
-<!-- Para editar eventos (eventClick)="crearEventoPlanificador()" -->
-
-<full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="configuracionCalendario.customButtons" [header]="configuracionCalendario.headerCalendario" [plugins]="configuracionCalendario.calendarPlugins" [weekends]="true"
-    [locales]="configuracionCalendario.locales" [locale]="configuracionCalendario.locale" [events]="configuracionCalendario.eventosCalendario">
-</full-calendar>
-
-
-<!-- MODAL CREAR EVENTO -->
-<div id="crearEventoModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,28 +15,28 @@
                         <div class="form-group row">
                             <label for="titulo" class="col-form-label col-sm-2">Título</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="evento.titulo" name="titulo">
+                                <input type="text" class="form-control" name="titulo">
                             </div>
                         </div>
                         <!-- FECHA INICIO -->
                         <div class="form-group row">
-                            <label for="fechaInicio" class="col-form-label col-sm-2">Fecha Inicio</label>
+                            <label for="start" class="col-form-label col-sm-2">Fecha Inicio</label>
                             <div class="col-sm-6">
-                                <input type="date" class="form-control" [(ngModel)]="evento.fechaInicio" name="fechaInicio">
+                                <input type="text" class="form-control" name="start">
                             </div>
                         </div>
                         <!-- FECHA FIN -->
                         <div class="form-group row">
-                            <label for="fechaFin" class="col-form-label col-sm-2">Fecha Fín</label>
+                            <label for="end" class="col-form-label col-sm-2">Fecha Fín</label>
                             <div class="col-sm-6">
-                                <input type="date" class="form-control" [(ngModel)]="evento.fechaFin" name="fechaFin">
+                                <input type="text" class="form-control" name="end">
                             </div>
                         </div>
                         <!-- DESCRIPCION -->
                         <div class="form-group row">
                             <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="evento.descripcion" name="descripcion">
+                                <input type="text" class="form-control" name="descripcion">
                             </div>
                         </div>
 
