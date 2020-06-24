@@ -14,17 +14,20 @@ export class VehiculoService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearVehiculo: string;
   private urlListadoVehiculos: string;
+  private urlGetVehiculo: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearVehiculo = '/vehiculos/crearVehiculo';
     this.urlListadoVehiculos = '/vehiculos/listado.json';
+    this.urlGetVehiculo = '/vehiculos/vehiculo/';
   }
 
   // METODOS GENERALES
-
-  public getVehiculo(){
+  public getVehiculo(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetVehiculo + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearVehiculo(vehiculo: Vehiculo): Observable<AccionRespuesta>{

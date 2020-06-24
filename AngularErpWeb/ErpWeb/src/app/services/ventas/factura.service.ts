@@ -14,17 +14,20 @@ export class FacturaService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearFactura: string;
   private urlListadoFacturas: string;
+  private urlGetFactura: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearFactura = '/facturas/crearFactura';
     this.urlListadoFacturas = '/facturas/listado.json';
+    this.urlGetFactura = '/facturas/factura/';
   }
 
   // METODOS GENERALES
-
-  public getFactura(){
+  public getFactura(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetFactura + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearFactura(factura: Factura): Observable<AccionRespuesta>{

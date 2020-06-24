@@ -15,28 +15,31 @@ export class EmpleadoService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearEmpleado: string;
   private urlListadoEmpleados: string;
+  private urlGetEmpleado: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearEmpleado = '/empleados/crearEmpleado';
     this.urlListadoEmpleados = '/empleados/listado.json';
+    this.urlGetEmpleado = '/empleados/empleado/';
   }
 
   // METODOS GENERALES
-
-  public getEmpleado(){
+  public getEmpleado(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
-   }
+    const urlGet = this.urlGeneral + this.urlGetEmpleado + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
 
-   public crearEmpleado(empleado: Empleado): Observable<AccionRespuesta>{
+  public crearEmpleado(empleado: Empleado): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearEmpleado;
     return this.httpClient.post<AccionRespuesta>(urlPost, empleado, {headers: this.httpHeaders});
-   }
+  }
 
-   public actualizarEmpleado(){
+  public actualizarEmpleado(){
     console.log('METODO actualizar');
-   }
+  }
 
   public eliminarEmpleado(){
     console.log('METODO GET');

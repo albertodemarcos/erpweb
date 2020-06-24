@@ -15,17 +15,21 @@ export class CompraService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearCompra: string;
   private urlListadoCompras: string;
+  private urlGetCompra: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearCompra = '/compras/crearCompra';
     this.urlListadoCompras = '/compras/listado.json';
+    this.urlGetCompra = '/compras/compra/';
   }
 
   // METODOS GENERALES
 
-  public getCompra(){
+  public getCompra(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetCompra + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearCompra(compra: Compra): Observable<AccionRespuesta>{

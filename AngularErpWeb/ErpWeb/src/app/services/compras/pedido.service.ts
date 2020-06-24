@@ -14,36 +14,40 @@ export class PedidoService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearPedido: string;
   private urlListadoPedidos: string;
+  private urlGetPedido: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearPedido = '/pedidos/crearPedido';
     this.urlListadoPedidos = '/pedidos/listado.json';
+    this.urlGetPedido = '/pedidos/pedido/';
   }
 
   // METODOS GENERALES
-
-  public getPedido(){
+  public getPedido(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
-   }
+    const urlGet = this.urlGeneral + this.urlGetPedido + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
 
-   public crearPedido(pedido: Pedido): Observable<AccionRespuesta> {
+  public crearPedido(pedido: Pedido): Observable<AccionRespuesta> {
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearPedido;
     return this.httpClient.post<AccionRespuesta>(urlPost, pedido, {headers: this.httpHeaders});
-   }
+  }
 
-   public actualizarPedido(){
+  public actualizarPedido(){
     console.log('METODO actualizar');
-   }
+  }
 
-   public eliminarPedido(){
+  public eliminarPedido(){
     console.log('METODO GET');
-   }
+  }
 
-   public getPedidos(): Promise<Pedido[]> {
+  public getPedidos(): Promise<Pedido[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoPedidos;
     return this.httpClient.get<Pedido[]>(urlPost).pipe(map(response => response as Pedido[])).toPromise();
   }
+
 }

@@ -14,17 +14,20 @@ export class ProveedorService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearProveedor: string;
   private urlListadoProveedores: string;
+  private urlGetProveedor: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearProveedor = '/proveedores/crearProveedor';
     this.urlListadoProveedores = '/proveedores/listado.json';
+    this.urlGetProveedor = '/proveedores/proveedor/';
   }
 
   // METODOS GENERALES
-
-  public getProveedor(){
+  public getProveedor(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetProveedor + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearProveedor(proveedor: Proveedor): Observable<AccionRespuesta>{

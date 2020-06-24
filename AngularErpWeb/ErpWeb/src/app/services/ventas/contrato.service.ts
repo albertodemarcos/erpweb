@@ -14,17 +14,20 @@ export class ContratoService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearContrato: string;
   private urlListadoContratos: string;
+  private urlGetContrato: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearContrato = '/contratos/crearContrato';
     this.urlListadoContratos = '/contratos/listado.json';
+    this.urlGetContrato = '/contratos/contrato/';
   }
 
   // METODOS GENERALES
-
-  public getContrato(){
+  public getContrato(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetContrato + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
    public crearContrato(contrato: Contrato): Observable<AccionRespuesta>{

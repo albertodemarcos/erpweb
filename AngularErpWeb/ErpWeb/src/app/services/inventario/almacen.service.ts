@@ -14,17 +14,20 @@ export class AlmacenService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearAlmacen: string;
   private urlListadoAlmacenes: string;
+  private urlGetAlmacen: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearAlmacen = '/almacenes/crearAlmacen';
     this.urlListadoAlmacenes = '/almacenes/listado.json';
+    this.urlGetAlmacen = '/almacenes/almacen/';
   }
 
   // METODOS GENERALES
-
-  public getAlmacen(){
+  public getAlmacen(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetAlmacen + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearAlmacen(almacen: Almacen): Observable<AccionRespuesta>{

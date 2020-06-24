@@ -14,17 +14,20 @@ export class ArticuloService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearArticulo: string;
   private urlListadoArticulos: string;
+  private urlGetArticulo: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearArticulo = '/articulos/crearArticulo';
     this.urlListadoArticulos = '/articulos/listado.json';
+    this.urlGetArticulo = '/articulos/articulo/';
   }
 
   // METODOS GENERALES
-
-  public getArticulo(){
+  public getArticulo(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetArticulo + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearArticulo(articulo: Articulo): Observable<AccionRespuesta>{

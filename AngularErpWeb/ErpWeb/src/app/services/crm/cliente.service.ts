@@ -11,21 +11,24 @@ import { Cliente } from 'src/app/model/entitys/cliente.model';
 })
 export class ClienteService {
 
-  private clienteAux: Cliente;
   private urlGeneral: string;
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearCliente: string;
   private urlListadoClientes: string;
+  private urlGetCliente: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080'; //   http://192.168.1.39:8080
     this.urlCrearCliente = '/clientes/crearCliente';
     this.urlListadoClientes = '/clientes/listado.json';
+    this.urlGetCliente = '/clientes/cliente/';
   }
 
   // METODOS GENERALES
-  public getCliente(){
+  public getCliente(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetCliente + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearCliente(cliente: Cliente): Observable<AccionRespuesta>{
@@ -48,19 +51,6 @@ export class ClienteService {
     return this.httpClient.get<Cliente[]>(urlPost).pipe(
       map(response => response as Cliente[])
     ).toPromise();
-  }
-
-  /** METODO AUXILIARES */
-
-  public saveClientePostFormulario(clienteP: Cliente): void {
-    /* Guardamos el cliente recien creado para evitar
-    *  volver a solicitar la informacion.
-    */
-    this.clienteAux = clienteP;
-  }
-
-  public getClienteAux(): Cliente {
-    return this.clienteAux;
   }
 
 
