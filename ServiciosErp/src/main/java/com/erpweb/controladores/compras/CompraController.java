@@ -57,8 +57,8 @@ public class CompraController {
 		this.compraValidator.validate(compraDto, result);
 		
 		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+									
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object>());
 		}
 		
 		return this.compraService.getCrearEditarCompra(compraDto, user);

@@ -28,7 +28,11 @@ export class FormularioCompraComponent implements OnInit {
       changeMonth: false,
       changeYear: false,
       dayNames: true,
-      duration: 'slow'
+      duration: 'slow', 
+      onClose: () => {
+        let fechaCompraTexto = jQuery('#' + this.idDatePicker).val();
+        this.compra.fechaCompra = new Date(fechaCompraTexto);
+      }
     });
 
     jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
@@ -43,6 +47,8 @@ export class FormularioCompraComponent implements OnInit {
   public crearCompraFormulario(): void {
 
     console.log('Estamos dentro del metodo crear formulario');
+
+    console.log('Fecha compra: ' + typeof(this.compra.fechaCompra));
 
     this.compraService.crearCompra(this.compra).subscribe( accionRespuesta => {
       console.log('Esta registrado' + accionRespuesta.resultado);
