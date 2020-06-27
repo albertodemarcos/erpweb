@@ -1,8 +1,11 @@
 package com.erpweb.servicios.usuarios;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +33,18 @@ public class UsuarioService {
 		Usuario usuario = new Usuario();
 		
 		usuario.setCodigo(usuarioDto.getCodigo());
-		usuario.setName(usuarioDto.getName());
-		usuario.setPassword(usuarioDto.getPassword());
-		usuario.setIdentidad(usuarioDto.getIdentidad());
-		usuario.setIdioma(usuarioDto.getIdioma());
+		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());
+		usuario.setUsuario(usuarioDto.getUsuario());
+		usuario.setPass(usuarioDto.getPass());
+		usuario.setRole(usuarioDto.getRole());
+		
+		List<String> roles = new ArrayList<String>();
+		roles.add(usuarioDto.getRole());
+		
+		//Spring
+		usuario.setName(usuarioDto.getUsuario());
+		usuario.setPassword(usuarioDto.getPass());
+		usuario.setRoles( roles );
 		
 		try {
 			//Guardamos el usuario en base de datos
@@ -59,10 +70,18 @@ public class UsuarioService {
 		
 		usuario.setId(usuarioDto.getId());
 		usuario.setCodigo(usuarioDto.getCodigo());
-		usuario.setName(usuarioDto.getName());
-		usuario.setPassword(usuarioDto.getPassword());
-		usuario.setIdentidad(usuarioDto.getIdentidad());
-		usuario.setIdioma(usuarioDto.getIdioma());
+		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());
+		usuario.setUsuario(usuarioDto.getUsuario());
+		usuario.setPass(usuarioDto.getPass());
+		usuario.setRole(usuarioDto.getRole());
+		
+		List<String> roles = new ArrayList<String>();
+		roles.add(usuarioDto.getRole());
+		
+		//Spring
+		usuario.setName(usuarioDto.getUsuario());
+		usuario.setPassword(usuarioDto.getPass());
+		usuario.setRoles( roles );
 		
 		try {
 			//Guardamos el usuario en base de datos
@@ -152,10 +171,10 @@ public class UsuarioService {
 		try {
 			
 			usuarioDto.setCodigo(usuario.getCodigo());
-			usuarioDto.setName(usuario.getName());
-			usuarioDto.setPassword(usuario.getPassword());
-			usuarioDto.setIdentidad(usuario.getIdentidad());
-			usuarioDto.setIdioma(usuario.getIdioma());
+			usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
+			usuarioDto.setUsuario(usuario.getUsuario());
+			usuarioDto.setPass(usuario.getPass());
+			usuarioDto.setRole(usuario.getRole());
 			
 		} catch(Exception e) {
 			
@@ -165,6 +184,26 @@ public class UsuarioService {
 		}
 		
 		return usuarioDto;
+	}
+	
+	public List<UsuarioDto> getListadoUsuarios() {
+		
+		logger.debug("Entramos en el metodo getListadoUsuarios()" );
+		
+		try {
+			
+			List<Usuario> usuarios = usuarioRepository.findAll();
+			
+			return this.obtieneListadoUsuarioDtoDelRepository(usuarios);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoUsuarios()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<UsuarioDto>();
 	}
 	
 	public AccionRespuesta getUsuario(Long usuarioId, Usuario user) {
@@ -296,5 +335,31 @@ public class UsuarioService {
 		
 		return respuesta;		
 	}
+	
+	private List<UsuarioDto> obtieneListadoUsuarioDtoDelRepository(List<Usuario> usuarios){
+		
+		List<UsuarioDto> usuariosDto = new ArrayList<UsuarioDto>();
+		
+		if(CollectionUtils.isNotEmpty(usuarios) ) {
+			
+			for(Usuario usuario : usuarios) {
+				
+				UsuarioDto usuarioDto = new UsuarioDto();
+				
+				usuarioDto.setId(usuario.getId());
+				usuarioDto.setCodigo(usuario.getCodigo());
+				usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
+				usuarioDto.setUsuario(usuario.getUsuario());
+				usuarioDto.setPass(usuario.getPass());
+				usuarioDto.setRole(usuario.getRole());
+				
+				usuariosDto.add(usuarioDto);			
+			}
+		}
+		
+		return usuariosDto;
+	}
+	
+	
 
 }

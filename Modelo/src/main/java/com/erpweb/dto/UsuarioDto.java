@@ -9,10 +9,10 @@ public class UsuarioDto implements Serializable {
 
 	private Long id;
 	private String codigo;
-	private String name;
-	private String password;
-    private String identidad;
-    private String idioma;
+	private String nombreCompleto;
+	private String usuario;
+	private String pass;
+	private String role;
     
 	public Long getId() {
 		return id;
@@ -29,40 +29,37 @@ public class UsuarioDto implements Serializable {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	public String getName() {
-		return name;
+
+	public String getNombreCompleto() {
+		return nombreCompleto;
 	}
-	
-	public void setName(String name) {
-		this.name = name;
+
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
 	}
-	
-	public String getPassword() {
-		return password;
+
+	public String getUsuario() {
+		return usuario;
 	}
-	
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
-	
-	public String getIdentidad() {
-		return identidad;
+
+	public String getPass() {
+		return pass;
 	}
-	
-	public void setIdentidad(String identidad) {
-		this.identidad = identidad;
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
-	
-	public String getIdioma() {
-		return idioma;
+
+	public String getRole() {
+		return role;
 	}
-	
-	public void setIdioma(String idioma) {
-		this.idioma = idioma;
+
+	public void setRole(String role) {
+		this.role = role;
 	}
-	
-    
-    
     
 }

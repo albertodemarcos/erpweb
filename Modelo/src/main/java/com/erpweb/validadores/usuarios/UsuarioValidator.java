@@ -32,26 +32,20 @@ public class UsuarioValidator implements Validator {
 			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( usuarioDto.getName() )  ) {
+		if( StringUtils.isBlank( usuarioDto.getUsuario())  ) {
 			
 			errors.rejectValue("", "", "El campo usuario no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( usuarioDto.getPassword() )  ) {
+		if( StringUtils.isBlank( usuarioDto.getPass() )  ) {
 			
 			errors.rejectValue("", "", "El campo contraseña no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( usuarioDto.getIdentidad() )  ) {
+		if( StringUtils.isBlank( usuarioDto.getNombreCompleto() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre de usuario no puede estar vacío");
+			errors.rejectValue("", "", "El campo contraseña no puede estar vacío");
 		}
-		
-		if( StringUtils.isBlank( usuarioDto.getIdioma() )  ) {
-			
-			errors.rejectValue("", "", "El campo idioma no puede estar vacío");
-		}
-		
 		
 	}
 

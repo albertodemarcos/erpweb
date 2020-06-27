@@ -6,10 +6,19 @@
 
 <!-- Para editar eventos (eventClick)="crearEventoPlanificador()" -->
 
-<full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="configuracionCalendario.customButtons" [header]="configuracionCalendario.headerCalendario" [plugins]="configuracionCalendario.calendarPlugins" [weekends]="true"
-    [locales]="configuracionCalendario.locales" [locale]="configuracionCalendario.locale" [events]="configuracionCalendario.eventosCalendario">
-</full-calendar>
+<!--<div *ngIf="configuracionCalendario">
+    <full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="configuracionCalendario.customButtons" [header]="configuracionCalendario.headerCalendario" [plugins]="configuracionCalendario.calendarPlugins" [weekends]="true"
+        [locales]="configuracionCalendario.locales" [locale]="configuracionCalendario.locale" [events]="configuracionCalendario.eventosCalendario">
+    </full-calendar>
+</div>-->
 
+<div *ngIf="configuracionCalendario">
+
+    <full-calendar *ngIf="calendarioVisible" [options]='configuracionCalendario'>
+
+    </full-calendar>
+
+</div>
 
 <!-- MODAL CREAR EVENTO -->
 <div id="crearEventoModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary navBar">
-    <!--fixed-top-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary navBar fixed-top">
+    <!---->
 
     <!-- Inicio -->
     <a class="navbar-brand" [routerLink]="['inicio']">
@@ -32,7 +32,7 @@
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="assets/img/navbar/crm.png" width="20" height="20" alt=""> Planificador
+                    <img src="assets/img/navbar/calendario.png" width="20" height="20" alt=""> Planificador
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <!--CALENDARIO-->
@@ -46,39 +46,6 @@
                 </ul>
             </li>
         </ul>
-        <!--
-        <ul class="navbar-nav mt-auto">
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="assets/img/navbar/bi.png" width="20" height="20" alt=""> BI
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Ingresos</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" [routerLink]="['ingresos']">Listado</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['ingresos','nuevo-ingreso']">Nuevo ingreso</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['ingresos','buscar-ingreso']">Buscar ingreso</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Gastos</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" [routerLink]="['gastos']">Listado</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['gastos','nuevo-gasto']">Nuevo gasto</a></li>
-                            <li><a class="dropdown-item" [routerLink]="['gastos','buscar-gasto']">Buscar gasto</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Resultados</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" [routerLink]="['resultados']">Listado</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </li>
-        </ul>-->
         <!--VENTAS-->
         <ul class="navbar-nav mt-auto">
             <li class="nav-item dropdown active">
@@ -188,9 +155,11 @@
                     <img src="assets/img/navbar/empresa.png" width="20" height="20" alt=""> Empresa
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <!--EMPRESA-->
-                    <li class="dropdown-item">
-                        <a class="dropdown-item" [routerLink]="['empresa']">Información empresa</a>
+                    <!-- EMPRESA -->
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Empresa</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" [routerLink]="['empresa']">Información</a></li>
+                        </ul>
                     </li>
                     <!--RRHH-->
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">RRHH</a>
@@ -198,6 +167,23 @@
                             <li><a class="dropdown-item" [routerLink]="['rrhh']">Listado empleados</a></li>
                             <li><a class="dropdown-item" [routerLink]="['rrhh','nuevo-empleado']">Nuevo empleado</a></li>
                             <li><a class="dropdown-item" [routerLink]="['rrhh','buscar-empleado']">Buscar empleado</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!--PANEL ADMINISTRADOR (SOLO VISIBLE POR ADMINISTRADORES)-->
+        <ul class="navbar-nav mt-auto">
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="assets/img/navbar/adminstracion.png" width="20" height="20" alt=""> Administración
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <!--USERS-->
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Usuarios</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" [routerLink]="['usuarios']">Listado usuarios</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['usuarios','nuevo-usuario']">Nuevo usuario</a></li>
                         </ul>
                     </li>
                 </ul>

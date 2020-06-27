@@ -6,6 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
 
 /* --------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
@@ -29,6 +33,7 @@ import { ArticuloComponent } from './components/cards/inventario/articulo/articu
 import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehiculo.component';
 import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
+import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
 
 /* ------------------------------------------------------ LISTADOS ------------------------------------------------------ */
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
@@ -42,6 +47,7 @@ import { ListadoArticulosComponent } from './components/listados/inventario/list
 import { ListadoAlmacenComponent } from './components/listados/inventario/listado-almacen/listado-almacen.component';
 import { ListadoVehiculosComponent } from './components/listados/inventario/listado-vehiculos/listado-vehiculos.component';
 import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
+import { ListadoUsuariosComponent } from './components/listados/usuarios/listado-usuarios/listado-usuarios.component';
 
 /* ---------------------------------------------------- FORMULARIOS ----------------------------------------------------------- */
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
@@ -56,6 +62,7 @@ import { FormularioProveedorComponent } from './components/formularios/compras/f
 import { FormularioAlmacenComponent } from './components/formularios/inventario/formulario-almacen/formulario-almacen.component';
 import { FormularioArticuloComponent } from './components/formularios/inventario/formulario-articulo/formulario-articulo.component';
 import { FormularioVehiculoComponent } from './components/formularios/inventario/formulario-vehiculo/formulario-vehiculo.component';
+import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
 
 /* -------------------------------------------------- MODALES --------------------------------------------------------- */
 import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
@@ -79,8 +86,6 @@ import { BotonListadoClienteComponent } from './components/utiles/botonesListado
 import { BotonListadoCompraComponent } from './components/utiles/botonesListado/boton-listado-compra/boton-listado-compra.component';
 import { BotonListadoPedidoComponent } from './components/utiles/botonesListado/boton-listado-pedido/boton-listado-pedido.component';
 import { BotonListadoProveedorComponent } from './components/utiles/botonesListado/boton-listado-proveedor/boton-listado-proveedor.component';
-
-
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
 
@@ -100,8 +105,16 @@ import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
 
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+// Pluggin FullCalendar
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [ // Componentes
@@ -163,7 +176,10 @@ import { VentaService } from './services/ventas/venta.service';
     BotonListadoClienteComponent,
     BotonListadoCompraComponent,
     BotonListadoPedidoComponent,
-    BotonListadoProveedorComponent
+    BotonListadoProveedorComponent,
+    ListadoUsuariosComponent,
+    FormularioUsuarioComponent,
+    UsuarioComponent
   ], // Modulos
   imports: [
     BrowserModule,

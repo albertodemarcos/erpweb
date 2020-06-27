@@ -18,6 +18,7 @@ import { ListadoArticulosComponent } from './components/listados/inventario/list
 import { ListadoAlmacenComponent } from './components/listados/inventario/listado-almacen/listado-almacen.component';
 import { ListadoVehiculosComponent } from './components/listados/inventario/listado-vehiculos/listado-vehiculos.component';
 import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
+import { ListadoUsuariosComponent } from './components/listados/usuarios/listado-usuarios/listado-usuarios.component';
 
 // FORMULARIOS
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
@@ -31,6 +32,7 @@ import { FormularioVehiculoComponent } from './components/formularios/inventario
 import { FormularioVentaComponent } from './components/formularios/ventas/formulario-venta/formulario-venta.component';
 import { FormularioContratoComponent } from './components/formularios/ventas/formulario-contrato/formulario-contrato.component';
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
+import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
 
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
 import { ContratoComponent } from './components/cards/ventas/contrato/contrato.component';
@@ -44,6 +46,7 @@ import { ArticuloComponent } from './components/cards/inventario/articulo/articu
 import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehiculo.component';
 import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
+import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
 
 const routes: Routes = [
   // RUTA INICIO
@@ -85,10 +88,14 @@ const routes: Routes = [
   { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent },
   { path: 'vehiculos/vehiculo/:id', component: VehiculoComponent, data: {vehiculo: 'vehiculo'} },
   // RUTAS EMPRESA
-  { path: 'empresa', component: FormularioClienteComponent }, // CAMBIAR
+  { path: 'empresa', component: EmpresaComponent },
   { path: 'rrhh', component: ListadoEmpleadosComponent },
   { path: 'rrhh/nuevo-empleado', component: FormularioEmpleadoComponent },
   { path: 'rrhh/empleado/:id', component: EmpleadoComponent, data: {empleado: 'empleado'} },
+  // RUTAS ADMINISTRACION
+  { path: 'usuarios', component: ListadoUsuariosComponent },
+  { path: 'usuarios/nuevo-usuario', component: FormularioUsuarioComponent },
+  { path: 'usuarios/usuario/:id', component: UsuarioComponent, data: {empleado: 'empleado'} },
   // RUTAS PERFIL
   { path: 'perfil', component: FormularioClienteComponent }, // CAMBIAR
   { path: 'salir', component: FormularioClienteComponent }, // CAMBIAR

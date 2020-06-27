@@ -1,6 +1,7 @@
 package com.erpweb.controladores.usuarios;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -36,11 +37,10 @@ public class UsuarioController {
 		return this.usuarioService.getUsuario(usuarioId, user);
 	}
 	
-	@GetMapping("/listado")
-	public String getUsuarios(  ) {
+	@GetMapping("/listado.json")
+	public @ResponseBody List<UsuarioDto> getUsuarios( ) throws Exception {
 		
-		
-		return "";
+		return this.usuarioService.getListadoUsuarios();
 	}
 	
 	@GetMapping( "/crearUsuario" )
