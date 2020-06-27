@@ -1,4 +1,128 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+// FullCalendar v5
+import { CalendarOptions /*, DateSelectArg, EventClickArg*/, EventApi, EventAddArg } from '@fullcalendar/angular';
+import esLocale from '@fullcalendar/core/locales/es';
+import enLocale from '@fullcalendar/core/locales/en-gb';
+import frLocale from '@fullcalendar/core/locales/fr';
+// Propios
+import { EventoService } from 'src/app/services/planificador/evento.service';
+import { Evento } from 'src/app/model/entitys/evento.model';
+import { Event } from 'src/app/model/entitys/event.model';
+
+
+
+declare var $: any;
+
+
+
+@Component({
+  selector: 'app-planificador',
+  templateUrl: './planificador.component.html',
+  styleUrls: ['./planificador.component.css']
+})
+export class PlanificadorComponent implements OnInit  {
+
+  // Configuracion calendario
+  public calendarioVisible: boolean;
+  public configuracionCalendario: CalendarOptions;
+
+  // Evento
+  public evento: Evento;
+  private eventAddArg: EventAddArg;
+
+
+  currentEvents: EventApi[] = [];
+
+  constructor(private eventoService: EventoService, private router: Router) {
+
+    console.log('Constructor()');
+
+    this.calendarioVisible = true;
+    this.evento = new Evento();
+
+    this.initFullCalendar();
+
+  }
+
+  ngOnInit(): void {
+
+    console.log('ngOnInit()');
+
+  }
+
+
+/* METODOS GENERALES */
+
+ initFullCalendar(): void{
+
+  console.log('Iniciamos la configuracion del calendario');
+
+  this.configuracionCalendario = {
+    headerToolbar: {
+      left: 'prev,next today btnCrearEventoButton',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    initialView: 'dayGridMonth',
+    // initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    weekends: true,
+    editable: true,
+    selectable: false,
+    selectMirror: true,
+    dayMaxEvents: true,
+    locales: [ esLocale, enLocale, frLocale ],
+    locale: 'es',
+    // select: this.crearEventoPlanificador.bind(this), // Seleccionar
+    // eventClick: this.handleEventClick.bind(this), // Click evento
+    // eventsSet: this.handleEvents.bind(this) // Setear eventos actuales
+    // eventAdd: () => { this.crearEventoPlanificador(); }
+    // eventChange:
+    // eventRemove:
+    customButtons: {
+      // Añadir evento
+      btnCrearEventoButton: {
+        // Texto del evento
+        text: 'Crear evento',
+        click: () => {
+          console.log('Pulsado el boton crear evento');
+          this.mostrarModalCrearEvento();
+          // Mostramos todos los eventos
+
+        }
+      }
+    },
+    // Style
+    height: 500
+  };
+
+ }
+
+ // Crear evento
+ crearEventoPlanificador(): void {
+
+  console.log('Comienza la persistencia del evento' + JSON.stringify(this.evento) );
+
+  this.eventoService.crearEvento(this.evento).subscribe( accionRespuesta => {
+    console.log('Esta registrado' + accionRespuesta.resultado);
+    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // Si el resultado es true, navegamos hasta la vista
+    if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+
+      console.log('Evento creado correctamente');
+    }
+  });
+}
+
+mostrarModalCrearEvento(): void {
+  $('#crearEventoModal').modal('show');
+}
+
+
+
+}
+
+/*import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 // FullCalendar v4
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -64,7 +188,7 @@ export class PlanificadorComponent implements OnInit  {
       // Plugins
       calendarPlugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
       // Eventos
-      eventosCalendario: this.fullCalendarData /* [{title: 'Evento 1', date: '2020-06-27'}, {title: 'Evento 2', date: '2020-06-28'}]*/,
+      eventosCalendario: this.fullCalendarData,
       // Boton crear evento
       customButtons: {
         // Añadir evento
@@ -142,4 +266,4 @@ export class PlanificadorComponent implements OnInit  {
 
 
 
-}
+}*/

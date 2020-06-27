@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+import { Usuario } from 'src/app/model/entitys/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,15 +30,23 @@ export class UsuarioService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
-   public crearUsuario(){
+  public crearUsuario(usuario: Usuario){
     console.log('METODO crear');
-   }
+    const urlPost = this.urlGeneral + this.urlCrearUsuario;
+    return this.httpClient.post<AccionRespuesta>(urlPost, usuario, {headers: this.httpHeaders});
+  }
 
-   public actualizarUsuario(){
+  public actualizarUsuario(){
     console.log('METODO actualizar');
-   }
+  }
 
-   public eliminarUsuario(){
+  public eliminarUsuario(){
     console.log('METODO GET');
-   }
+  }
+
+  public getUsuarios(): Promise<Usuario[]> {
+    console.log('METODO listado');
+    const urlPost = this.urlGeneral + this.urlListadoUsuarios;
+    return this.httpClient.get<Usuario[]>(urlPost).pipe(map(response => response as Usuario[])).toPromise();
+  }
 }

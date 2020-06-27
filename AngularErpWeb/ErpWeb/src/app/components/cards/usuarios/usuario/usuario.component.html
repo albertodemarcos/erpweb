@@ -1,0 +1,32 @@
+<div class="card text-center">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+
+        <h5 class="card-title">Usuario</h5>
+
+        <!-- CODIGO USUARIO -->
+        <div class="form-group row">
+            <label for="codigo" class="col-form-label col-sm-2">Codigo usuario</label>
+            <span *ngIf="usuario.codigo">{{usuario.codigo}}</span>
+        </div>
+
+        <!-- NAME USER -->
+        <div class="form-group row">
+            <label for="name" class="col-form-label col-sm-2">Usuario</label>
+            <span *ngIf="usuario.name">{{usuario.name}}</span>
+        </div>
+
+        <!-- PASSWORD USER -->
+        <div class="form-group row">
+            <label for="password" class="col-form-label col-sm-2">Contraseña</label>
+            <span *ngIf="usuario.password">{{usuario.password}}</span>
+        </div>
+
+    </div>
+
+    <div class="card-footer text-muted">
+        <a href="#" class="btn btn-primary">Editar</a>
+        <a href="#" class="btn btn-primary">Borrar</a>
+    </div>
+</div>
