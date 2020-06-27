@@ -29,63 +29,63 @@ public class VentaValidator implements Validator {
 		
 		if( StringUtils.isBlank( ventaDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
 		if( ventaDto.getFechaCreacion() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha de creacion no puede estar vacío");
+			errors.rejectValue("fechaCreacion", "", "El campo fecha de creacion no puede estar vacío");
 		}
 		
 		if( ventaDto.getFechaInicio() == null  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de inicio no puede estar vacío");
+			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede estar vacío");
 			
 		} else if( (ventaDto.getFechaInicio() != null && ventaDto.getFechaFin() != null ) 
 						&& ventaDto.getFechaInicio().after( ventaDto.getFechaFin() )  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
+			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
 		}
 		
 		if( ventaDto.getFechaFin() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha de fin no puede estar vacío");
+			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
 		}else if( (ventaDto.getFechaInicio() != null && ventaDto.getFechaFin() != null ) 
 				&& ventaDto.getFechaInicio().before( ventaDto.getFechaFin() )  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
+			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}
 		
 		if( StringUtils.isBlank( ventaDto.getDescripcion() )  ) {
 			
-			errors.rejectValue("", "", "El campo descripcion no puede estar vacío");
+			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
 		}
 		
 		if( ventaDto.getBaseImponibleTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede estar vacío");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
 			
 		}else if( ventaDto.getBaseImponibleTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser negativo");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
 			
 		}else if( ventaDto.getBaseImponibleTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser cero");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
 		}
 		
 		if( ventaDto.getImporteTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede estar vacío");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
 			
 		}else if( ventaDto.getImporteTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser negativo");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
 			
 		}else if( ventaDto.getImporteTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser cero");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
 		
 			

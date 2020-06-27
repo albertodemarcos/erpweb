@@ -30,37 +30,37 @@ public class VehiculoValidator implements Validator {
 	
 		if( StringUtils.isBlank( vehiculoDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 	
 		if( StringUtils.isBlank( vehiculoDto.getMatricula() )  ) {
 			
-			errors.rejectValue("", "", "El campo matricula no puede estar vacío");
+			errors.rejectValue("matricula", "", "El campo matricula no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( vehiculoDto.getMarca() )  ) {
 			
-			errors.rejectValue("", "", "El campo marca no puede estar vacío");
+			errors.rejectValue("marca", "", "El campo marca no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( vehiculoDto.getModelo() )  ) {
 			
-			errors.rejectValue("", "", "El campo modelo no puede estar vacío");
+			errors.rejectValue("modelo", "", "El campo modelo no puede estar vacío");
 		}
 		
 		if( vehiculoDto.getTipoVehiculo() == null  ) {
 			
-			errors.rejectValue("", "", "El campo tipo de vehiculo no puede estar vacío");
+			errors.rejectValue("tipoVehiculo", "", "El campo tipo de vehiculo no puede estar vacío");
 		}
 		
 		if( vehiculoDto.getTipoCombustible() == null  ) {
 			
-			errors.rejectValue("", "", "El campo tipo de combustible no puede estar vacío");
+			errors.rejectValue("tipoCombustible", "", "El campo tipo de combustible no puede estar vacío");
 		}
 		
 		if( vehiculoDto.getFechaMatriculacion() == null  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de matriculación no puede estar vacío");
+			errors.rejectValue("fechaMatriculacion", "", "El campo fecha de matriculación no puede estar vacío");
 		}
 	
 	

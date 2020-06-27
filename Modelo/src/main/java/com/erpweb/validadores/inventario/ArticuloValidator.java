@@ -29,48 +29,48 @@ public class ArticuloValidator implements Validator {
 		
 		if( StringUtils.isBlank( articuloDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( articuloDto.getNombre() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre no puede estar vacío");
+			errors.rejectValue("nombre", "", "El campo nombre no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( articuloDto.getDescripcion() )  ) {
 			
-			errors.rejectValue("", "", "El campo descripcion no puede estar vacío");
+			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
 		}
 		
 		if( articuloDto.getBaseImponible() == null  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede estar vacío");
+			errors.rejectValue("baseImponible", "", "El campo base imponible no puede estar vacío");
 			
 		}else if( articuloDto.getBaseImponible().doubleValue() < 0) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser negativo");
+			errors.rejectValue("baseImponible", "", "El campo base imponible no puede ser negativo");
 			
 		}else if( articuloDto.getBaseImponible().doubleValue() == 0 ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser cero");
+			errors.rejectValue("baseImponible", "", "El campo base imponible no puede ser cero");
 		}
 		
 		if( articuloDto.getImporteTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede estar vacío");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
 			
 		}else if( articuloDto.getImporteTotal().doubleValue() < 0) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser negativo");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
 			
 		}else if( articuloDto.getImporteTotal().doubleValue() == 0 ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser cero");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
 		
 		if( StringUtils.isBlank( articuloDto.getImpuesto() )  ) {
 			
-			errors.rejectValue("", "", "El campo impuesto no puede estar vacío");
+			errors.rejectValue("impuesto", "", "El campo impuesto no puede estar vacío");
 		}
 		
 	}

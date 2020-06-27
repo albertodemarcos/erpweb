@@ -29,61 +29,61 @@ public class PedidoValidator implements Validator {
 		
 		if( StringUtils.isBlank( pedidoDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacio");
 		}
 		
 		if(  pedidoDto.getFechaPedido() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha no puede estar vacio");
+			errors.rejectValue("fechaPedido", "", "El campo fecha no puede estar vacio");
 		} 
 		
 		if( StringUtils.isBlank( pedidoDto.getArticulo() )  ) {
 					
-			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
+			errors.rejectValue("articulo", "", "El campo codigo no puede estar vacio");
 		}
 		
 		if( pedidoDto.getCantidad() == null  ) {
 			
-			errors.rejectValue("", "", "El campo cantidad no puede estar vacío");
+			errors.rejectValue("cantidad", "", "El campo cantidad no puede estar vacío");
 			
 		}else if( pedidoDto.getCantidad().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo cantidad no puede ser negativo");
+			errors.rejectValue("cantidad", "", "El campo cantidad no puede ser negativo");
 			
 		}else if( pedidoDto.getCantidad().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo cantidad no puede ser cero");
+			errors.rejectValue("cantidad", "", "El campo cantidad no puede ser cero");
 		}
 		
 		if( StringUtils.isBlank( pedidoDto.getImpuesto() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
+			errors.rejectValue("impuesto", "", "El campo codigo no puede estar vacio");
 		}
 		
 		if( pedidoDto.getBaseImponibleTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede estar vacío");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
 			
 		}else if( pedidoDto.getBaseImponibleTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser negativo");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
 			
 		}else if( pedidoDto.getBaseImponibleTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser cero");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
 		}
 		
 		if( pedidoDto.getImporteTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede estar vacío");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
 			
 		}else if( pedidoDto.getImporteTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser negativo");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
 			
 		}else if( pedidoDto.getImporteTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser cero");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
 		
 	}

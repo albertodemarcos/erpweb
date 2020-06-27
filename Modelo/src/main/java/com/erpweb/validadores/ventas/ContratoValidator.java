@@ -29,63 +29,63 @@ public class ContratoValidator implements Validator {
 		
 		if( StringUtils.isBlank( contratoDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
 		if( contratoDto.getFechaCreacion() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha de creacion no puede estar vacío");
+			errors.rejectValue("fechaCreacion", "", "El campo fecha de creacion no puede estar vacío");
 		}
 		
 		if( contratoDto.getFechaInicio() == null  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de inicio no puede estar vacío");
+			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede estar vacío");
 			
 		} else if( (contratoDto.getFechaInicio() != null && contratoDto.getFechaFin() != null ) 
 						&& contratoDto.getFechaInicio().after( contratoDto.getFechaFin() )  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
+			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
 		}
 		
 		if( contratoDto.getFechaFin() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha de fin no puede estar vacío");
+			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
 		}else if( (contratoDto.getFechaInicio() != null && contratoDto.getFechaFin() != null ) 
 				&& contratoDto.getFechaInicio().before( contratoDto.getFechaFin() )  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
+			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}
 		
 		if( StringUtils.isBlank( contratoDto.getDescripcion() )  ) {
 			
-			errors.rejectValue("", "", "El campo descripcion no puede estar vacío");
+			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
 		}
 		
 		if( contratoDto.getBaseImponibleTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede estar vacío");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
 			
 		}else if( contratoDto.getBaseImponibleTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser negativo");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
 			
 		}else if( contratoDto.getBaseImponibleTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser cero");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
 		}
 		
 		if( contratoDto.getImporteTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede estar vacío");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
 			
 		}else if( contratoDto.getImporteTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser negativo");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
 			
 		}else if( contratoDto.getImporteTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser cero");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
 		
 	}

@@ -34,28 +34,28 @@ public class EmpresaValidator implements Validator {
 
 		if (StringUtils.isBlank(empresaDto.getCodigo())) {
 
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 
 		if( StringUtils.isBlank( empresaDto.getNombre() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre no puede estar vacío");
+			errors.rejectValue("nombre", "", "El campo nombre no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empresaDto.getCif() )  ) {
 			
-			errors.rejectValue("", "", "El campo cif no puede estar vacío");
+			errors.rejectValue("cif", "", "El campo cif no puede estar vacío");
 		}
 		
 		if( empresaDto.getTipoSociedadJuridica() == null  ) {
 			
-			errors.rejectValue("", "", "El campo sociedad juridica no puede estar vacío");
+			errors.rejectValue("tipoSociedadJuridica", "", "El campo sociedad juridica no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( empresaDto.getIdioma() )  ) {
+		/*if( StringUtils.isBlank( empresaDto.getIdioma() )  ) {
 			
-			errors.rejectValue("", "", "Debes elegir el idioma");
-		}
+			errors.rejectValue("idioma", "", "Debes elegir el idioma");
+		}*/
 		
 
 	}

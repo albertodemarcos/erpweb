@@ -30,72 +30,72 @@ public class EmpleadoValidator implements Validator {
 		
 		if( StringUtils.isBlank( empleadoDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getNombre() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre no puede estar vacío");
+			errors.rejectValue("nombre", "", "El campo nombre no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getApellidoPrimero() )  ) {
 			
-			errors.rejectValue("", "", "El campo apellido no puede estar vacío");
+			errors.rejectValue("apellidoPrimero", "", "El campo apellido no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getApellidoSegundo() )  ) {
 				
-			errors.rejectValue("", "", "El campo segundo apellido no puede estar vacío");
+			errors.rejectValue("apellidoSegundo", "", "El campo segundo apellido no puede estar vacío");
 		}
 
 		if( StringUtils.isBlank( empleadoDto.getNif() )  ) {
 			
-			errors.rejectValue("", "", "El campo DNI no puede estar vacío");
+			errors.rejectValue("nif", "", "El campo DNI no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getCodigoPostal() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo postal no puede estar vacío");
+			errors.rejectValue("codigoPostal", "", "El campo codigo postal no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getDireccion() )  ) {
 			
-			errors.rejectValue("", "", "La campo direccion no puede estar vacío");
+			errors.rejectValue("direccion", "", "La campo direccion no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getEdificio() )  ) {
 			
-			errors.rejectValue("", "", "El campo edificio no puede estar vacío");
+			errors.rejectValue("edificio", "", "El campo edificio no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( empleadoDto.getObservaciones() )  ) {
+		/*if( StringUtils.isBlank( empleadoDto.getObservaciones() )  ) {
 			
 			errors.rejectValue("", "", "El campo observacíones no puede estar vacío");
-		}
+		}*/
 		
 		if( StringUtils.isBlank( empleadoDto.getTelefono() )  ) {
 			
-			errors.rejectValue("", "", "El campo telefono no puede estar vacío");
+			errors.rejectValue("telefono", "", "El campo telefono no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getPais()) ) {
 			
-			errors.rejectValue("", "", "Debe elegir la provincia");
+			errors.rejectValue("pais", "", "Debe elegir el pais");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getProvincia() ) ) {
 			
-			errors.rejectValue("", "", "Debe elegir la provincia");
+			errors.rejectValue("provincia", "", "Debe elegir la provincia");
 		}
 		
 		if( StringUtils.isBlank( empleadoDto.getPoblacion() ) ) {
 			
-			errors.rejectValue("", "", "Debe elegir la poblacion");
+			errors.rejectValue("poblacion", "", "Debe elegir la poblacion");
 		}
 		
 		if( empleadoDto.getTipoEmpleado() != null  ) {
 			
-			errors.rejectValue("", "", "Debe elegir el tipo de empleado");
+			errors.rejectValue("tipoEmpleado", "", "Debe elegir el tipo de empleado");
 		}
 		
 		

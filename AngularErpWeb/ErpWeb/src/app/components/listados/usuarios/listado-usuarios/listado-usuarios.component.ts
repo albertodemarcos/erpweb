@@ -24,15 +24,14 @@ export class ListadoUsuariosComponent implements OnInit, AfterViewInit {
     this.tituloListado = 'Listado de Usuarios';
     this.jqGridId = 'usuarios-grid';
     this.jqGridPagerId = 'usuarios-pager';
-    this.jqGridColNames = ['', 'Código', 'Nombre', 'Apellido', 'CIF/NIF', 'Teléfono', 'Tipo Usuario'];
+    this.jqGridColNames = ['', 'Código', 'Nombre', 'Usuario', 'Contraseña', '' ];
     this.jqGridColModel = [
       { name: 'id', index: '', width: '40', search: false, sortable: false },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'nombre', index: '', width: '', search: true, sortable: true },
-      { name: 'apellido', index: '', width: '', search: true, sortable: true },
-      { name: 'nif', index: '', width: '', search: true, sortable: true },
-      { name: 'telefono', index: '', width: '', search: true, sortable: true },
-      { name: 'tipoUsuario', index: '', width: '', search: true, sortable: true}
+      { name: 'nombreCompleto', index: '', width: '', search: true, sortable: true },
+      { name: 'usuario', index: '', width: '', search: true, sortable: true },
+      { name: 'pass', index: '', width: '', search: true, sortable: true },
+      { name: 'role', index: '', width: '', search: true, sortable: true, hidden: true}
     ];
     this.jqGridData = new Array<Usuario>();
   }
@@ -65,7 +64,7 @@ export class ListadoUsuariosComponent implements OnInit, AfterViewInit {
       pager: this.jqGridPagerId,
       caption: '',
       rowNum: 10,
-      rowList: [10, 20],
+      rowList: [10, 20, 50, 100],
       viewrecords: true,
       gridview: true,
       autowidth: true

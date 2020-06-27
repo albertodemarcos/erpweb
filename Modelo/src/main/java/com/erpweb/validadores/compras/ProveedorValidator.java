@@ -29,28 +29,28 @@ public class ProveedorValidator implements Validator {
 		
 		if( StringUtils.isBlank( proveedorDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( proveedorDto.getNombre() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre no puede estar vacío");
+			errors.rejectValue("nombre", "", "El campo nombre no puede estar vacío");
 		}
 		
 		
 		if( StringUtils.isBlank( proveedorDto.getNombreEmpresa() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre empresa no puede estar vacío");
+			errors.rejectValue("nombreEmpresa", "", "El campo nombre empresa no puede estar vacío");
 		}
 		
 		if( StringUtils.isBlank( proveedorDto.getTelefono() )  ) {
 			
-			errors.rejectValue("", "", "El campo telefono no puede esta vacío");
+			errors.rejectValue("telefono", "", "El campo telefono no puede esta vacío");
 		}
 		
 		if( proveedorDto.getTipoProveedor() == null  ) {
 			
-			errors.rejectValue("", "", "El campo tipo de proveedor no puede estar vacío");
+			errors.rejectValue("tipoProveedor", "", "El campo tipo de proveedor no puede estar vacío");
 		}
 		
 		

@@ -29,12 +29,12 @@ public class ClienteValidator implements Validator {
 		
 		if( StringUtils.isBlank( clienteDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacio");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacio");
 		}
 		
 		if( StringUtils.isBlank( clienteDto.getNombre() )  ) {
 			
-			errors.rejectValue("", "", "El campo nombre no puede estar vacio");
+			errors.rejectValue("nombre", "", "El campo nombre no puede estar vacio");
 		}
 		
 		/*if( StringUtils.isBlank( clienteDto.getApellidoPrimero() )  ) {
@@ -48,17 +48,17 @@ public class ClienteValidator implements Validator {
 		}*/
 		if( StringUtils.isBlank( clienteDto.getNif() )  ) {
 			
-			errors.rejectValue("", "", "El DNI no puede estar vacio");
+			errors.rejectValue("nif", "", "El DNI no puede estar vacio");
 		}
 		
 		if( StringUtils.isBlank( clienteDto.getCodigoPostal() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo postal no puede estar vacio");
+			errors.rejectValue("codigoPostal", "", "El campo codigo postal no puede estar vacio");
 		}
 		
 		if( StringUtils.isBlank( clienteDto.getDireccion() )  ) {
 			
-			errors.rejectValue("", "", "El campo dirección no puede estar vacio");
+			errors.rejectValue("direccion", "", "El campo dirección no puede estar vacio");
 		}
 		
 		/*if( StringUtils.isBlank( clienteDto.getEdificio() )  ) {
@@ -73,27 +73,27 @@ public class ClienteValidator implements Validator {
 		
 		if( StringUtils.isBlank( clienteDto.getTelefono() )  ) {
 			
-			errors.rejectValue("", "", "El campo telefono no puede estar vacio");
+			errors.rejectValue("telefono", "", "El campo telefono no puede estar vacio");
 		}
 		
 		if( StringUtils.isBlank( clienteDto.getPais()) ) {
 			
-			errors.rejectValue("", "", "Debe elegir la provincia");
+			errors.rejectValue("pais", "", "Debe elegir la provincia");
 		}
 		
 		if( StringUtils.isBlank( clienteDto.getProvincia() ) ) {
 			
-			errors.rejectValue("", "", "Debe elegir la provincia");
+			errors.rejectValue("provincia", "", "Debe elegir la provincia");
 		}
 		
 		if( StringUtils.isBlank( clienteDto.getPoblacion() ) ) {
 			
-			errors.rejectValue("", "", "Debe elegir la poblacion");
+			errors.rejectValue("poblacion", "", "Debe elegir la poblacion");
 		}
 		
 		if( clienteDto.getTipoCliente() == null ) {
 			
-			errors.rejectValue("", "", "Debe elegir el tipo de cliente");
+			errors.rejectValue("tipoCliente", "", "Debe elegir el tipo de cliente");
 		}
 		
 	}

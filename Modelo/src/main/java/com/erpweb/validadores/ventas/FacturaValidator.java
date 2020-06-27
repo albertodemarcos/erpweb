@@ -29,76 +29,76 @@ public class FacturaValidator implements Validator {
 		
 		if( StringUtils.isBlank( facturaDto.getCodigo() )  ) {
 			
-			errors.rejectValue("", "", "El campo codigo no puede estar vacío");
+			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
 		if( facturaDto.getFechaCreacion() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha de creacion no puede estar vacío");
+			errors.rejectValue("fechaCreacion", "", "El campo fecha de creacion no puede estar vacío");
 		}
 		
 		if( facturaDto.getFechaInicio() == null  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de inicio no puede estar vacío");
+			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede estar vacío");
 			
 		} else if( (facturaDto.getFechaInicio() != null && facturaDto.getFechaFin() != null ) 
 						&& facturaDto.getFechaInicio().after( facturaDto.getFechaFin() )  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
+			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
 		}
 		
 		if( facturaDto.getFechaFin() == null ) {
 			
-			errors.rejectValue("", "", "El campo fecha de fin no puede estar vacío");
+			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
 		}else if( (facturaDto.getFechaInicio() != null && facturaDto.getFechaFin() != null ) 
 				&& facturaDto.getFechaInicio().before( facturaDto.getFechaFin() )  ) {
 			
-			errors.rejectValue("", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
+			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}
 		
 		if( StringUtils.isBlank( facturaDto.getDescripcion() )  ) {
 			
-			errors.rejectValue("", "", "El campo descripcion no puede estar vacío");
+			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
 		}
 		
 		if( facturaDto.getBaseImponible() == null  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede estar vacío");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
 			
 		}else if( facturaDto.getBaseImponible().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser negativo");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
 			
 		}else if( facturaDto.getBaseImponible().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo base imponible no puede ser cero");
+			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
 		}
 		
 		if( facturaDto.getCuotaTributaria() == null  ) {
 			
-			errors.rejectValue("", "", "El campo couta tributaria no puede estar vacío");
+			errors.rejectValue("cuotaTributaria", "", "El campo couta tributaria no puede estar vacío");
 			
 		}else if( facturaDto.getCuotaTributaria().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo couta tributaria no puede ser negativo");
+			errors.rejectValue("cuotaTributaria", "", "El campo couta tributaria no puede ser negativo");
 			
 		}else if( facturaDto.getCuotaTributaria().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo couta tributaria no puede ser cero");
+			errors.rejectValue("cuotaTributaria", "", "El campo couta tributaria no puede ser cero");
 		}
 		
 		if( facturaDto.getImporteTotal() == null  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede estar vacío");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
 			
 		}else if( facturaDto.getImporteTotal().intValue() < 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser negativo");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
 			
 		}else if( facturaDto.getImporteTotal().intValue() == 0  ) {
 			
-			errors.rejectValue("", "", "El campo importe total no puede ser cero");
+			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
 		
 		
