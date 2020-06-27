@@ -1,6 +1,5 @@
 package com.erpweb.controladores.compras;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ProveedorDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.compras.ProveedorService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.ProveedorValidator;
@@ -29,6 +29,9 @@ public class ProveedorController {
 	
 	@Autowired
 	private ProveedorService proveedorService;
+	
+	@Autowired
+	private ErroresService erroresService;
 	
 	@GetMapping("/proveedor/{proveedorId}")
 	public @ResponseBody AccionRespuesta getProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
@@ -57,7 +60,7 @@ public class ProveedorController {
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.proveedorService.getCrearEditarProveedor(proveedorDto, user);

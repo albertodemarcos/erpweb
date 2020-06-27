@@ -1,6 +1,5 @@
 package com.erpweb.controladores.planificador;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.EventoDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.planificador.EventoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.planificador.EventoValidator;
@@ -30,6 +30,9 @@ public class EventoController {
 	
 	@Autowired
 	private EventoService eventoService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/evento/{eventoId}")
 	public @ResponseBody AccionRespuesta getEvento( @PathVariable Long eventoId, Usuario user ) throws Exception {
@@ -58,7 +61,7 @@ public class EventoController {
 		
 		if(	result.hasErrors() ) {
 									
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object>());
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.eventoService.getCrearEditarEvento(eventoDto, user);

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -29,7 +30,8 @@ public class Compra implements Serializable {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPRA_SEQ")
+	@SequenceGenerator(name="COMPRA_SEQ",sequenceName="SEQUENCE_COMPRA", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

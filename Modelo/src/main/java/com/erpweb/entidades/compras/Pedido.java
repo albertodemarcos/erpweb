@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -28,7 +29,8 @@ public class Pedido implements Serializable {
 	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PEDIDO_SEQ")
+	@SequenceGenerator(name="PEDIDO_SEQ",sequenceName="SEQUENCE_PEDIDO", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

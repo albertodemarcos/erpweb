@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.abstractas.Producto;
@@ -27,7 +28,8 @@ public class Articulo extends Producto implements Serializable {
 	private BigDecimal importeTotal;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTICULO_SEQ")
+	@SequenceGenerator(name="ARTICULO_SEQ",sequenceName="SEQUENCE_ARTICULO", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

@@ -1,6 +1,5 @@
 package com.erpweb.controladores.crm;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ClienteDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.crm.ClienteService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.crm.ClienteValidator;
@@ -31,6 +31,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/cliente/{clienteId}")
 	public @ResponseBody AccionRespuesta getCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
@@ -58,8 +61,8 @@ public class ClienteController {
 		this.clienteValidator.validate(clienteDto, result);
 		
 		if(	result.hasErrors() ) {
-			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+						
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE,  erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.clienteService.getCrearEditarCliente(clienteDto, user);

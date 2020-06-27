@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.erpweb.utiles.enumerados.TipoProveedor;
@@ -26,7 +27,8 @@ public class Proveedor implements Serializable {
 	private TipoProveedor tipoProveedor; 	//Tipo de proveedor por suministros
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROVEEDOR_SEQ")
+	@SequenceGenerator(name="PROVEEDOR_SEQ",sequenceName="SEQUENCE_PROVEEDOR", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

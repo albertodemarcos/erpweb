@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -27,7 +28,8 @@ public class Contrato implements Serializable {
 	private BigDecimal importeTotal;	    										//Importe total del contro con impuestos
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTRATO_SEQ")
+	@SequenceGenerator(name="CONTRATO_SEQ",sequenceName="SEQUENCE_CONTRATO", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

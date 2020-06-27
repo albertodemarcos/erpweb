@@ -3,9 +3,9 @@ package com.erpweb.utiles;
 import java.io.Serializable;
 import java.util.HashMap;
 
+@SuppressWarnings("serial")
 public class AccionRespuesta implements Serializable {
 
-	private static final long serialVersionUID = -3327706462239519860L;
 
 	private Long id;
 	private String codigo;

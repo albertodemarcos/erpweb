@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.erpweb.entidades.abstractas.Persona;
@@ -27,7 +28,8 @@ public class Empleado extends Persona implements Serializable {
 	
 	
     @Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMPLEADO_SEQ")
+    @SequenceGenerator(name="EMPLEADO_SEQ",sequenceName="SEQUENCE_EMPLEADO", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

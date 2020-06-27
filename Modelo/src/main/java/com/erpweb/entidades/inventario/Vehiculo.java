@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.erpweb.utiles.enumerados.TipoCombustible;
@@ -32,7 +33,8 @@ public class Vehiculo implements Serializable {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VEHICULO_SEQ")
+	@SequenceGenerator(name="VEHICULO_SEQ",sequenceName="SEQUENCE_VEHICULO", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

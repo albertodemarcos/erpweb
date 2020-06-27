@@ -1,10 +1,8 @@
 package com.erpweb.controladores.usuarios;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.UsuarioDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.usuarios.UsuarioService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.usuarios.UsuarioValidator;
@@ -30,6 +29,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/usuario/{usuarioId}")
 	public @ResponseBody AccionRespuesta getUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
@@ -41,12 +43,6 @@ public class UsuarioController {
 	public @ResponseBody List<UsuarioDto> getUsuarios( ) throws Exception {
 		
 		return this.usuarioService.getListadoUsuarios();
-	}
-	
-	@GetMapping( "/crearUsuario" )
-	public @ResponseBody AccionRespuesta getCrearUsuario( Model model, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
 	}
 	
 	@GetMapping( "/editarUsuario/{usuarioId}" )
@@ -64,7 +60,7 @@ public class UsuarioController {
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);

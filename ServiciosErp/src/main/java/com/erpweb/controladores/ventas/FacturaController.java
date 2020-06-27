@@ -1,6 +1,5 @@
 package com.erpweb.controladores.ventas;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.FacturaDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.ventas.FacturaService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.FacturaValidator;
@@ -30,6 +30,9 @@ public class FacturaController {
 
 	@Autowired
 	private FacturaService facturaService;
+	
+	@Autowired
+	private ErroresService erroresService;
 	
 	@GetMapping("/factura/{facturaId}")
 	public @ResponseBody AccionRespuesta getFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
@@ -62,7 +65,7 @@ public class FacturaController {
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.facturaService.getCrearEditarFactura(facturaDto, user);

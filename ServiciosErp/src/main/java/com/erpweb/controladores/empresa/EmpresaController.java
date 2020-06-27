@@ -52,7 +52,7 @@ public class EmpresaController {
 			return this.empresaService.getEmpresa(empresaDto.getId(), user);
 		}
 		
-		return new AccionRespuesta();
+		return this.empresaService.getCrearEditarEmpresa(empresaDto, user);
 	}
 	
 	@PostMapping("/eliminarEmpresa/empresaId")

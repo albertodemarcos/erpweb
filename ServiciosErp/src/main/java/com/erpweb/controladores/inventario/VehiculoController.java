@@ -1,6 +1,5 @@
 package com.erpweb.controladores.inventario;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.VehiculoDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.inventario.VehiculoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.inventario.VehiculoValidator;
@@ -29,6 +29,9 @@ public class VehiculoController {
 	
 	@Autowired
 	private VehiculoService vehiculoService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/vehiculo/{vehiculoId}")
 	public @ResponseBody AccionRespuesta getVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
@@ -57,7 +60,7 @@ public class VehiculoController {
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);

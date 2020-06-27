@@ -1,6 +1,5 @@
 package com.erpweb.controladores.compras;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.compras.CompraService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.CompraValidator;
@@ -30,6 +30,9 @@ public class CompraController {
 	
 	@Autowired
 	private CompraService compraService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/compra/{compraId}")
 	public @ResponseBody AccionRespuesta getCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
@@ -58,7 +61,7 @@ public class CompraController {
 		
 		if(	result.hasErrors() ) {
 									
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object>());
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.compraService.getCrearEditarCompra(compraDto, user);

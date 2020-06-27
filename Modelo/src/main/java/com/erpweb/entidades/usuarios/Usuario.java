@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
@@ -30,7 +31,8 @@ public class Usuario extends User implements Serializable {
     }
     
     @Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQ")
+    @SequenceGenerator(name="USUARIO_SEQ",sequenceName="SEQUENCE_USUARIO", allocationSize=1) 
     public Long getId() {
 		return id;
 	}

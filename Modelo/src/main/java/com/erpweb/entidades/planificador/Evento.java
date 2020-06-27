@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,8 @@ public class Evento implements Serializable {
 	private String descripcion;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EVENTO_SEQ")
+	@SequenceGenerator(name="EVENTO_SEQ",sequenceName="SEQUENCE_EVENTO", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

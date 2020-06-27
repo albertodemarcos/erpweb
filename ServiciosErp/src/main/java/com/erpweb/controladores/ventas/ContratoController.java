@@ -1,6 +1,5 @@
 package com.erpweb.controladores.ventas;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.ventas.ContratoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.ContratoValidator;
@@ -30,6 +30,9 @@ public class ContratoController {
 	
 	@Autowired
 	private ContratoService contratoService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/contrato/{contratoId}")
 	public @ResponseBody AccionRespuesta getContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
@@ -64,7 +67,7 @@ public class ContratoController {
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.contratoService.getCrearEditarContrato(contratoDto, user);

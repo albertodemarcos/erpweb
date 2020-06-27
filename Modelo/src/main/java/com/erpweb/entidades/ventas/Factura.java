@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -31,7 +32,8 @@ public class Factura implements Serializable {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FACTURA_SEQ")
+	@SequenceGenerator(name="FACTURA_SEQ",sequenceName="SEQUENCE_FACTURA", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

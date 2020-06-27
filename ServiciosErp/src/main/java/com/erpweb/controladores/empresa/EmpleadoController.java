@@ -1,6 +1,5 @@
 package com.erpweb.controladores.empresa;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.EmpleadoDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.empresa.EmpleadoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.empresa.EmpleadoValidator;
@@ -29,6 +29,9 @@ public class EmpleadoController {
 	
 	@Autowired
 	private EmpleadoService empleadoService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/empleado/{empleadoId}")
 	public @ResponseBody AccionRespuesta getEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
@@ -57,7 +60,7 @@ public class EmpleadoController {
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE,  this.erroresService.erroresValidacionEnDto(result));
 		}
 		
 		return this.empleadoService.getCrearEditarEmpleado(empleadoDto, user);

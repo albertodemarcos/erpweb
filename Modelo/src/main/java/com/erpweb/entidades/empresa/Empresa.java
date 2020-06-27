@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.erpweb.utiles.enumerados.TipoSociedadJuridica;
@@ -29,7 +30,8 @@ public class Empresa implements Serializable {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMPRESA_SEQ")
+	@SequenceGenerator(name="EMPRESA_SEQ",sequenceName="SEQUENCE_EMPRESA", allocationSize=1)
 	public Long getId() {
 		return id;
 	}

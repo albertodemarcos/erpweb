@@ -1,6 +1,5 @@
 package com.erpweb.controladores.compras;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.PedidoDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.ErroresService;
 import com.erpweb.servicios.compras.PedidoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.compras.PedidoValidator;
@@ -30,6 +30,9 @@ public class PedidoController {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	
+	@Autowired
+	private ErroresService erroresService;
 
 	@GetMapping("/pedido/{pedidoId}")
 	public @ResponseBody AccionRespuesta getPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
@@ -59,7 +62,7 @@ public class PedidoController {
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, new HashMap<String, Object> (result.getModel()));
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.pedidoService.getCrearEditarPedido(pedidoDto, user);
