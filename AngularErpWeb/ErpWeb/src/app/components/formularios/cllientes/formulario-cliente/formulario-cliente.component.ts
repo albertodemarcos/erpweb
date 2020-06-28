@@ -3,6 +3,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { ClienteService } from 'src/app/services/crm/cliente.service';
 import { Cliente } from 'src/app/model/entitys/cliente.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-formulario-cliente',
@@ -32,9 +34,20 @@ export class FormularioClienteComponent implements OnInit {
       console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+
         this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
+
+        swal('Nuevo cliente', 'Se ha creado el cliente correctamente', 'success');
+
+      }else{
+
+        swal('Nuevo cliente', 'Error, no se ha podido crear el cliente', 'error');
       }
-    });
+    }, (error => {
+
+      swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+
+    }));
 
   }
 
