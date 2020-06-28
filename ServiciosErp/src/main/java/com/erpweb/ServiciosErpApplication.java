@@ -4,12 +4,21 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-
+/*exclude = SecurityAutoConfiguration.class*/
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-public class ServiciosErpApplication {
+public class ServiciosErpApplication /*implements CommandLineRunner*/ {
 
+	/*@Autowired
+	private BCryptPasswordEncoder passwordEncoder;*/
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ServiciosErpApplication.class, args);
 	}
+
+	/*@Override
+	public void run(String... args) throws Exception {
+		String password = "12345";
+		
+	}*/
 
 }

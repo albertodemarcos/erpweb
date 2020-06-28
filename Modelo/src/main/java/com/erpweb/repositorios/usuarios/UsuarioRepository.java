@@ -15,7 +15,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	List<Usuario> findByIdIn( List<Long> ids);
 	
-	
+	Usuario findByUsuario(String usuario);
 	
 	
 	

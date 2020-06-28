@@ -23,7 +23,8 @@ public class Usuario extends User implements Serializable {
 	private String codigo;
 	private String nombreCompleto;
 	private String usuario;
-	private String pass;
+	private String pass;	
+	private Boolean activo;
 	private String role;
     
     public Usuario () {
@@ -72,6 +73,14 @@ public class Usuario extends User implements Serializable {
 		this.pass = pass;
 	}
 
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+	
 	public String getRole() {
 		return role;
 	}
@@ -79,6 +88,7 @@ public class Usuario extends User implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 
     
 }

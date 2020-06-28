@@ -9,7 +9,15 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.erpweb.dto.UsuarioDto;
 import com.erpweb.entidades.usuarios.Usuario;
@@ -18,7 +26,7 @@ import com.erpweb.utiles.AccionRespuesta;
 
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -359,7 +367,35 @@ public class UsuarioService {
 		
 		return usuariosDto;
 	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		logger.debug("Entramos en el metodo loadUserByUsername() para autenticar usuario"); 
+		
+		Usuario usuario = usuarioRepository.findByUsuario(username);
+		
+		if( usuario == null) {
+			
+			logger.error("Error, el usuario no esta registrado");
+			
+			throw new UsernameNotFoundException("Error, el usuario no esta registrado");
+		}
+		
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		
+		SimpleGrantedAuthority simple = new SimpleGrantedAuthority(usuario.getRole());
+		
+		authorities.add(simple);
+		
+		return new User(usuario.getUsuario(), usuario.getPass(), usuario.getActivo(), true, true, true, authorities);
+	}
 	
+	public Usuario devolverInformacionUsuario(String username) {
+		
+		return usuarioRepository.findByUsuario(username);
+	}
 	
 
 }
