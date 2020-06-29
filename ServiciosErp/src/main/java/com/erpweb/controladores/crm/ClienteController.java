@@ -83,12 +83,12 @@ public class ClienteController {
 		return this.clienteService.getCrearEditarCliente(clienteDto, user);
 	}
 	
-	@PostMapping("/eliminarCliente")
+	@GetMapping("/eliminarCliente/{clienteId}")
 	public @ResponseBody AccionRespuesta postEliminarCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
 		
 		if(clienteId == null || clienteId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.clienteService.eliminarClientePorId(clienteId);
