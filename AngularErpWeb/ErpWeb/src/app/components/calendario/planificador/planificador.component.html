@@ -76,3 +76,59 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL VISUALIZAR EVENTO -->
+<div id="visualizarEventoModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <!-- TITULO -->
+            <div class="modal-header">
+                <h5 class="modal-title">{{evento.titulo}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- CARD EVENTO -->
+            <div class="modal-body">
+                <!-- FECHAS INICIO Y FIN -->
+                <div class="form-group row">
+                    <dl *ngIf="!evento.diaCompleto" class="col">
+                        <dt>Fecha Inicio</dt>
+                        <dd>{{evento.fechaInicio | date: 'EEEE d/MMMM/yyyy H:mm' }}</dd>
+                    </dl>
+                    <dl *ngIf="!evento.diaCompleto" class="col">
+                        <dt>Fecha Fín</dt>
+                        <dd>{{evento.fechaFin | date: 'EEEE d/MMMM/yyyy H:mm' }}</dd>
+                    </dl>
+                    <dl *ngIf="evento.diaCompleto" class="col">
+                        <dt>Fecha</dt>
+                        <dd>{{evento.fechaInicio | date: 'EEEE d/MMMM/yyyy H:mm' }}</dd>
+                    </dl>
+                </div>
+                <!-- DESCRIPCION -->
+                <div class="form-group row">
+                    <dl class="col">
+                        <dt>Descripción</dt>
+                        <dd>
+                            <p>{{evento.descripcion}}</p>
+                        </dd>
+                    </dl>
+                </div>
+
+
+                <!-- BOTONES -->
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-primary">Editar</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

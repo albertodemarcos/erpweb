@@ -54,6 +54,7 @@ const routes: Routes = [
   // RUTAS CRM
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
+  { path: 'clientes/editar-cliente/:id', component: FormularioClienteComponent },
   { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent },

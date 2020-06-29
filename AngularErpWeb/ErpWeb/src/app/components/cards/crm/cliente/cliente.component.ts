@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/crm/cliente.service';
 import { Cliente } from 'src/app/model/entitys/cliente.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cliente',
@@ -31,12 +32,12 @@ export class ClienteComponent implements OnInit {
 
   getCliente(): void{
 
-    this.clienteService.getCliente(this.clienteId).toPromise().then( (clienteDto) => {
+    this.clienteService.getCliente(this.clienteId).toPromise().then( (accionRespuesta) => {
         try
         {
           console.log('Recuperamos el cliente');
 
-          this.respuestaGetCliente = clienteDto;
+          this.respuestaGetCliente = accionRespuesta;
 
           if ( this.respuestaGetCliente.resultado )
           {
@@ -78,6 +79,52 @@ export class ClienteComponent implements OnInit {
       this.cliente.pais = clienteDto.pais;
       this.cliente.tipoCliente = clienteDto.tipoCliente;
     }
+  }
+
+  editarCliente(clienteId: number): void{
+    console.log('CLIENTE CON ID: ' + clienteId);
+    this.router.navigate(['clientes', 'editar-cliente', clienteId]);
+  }
+
+  borrarCliente(clienteId: number): void{
+
+    console.log('CLIENTE CON ID: ' + clienteId);
+
+    // Evitamos borrar accidentalmente un cliente
+    swal({
+          title: 'Eliminar cliente',
+          text: '¿Desea eliminar definitivamente este cliente?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Sí',
+          cancelButtonText: 'No'
+        }).then( (resultado) => {
+            // Si se pulsa en cancelar, no se continua
+            if (!resultado.value) {
+              return;
+            }
+
+            // Llamamos al servicio de clientes para eliminar el cliente
+            this.clienteService.eliminarCliente(clienteId).toPromise().then( (accionRespuesta) => {
+
+              // Si se ha eliminado correctamente
+              if ( accionRespuesta.resultado ) {
+                console.log('Se ha eliminado correctamente el cliente');
+                swal('Cliente elimninado', 'Se ha eliminado el cliente correctamente', 'success').then(() =>{
+                  this.router.navigate( ['clientes'] );
+                });
+
+              } else {
+                console.log('Se ha producido un error al eliminar el cliente');
+                swal('Error', 'El cliente no ha podido ser eliminado', 'error');
+              }
+
+            }, (errores) => {
+              console.log('Se ha producido un error al eliminar el cliente');
+              swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+            } );
+        } );
+
   }
 
   ngOnInit(): void {

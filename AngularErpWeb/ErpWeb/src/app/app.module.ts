@@ -1,6 +1,6 @@
 /* -------------------------- MODULOS PRINCIPALES -------------------------- */
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +10,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import { registerLocaleData } from '@angular/common';
+import localEs from '@angular/common/locales/es'; // localeEs
 
 /* --------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
@@ -107,6 +109,7 @@ import { VentaService } from './services/ventas/venta.service';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
+registerLocaleData(localEs);
 
 // Pluggin FullCalendar
 FullCalendarModule.registerPlugins([
@@ -202,7 +205,8 @@ FullCalendarModule.registerPlugins([
     UsuarioService,
     ContratoService,
     FacturaService,
-    VentaService
+    VentaService,
+    { provide: LOCALE_ID, useValue: 'es' }
   ],
   bootstrap: [AppComponent]
 })

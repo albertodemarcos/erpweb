@@ -4,4 +4,5 @@ export class Evento {
     fechaInicio: Date;
     fechaFin: Date;
     descripcion: string;
+    diaCompleto: boolean;
 }
