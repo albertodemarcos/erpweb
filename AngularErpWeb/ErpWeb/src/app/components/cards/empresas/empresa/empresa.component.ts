@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpresaService } from 'src/app/services/empresa/empresa.service';
 import { Empresa } from 'src/app/model/entitys/empresa.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -59,18 +59,64 @@ export class EmpresaComponent implements OnInit {
     );
   }
 
-   obtenerEmpresaDesdeEmpresaDto(empresaDto: any): void{
+  obtenerEmpresaDesdeEmpresaDto(empresaDto: any): void{
 
-      if ( empresaDto != null)
-      {
-        this.empresa.id = empresaDto.id;
-        this.empresa.codigo = empresaDto.codigo;
-        this.empresa.nombre = empresaDto.nombre;
-        this.empresa.tipoSociedadJuridica = empresaDto.tipoSociedadJuridica;
-        this.empresa.cif = empresaDto.cif;
-        this.empresa.idioma = empresaDto.idioma;
-      }
+    if ( empresaDto != null)
+    {
+      this.empresa.id = empresaDto.id;
+      this.empresa.codigo = empresaDto.codigo;
+      this.empresa.nombre = empresaDto.nombre;
+      this.empresa.tipoSociedadJuridica = empresaDto.tipoSociedadJuridica;
+      this.empresa.cif = empresaDto.cif;
+      this.empresa.idioma = empresaDto.idioma;
     }
+  }
+
+  editarEmpresa(empresaId: number): void{
+    console.log('Empresa CON ID: ' + empresaId);
+    this.router.navigate(['empresas', 'editar-empresa', empresaId]);
+  }
+
+  borrarEmpresa(empresaId: number): void{
+
+    console.log('Empresa CON ID: ' + empresaId);
+
+    // Evitamos borrar accidentalmente un Empresa
+    swal({
+      title: 'Eliminar Empresa',
+      text: '¿Desea eliminar definitivamente este Empresa?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Empresas para eliminar el Empresa
+      this.empresaService.eliminarEmpresa(empresaId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Empresa');
+        swal('Empresa elimninado', 'Se ha eliminado el Empresa correctamente', 'success').then(() =>{
+          this.router.navigate( ['empresas'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Empresa');
+        swal('Error', 'El Empresa no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Empresa');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
+  }
 
   ngOnInit(): void {
   }

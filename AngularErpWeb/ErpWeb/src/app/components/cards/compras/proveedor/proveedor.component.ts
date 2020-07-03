@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProveedorService } from 'src/app/services/compras/proveedor.service';
 import { Proveedor } from 'src/app/model/entitys/proveedor.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proveedor',
@@ -60,19 +59,64 @@ export class ProveedorComponent implements OnInit {
     );
   }
 
+  obtenerProveedorDesdeProveedorDto(proveedorDto: any): void{
 
-   obtenerProveedorDesdeProveedorDto(proveedorDto: any): void{
-
-      if ( proveedorDto != null)
-      {
-        this.proveedor.id = proveedorDto.id;
-        this.proveedor.codigo = proveedorDto.codigo;
-        this.proveedor.nombre = proveedorDto.nombre;
-        this.proveedor.nombreEmpresa = proveedorDto.nombreEmpresa;
-        this.proveedor.telefono = proveedorDto.telefono;
-        this.proveedor.tipoProveedor = proveedorDto.tipoProveedor;
-      }
+    if ( proveedorDto != null)
+    {
+      this.proveedor.id = proveedorDto.id;
+      this.proveedor.codigo = proveedorDto.codigo;
+      this.proveedor.nombre = proveedorDto.nombre;
+      this.proveedor.nombreEmpresa = proveedorDto.nombreEmpresa;
+      this.proveedor.telefono = proveedorDto.telefono;
+      this.proveedor.tipoProveedor = proveedorDto.tipoProveedor;
     }
+  }
+
+  editarProveedor(proveedorId: number): void{
+    console.log('Proveedor CON ID: ' + proveedorId);
+    this.router.navigate(['proveedores', 'editar-proveedor', proveedorId]);
+  }
+
+  borrarProveedor(proveedorId: number): void{
+
+    console.log('Proveedor CON ID: ' + proveedorId);
+
+    // Evitamos borrar accidentalmente un Proveedor
+    swal({
+      title: 'Eliminar Proveedor',
+      text: '¿Desea eliminar definitivamente este Proveedor?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Proveedors para eliminar el Proveedor
+      this.proveedorService.eliminarProveedor(proveedorId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Proveedor');
+        swal('Proveedor elimninado', 'Se ha eliminado el Proveedor correctamente', 'success').then(() =>{
+          this.router.navigate( ['proveedores'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Proveedor');
+        swal('Error', 'El Proveedor no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Proveedor');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
+  }
 
   ngOnInit(): void {
   }

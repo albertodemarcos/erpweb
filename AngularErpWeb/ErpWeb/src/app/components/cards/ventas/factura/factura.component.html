@@ -1,62 +1,66 @@
 <div class="card text-center">
     <div class="card-header">
+        <h5 class="card-title">Factura</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Factura</h5>
-
-        <!-- CODIGO FACTURA -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código factura</label>
-            <span *ngIf="factura.codigo">{{factura.codigo}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO CONTRATO -->
+            <dl class="col-3" *ngIf="factura.codigo">
+                <dt>Código contrato</dt>
+                <dd>{{factura.codigo}}</dd>
+            </dl>
+            <!-- FECHA INICIO -->
+            <dl class="col-3" *ngIf="factura.fechaFin">
+                <dt>Fecha fín</dt>
+                <dd>{{factura.fechaFin | date}}</dd>
+            </dl>
+            <!-- FECHA FIN -->
+            <dl class="col-3" *ngIf="factura.fechaFin">
+                <dt>Fecha fín</dt>
+                <dd>{{factura.fechaFin | date}}</dd>
+            </dl>
+            <!-- FECHA CREACION -->
+            <dl class="col-3" *ngIf="factura.fechaCreacion">
+                <dt>Fecha creación</dt>
+                <dd>{{factura.fechaCreacion | date}}</dd>
+            </dl>
         </div>
 
-        <!-- FECHA CREACION -->
-        <div class="form-group row">
-            <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
-            <span *ngIf="factura.fechaCreacion">{{factura.fechaCreacion | date}}</span>
-        </div>
-
-        <!-- FECHA INICIO -->
-        <div class="form-group row">
-            <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
-            <span *ngIf="factura.fechaInicio">{{factura.fechaInicio | date}}</span>
-        </div>
-
-        <!-- FECHA FIN -->
-        <div class="form-group row">
-            <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
-            <span *ngIf="factura.fechaFin">{{factura.fechaFin | date}}</span>
-        </div>
-
-        <!-- DESCRIPCION -->
-        <div class="form-group row">
-            <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-            <span *ngIf="factura.descripcion">{{factura.descripcion}}</span>
-        </div>
-
-        <!-- BASE IMPONIBLE -->
-        <div class="form-group row">
-            <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <span *ngIf="factura.baseImponible">{{factura.baseImponible}}</span>
-        </div>
-
-        <!-- IMPUESTOS -->
-        <div class="form-group row">
-            <label for="cuotaTributaria" class="col-form-label col-sm-2">Impuestos</label>
-            <span *ngIf="factura.cuotaTributaria">{{factura.cuotaTributaria}}</span>
-        </div>
-
-        <!-- IMPORTE TOTAL -->
-        <div class="form-group row">
-            <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span *ngIf="factura.importeTotal">{{factura.importeTotal}}</span>
+        <!-- Fila 2-->
+        <div class="form-group row text-left">
+            <!-- BASE IMPONIBLE -->
+            <dl class="col" *ngIf="factura.baseImponible">
+                <dt>Base imponible</dt>
+                <dd>{{factura.baseImponible}}</dd>
+            </dl>
+            <!-- IMPUESTO-->
+            <dl class="col" *ngIf="factura.impuesto">
+                <dt>Impuesto</dt>
+                <dd>{{factura.impuesto}}</dd>
+            </dl>
+            <!-- IMPORTE TOTAL -->
+            <dl class="col" *ngIf="factura.importeTotal">
+                <dt>Importe total</dt>
+                <dd>{{factura.importeTotal}}</dd>
+            </dl>
+            <!-- DESCRIPCION -->
+            <dl class="col" *ngIf="factura.descripcion">
+                <dt>Descripción</dt>
+                <dd>{{factura.descripcion}}</dd>
+            </dl>
         </div>
 
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarFactura(factura.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarFactura(factura.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

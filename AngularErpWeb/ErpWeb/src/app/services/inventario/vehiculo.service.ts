@@ -15,12 +15,16 @@ export class VehiculoService {
   private urlCrearVehiculo: string;
   private urlListadoVehiculos: string;
   private urlGetVehiculo: string;
+  private urlEditarVehiculo: string;
+  private urlEliminarVehiculo: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearVehiculo = '/vehiculos/crearVehiculo';
     this.urlListadoVehiculos = '/vehiculos/listado.json';
     this.urlGetVehiculo = '/vehiculos/vehiculo/';
+    this.urlEditarVehiculo = '/vehiculos/editarVehiculo/';
+    this.urlEliminarVehiculo = '/vehiculos/eliminarVehiculo/';
   }
 
   // METODOS GENERALES
@@ -30,18 +34,28 @@ export class VehiculoService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getVehiculoEditar(vehiculoId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarVehiculo + vehiculoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearVehiculo(vehiculo: Vehiculo): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearVehiculo;
     return this.httpClient.post<AccionRespuesta>(urlPost, vehiculo, {headers: this.httpHeaders});
   }
 
-  public actualizarVehiculo(){
+  public actualizarVehiculo(vehiculo: Vehiculo): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarVehiculo;
+    return this.httpClient.post<AccionRespuesta>(urlPost, vehiculo, {headers: this.httpHeaders});
   }
 
-  public eliminarVehiculo(){
+  public eliminarVehiculo(vehiculoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarVehiculo + vehiculoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getVehiculos(): Promise<Vehiculo[]> {

@@ -19,7 +19,7 @@
             <div class="form-group row">
                 <label for="fechaCompra" class="col-form-label col-sm-2">Fecha compra</label>
                 <div class="col-sm-6">
-                    <input type="date" id="fechaCompraDatePicker" class="form-control" [(ngModel)]="compra.fechaCompra" name="fechaCompra">
+                    <input type="date" class="form-control" [ngModel]="compra.fechaCompra | date:'yyyy-MM-dd'" (ngModelChange)="compra.fechaCompra = $event" name="fechaCompra">
                 </div>
             </div>
 
@@ -51,7 +51,12 @@
             <div class="form-group row">
                 <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="compra.impuesto" name="impuesto">
+                    <p>
+                        <select name="impuesto" title="" [(ngModel)]="compra.impuesto">
+                            <option disabled="true"  selected >Selecciona tipo impuesto</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

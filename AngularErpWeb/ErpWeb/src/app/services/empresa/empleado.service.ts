@@ -16,12 +16,16 @@ export class EmpleadoService {
   private urlCrearEmpleado: string;
   private urlListadoEmpleados: string;
   private urlGetEmpleado: string;
+  private urlEditarEmpleado: string;
+  private urlEliminarEmpleado: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearEmpleado = '/empleados/crearEmpleado';
     this.urlListadoEmpleados = '/empleados/listado.json';
     this.urlGetEmpleado = '/empleados/empleado/';
+    this.urlEditarEmpleado = '/empleados/editarEmpleado/';
+    this.urlEliminarEmpleado = '/empleados/eliminarEmpleado/';
   }
 
   // METODOS GENERALES
@@ -31,18 +35,28 @@ export class EmpleadoService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getEmpleadoEditar(empleadoId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarEmpleado + empleadoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearEmpleado(empleado: Empleado): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearEmpleado;
     return this.httpClient.post<AccionRespuesta>(urlPost, empleado, {headers: this.httpHeaders});
   }
 
-  public actualizarEmpleado(){
+  public actualizarEmpleado(empleado: Empleado): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarEmpleado;
+    return this.httpClient.post<AccionRespuesta>(urlPost, empleado, {headers: this.httpHeaders});
   }
 
-  public eliminarEmpleado(){
+  public eliminarEmpleado(empleadoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarEmpleado + empleadoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getEmpleados(): Promise<Empleado[]> {

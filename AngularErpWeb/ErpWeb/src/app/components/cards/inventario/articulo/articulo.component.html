@@ -1,50 +1,57 @@
 <div class="card text-center">
     <div class="card-header">
+        <h5 class="card-title">Artículo</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Almacén</h5>
-
-        <!-- NOMBRE -->
-        <div class="form-group row">
-            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span *ngIf="articulo.nombre">{{articulo.nombre}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO CLIENTE -->
+            <dl class="col-3" *ngIf="articulo.codigo">
+                <dt>Código cliente</dt>
+                <dd>{{articulo.codigo}}</dd>
+            </dl>
+            <!-- NOMBRE -->
+            <dl class="col-3" *ngIf="articulo.nombre">
+                <dt>Nombre</dt>
+                <dd>{{articulo.nombre}}</dd>
+            </dl>
+            <!-- DESCRIPCION -->
+            <dl class="col-6" *ngIf="articulo.descripcion">
+                <dt>Descripción</dt>
+                <dd>{{articulo.descripcion}}</dd>
+            </dl>
         </div>
 
-        <!-- CODIGO -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código articulo</label>
-            <span *ngIf="articulo.codigo">{{articulo.codigo}}</span>
-        </div>
-
-        <!-- DESCRIPCION -->
-        <div class="form-group row">
-            <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-            <span *ngIf="articulo.descripcion">{{articulo.descripcion}}</span>
-        </div>
-
-        <!-- BASE IMPONIBLE -->
-        <div class="form-group row">
-            <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <span *ngIf="articulo.baseImponible">{{articulo.baseImponible}}</span>
-        </div>
-
-        <!-- IMPUESTO -->
-        <div class="form-group row">
-            <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-            <span *ngIf="articulo.impuesto">{{articulo.impuesto}}</span>
-        </div>
-
-        <!-- IMPORTE TOTAL -->
-        <div class="form-group row">
-            <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span *ngIf="articulo.importeTotal">{{articulo.importeTotal}}</span>
+        <!-- Fila 2-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Costes del articulo</h6>
+        <div class="form-group row text-left">
+            <!-- BASE IMPONIBLE -->
+            <dl class="col-3" *ngIf="articulo.baseImponible">
+                <dt>Base imponible</dt>
+                <dd>{{articulo.baseImponible}}</dd>
+            </dl>
+            <!-- IMPUESTO -->
+            <dl class="col-3" *ngIf="articulo.impuesto">
+                <dt>Impuesto</dt>
+                <dd>{{articulo.impuesto}}</dd>
+            </dl>
+            <!-- IMPORTE TOTAL -->
+            <dl class="col-6" *ngIf="articulo.importeTotal">
+                <dt>Importe total</dt>
+                <dd>{{articulo.importeTotal}}</dd>
+            </dl>
         </div>
 
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarArticulo(articulo.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarArticulo(articulo.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

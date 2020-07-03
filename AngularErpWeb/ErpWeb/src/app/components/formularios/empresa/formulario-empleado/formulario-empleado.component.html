@@ -46,11 +46,16 @@
                 </div>
             </div>
 
-            <!-- TIPO empleado -->
+            <!-- TIPO EMPLEADO -->
             <div class="form-group row">
                 <label for="tipoempleado" class="col-form-label col-sm-2">Tipo de empleado</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="empleado.tipoEmpleado" name="tipoempleado">
+                    <p>
+                        <select name="tipoEmpleado" title="" [(ngModel)]="empleado.tipoEmpleado">
+                            <option disabled="true" selected >Selecciona el tipo de empleado</option> 
+                            <option [value]="tipoEmpleado" *ngFor="let tipoEmpleado of tiposEmpleados">{{tipoEmpleado}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 
@@ -106,7 +111,12 @@
             <div class="form-group row">
                 <label for="region" class="col-form-label col-sm-2">Región</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="empleado.region" name="region">
+                    <p>
+                        <select name="region" title="" [(ngModel)]="empleado.region">
+                            <option disabled="true" selected >Selecciona región</option> 
+                            <option [value]="region" *ngFor="let region of regiones">{{region}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 
@@ -114,7 +124,12 @@
             <div class="form-group row">
                 <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="empleado.provincia" name="provincia">
+                    <p>
+                        <select name="provincia" title="" [(ngModel)]="empleado.provincia">
+                            <option disabled="true"  selected >Selecciona provincia</option> 
+                            <option [value]="provincia" *ngFor="let provincia of provincias">{{provincia}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

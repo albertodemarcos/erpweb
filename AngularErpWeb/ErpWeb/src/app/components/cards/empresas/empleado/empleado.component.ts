@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpleadoService } from 'src/app/services/empresa/empleado.service';
 import { Empleado } from 'src/app/model/entitys/empleado.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -59,28 +59,74 @@ export class EmpleadoComponent implements OnInit {
     );
   }
 
-   obtenerEmpleadoDesdeEmpleadoDto(empleadoDto: any): void{
+  obtenerEmpleadoDesdeEmpleadoDto(empleadoDto: any): void{
 
-    if ( empleadoDto != null)
-      {
-        this.empleado.id = empleadoDto.id;
-        this.empleado.codigo = empleadoDto.codigo;
-        this.empleado.nombre = empleadoDto.nombre;
-        this.empleado.apellidoPrimero = empleadoDto.apellidoPrimero;
-        this.empleado.apellidoSegundo = empleadoDto.apellidoSegundo;
-        this.empleado.nif = empleadoDto.nif;
-        this.empleado.codigoPostal = empleadoDto.codigoPostal;
-        this.empleado.direccion = empleadoDto.direccion;
-        this.empleado.edificio = empleadoDto.edificio;
-        this.empleado.observaciones = empleadoDto.observaciones;
-        this.empleado.telefono = empleadoDto.telefono;
-        this.empleado.poblacion = empleadoDto.poblacion;
-        this.empleado.region = empleadoDto.region;
-        this.empleado.provincia = empleadoDto.provincia;
-        this.empleado.pais = empleadoDto.pais;
-        this.empleado.tipoEmpleado = empleadoDto.tipoEmpleado;
-      }
+  if ( empleadoDto != null)
+    {
+      this.empleado.id = empleadoDto.id;
+      this.empleado.codigo = empleadoDto.codigo;
+      this.empleado.nombre = empleadoDto.nombre;
+      this.empleado.apellidoPrimero = empleadoDto.apellidoPrimero;
+      this.empleado.apellidoSegundo = empleadoDto.apellidoSegundo;
+      this.empleado.nif = empleadoDto.nif;
+      this.empleado.codigoPostal = empleadoDto.codigoPostal;
+      this.empleado.direccion = empleadoDto.direccion;
+      this.empleado.edificio = empleadoDto.edificio;
+      this.empleado.observaciones = empleadoDto.observaciones;
+      this.empleado.telefono = empleadoDto.telefono;
+      this.empleado.poblacion = empleadoDto.poblacion;
+      this.empleado.region = empleadoDto.region;
+      this.empleado.provincia = empleadoDto.provincia;
+      this.empleado.pais = empleadoDto.pais;
+      this.empleado.tipoEmpleado = empleadoDto.tipoEmpleado;
     }
+  }
+
+  editarEmpleado(empleadoId: number): void{
+    console.log('Empleado CON ID: ' + empleadoId);
+    this.router.navigate(['empleados', 'editar-empleado', empleadoId]);
+  }
+
+  borrarEmpleado(empleadoId: number): void{
+
+    console.log('Empleado CON ID: ' + empleadoId);
+
+    // Evitamos borrar accidentalmente un Empleado
+    swal({
+      title: 'Eliminar Empleado',
+      text: '¿Desea eliminar definitivamente este Empleado?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Empleados para eliminar el Empleado
+      this.empleadoService.eliminarEmpleado(empleadoId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Empleado');
+        swal('Empleado elimninado', 'Se ha eliminado el Empleado correctamente', 'success').then(() =>{
+          this.router.navigate( ['empleados'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Empleado');
+        swal('Error', 'El Empleado no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Empleado');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
+  }
 
   ngOnInit(): void {
   }

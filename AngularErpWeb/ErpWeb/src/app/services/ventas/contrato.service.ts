@@ -15,12 +15,16 @@ export class ContratoService {
   private urlCrearContrato: string;
   private urlListadoContratos: string;
   private urlGetContrato: string;
+  private urlEditarContrato: string;
+  private urlEliminarContrato: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearContrato = '/contratos/crearContrato';
     this.urlListadoContratos = '/contratos/listado.json';
     this.urlGetContrato = '/contratos/contrato/';
+    this.urlEditarContrato = '/contratos/editarContrato/';
+    this.urlEliminarContrato = '/contratos/eliminarContrato/';
   }
 
   // METODOS GENERALES
@@ -30,18 +34,28 @@ export class ContratoService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
-   public crearContrato(contrato: Contrato): Observable<AccionRespuesta>{
+  public getContratoEditar(contratoId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarContrato + contratoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
+  public crearContrato(contrato: Contrato): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearContrato;
     return this.httpClient.post<AccionRespuesta>(urlPost, contrato, {headers: this.httpHeaders});
   }
 
-  public actualizarContrato(){
+  public actualizarContrato(contrato: Contrato): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarContrato;
+    return this.httpClient.post<AccionRespuesta>(urlPost, contrato, {headers: this.httpHeaders});
   }
 
-  public eliminarContrato(){
+  public eliminarContrato(contratoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarContrato + contratoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getContratos(): Promise<Contrato[]> {

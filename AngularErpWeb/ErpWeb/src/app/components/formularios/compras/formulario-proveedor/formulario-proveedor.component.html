@@ -43,7 +43,12 @@
             <div class="form-group row">
                 <label for="tipoProveedor" class="col-form-label col-sm-2">Tipo proveedor</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="proveedor.tipoProveedor" name="tipoProveedor">
+                    <p>
+                        <select name="impuesto" title="" [(ngModel)]="proveedor.tipoProveedor">
+                            <option disabled="true"  selected >Selecciona tipo impuesto</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposProveedores">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

@@ -16,12 +16,24 @@ export class FormularioClienteComponent implements OnInit {
   public cliente: Cliente;
   private clienteId: number;
   public tiposClientes: string[];
+  public provincias: string[];
+  public regiones: string[];
   private clienteDto: any;
   private respuestaGetCliente: AccionRespuesta;
 
   constructor(private clienteService: ClienteService, private router: Router, private activateRouter: ActivatedRoute) {
     this.cliente = new Cliente();
     this.tiposClientes = ['PARTICULAR', 'AUTONOMO', 'EMPRESA'];
+
+    this.provincias = ['Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos',
+      'Cáceres', 'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'La Coruña', 'Cuenca', 'Gerona', 'Granada',
+      'Guadalajara', 'Guipúzcoa', 'Huelva', 'Huesca', 'Islas Baleares', 'Jaén', 'León', 'Lérida', 'Lugo', 'Madrid', 'Málaga',
+      'Murcia', 'Navarra', 'Ourense', 'Palencia', 'Las Palmas', 'Pontevedra', 'La Rioja', 'Salamanca', 'Segovia', 'Sevilla',
+      'Soria', 'Tarragona', 'Santa Cruz de Tenerife', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza'];
+
+    this.regiones = ['Andalucía', 'Aragón', 'Principado de Asturias', 'Islas Baleares', 'Islas Canarias', 'Cantabria', 'Castilla y León',
+      'Castilla-La Mancha', 'Cataluña', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'Comunidad de Madrid', 'Región de Murcia',
+      'Comunidad Foral de Navarra', 'País Vasco', 'La Rioja', 'Ciudad Autónoma de Ceuta', 'Ciudad Autónoma de Melilla' ];
 
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -30,7 +42,7 @@ export class FormularioClienteComponent implements OnInit {
       if (this.clienteId != null){
         this.getEditarCliente();
       }
-    } );
+    });
    }
 
   ngOnInit(): void {
@@ -69,7 +81,6 @@ export class FormularioClienteComponent implements OnInit {
         swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
 
       }));
-
     }
   }
 
@@ -131,34 +142,31 @@ export class FormularioClienteComponent implements OnInit {
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
-      this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
-
       if (esEditarCliente != null && esEditarCliente ){
 
         swal('Cliente editado', 'Se ha editado el cliente correctamente', 'success');
+
+        this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
 
        }else{
 
         swal('Nuevo cliente', 'Se ha creado el cliente correctamente', 'success');
 
+        this.router.navigate(['clientes', 'cliente', accionRespuesta.id]);
        }
 
     }else{
-
-      if (esEditarCliente != null && esEditarCliente ){
-
-        swal('Cliente editado', 'Se ha editado el cliente correctamente', 'success');
-
-       }else{
-
-        swal('Nuevo cliente', 'Se ha creado el cliente correctamente', 'success');
-
-      }
+      // Error
+      swal('Nuevo cliente', 'Se ha producido un error al crear el cliente', 'error');
     }
 
   }
 
 }
+
+
+
+
 /*
 this.clienteService.crearCliente(this.cliente).subscribe( accionRespuesta => {
       console.log('Esta registrado' + accionRespuesta.resultado);

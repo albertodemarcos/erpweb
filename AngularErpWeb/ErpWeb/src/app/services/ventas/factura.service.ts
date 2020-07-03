@@ -15,12 +15,16 @@ export class FacturaService {
   private urlCrearFactura: string;
   private urlListadoFacturas: string;
   private urlGetFactura: string;
+  private urlEditarFactura: string;
+private urlEliminarFactura: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearFactura = '/facturas/crearFactura';
     this.urlListadoFacturas = '/facturas/listado.json';
     this.urlGetFactura = '/facturas/factura/';
+    this.urlEditarFactura = '/facturas/editarFactura/';
+    this.urlEliminarFactura = '/facturas/eliminarFactura/';
   }
 
   // METODOS GENERALES
@@ -30,18 +34,28 @@ export class FacturaService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getFacturaEditar(facturaId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarFactura + facturaId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearFactura(factura: Factura): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearFactura;
     return this.httpClient.post<AccionRespuesta>(urlPost, factura, {headers: this.httpHeaders});
   }
 
-  public actualizarFactura(){
+  public actualizarFactura(factura: Factura): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarFactura;
+    return this.httpClient.post<AccionRespuesta>(urlPost, factura, {headers: this.httpHeaders});
   }
 
-  public eliminarFactura(){
+  public eliminarFactura(facturaId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarFactura + facturaId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getFacturas(): Promise<Factura[]> {

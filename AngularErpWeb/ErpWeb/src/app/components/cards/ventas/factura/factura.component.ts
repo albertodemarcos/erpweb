@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FacturaService } from 'src/app/services/ventas/factura.service';
 import { Factura } from 'src/app/model/entitys/factura.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -70,9 +70,55 @@ export class FacturaComponent implements OnInit {
       this.factura.fechaFin = facturaDto.fechaFin;
       this.factura.descripcion = facturaDto.descripcion;
       this.factura.baseImponible = facturaDto.baseImponible;
-      this.factura.cuotaTributaria = facturaDto.cuotaTributaria;
+      this.factura.impuesto = facturaDto.impuesto;
       this.factura.importeTotal = facturaDto.importeTotal;
     }
+  }
+
+  editarFactura(facturaId: number): void{
+    console.log('Factura CON ID: ' + facturaId);
+    this.router.navigate(['facturas', 'editar-factura', facturaId]);
+  }
+
+  borrarFactura(facturaId: number): void{
+
+    console.log('Factura CON ID: ' + facturaId);
+
+    // Evitamos borrar accidentalmente un Factura
+    swal({
+      title: 'Eliminar Factura',
+      text: '¿Desea eliminar definitivamente esta factura?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Facturas para eliminar el Factura
+      this.facturaService.eliminarFactura(facturaId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Factura');
+        swal('Factura elimninado', 'Se ha eliminado el Factura correctamente', 'success').then(() => {
+          this.router.navigate( ['facturas'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Factura');
+        swal('Error', 'El Factura no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Factura');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
   }
 
   ngOnInit(): void {

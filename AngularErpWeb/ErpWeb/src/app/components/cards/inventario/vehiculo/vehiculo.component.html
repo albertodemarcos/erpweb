@@ -1,50 +1,61 @@
 <div class="card text-center">
     <div class="card-header">
+        <h5 class="card-title">Vehículo</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Vehículo</h5>
-
-        <!-- CODIGO vehiculo -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código vehículo</label>
-            <span *ngIf="vehiculo.codigo">{{vehiculo.codigo}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO VEHICULO -->
+            <dl class="col" *ngIf="vehiculo.codigo">
+                <dt>Código vehículo</dt>
+                <dd>{{vehiculo.codigo}}</dd>
+            </dl>
+            <!-- MATRICULA -->
+            <dl class="col" *ngIf="vehiculo.codigo">
+                <dt>Matrícula</dt>
+                <dd>{{vehiculo.matricula}}</dd>
+            </dl>
+            <!-- MARCA -->
+            <dl class="col" *ngIf="vehiculo.marca">
+                <dt>Marca</dt>
+                <dd>{{vehiculo.marca}}</dd>
+            </dl>
+            <!-- MODELO -->
+            <dl class="col" *ngIf="vehiculo.modelo">
+                <dt>Modelo</dt>
+                <dd>{{vehiculo.modelo}}</dd>
+            </dl>
         </div>
 
-        <!-- MATRICULA -->
-        <div class="form-group row">
-            <label for="matricula" class="col-form-label col-sm-2">Matrícula</label>
-            <span *ngIf="vehiculo.matricula">{{vehiculo.matricula}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- FECHA MATRICULACION -->
+            <dl class="col-3" *ngIf="vehiculo.fechaMatriculacion">
+                <dt>Fecha matriculación</dt>
+                <dd>{{vehiculo.fechaMatriculacion | date: 'd/MM/yyyy'}}</dd>
+            </dl>
+            <!-- TIPO VEHICULO -->
+            <dl class="col-3" *ngIf="vehiculo.tipoVehiculo">
+                <dt>Tipo de vehículo</dt>
+                <dd>{{vehiculo.tipoVehiculo}}</dd>
+            </dl>
+            <!-- TIPO COMBUSTIBLE -->
+            <dl class="col-6" *ngIf="vehiculo.tipoCombustible">
+                <dt>Tipo de combustible</dt>
+                <dd>{{vehiculo.tipoCombustible}}</dd>
+            </dl>
         </div>
-
-        <!-- MARCA -->
-        <div class="form-group row">
-            <label for="marca" class="col-form-label col-sm-2">Marca</label>
-            <span *ngIf="vehiculo.marca">{{vehiculo.marca}}</span>
-        </div>
-
-        <!-- MODELO -->
-        <div class="form-group row">
-            <label for="modelo" class="col-form-label col-sm-2">Modelo</label>
-            <span *ngIf="vehiculo.modelo">{{vehiculo.modelo}}</span>
-        </div>
-
-        <!-- FECHA METRICULACION -->
-        <div class="form-group row">
-            <label for="fechaMatriculacion" class="col-form-label col-sm-2">Fecha matriculación</label>
-            <span *ngIf="vehiculo.fechaMatriculacion">{{vehiculo.fechaMatriculacion | date}}</span>
-        </div>
-
-        <!-- TIPO VEHICULO -->
-        <div class="form-group row">
-            <label for="tipoVehiculo" class="col-form-label col-sm-2">Tipo de vehículo</label>
-            <span *ngIf="vehiculo.tipoVehiculo">{{vehiculo.tipoVehiculo}}</span>
-        </div>
-
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarVehiculo(vehiculo.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarVehiculo(vehiculo.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

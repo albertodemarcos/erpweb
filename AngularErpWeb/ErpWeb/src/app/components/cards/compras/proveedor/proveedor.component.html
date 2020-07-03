@@ -1,44 +1,46 @@
 <div class="card text-center">
-    <div class="card-header">
+    <div class="card-header text-center">
+        <h5 class="card-title">Proveedor</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Proveedor</h5>
-
-        <!-- NOMBRE -->
-        <div class="form-group row">
-            <label for="nombre" class="col-form-label col-sm-2">Nombre proveedor</label>
-            <span *ngIf="proveedor.nombre">{{proveedor.nombre}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos del proveedor</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO PROVEEDOR -->
+            <dl class="col" *ngIf="proveedor.codigo">
+                <dt>Código proveedor</dt>
+                <dd>{{proveedor.codigo}}</dd>
+            </dl>
+            <!-- NOMBRE -->
+            <dl class="col" *ngIf="proveedor.nombre">
+                <dt>Nombre proveedor</dt>
+                <dd>{{proveedor.nombre}}</dd>
+            </dl>
+            <!-- NOMBRE EMPRESA -->
+            <dl class="col" *ngIf="proveedor.nombreEmpresa">
+                <dt>Nombre empresa</dt>
+                <dd>{{proveedor.nombreEmpresa}}</dd>
+            </dl>
+            <!-- TELEFONO -->
+            <dl class="col" *ngIf="proveedor.telefono">
+                <dt>Teléfono</dt>
+                <dd>{{proveedor.telefono}}</dd>
+            </dl>
+            <!-- TIPO PROVEEDOR -->
+            <dl class="col" *ngIf="proveedor.tipoProveedor">
+                <dt>Tipo proveedor</dt>
+                <dd>{{proveedor.tipoProveedor}}</dd>
+            </dl>
         </div>
-
-        <!-- CODIGO PROVEEDOR -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código proveedor</label>
-            <span *ngIf="proveedor.codigo">{{proveedor.codigo}}</span>
-        </div>
-
-        <!-- NOMBRE EMPRESA -->
-        <div class="form-group row">
-            <label for="nombreEmpresa" class="col-form-label col-sm-2">Nombre empresa</label>
-            <span *ngIf="proveedor.nombreEmpresa">{{proveedor.nombreEmpresa}}</span>
-        </div>
-
-        <!-- TELEFONO -->
-        <div class="form-group row">
-            <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-            <span *ngIf="proveedor.telefono">{{proveedor.telefono}}</span>
-        </div>
-
-        <!-- TIPO PROVEEDOR -->
-        <div class="form-group row">
-            <label for="tipoProveedor" class="col-form-label col-sm-2">Tipo proveedor</label>
-            <span *ngIf="proveedor.tipoProveedor">{{proveedor.tipoProveedor}}</span>
-        </div>
-
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarProveedor(proveedor.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarProveedor(proveedor.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

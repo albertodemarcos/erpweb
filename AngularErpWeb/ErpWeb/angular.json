@@ -38,6 +38,7 @@
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "node_modules/free-jqgrid/dist/jquery.jqgrid.min.js",
                             "node_modules/free-jqgrid/js/grid.import.js",
+                            "node_modules/free-jqgrid/dist/i18n/grid.locale-es.js",
                             "node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js",
                             "node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js",
                             "node_modules/tableexport.jquery.plugin/tableExport.min.js",

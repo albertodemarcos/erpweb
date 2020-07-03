@@ -19,7 +19,7 @@
             <div class="form-group row">
                 <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
                 <div class="col-sm-6">
-                    <input type="text" id="fechaFacturaDatePickerCreacion" class="form-control" [(ngModel)]="factura.fechaCreacion" name="fechaCreacion">
+                    <input type="date" class="form-control" [ngModel]="factura.fechaCreacion | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaCreacion = $event" name="fechaCreacion">
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
             <div class="form-group row">
                 <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
                 <div class="col-sm-6">
-                    <input type="text" id="fechaFacturaDatePickerInicio" class="form-control" [(ngModel)]="factura.fechaInicio" name="fechaInicio">
+                    <input type="date" class="form-control" [ngModel]="factura.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaInicio = $event" name="fechaInicio">
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
             <div class="form-group row">
                 <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
                 <div class="col-sm-6">
-                    <input type="text" id="fechaFacturaDatePickerFin" class="form-control" [(ngModel)]="factura.fechaFin" name="fechaFin">
+                    <input type="date" class="form-control" [ngModel]="factura.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaFin = $event" name="fechaFin">
                 </div>
             </div>
 
@@ -57,9 +57,14 @@
 
             <!-- IMPUESTOS -->
             <div class="form-group row">
-                <label for="cuotaTributaria" class="col-form-label col-sm-2">Impuestos</label>
+                <label for="impuesto" class="col-form-label col-sm-2">Impuestos</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="factura.cuotaTributaria" name="cuotaTributaria">
+                    <p>
+                        <select name="impuesto" title="" [(ngModel)]="factura.impuesto">
+                            <option disabled="true"  selected >Selecciona tipo impuesto</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

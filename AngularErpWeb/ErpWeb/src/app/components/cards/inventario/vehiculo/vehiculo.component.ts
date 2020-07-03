@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { VehiculoService } from 'src/app/services/inventario/vehiculo.service';
 import { Vehiculo } from 'src/app/model/entitys/vehiculo.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -70,8 +70,55 @@ export class VehiculoComponent implements OnInit {
       this.vehiculo.marca = vehiculoDto.marca;
       this.vehiculo.modelo = vehiculoDto.modelo;
       this.vehiculo.tipoVehiculo = vehiculoDto.tipoVehiculo;
+      this.vehiculo.tipoCombustible = vehiculoDto.tipoCombustible;
       this.vehiculo.fechaMatriculacion = vehiculoDto.fechaMatriculacion;
     }
+  }
+
+  editarVehiculo(vehiculoId: number): void{
+    console.log('Vehiculo CON ID: ' + vehiculoId);
+    this.router.navigate(['vehiculos', 'editar-vehiculo', vehiculoId]);
+  }
+
+  borrarVehiculo(vehiculoId: number): void{
+
+    console.log('Vehiculo CON ID: ' + vehiculoId);
+
+    // Evitamos borrar accidentalmente un Vehiculo
+    swal({
+      title: 'Eliminar Vehiculo',
+      text: '¿Desea eliminar definitivamente este Vehiculo?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Vehiculos para eliminar el Vehiculo
+      this.vehiculoService.eliminarVehiculo(vehiculoId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Vehiculo');
+        swal('Vehiculo elimninado', 'Se ha eliminado el Vehiculo correctamente', 'success').then(() => {
+          this.router.navigate( ['vehiculos'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Vehiculo');
+        swal('Error', 'El Vehiculo no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Vehiculo');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
   }
 
   ngOnInit(): void {

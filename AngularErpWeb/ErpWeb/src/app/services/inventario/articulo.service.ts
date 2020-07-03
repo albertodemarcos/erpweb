@@ -15,12 +15,16 @@ export class ArticuloService {
   private urlCrearArticulo: string;
   private urlListadoArticulos: string;
   private urlGetArticulo: string;
+  private urlEditarArticulo: string;
+  private urlEliminarArticulo: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearArticulo = '/articulos/crearArticulo';
     this.urlListadoArticulos = '/articulos/listado.json';
     this.urlGetArticulo = '/articulos/articulo/';
+    this.urlEditarArticulo = '/articulos/editarArticulo/';
+    this.urlEliminarArticulo = '/articulos/eliminarArticulo/';
   }
 
   // METODOS GENERALES
@@ -30,18 +34,28 @@ export class ArticuloService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getArticuloEditar(articuloId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarArticulo + articuloId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearArticulo(articulo: Articulo): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearArticulo;
     return this.httpClient.post<AccionRespuesta>(urlPost, articulo, {headers: this.httpHeaders});
   }
 
-  public actualizarArticulo(){
+  public actualizarArticulo(articulo: Articulo): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarArticulo;
+    return this.httpClient.post<AccionRespuesta>(urlPost, articulo, {headers: this.httpHeaders});
   }
 
-  public eliminarArticulo(){
+  public eliminarArticulo(articuloId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarArticulo + articuloId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getArticulos(): Promise<Articulo[]> {

@@ -23,9 +23,15 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
     this.tituloListado = 'Listado de clientes';
     this.jqGridId = 'clientes-grid';
     this.jqGridPagerId = 'clientes-pager';
-    this.jqGridColNames = ['', 'Código', 'Nombre', 'Apellido', 'CIF/NIF', 'Teléfono', 'Tipo cliente'];
+    this.jqGridColNames = ['ID', 'Ver', 'Código', 'Nombre', 'Apellido', 'CIF/NIF', 'Teléfono', 'Tipo cliente'];
     this.jqGridColModel = [
-      { name: 'id', index: '', width: '40', search: false, sortable: false },
+      { name: 'id', index: '', hidden: true},
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
+        () => { /*onclick="verClienteDto.call(this, event)"*/
+          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
+            '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
+        }
+      },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'nombre', index: '', width: '', search: true, sortable: true },
       { name: 'apellido', index: '', width: '', search: true, sortable: true },
@@ -58,7 +64,7 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     // JqGrid
-    ( jQuery ('#' + this.jqGridId ) ).jqGrid({
+    ( jQuery ( '#' + this.jqGridId ) ).jqGrid({
       colNames: this.jqGridColNames,
       colModel: this.jqGridColModel,
       pager: this.jqGridPagerId,
@@ -67,18 +73,27 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: true
+      autowidth: false,
+      onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
+        // Si se pulsa sobre la columna 1, pulsan sobre el boton
+        console.log('Se ha pulsado sobre el boton ver para ir al cliente con id: ' + iCol);
+        if (iCol === 1 )
+        {
+          // Obtenemos el valor de la columna oculta
+          const idCelValue = jQuery( '#' + this.jqGridId ).jqGrid ('getCell', rowid, 'id');
+          console.log('Se ha pulsado sobre el boton ver para ir al cliente con id: ' + idCelValue);
+          this.router.navigate(['clientes', 'cliente', idCelValue]);
+        }
+      }
     });
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    // Exportar a Excel
     jQuery('#exportar').on('click', () => {
-
       console.log('Se inicia la exportacion a excel del listado de clientes');
-
       jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listadoClientes' , escape: 'false'} );
-
     });
 
   }

@@ -1,55 +1,62 @@
 <div class="card text-center">
-    <div class="card-header">
+    <div class="card-header text-center">
+        <h5 class="card-title">Pedido</h5>
     </div>
+
     <div class="card-body">
 
-        <h5 class="card-title">Pedido</h5>
-
-        <!-- CODIGO PEDIDO -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código pedido</label>
-            <span *ngIf="pedido.codigo">{{pedido.codigo}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos pedido</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO pedido -->
+            <dl class="col-3" *ngIf="pedido.codigo">
+                <dt>Código pedido</dt>
+                <dd>{{pedido.codigo}}</dd>
+            </dl>
+            <!-- FECHA pedido -->
+            <dl class="col-9" *ngIf="pedido.fechaPedido">
+                <dt>Fecha pedido</dt>
+                <dd>{{pedido.fechaPedido | date: 'd/MM/yyyy'}}</dd>
+            </dl>
+            <!-- ARTICULO -->
+            <dl class="col-3" *ngIf="pedido.articulo">
+                <dt>Artículo</dt>
+                <dd>{{pedido.articulo}}</dd>
+            </dl>
+            <!-- CANTIDAD -->
+            <dl class="col-9" *ngIf="pedido.cantidad">
+                <dt>cantidad</dt>
+                <dd>{{pedido.cantidad}}</dd>
+            </dl>
         </div>
 
-        <!-- FECHA pedido -->
-        <div class="form-group row">
-            <label for="fechaPedido" class="col-form-label col-sm-2">Fecha pedido</label>
-            <span *ngIf="pedido.fechaPedido">{{pedido.fechaPedido}}</span>
+        <!-- Fila 2-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Costes</h6>
+        <div class="form-group row text-left">
+            <!-- BASE IMPONIBLE -->
+            <dl class="col-3" *ngIf="pedido.baseImponibleTotal">
+                <dt>Base imponible</dt>
+                <dd>{{pedido.baseImponibleTotal}}</dd>
+            </dl>
+            <!-- IMPUESTO -->
+            <dl class="col-3" *ngIf="pedido.impuesto">
+                <dt>Impuesto</dt>
+                <dd>{{pedido.impuesto}}</dd>
+            </dl>
+            <!-- IMPORTE TOTAL -->
+            <dl class="col-6" *ngIf="pedido.importeTotal">
+                <dt>Importe total</dt>
+                <dd>{{pedido.importeTotal}}</dd>
+            </dl>
         </div>
 
-        <!-- ARTICULO -->
-        <div class="form-group row">
-            <label for="articulo" class="col-form-label col-sm-2">Artículo</label>
-            <span *ngIf="pedido.articulo">{{pedido.articulo}}</span>
-        </div>
 
-        <!-- CANTIDAD -->
-        <div class="form-group row">
-            <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
-            <span *ngIf="pedido.cantidad">{{pedido.cantidad}}</span>
-        </div>
-
-        <!-- BASE IMPONIBLE -->
-        <div class="form-group row">
-            <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-            <span *ngIf="pedido.baseImponibleTotal">{{pedido.baseImponibleTotal}}</span>
-        </div>
-
-        <!-- IMPUESTO -->
-        <div class="form-group row">
-            <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-            <span *ngIf="pedido.impuesto">{{pedido.impuesto}}</span>
-        </div>
-
-        <!-- IMPORTE TOTAL -->
-        <div class="form-group row">
-            <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span *ngIf="pedido.importeTotal">{{pedido.importeTotal}}</span>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <button type="button" class="btn btn-primary" (click)="editarPedido(pedido.id)">Editar</button> &nbsp;
+                    <button type="button" class="btn btn-danger" (click)="borrarPedido(pedido.id)">Borrar</button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
-    </div>
-</div>

@@ -19,7 +19,7 @@
             <div class="form-group row">
                 <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
                 <div class="col-sm-6">
-                    <input type="text" id="fechaVentaDatePickerCreacion" class="form-control" [(ngModel)]="venta.fechaCreacion" name="fechaCreacion">
+                    <input type="date" class="form-control" [ngModel]="venta.fechaCreacion | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaCreacion = $event" name="fechaCreacion">
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
             <div class="form-group row">
                 <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
                 <div class="col-sm-6">
-                    <input type="text" id="fechaVentaDatePickerInicio" class="form-control" [(ngModel)]="venta.fechaInicio" name="fechaInicio">
+                    <input type="date" class="form-control" [ngModel]="venta.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaInicio = $event" name="fechaInicio">
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
             <div class="form-group row">
                 <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
                 <div class="col-sm-6">
-                    <input type="text" id="fechaVentaDatePickerFin" class="form-control" [(ngModel)]="venta.fechaFin" name="fechaFin">
+                    <input type="date" class="form-control" [ngModel]="venta.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaFin = $event" name="fechaFin">
                 </div>
             </div>
 
@@ -52,6 +52,19 @@
                 <label for="baseImponibleTotal" class="col-form-label col-sm-2">Base imponible</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="venta.baseImponibleTotal" name="baseImponibleTotal">
+                </div>
+            </div>
+
+            <!-- IMPUESTO -->
+            <div class="form-group row">
+                <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
+                <div class="col-sm-6">
+                    <p>
+                        <select name="impuesto" title="" [(ngModel)]="venta.impuesto">
+                            <option disabled="true"  selected >Selecciona tipo impuesto</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

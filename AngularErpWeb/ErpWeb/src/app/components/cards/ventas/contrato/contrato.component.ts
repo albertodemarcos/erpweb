@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ContratoService } from 'src/app/services/ventas/contrato.service';
 import { Contrato } from 'src/app/model/entitys/contrato.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -59,7 +59,7 @@ export class ContratoComponent implements OnInit {
     );
   }
 
-   obtenerContratoDesdeContratoDto(contratoDto: any): void{
+  obtenerContratoDesdeContratoDto(contratoDto: any): void{
 
     if ( contratoDto != null)
     {
@@ -70,8 +70,55 @@ export class ContratoComponent implements OnInit {
       this.contrato.fechaFin = contratoDto.fechaFin;
       this.contrato.descripcion = contratoDto.descripcion;
       this.contrato.baseImponibleTotal = contratoDto.baseImponibleTotal;
+      this.contrato.impuesto = contratoDto.impuesto;
       this.contrato.importeTotal = contratoDto.importeTotal;
     }
+  }
+
+  editarContrato(contratoId: number): void{
+    console.log('Contrato CON ID: ' + contratoId);
+    this.router.navigate(['contratos', 'editar-contrato', contratoId]);
+  }
+
+  borrarContrato(contratoId: number): void{
+
+    console.log('Contrato CON ID: ' + contratoId);
+
+    // Evitamos borrar accidentalmente un Contrato
+    swal({
+      title: 'Eliminar Contrato',
+      text: '¿Desea eliminar definitivamente este Contrato?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Contratos para eliminar el Contrato
+      this.contratoService.eliminarContrato(contratoId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Contrato');
+        swal('Contrato elimninado', 'Se ha eliminado el Contrato correctamente', 'success').then(() =>{
+          this.router.navigate( ['contratos'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Contrato');
+        swal('Error', 'El Contrato no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Contrato');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
   }
 
   ngOnInit(): void {

@@ -1,79 +1,85 @@
 <div class="card text-center">
     <div class="card-header">
+        <h5 class="card-title">Almacén</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Almacén</h5>
-
-        <!-- NOMBRE -->
-        <div class="form-group row">
-            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span *ngIf="almacen.nombre">{{almacen.nombre}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO CLIENTE -->
+            <dl class="col" *ngIf="almacen.codigo">
+                <dt>Código almacén</dt>
+                <dd>{{almacen.codigo}}</dd>
+            </dl>
+            <!-- NOMBRE -->
+            <dl class="col" *ngIf="almacen.nombre">
+                <dt>Nombre</dt>
+                <dd>{{almacen.nombre}}</dd>
+            </dl>
+            <!-- TELEFONO -->
+            <dl class="col" *ngIf="almacen.telefono">
+                <dt>Teléfono</dt>
+                <dd>{{almacen.telefono}}</dd>
+            </dl>
+            <!-- OBSERVACIONES -->
+            <dl class="col" *ngIf="almacen.observaciones">
+                <dt>Observaciones</dt>
+                <dd>{{almacen.observaciones}}</dd>
+            </dl>
         </div>
 
-        <!-- CODIGO -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código almacén</label>
-            <span *ngIf="almacen.codigo">{{almacen.codigo}}</span>
+        <!-- Fila 3-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Dirección Postal</h6>
+        <div class="form-group row text-left">
+            <!-- DIRECCION -->
+            <dl class="col-3" *ngIf="almacen.direccion">
+                <dt>Código postal</dt>
+                <dd>{{almacen.direccion}}</dd>
+            </dl>
+            <!-- CODIGO POSTAL -->
+            <dl class="col-3" *ngIf="almacen.codigoPostal">
+                <dt>Dirección</dt>
+                <dd>{{almacen.codigoPostal}}</dd>
+            </dl>
+            <!-- EDIFICIO -->
+            <dl class="col-3" *ngIf="almacen.edificio">
+                <dt>Edificio</dt>
+                <dd>{{almacen.edificio}}</dd>
+            </dl>
         </div>
 
-        <!-- CODIGO POSTAL -->
-        <div class="form-group row">
-            <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
-            <span *ngIf="almacen.codigoPostal">{{almacen.codigoPostal}}</span>
+        <!-- Fila 3-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Procedencia</h6>
+        <div class="form-group row text-left">
+            <!-- PAIS -->
+            <dl class="col" *ngIf="almacen.pais">
+                <dt>País</dt>
+                <dd>{{almacen.pais}}</dd>
+            </dl>
+            <!-- REGION -->
+            <dl class="col" *ngIf="almacen.region">
+                <dt>Región</dt>
+                <dd>{{almacen.region}}</dd>
+            </dl>
+            <!-- PROVINCIA -->
+            <dl class="col" *ngIf="almacen.provincia">
+                <dt>Provincia</dt>
+                <dd>{{almacen.provincia}}</dd>
+            </dl>
+            <!-- POBLACION -->
+            <dl class="col" *ngIf="almacen.poblacion">
+                <dt>Población</dt>
+                <dd>{{almacen.poblacion}}</dd>
+            </dl>
         </div>
-
-        <!-- DIRECCION -->
-        <div class="form-group row">
-            <label for="direccion" class="col-form-label col-sm-2"></label>
-            <span *ngIf="almacen.direccion">{{almacen.direccion}}</span>
-        </div>
-
-        <!-- EDIFICIO -->
-        <div class="form-group row">
-            <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
-            <span *ngIf="almacen.edificio">{{almacen.edificio}}</span>
-        </div>
-
-        <!-- OBSERVACIONES -->
-        <div class="form-group row">
-            <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-            <span *ngIf="almacen.observaciones">{{almacen.observaciones}}</span>
-        </div>
-
-        <!-- TELEFONO -->
-        <div class="form-group row">
-            <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-            <span *ngIf="almacen.telefono">{{almacen.telefono}}</span>
-        </div>
-
-        <!-- PAIS -->
-        <div class="form-group row">
-            <label for="pais" class="col-form-label col-sm-2">País</label>
-            <span *ngIf="almacen.pais">{{almacen.pais}}</span>
-        </div>
-
-        <!-- REGION -->
-        <div class="form-group row">
-            <label for="region" class="col-form-label col-sm-2">Región</label>
-            <span *ngIf="almacen.region">{{almacen.region}}</span>
-        </div>
-
-        <!-- PROVINCIA -->
-        <div class="form-group row">
-            <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
-            <span *ngIf="almacen.provincia">{{almacen.provincia}}</span>
-        </div>
-
-        <!-- POBLACION -->
-        <div class="form-group row">
-            <label for="poblacion" class="col-form-label col-sm-2">Población</label>
-            <span *ngIf="almacen.poblacion">{{almacen.poblacion}}</span>
-        </div>
-
     </div>
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarAlmacen(almacen.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarAlmacen(almacen.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

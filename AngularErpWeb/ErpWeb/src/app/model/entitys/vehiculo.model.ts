@@ -5,5 +5,6 @@ export class Vehiculo {
     marca: string;
     modelo: string;
     tipoVehiculo: string;
-    fechaMatriculacion: string;
+    tipoCombustible: string;
+    fechaMatriculacion: Date;
 }

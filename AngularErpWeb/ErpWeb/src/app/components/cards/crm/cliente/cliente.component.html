@@ -66,9 +66,9 @@
                 <dd>{{cliente.codigoPostal}}</dd>
             </dl>
             <!-- EDIFICIO -->
-            <dl class="col-3">
+            <dl class="col-3" *ngIf="cliente.edificio">
                 <dt>Edificio</dt>
-                <dd *ngIf="cliente.edificio">{{cliente.edificio}}</dd>
+                <dd>{{cliente.edificio}}</dd>
             </dl>
         </div>
 

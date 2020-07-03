@@ -6,5 +6,6 @@ export class Venta {
     fechaFin: Date;
     descripcion: string;
     baseImponibleTotal: number;
+    impuesto: string;
     importeTotal: number;
 }

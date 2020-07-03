@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlmacenService } from 'src/app/services/inventario/almacen.service';
 import { Almacen } from 'src/app/model/entitys/almacen.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -77,6 +77,52 @@ export class AlmacenComponent implements OnInit {
       this.almacen.provincia = almacenDto.provincia;
       this.almacen.poblacion = almacenDto.poblacion;
     }
+  }
+
+  editarAlmacen(almacenId: number): void{
+    console.log('Almacen CON ID: ' + almacenId);
+    this.router.navigate(['almacenes', 'editar-almacen', almacenId]);
+  }
+
+  borrarAlmacen(almacenId: number): void{
+
+    console.log('Almacen CON ID: ' + almacenId);
+
+    // Evitamos borrar accidentalmente un Almacen
+    swal({
+      title: 'Eliminar Almacen',
+      text: '¿Desea eliminar definitivamente este Almacen?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Almacens para eliminar el Almacen
+      this.almacenService.eliminarAlmacen(almacenId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Almacen');
+        swal('Almacen elimninado', 'Se ha eliminado el Almacen correctamente', 'success').then(() => {
+          this.router.navigate( ['Almacens'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Almacen');
+        swal('Error', 'El Almacen no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Almacen');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
   }
 
   ngOnInit(): void {

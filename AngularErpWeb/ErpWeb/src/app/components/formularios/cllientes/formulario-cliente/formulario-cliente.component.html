@@ -111,7 +111,12 @@
             <div class="form-group row">
                 <label for="region" class="col-form-label col-sm-2">Región</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.region" name="region">
+                    <p>
+                        <select name="region" title="" [(ngModel)]="cliente.region">
+                            <option disabled="true" selected >Selecciona región</option> 
+                            <option [value]="region" *ngFor="let region of regiones">{{region}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 
@@ -119,7 +124,12 @@
             <div class="form-group row">
                 <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.provincia" name="provincia">
+                    <p>
+                        <select name="provincia" title="" [(ngModel)]="cliente.provincia">
+                            <option disabled="true"  selected >Selecciona provincia</option> 
+                            <option [value]="provincia" *ngFor="let provincia of provincias">{{provincia}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

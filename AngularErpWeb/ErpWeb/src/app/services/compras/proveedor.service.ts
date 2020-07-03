@@ -15,12 +15,16 @@ export class ProveedorService {
   private urlCrearProveedor: string;
   private urlListadoProveedores: string;
   private urlGetProveedor: string;
+  private urlEditarProveedor: string;
+  private urlEliminarProveedor: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearProveedor = '/proveedores/crearProveedor';
     this.urlListadoProveedores = '/proveedores/listado.json';
     this.urlGetProveedor = '/proveedores/proveedor/';
+    this.urlEditarProveedor = '/proveedores/editarProveedor/';
+    this.urlEliminarProveedor = '/proveedores/eliminarProveedor/';
   }
 
   // METODOS GENERALES
@@ -30,18 +34,28 @@ export class ProveedorService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getProveedorEditar(proveedorId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarProveedor + proveedorId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearProveedor(proveedor: Proveedor): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearProveedor;
     return this.httpClient.post<AccionRespuesta>(urlPost, proveedor, {headers: this.httpHeaders});
   }
 
-  public actualizarProveedor(){
+  public actualizarProveedor(proveedor: Proveedor): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarProveedor;
+    return this.httpClient.post<AccionRespuesta>(urlPost, proveedor, {headers: this.httpHeaders});
   }
 
-  public eliminarProveedor(){
+  public eliminarProveedor(proveedorId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarProveedor + proveedorId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getProveedores(): Promise<Proveedor[]> {

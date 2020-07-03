@@ -1,105 +1,110 @@
-<p>empleado works!</p>
 <div class="card text-center">
-    <div class="card-header">
+    <div class="card-header text-center">
+        <h5 class="card-title">Empleado</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Empleado</h5>
-
-        <!-- NOMBRE -->
-        <div class="form-group row">
-            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span *ngIf="empleado.nombre">{{empleado.nombre}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO empleado -->
+            <dl class="col" *ngIf="empleado.codigo">
+                <dt>Código empleado</dt>
+                <dd>{{empleado.codigo}}</dd>
+            </dl>
+            <!-- NOMBRE -->
+            <dl class="col" *ngIf="empleado.nombre">
+                <dt>Nombre</dt>
+                <dd>{{empleado.nombre}}</dd>
+            </dl>
+            <!-- PRIMER APELLIDO -->
+            <dl class="col" *ngIf="empleado.apellidoPrimero">
+                <dt>Primer apellido</dt>
+                <dd>{{empleado.apellidoPrimero}}</dd>
+            </dl>
+            <!-- SEGUNDO APELLIDO -->
+            <dl class="col" *ngIf="empleado.apellidoSegundo">
+                <dt>Segundo apellido</dt>
+                <dd>{{empleado.apellidoSegundo}}</dd>
+            </dl>
         </div>
 
-        <!-- CODIGO empleado -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código empleado</label>
-            <span *ngIf="empleado.codigo">{{empleado.codigo}}</span>
+        <!-- Fila 2-->
+        <div class="form-group row text-left">
+            <!-- NIF -->
+            <dl class="col" *ngIf="empleado.nif">
+                <dt>NIF/DNI</dt>
+                <dd>{{empleado.nif}}</dd>
+            </dl>
+            <!-- TIPO empleado -->
+            <dl class="col" *ngIf="empleado.tipoEmpleado">
+                <dt>Tipo de empleado</dt>
+                <dd>{{empleado.tipoEmpleado}}</dd>
+            </dl>
+            <!-- TELEFONO -->
+            <dl class="col" *ngIf="empleado.telefono">
+                <dt>Teléfono</dt>
+                <dd>{{empleado.telefono}}</dd>
+            </dl>
+            <!-- OBSERVACIONES -->
+            <dl class="col" *ngIf="empleado.observaciones">
+                <dt>Observaciones</dt>
+                <dd>{{empleado.observaciones}}</dd>
+            </dl>
         </div>
 
-        <!-- PRIMER APELLIDO -->
-        <div class="form-group row">
-            <label for="apellidoPrimero" class="col-form-label col-sm-2">Primer apellido</label>
-            <span *ngIf="empleado.apellidoPrimero">{{empleado.apellidoPrimero}}</span>
+        <!-- Fila 3-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Dirección Postal</h6>
+        <div class="form-group row text-left">
+            <!-- DIRECCION -->
+            <dl class="col-3" *ngIf="empleado.direccion">
+                <dt>Código postal</dt>
+                <dd>{{empleado.direccion}}</dd>
+            </dl>
+            <!-- CODIGO POSTAL -->
+            <dl class="col-3" *ngIf="empleado.codigoPostal">
+                <dt>Dirección</dt>
+                <dd>{{empleado.codigoPostal}}</dd>
+            </dl>
+            <!-- EDIFICIO -->
+            <dl class="col-3" *ngIf="empleado.edificio">
+                <dt>Edificio</dt>
+                <dd>{{empleado.edificio}}</dd>
+            </dl>
         </div>
 
-        <!-- SEGUNDO APELLIDO -->
-        <div class="form-group row">
-            <label for="apellidoSegundo" class="col-form-label col-sm-2">Segundo apellido</label>
-            <span *ngIf="empleado.apellidoSegundo">{{empleado.apellidoSegundo}}</span>
+        <!-- Fila 3-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Procedencia</h6>
+        <div class="form-group row text-left">
+            <!-- PAIS -->
+            <dl class="col" *ngIf="empleado.pais">
+                <dt>País</dt>
+                <dd>{{empleado.pais}}</dd>
+            </dl>
+            <!-- REGION -->
+            <dl class="col" *ngIf="empleado.region">
+                <dt>Región</dt>
+                <dd>{{empleado.region}}</dd>
+            </dl>
+            <!-- PROVINCIA -->
+            <dl class="col" *ngIf="empleado.provincia">
+                <dt>Provincia</dt>
+                <dd>{{empleado.provincia}}</dd>
+            </dl>
+            <!-- POBLACION -->
+            <dl class="col" *ngIf="empleado.poblacion">
+                <dt>Población</dt>
+                <dd>{{empleado.poblacion}}</dd>
+            </dl>
         </div>
-
-        <!-- NIF -->
-        <div class="form-group row">
-            <label for="nif" class="col-form-label col-sm-2">NIF/DNI</label>
-            <span *ngIf="empleado.nif">{{empleado.nif}}</span>
-        </div>
-
-        <!-- TIPO empleado -->
-        <div class="form-group row">
-            <label for="tipoempleado" class="col-form-label col-sm-2">Tipo de empleado</label>
-            <span *ngIf="empleado.tipoEmpleado">{{empleado.tipoEmpleado}}</span>
-        </div>
-
-        <!-- CODIGO POSTAL -->
-        <div class="form-group row">
-            <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
-            <span *ngIf="empleado.codigoPostal">{{empleado.codigoPostal}}</span>
-        </div>
-
-        <!-- DIRECCION -->
-        <div class="form-group row">
-            <label for="direccion" class="col-form-label col-sm-2">Dirección</label>
-            <span *ngIf="empleado.direccion">{{empleado.direccion}}</span>
-        </div>
-
-        <!-- EDIFICIO -->
-        <div class="form-group row">
-            <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
-            <span *ngIf="empleado.edificio">{{empleado.edificio}}</span>
-        </div>
-
-        <!-- OBSERVACIONES -->
-        <div class="form-group row">
-            <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-            <span *ngIf="empleado.observaciones">{{empleado.observaciones}}</span>
-        </div>
-
-        <!-- TELEFONO -->
-        <div class="form-group row">
-            <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-            <span *ngIf="empleado.telefono">{{empleado.telefono}}</span>
-        </div>
-
-        <!-- PAIS -->
-        <div class="form-group row">
-            <label for="pais" class="col-form-label col-sm-2">País</label>
-            <span *ngIf="empleado.pais">{{empleado.pais}}</span>
-        </div>
-
-        <!-- REGION -->
-        <div class="form-group row">
-            <label for="region" class="col-form-label col-sm-2">Región</label>
-            <span *ngIf="empleado.region">{{empleado.region}}</span>
-        </div>
-
-        <!-- PROVINCIA -->
-        <div class="form-group row">
-            <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
-            <span *ngIf="empleado.provincia">{{empleado.provincia}}</span>
-        </div>
-
-        <!-- POBLACION -->
-        <div class="form-group row">
-            <label for="poblacion" class="col-form-label col-sm-2">Población</label>
-            <span *ngIf="empleado.poblacion">{{empleado.poblacion}}</span>
-        </div>
-
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarEmpleado(empleado.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarEmpleado(empleado.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { VentaService } from 'src/app/services/ventas/venta.service';
 import { Venta } from 'src/app/model/entitys/venta.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -60,7 +60,7 @@ export class VentaComponent implements OnInit {
   }
 
 
-   obtenerVentaDesdeVentaDto(ventaDto: any): void{
+  obtenerVentaDesdeVentaDto(ventaDto: any): void{
 
     if ( ventaDto != null)
     {
@@ -71,8 +71,55 @@ export class VentaComponent implements OnInit {
       this.venta.fechaFin = ventaDto.fechaFin;
       this.venta.descripcion = ventaDto.descripcion;
       this.venta.baseImponibleTotal = ventaDto.baseImponibleTotal;
+      this.venta.impuesto = ventaDto.impuesto;
       this.venta.importeTotal = ventaDto.importeTotal;
     }
+  }
+
+  editarVenta(ventaId: number): void{
+    console.log('Venta CON ID: ' + ventaId);
+    this.router.navigate(['ventas', 'editar-venta', ventaId]);
+  }
+
+  borrarVenta(ventaId: number): void{
+
+    console.log('Venta CON ID: ' + ventaId);
+
+    // Evitamos borrar accidentalmente un Venta
+    swal({
+      title: 'Eliminar Venta',
+      text: '¿Desea eliminar definitivamente este Venta?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Ventas para eliminar el Venta
+      this.ventaService.eliminarVenta(ventaId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Venta');
+        swal('Venta elimninado', 'Se ha eliminado el Venta correctamente', 'success').then(() => {
+          this.router.navigate( ['ventas'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Venta');
+        swal('Error', 'El Venta no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Venta');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
   }
 
   ngOnInit(): void {

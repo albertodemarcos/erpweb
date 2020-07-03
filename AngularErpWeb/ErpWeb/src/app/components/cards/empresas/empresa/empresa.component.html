@@ -1,42 +1,42 @@
 <div class="card text-center">
-    <div class="card-header">
+    <div class="card-header text-center">
+        <h5 class="card-title">Empresa</h5>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Empresa</h5>
-        <!-- NOMBRE -->
-        <div class="form-group row">
-            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-            <span *ngIf="empresa.nombre">{{empresa.nombre}}</span>
-        </div>
 
-        <!-- CODIGO EMPRESA -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código empresa</label>
-            <span *ngIf="empresa.codigo">{{empresa.codigo}}</span>
-        </div>
-
-        <!-- CIF -->
-        <div class="form-group row">
-            <label for="apellidoPrimero" class="col-form-label col-sm-2">CIF</label>
-            <span *ngIf="empresa.cif">{{empresa.cif}}</span>
-        </div>
-
-        <!-- IDIOMA -->
-        <div class="form-group row">
-            <label for="idioma" class="col-form-label col-sm-2">Idioma</label>
-            <span *ngIf="empresa.idioma">{{empresa.idioma}}</span>
-        </div>
-
-        <!-- TIPO SOCIEDAD JURIDICA -->
-        <div class="form-group row">
-            <label for="tipoSociedadJuridica" class="col-form-label col-sm-2">Tipo de sociedad jurídica</label>
-            <span *ngIf="empresa.tipoSociedadJuridica">{{empresa.tipoSociedadJuridica}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO EMPRESA -->
+            <dl class="col" *ngIf="empresa.codigo">
+                <dt>Código empresa</dt>
+                <dd>{{empresa.codigo}}</dd>
+            </dl>
+            <!-- NOMBRE -->
+            <dl class="col" *ngIf="empresa.nombre">
+                <dt>Nombre</dt>
+                <dd>{{empresa.nombre}}</dd>
+            </dl>
+            <!-- CIF -->
+            <dl class="col" *ngIf="empresa.cif">
+                <dt>CIF</dt>
+                <dd>{{empresa.cif}}</dd>
+            </dl>
+            <!-- TIPO SOCIEDAD JURIDICA -->
+            <dl class="col" *ngIf="empresa.tipoSociedadJuridica">
+                <dt>Tipo de sociedad jurídica</dt>
+                <dd>{{empresa.tipoSociedadJuridica}}</dd>
+            </dl>
         </div>
 
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarEmpresa(empresa.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarEmpresa(empresa.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

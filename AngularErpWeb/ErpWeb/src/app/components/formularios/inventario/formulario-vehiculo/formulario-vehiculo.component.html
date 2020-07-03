@@ -43,7 +43,7 @@
             <div class="form-group row">
                 <label for="fechaMatriculacion" class="col-form-label col-sm-2">Fecha matriculación</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="vehiculo.fechaMatriculacion" name="fechaMatriculacion">
+                    <input type="date" class="form-control" [ngModel]="vehiculo.fechaMatriculacion | date:'yyyy-MM-dd'" (ngModelChange)="vehiculo.fechaMatriculacion = $event" name="fechaMatriculacion">
                 </div>
             </div>
 
@@ -51,7 +51,25 @@
             <div class="form-group row">
                 <label for="tipoVehiculo" class="col-form-label col-sm-2">Tipo de vehículo</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="vehiculo.tipoVehiculo" name="tipoVehiculo">
+                    <p>
+                        <select name="tipoVehiculo" title="" [(ngModel)]="vehiculo.tipoVehiculo">
+                            <option disabled="true"  selected >Selecciona tipo vehículo</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposVehiculos">{{tipo}}</option> 
+                        </select>
+                    </p>
+                </div>
+            </div>
+
+            <!-- TIPO COMBUSTIBLE -->
+            <div class="form-group row">
+                <label for="tipoVehiculo" class="col-form-label col-sm-2">Tipo de combustible</label>
+                <div class="col-sm-6">
+                    <p>
+                        <select name="tipoCombustible" title="" [(ngModel)]="vehiculo.tipoCombustible">
+                            <option disabled="true"  selected >Selecciona tipo combustible</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposCombustible">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 

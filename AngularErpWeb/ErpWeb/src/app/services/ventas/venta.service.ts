@@ -15,12 +15,16 @@ export class VentaService {
   private urlCrearVenta: string;
   private urlListadoVentas: string;
   private urlGetVenta: string;
+  private urlEditarVenta: string;
+  private urlEliminarVenta: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearVenta = '/ventas/crearVenta';
     this.urlListadoVentas = '/ventas/listado.json';
     this.urlGetVenta = '/ventas/venta/';
+    this.urlEditarVenta = '/ventas/editarVenta/';
+    this.urlEliminarVenta = '/ventas/eliminarVenta/';
   }
 
   // METODOS GENERALES
@@ -30,18 +34,28 @@ export class VentaService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getVentaEditar(ventaId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarVenta + ventaId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearVenta(venta: Venta): Observable<AccionRespuesta>{
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearVenta;
     return this.httpClient.post<AccionRespuesta>(urlPost, venta, {headers: this.httpHeaders});
   }
 
-  public actualizarVenta(){
+  public actualizarVenta(venta: Venta): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarVenta;
+    return this.httpClient.post<AccionRespuesta>(urlPost, venta, {headers: this.httpHeaders});
   }
 
-  public eliminarVenta(){
+  public eliminarVenta(ventaId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarVenta + ventaId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getVentas(): Promise<Venta[]> {

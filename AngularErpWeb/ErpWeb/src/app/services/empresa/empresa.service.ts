@@ -15,11 +15,15 @@ export class EmpresaService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearEmpresa: string;
   private urlGetEmpresa: string;
+  private urlEditarEmpresa: string;
+  private urlEliminarEmpresa: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearEmpresa = '/empresas/crearEmpresa';
     this.urlGetEmpresa = '/empresas/empresa/';
+    this.urlEditarEmpresa = '/empresas/editarEmpresa/';
+    this.urlEliminarEmpresa = '/empresas/eliminarEmpresa/';
   }
 
   // METODOS GENERALES
@@ -29,18 +33,30 @@ export class EmpresaService {
     return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
+  public getEmpresaEditar(empresaId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarEmpresa + empresaId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
   public crearEmpresa(empresa: Empresa): Observable<AccionRespuesta> {
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearEmpresa;
     return this.httpClient.post<AccionRespuesta>(urlPost, empresa, {headers: this.httpHeaders});
   }
 
-  public actualizarEmpresa(){
+  public actualizarEmpresa(empresa: Empresa): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarEmpresa;
+    return this.httpClient.post<AccionRespuesta>(urlPost, empresa, {headers: this.httpHeaders});
   }
 
-  public eliminarEmpresa(){
+  public eliminarEmpresa(empresaId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarEmpresa + empresaId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
+
+
 
 }

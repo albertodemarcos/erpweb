@@ -1,56 +1,66 @@
 <div class="card text-center">
     <div class="card-header">
+        <h5 class="card-title">Contrato</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Contrato</h5>
-
-        <!-- CODIGO CONTRATO -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Código contrato</label>
-            <span *ngIf="contrato.codigo">{{contrato.codigo}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO CONTRATO -->
+            <dl class="col-3" *ngIf="contrato.codigo">
+                <dt>Código contrato</dt>
+                <dd>{{contrato.codigo}}</dd>
+            </dl>
+            <!-- FECHA INICIO -->
+            <dl class="col-3" *ngIf="contrato.fechaFin">
+                <dt>Fecha fín</dt>
+                <dd>{{contrato.fechaFin | date}}</dd>
+            </dl>
+            <!-- FECHA FIN -->
+            <dl class="col-3" *ngIf="contrato.fechaFin">
+                <dt>Fecha fín</dt>
+                <dd>{{contrato.fechaFin | date}}</dd>
+            </dl>
+            <!-- FECHA CREACION -->
+            <dl class="col-3" *ngIf="contrato.fechaCreacion">
+                <dt>Fecha creación</dt>
+                <dd>{{contrato.fechaCreacion | date}}</dd>
+            </dl>
         </div>
 
-        <!-- FECHA CREACION -->
-        <div class="form-group row">
-            <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
-            <span *ngIf="contrato.fechaCreacion">{{contrato.fechaCreacion | date}}</span>
-        </div>
-
-        <!-- FECHA INICIO -->
-        <div class="form-group row">
-            <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
-            <span *ngIf="contrato.fechaInicio">{{contrato.fechaInicio | date}}</span>
-        </div>
-
-        <!-- FECHA FIN -->
-        <div class="form-group row">
-            <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
-            <span *ngIf="contrato.fechaFin">{{contrato.fechaFin | date}}</span>
-        </div>
-
-        <!-- DESCRIPCION -->
-        <div class="form-group row">
-            <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-            <span *ngIf="contrato.descripcion">{{contrato.descripcion}}</span>
-        </div>
-
-        <!-- BASE IMPONIBLE -->
-        <div class="form-group row">
-            <label for="baseImponibleTotal" class="col-form-label col-sm-2">Base imponible</label>
-            <span *ngIf="contrato.baseImponibleTotal">{{contrato.baseImponibleTotal}}</span>
-        </div>
-
-        <!-- IMPORTE TOTAL -->
-        <div class="form-group row">
-            <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-            <span *ngIf="contrato.importeTotal">{{contrato.importeTotal}}</span>
+        <!-- Fila 2-->
+        <div class="form-group row text-left">
+            <!-- BASE IMPONIBLE -->
+            <dl class="col" *ngIf="contrato.baseImponibleTotal">
+                <dt>Base imponible</dt>
+                <dd>{{contrato.baseImponibleTotal}}</dd>
+            </dl>
+            <!-- IMPUESTO-->
+            <dl class="col" *ngIf="contrato.impuesto">
+                <dt>Impuesto</dt>
+                <dd>{{contrato.impuesto}}</dd>
+            </dl>
+            <!-- IMPORTE TOTAL -->
+            <dl class="col" *ngIf="contrato.importeTotal">
+                <dt>Importe total</dt>
+                <dd>{{contrato.importeTotal}}</dd>
+            </dl>
+            <!-- DESCRIPCION -->
+            <dl class="col" *ngIf="contrato.descripcion">
+                <dt>Descripción</dt>
+                <dd>{{contrato.descripcion}}</dd>
+            </dl>
         </div>
 
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarContrato(contrato.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarContrato(contrato.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ export class Factura {
     fechaFin: Date;
     descripcion: string;
     baseImponible: number;
-    cuotaTributaria: number;
+    impuesto: string;
     importeTotal: number;
 }
 

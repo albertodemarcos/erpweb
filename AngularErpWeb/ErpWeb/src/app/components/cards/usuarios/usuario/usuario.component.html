@@ -1,32 +1,37 @@
 <div class="card text-center">
-    <div class="card-header">
+    <div class="card-header txt-center">
+        <h5 class="card-title">Usuario</h5>
     </div>
     <div class="card-body">
 
-        <h5 class="card-title">Usuario</h5>
-
-        <!-- CODIGO USUARIO -->
-        <div class="form-group row">
-            <label for="codigo" class="col-form-label col-sm-2">Codigo usuario</label>
-            <span *ngIf="usuario.codigo">{{usuario.codigo}}</span>
-        </div>
-
-        <!-- NAME USER -->
-        <div class="form-group row">
-            <label for="name" class="col-form-label col-sm-2">Usuario</label>
-            <span *ngIf="usuario.name">{{usuario.name}}</span>
-        </div>
-
-        <!-- PASSWORD USER -->
-        <div class="form-group row">
-            <label for="password" class="col-form-label col-sm-2">Contraseña</label>
-            <span *ngIf="usuario.password">{{usuario.password}}</span>
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO USUARIO -->
+            <dl class="col" *ngIf="usuario.codigo">
+                <dt>Código usuario</dt>
+                <dd>{{usuario.codigo}}</dd>
+            </dl>
+            <!-- NAME USER -->
+            <dl class="col" *ngIf="usuario.name">
+                <dt>Usuario</dt>
+                <dd>{{usuario.name}}</dd>
+            </dl>
+            <!-- PASSWORD USER -->
+            <dl class="col" *ngIf="usuario.password">
+                <dt>Contraseña</dt>
+                <dd>*****</dd>
+            </dl>
         </div>
 
     </div>
 
     <div class="card-footer text-muted">
-        <a href="#" class="btn btn-primary">Editar</a>
-        <a href="#" class="btn btn-primary">Borrar</a>
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarUsuario(usuario.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarUsuario(usuario.id)">Borrar</button>
+            </div>
+        </div>
     </div>
 </div>

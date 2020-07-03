@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ArticuloService } from 'src/app/services/inventario/articulo.service';
 import { Articulo } from 'src/app/model/entitys/articulo.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -60,19 +60,65 @@ export class ArticuloComponent implements OnInit {
   }
 
 
-   obtenerArticuloDesdeArticuloDto(articuloDto: any): void{
+  obtenerArticuloDesdeArticuloDto(articuloDto: any): void{
 
-      if ( articuloDto != null)
-      {
-        this.articulo.id = articuloDto.id;
-        this.articulo.codigo = articuloDto.codigo;
-        this.articulo.nombre = articuloDto.nombre;
-        this.articulo.descripcion = articuloDto.descripcion;
-        this.articulo.baseImponible = articuloDto.baseImponible;
-        this.articulo.impuesto = articuloDto.impuesto;
-        this.articulo.importeTotal = articuloDto.importeTotal;
-      }
+    if ( articuloDto != null)
+    {
+      this.articulo.id = articuloDto.id;
+      this.articulo.codigo = articuloDto.codigo;
+      this.articulo.nombre = articuloDto.nombre;
+      this.articulo.descripcion = articuloDto.descripcion;
+      this.articulo.baseImponible = articuloDto.baseImponible;
+      this.articulo.impuesto = articuloDto.impuesto;
+      this.articulo.importeTotal = articuloDto.importeTotal;
     }
+  }
+
+  editarArticulo(articuloId: number): void{
+    console.log('Articulo CON ID: ' + articuloId);
+    this.router.navigate(['catalago', 'editar-articulo', articuloId]);
+  }
+
+  borrarArticulo(articuloId: number): void{
+
+    console.log('Articulo CON ID: ' + articuloId);
+
+    // Evitamos borrar accidentalmente un Articulo
+    swal({
+      title: 'Eliminar Articulo',
+      text: '¿Desea eliminar definitivamente este Articulo?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Articulos para eliminar el Articulo
+      this.articuloService.eliminarArticulo(articuloId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Articulo');
+        swal('Articulo elimninado', 'Se ha eliminado el Articulo correctamente', 'success').then(() => {
+          this.router.navigate( ['catalago/articulos'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Articulo');
+        swal('Error', 'El Articulo no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Articulo');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
+  }
 
   ngOnInit(): void {
   }

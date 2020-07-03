@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ProveedorService } from 'src/app/services/compras/proveedor.service';
 import { Proveedor } from 'src/app/model/entitys/proveedor.model';
+import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-formulario-proveedor',
@@ -11,10 +14,23 @@ import { Proveedor } from 'src/app/model/entitys/proveedor.model';
 export class FormularioProveedorComponent implements OnInit {
 
   public proveedor: Proveedor;
+  private proveedorId: number;
+  private proveedorDto: any;
+  public tiposProveedores: string[];
+  private respuestaGetProveedor: AccionRespuesta;
 
-  constructor(private proveedorService: ProveedorService, private router: Router) {
+  constructor(private proveedorService: ProveedorService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.proveedor = new Proveedor();
+    this.tiposProveedores = ['PRODUCTOS', 'SERVICIOS', 'RECURSOS', 'OTROS'];
+    this.activateRouter.params.subscribe( params => {
+      console.log('Entro al constructor' + params);
+      // tslint:disable-next-line: no-string-literal
+      this.proveedorId = params['id'];
+      if (this.proveedorId != null){
+        this.getEditarProveedor();
+      }
+    });
 
    }
 
@@ -31,9 +47,115 @@ export class FormularioProveedorComponent implements OnInit {
       console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
-        this.router.navigate(['proveedor', 'proveedor', accionRespuesta.id]);
+        this.router.navigate(['proveedores', 'proveedor', accionRespuesta.id]);
       }
     });
+
+    console.log('Estamos dentro del metodo crearClienteFormulario()');
+
+    // Si tiene id, llamamos a crear, sino a editar
+    if (this.proveedor != null && this.proveedor.id != null && this.proveedor.id !== 0) {
+
+      console.log('Vamos a editar el cliente con ID: ' + this.proveedor.id);
+
+      this.proveedorService.actualizarProveedor(this.proveedor).subscribe( accionRespuesta => {
+
+        this.respuestaCrearEditarProveedor(accionRespuesta, true);
+
+      }, (error => {
+
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+
+      }));
+
+    } else {
+
+      this.proveedorService.crearProveedor(this.proveedor).subscribe( accionRespuesta => {
+
+        console.log('Vamos a crear el cliente con codigo: ' + this.proveedor.codigo);
+
+        this.respuestaCrearEditarProveedor(accionRespuesta, false);
+
+      }, (error => {
+
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+
+      }));
+    }
+  }
+
+  getEditarProveedor() {
+
+    this.proveedorService.getProveedor(this.proveedorId).toPromise().then( (accionRespuesta) => {
+        try
+        {
+          console.log('Recuperamos el cliente');
+
+          this.respuestaGetProveedor = accionRespuesta;
+
+          if ( this.respuestaGetProveedor.resultado )
+          {
+            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetProveedor.data) );
+            console.log('ES: ' + typeof(this.respuestaGetProveedor.data));
+            // tslint:disable-next-line: no-string-literal
+            this.proveedorDto = this.respuestaGetProveedor.data['proveedorDto'];
+            this.obtenerProveedorDesdeProveedorDto(this.proveedorDto);
+          }
+
+        }catch (errores){
+
+          console.log('Se ha producido un error al transformar el cliente' + errores);
+        }
+      }, (error) => {
+        console.log('Error, no se ha podido recuperar el cliente' + error);
+      }
+    );
+  }
+
+  obtenerProveedorDesdeProveedorDto(proveedorDto: any): void{
+
+    if ( proveedorDto != null)
+    {
+      this.proveedor.id = proveedorDto.id;
+      this.proveedor.codigo = proveedorDto.codigo;
+      this.proveedor.nombre = proveedorDto.nombre;
+      this.proveedor.nombreEmpresa = proveedorDto.nombreEmpresa;
+      this.proveedor.telefono = proveedorDto.telefono;
+      this.proveedor.tipoProveedor = proveedorDto.tipoProveedor;
+    }
+  }
+
+  respuestaCrearEditarProveedor(accionRespuesta: AccionRespuesta, esEditarProveedor: boolean): void {
+
+    console.log('Esta registrado' + accionRespuesta.resultado);
+    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // Si el resultado es true, navegamos hasta la vista
+    if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+
+      this.router.navigate(['proveedores', 'proveedor', accionRespuesta.id]);
+
+      if (esEditarProveedor != null && esEditarProveedor ){
+
+        swal('Proveedor editado', 'Se ha editado el proveedor correctamente', 'success');
+
+       }else{
+
+        swal('Nuevo proveedor', 'Se ha creado el proveedor correctamente', 'success');
+
+       }
+
+    }else{
+
+      if (esEditarProveedor != null && esEditarProveedor ){
+
+        swal('Cliente editado', 'Se ha editado el proveedor correctamente', 'success');
+
+       }else{
+
+        swal('Nuevo proveedor', 'Se ha creado el proveedor correctamente', 'success');
+
+      }
+    }
 
   }
 

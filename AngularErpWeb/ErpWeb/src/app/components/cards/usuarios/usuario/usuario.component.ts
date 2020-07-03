@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 import { Usuario } from 'src/app/model/entitys/usuario.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-usuario',
@@ -66,6 +68,52 @@ export class UsuarioComponent implements OnInit {
         this.usuario.name = usuarioDto.name;
         this.usuario.password = usuarioDto.password;
       }
+  }
+
+  editarUsuario(usuarioId: number): void{
+    console.log('Usuario CON ID: ' + usuarioId);
+    this.router.navigate(['usuarios', 'editar-usuario', usuarioId]);
+  }
+
+  borrarUsuario(usuarioId: number): void{
+
+    console.log('Usuario CON ID: ' + usuarioId);
+
+    // Evitamos borrar accidentalmente un Usuario
+    swal({
+      title: 'Eliminar Usuario',
+      text: '¿Desea eliminar definitivamente este Usuario?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Usuarios para eliminar el Usuario
+      this.usuarioService.eliminarUsuario(usuarioId).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        console.log('Se ha eliminado correctamente el Usuario');
+        swal('Usuario elimninado', 'Se ha eliminado el Usuario correctamente', 'success').then(() =>{
+          this.router.navigate( ['usuarios'] );
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el Usuario');
+        swal('Error', 'El Usuario no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Usuario');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+
   }
 
   ngOnInit(): void {
