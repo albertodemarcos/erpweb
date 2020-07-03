@@ -5,11 +5,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.erpweb.utiles.enumerados.TipoImpuesto;
 
 
 
@@ -27,7 +31,7 @@ public class Factura implements Serializable {
 	private Date fechaFin;       													//Cuando finaliza la factura
 	private String descripcion;      												//Descripcion de la factura
 	private BigDecimal baseImponible;     											//Precio sin impuesto
-	private BigDecimal cuotaTributaria;   											//Valor del impuesto sobre el producto
+	private TipoImpuesto impuesto;   											//Valor del impuesto sobre el producto
 	private BigDecimal importeTotal;      											//Base imponible mas cuota tributaria
 	
 	
@@ -90,12 +94,13 @@ public class Factura implements Serializable {
 		this.baseImponible = baseImponible;
 	}
 
-	public BigDecimal getCuotaTributaria() {
-		return cuotaTributaria;
+	@Enumerated(EnumType.STRING)
+	public TipoImpuesto getImpuesto() {
+		return impuesto;
 	}
 
-	public void setCuotaTributaria(BigDecimal cuotaTributaria) {
-		this.cuotaTributaria = cuotaTributaria;
+	public void setImpuesto(TipoImpuesto impuesto) {
+		this.impuesto = impuesto;
 	}
 
 	public BigDecimal getImporteTotal() {

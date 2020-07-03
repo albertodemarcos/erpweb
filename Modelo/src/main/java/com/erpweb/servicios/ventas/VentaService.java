@@ -40,14 +40,15 @@ public class VentaService {
 		venta.setFechaFin(ventaDto.getFechaFin());
 		venta.setDescripcion(ventaDto.getDescripcion());
 		venta.setBaseImponibleTotal(ventaDto.getBaseImponibleTotal());
+		venta.setImpuesto(ventaDto.getImpuesto());
 		venta.setImporteTotal(ventaDto.getImporteTotal());
 
 		try {
 			
 			//Guardamos la venta en base de datos
-			ventaRepository.save(venta);
+			Venta ventaSave = ventaRepository.save(venta);
 			
-			return this.devolverDatosVentaDto(ventaDto, venta);
+			return this.devolverDatosVentaDto(ventaDto, ventaSave);
 			
 		}catch(Exception e) {
 			
@@ -72,14 +73,15 @@ public class VentaService {
 		venta.setFechaFin(ventaDto.getFechaFin());
 		venta.setDescripcion(ventaDto.getDescripcion());
 		venta.setBaseImponibleTotal(ventaDto.getBaseImponibleTotal());
+		venta.setImpuesto(ventaDto.getImpuesto());
 		venta.setImporteTotal(ventaDto.getImporteTotal());
 
 		try {
 			
 			//Guardamos la venta en base de datos
-			ventaRepository.save(venta);
+			Venta ventaSave = ventaRepository.save(venta);
 			
-			return this.devolverDatosActualizadosVentaDto(ventaDto, venta);
+			return this.devolverDatosActualizadosVentaDto(ventaDto, ventaSave);
 			
 		}catch(Exception e) {
 			
@@ -170,6 +172,7 @@ public class VentaService {
 			ventaDto.setFechaFin(venta.getFechaFin());
 			ventaDto.setDescripcion(venta.getDescripcion());
 			ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
+			ventaDto.setImpuesto(venta.getImpuesto());
 			ventaDto.setImporteTotal(venta.getImporteTotal());
 			
 		} catch(Exception e) {
@@ -302,6 +305,8 @@ public class VentaService {
 		
 		if(ventaSave != null && ventaDto != null) {
 			
+			ventaDto.setId(ventaSave.getId());
+			
 			respuesta.setId(ventaSave.getId());
 			
 			respuesta.setCodigo("OK");
@@ -349,6 +354,7 @@ public class VentaService {
 				ventaDto.setFechaFin(venta.getFechaFin());
 				ventaDto.setDescripcion(venta.getDescripcion());
 				ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
+				ventaDto.setImpuesto(venta.getImpuesto());
 				ventaDto.setImporteTotal(venta.getImporteTotal());
 				
 				ventasDto.add(ventaDto);				

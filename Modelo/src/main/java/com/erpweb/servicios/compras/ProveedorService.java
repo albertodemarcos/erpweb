@@ -42,9 +42,9 @@ public class ProveedorService {
 		
 		try {
 			//Guardamos el proveedor en base de datos
-			proveedorRepository.save(proveedor);
+			Proveedor provedorSave = proveedorRepository.save(proveedor);
 			
-			return this.devolverDatosProveedorDto(proveedorDto, proveedor);
+			return this.devolverDatosProveedorDto(proveedorDto, provedorSave);
 			
 		}catch(Exception e) {
 			
@@ -71,9 +71,9 @@ public class ProveedorService {
 		
 		try {
 			//Actualizamos el proveedor en base de datos
-			proveedorRepository.save(proveedor);
+			Proveedor provedorSave = proveedorRepository.save(proveedor);
 
-			return this.devolverDatosActualizadosProveedorDto(proveedorDto, proveedor);
+			return this.devolverDatosActualizadosProveedorDto(proveedorDto, provedorSave);
 			
 		}catch(Exception e) {
 			
@@ -155,6 +155,7 @@ public class ProveedorService {
 		
 		try {
 			
+			proveedorDto.setId(proveedor.getId());
 			proveedorDto.setCodigo(proveedor.getCodigo());
 			proveedorDto.setNombre(proveedor.getNombre());
 			proveedorDto.setNombreEmpresa(proveedor.getNombreEmpresa());
@@ -291,6 +292,8 @@ public class ProveedorService {
 		
 		if(proveedorDto != null && proveedorSave != null) {
 			
+			proveedorDto.setId(proveedorSave.getId());
+			
 			respuesta.setId(proveedorSave.getId());
 			
 			respuesta.setCodigo("OK");
@@ -331,6 +334,7 @@ public class ProveedorService {
 				
 				ProveedorDto proveedorDto = new ProveedorDto();
 				
+				proveedorDto.setId(proveedor.getId());
 				proveedorDto.setCodigo(proveedor.getCodigo());
 				proveedorDto.setNombre(proveedor.getNombre());
 				proveedorDto.setNombreEmpresa(proveedor.getNombreEmpresa());

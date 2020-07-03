@@ -55,9 +55,9 @@ public class CompraValidator implements Validator {
 			errors.rejectValue("cantidad", "", "El campo cantidad no puede ser cero");
 		}
 		
-		if( StringUtils.isBlank( compraDto.getImpuesto() )  ) {
+		if( compraDto.getImpuesto() == null  ) {
 			
-			errors.rejectValue("impuesto", "", "El campo codigo no puede estar vacio");
+			errors.rejectValue("impuesto", "", "El campo impuesto no puede estar vacio");
 		}
 		
 		if( compraDto.getBaseImponibleTotal() == null  ) {

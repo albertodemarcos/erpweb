@@ -44,9 +44,9 @@ public class CompraService {
 		try {
 			
 			//Guardamos la compra en base de datos
-			compraRepository.save(compra);
+			Compra compraSave = compraRepository.save(compra);
 			
-			return this.devolverDatosCompraDto(compraDto, compra);
+			return this.devolverDatosCompraDto(compraDto, compraSave);
 			
 		}catch(Exception e) {
 			
@@ -76,9 +76,9 @@ public class CompraService {
 		try {
 			
 			//Actualizamos la compra en base de datos
-			compraRepository.save(compra);
+			Compra compraSave = compraRepository.save(compra);
 			
-			return this.devolverDatosActualizadosCompraDto(compraDto, compra);
+			return this.devolverDatosActualizadosCompraDto(compraDto, compraSave);
 			
 		}catch(Exception e) {
 			
@@ -163,6 +163,7 @@ public class CompraService {
 		
 		try {
 			
+			compraDto.setId(compra.getId());
 			compraDto.setCodigo(compra.getCodigo());
 			compraDto.setFechaCompra(compra.getFechaCompra());
 			compraDto.setArticulo(compra.getArticulo());

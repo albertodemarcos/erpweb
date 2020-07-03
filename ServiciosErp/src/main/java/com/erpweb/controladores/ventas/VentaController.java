@@ -3,12 +3,12 @@ package com.erpweb.controladores.ventas;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,13 +45,7 @@ public class VentaController {
 		
 		return this.ventaService.getListadoVentas();
 	}
-	
-	@GetMapping( "/crearVenta" )
-	public @ResponseBody AccionRespuesta getCrearVenta( Model model, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
+			
 	@GetMapping( "/editarVenta/{ventaId}" )
 	public @ResponseBody AccionRespuesta getEditarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
 		
@@ -59,7 +53,7 @@ public class VentaController {
 	}
 	
 	@PostMapping( "/crearVenta" )
-	public @ResponseBody AccionRespuesta postCrearVenta( VentaDto ventaDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearVenta( @RequestBody VentaDto ventaDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -74,7 +68,7 @@ public class VentaController {
 	}
 	
 	@PostMapping( "/editarVenta" )
-	public @ResponseBody AccionRespuesta postEditarVenta( VentaDto ventaDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarVenta( @RequestBody VentaDto ventaDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -88,12 +82,12 @@ public class VentaController {
 		return this.ventaService.getCrearEditarVenta(ventaDto, user);
 	}
 	
-	@PostMapping("/eliminarVenta/{ventaId}")
-	public @ResponseBody AccionRespuesta postEliminarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
+	@GetMapping("/eliminarVenta/{ventaId}")
+	public @ResponseBody AccionRespuesta getEliminarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
 		
 		if(ventaId == null || ventaId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.ventaService.eliminarVentaPorId(ventaId);

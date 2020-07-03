@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +56,7 @@ public class UsuarioController {
 	
 	//@Secured({"ROLE_ADMIN"})
 	@PostMapping( "/crearUsuario" )
-	public @ResponseBody AccionRespuesta postCrearUsuario( UsuarioDto usuarioDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearUsuario( @RequestBody UsuarioDto usuarioDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -70,7 +71,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping( "/editarUsuario"  )
-	public @ResponseBody AccionRespuesta postEditarUsuario( UsuarioDto usuarioDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarUsuario( @RequestBody UsuarioDto usuarioDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -85,12 +86,12 @@ public class UsuarioController {
 	}
 	
 	//@Secured({"ROLE_ADMIN"})
-	@PostMapping("/eliminarUsuario/{usuarioId}")
-	public @ResponseBody AccionRespuesta postEliminarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
+	@GetMapping("/eliminarUsuario/{usuarioId}")
+	public @ResponseBody AccionRespuesta getEliminarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
 		
 		if(usuarioId == null || usuarioId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.usuarioService.eliminarUsuarioPorId(usuarioId);

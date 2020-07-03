@@ -39,9 +39,9 @@ public class EventoService {
 		
 		try {
 			//Guardamos el proveedor en base de datos
-			eventoRepository.save(evento);
+			Evento eventoSave = eventoRepository.save(evento);
 			
-			return this.devolverDatosEventoDto(eventoDto, evento);
+			return this.devolverDatosEventoDto(eventoDto, eventoSave);
 			
 		}catch(Exception e) {
 			
@@ -67,9 +67,9 @@ public class EventoService {
 		
 		try {
 			//Actualizamos el proveedor en base de datos
-			eventoRepository.save(evento);
+			Evento eventoSave = eventoRepository.save(evento);
 
-			return this.devolverDatosActualizadosEventoDto(eventoDto, evento);
+			return this.devolverDatosActualizadosEventoDto(eventoDto, eventoSave);
 			
 		}catch(Exception e) {
 			
@@ -260,6 +260,8 @@ public class EventoService {
 		AccionRespuesta respuesta = new AccionRespuesta();
 		
 		if(eventoDto != null && eventoSave != null) {
+			
+			eventoDto.setId(eventoSave.getId());
 			
 			respuesta.setId(eventoSave.getId());
 			

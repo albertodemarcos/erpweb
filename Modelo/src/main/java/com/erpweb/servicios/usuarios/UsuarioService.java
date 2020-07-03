@@ -56,9 +56,9 @@ public class UsuarioService implements UserDetailsService {
 		
 		try {
 			//Guardamos el usuario en base de datos
-			usuarioRepository.save(usuario);
+			Usuario usuarioSave = usuarioRepository.save(usuario);
 			
-			return this.devolverDatosUsuarioDto(usuarioDto, usuario);
+			return this.devolverDatosUsuarioDto(usuarioDto, usuarioSave);
 			
 		}catch(Exception e) {
 			
@@ -93,9 +93,9 @@ public class UsuarioService implements UserDetailsService {
 		
 		try {
 			//Guardamos el usuario en base de datos
-			usuarioRepository.save(usuario);
+			Usuario usuarioSave = usuarioRepository.save(usuario);
 			
-			return this.devolverDatosActualizadosUsuarioDto(usuarioDto, usuario);
+			return this.devolverDatosActualizadosUsuarioDto(usuarioDto, usuarioSave);
 			
 		}catch(Exception e) {
 			
@@ -178,6 +178,7 @@ public class UsuarioService implements UserDetailsService {
 		
 		try {
 			
+			usuarioDto.setId(usuario.getId());
 			usuarioDto.setCodigo(usuario.getCodigo());
 			usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
 			usuarioDto.setUsuario(usuario.getUsuario());
@@ -313,6 +314,8 @@ public class UsuarioService implements UserDetailsService {
 		AccionRespuesta respuesta = new AccionRespuesta();
 		
 		if(usuarioSave != null && usuarioDto != null) {
+			
+			usuarioDto.setId(usuarioSave.getId());
 			
 			respuesta.setId(usuarioSave.getId());
 			

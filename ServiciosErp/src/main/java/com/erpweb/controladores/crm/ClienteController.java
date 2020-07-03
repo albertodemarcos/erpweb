@@ -84,7 +84,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/eliminarCliente/{clienteId}")
-	public @ResponseBody AccionRespuesta postEliminarCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
 		
 		if(clienteId == null || clienteId.longValue() < 1L ) {
 			

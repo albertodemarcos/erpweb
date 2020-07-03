@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,7 @@ public class EmpresaController {
 	}
 	
 	@PostMapping( "/editarEmpresa" )
-	public @ResponseBody AccionRespuesta postEditarEmpresa( EmpresaDto empresaDto,  BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarEmpresa( @RequestBody EmpresaDto empresaDto,  BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -55,12 +56,12 @@ public class EmpresaController {
 		return this.empresaService.getCrearEditarEmpresa(empresaDto, user);
 	}
 	
-	@PostMapping("/eliminarEmpresa/empresaId")
-	public @ResponseBody AccionRespuesta postEliminarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
+	@GetMapping("/eliminarEmpresa/empresaId")
+	public @ResponseBody AccionRespuesta getEliminarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
 		
 		if(empresaId == null || empresaId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.empresaService.eliminarEmpresaPorId(empresaId);

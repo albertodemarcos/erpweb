@@ -49,9 +49,9 @@ public class AlmacenService {
 		try {
 			
 			//Guardamos el almacen en base de datos
-			almacenRepository.save(almacen);
+			Almacen almacenSave = almacenRepository.save(almacen);
 			
-			return this.devolverDatosAlmacenDto(almacenDto, almacen);
+			return this.devolverDatosAlmacenDto(almacenDto, almacenSave);
 			
 		}catch(Exception e) {
 			
@@ -84,9 +84,9 @@ public class AlmacenService {
 		
 		try {
 			//Guardamos el almacen en base de datos
-			almacenRepository.save(almacen);
+			Almacen almacenSave = almacenRepository.save(almacen);
 			
-			return this.devolverDatosActualizadosAlmacenDto(almacenDto, almacen);
+			return this.devolverDatosActualizadosAlmacenDto(almacenDto, almacenSave);
 			
 		}catch(Exception e) {
 			
@@ -311,6 +311,8 @@ public class AlmacenService {
 		AccionRespuesta respuesta = new AccionRespuesta();
 		
 		if(almacenSave != null && almacenDto != null) {
+			
+			almacenDto.setId(almacenSave.getId());
 			
 			respuesta.setId(almacenSave.getId());
 			

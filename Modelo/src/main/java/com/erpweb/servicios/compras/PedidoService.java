@@ -42,9 +42,9 @@ public class PedidoService {
 		try {
 			
 			//Guardamos el pedido en base de datos
-			pedidoRepository.save(pedido);
+			Pedido pedioSave = pedidoRepository.save(pedido);
 			
-			return this.devolverDatosPedidoDto(pedidoDto, pedido);
+			return this.devolverDatosPedidoDto(pedidoDto, pedioSave);
 			
 		}catch(Exception e) {
 			
@@ -74,9 +74,9 @@ public class PedidoService {
 		try {
 			
 			//Actualizamos el pedido en base de datos
-			pedidoRepository.save(pedido);
+			Pedido pedioSave = pedidoRepository.save(pedido);
 			
-			return this.devolverDatosActualizadosPedidoDto(pedidoDto, pedido);
+			return this.devolverDatosActualizadosPedidoDto(pedidoDto, pedioSave);
 			
 		}catch(Exception e) {
 			
@@ -161,8 +161,14 @@ public class PedidoService {
 		
 		try {
 			
+			pedidoDto.setId(pedido.getId());
 			pedidoDto.setCodigo(pedido.getCodigo());
 			pedidoDto.setFechaPedido(pedido.getFechaPedido());
+			pedidoDto.setArticulo(pedido.getArticulo());
+			pedidoDto.setCantidad(pedido.getCantidad());
+			pedidoDto.setBaseImponibleTotal(pedido.getBaseImponibleTotal());
+			pedidoDto.setImpuesto(pedido.getImpuesto());
+			pedidoDto.setImporteTotal(pedido.getImporteTotal());
 			
 		} catch(Exception e) {
 			

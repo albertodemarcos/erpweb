@@ -52,7 +52,7 @@ public class ContratoValidator implements Validator {
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
 		}else if( (contratoDto.getFechaInicio() != null && contratoDto.getFechaFin() != null ) 
-				&& contratoDto.getFechaInicio().before( contratoDto.getFechaFin() )  ) {
+				&& contratoDto.getFechaFin().before( contratoDto.getFechaInicio() )  ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}

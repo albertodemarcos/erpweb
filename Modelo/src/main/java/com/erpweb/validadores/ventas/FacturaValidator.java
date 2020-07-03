@@ -52,7 +52,7 @@ public class FacturaValidator implements Validator {
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
 		}else if( (facturaDto.getFechaInicio() != null && facturaDto.getFechaFin() != null ) 
-				&& facturaDto.getFechaInicio().before( facturaDto.getFechaFin() )  ) {
+				&& facturaDto.getFechaFin().before( facturaDto.getFechaInicio() )  ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}
@@ -75,17 +75,9 @@ public class FacturaValidator implements Validator {
 			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
 		}
 		
-		if( facturaDto.getCuotaTributaria() == null  ) {
+		if( facturaDto.getImpuesto() == null  ) {
 			
-			errors.rejectValue("cuotaTributaria", "", "El campo couta tributaria no puede estar vacío");
-			
-		}else if( facturaDto.getCuotaTributaria().intValue() < 0  ) {
-			
-			errors.rejectValue("cuotaTributaria", "", "El campo couta tributaria no puede ser negativo");
-			
-		}else if( facturaDto.getCuotaTributaria().intValue() == 0  ) {
-			
-			errors.rejectValue("cuotaTributaria", "", "El campo couta tributaria no puede ser cero");
+			errors.rejectValue("impuesto", "", "El campo impuesto no puede estar vacío");
 		}
 		
 		if( facturaDto.getImporteTotal() == null  ) {

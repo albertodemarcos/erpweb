@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +55,7 @@ public class PedidoController {
 	}
 	
 	@PostMapping( "/crearPedido" )
-	public @ResponseBody AccionRespuesta postCrearPedido( PedidoDto pedidoDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearPedido( @RequestBody PedidoDto pedidoDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -69,7 +70,7 @@ public class PedidoController {
 	}
 	
 	@PostMapping( "/editarPedido" )
-	public @ResponseBody AccionRespuesta postEditarPedido( PedidoDto pedidoDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarPedido( @RequestBody PedidoDto pedidoDto, Usuario user, BindingResult result ) {
 		
 		this.pedidoValidator.validate(pedidoDto, result);
 		
@@ -81,12 +82,12 @@ public class PedidoController {
 		return this.pedidoService.getCrearEditarPedido(pedidoDto, user);
 	}
 	
-	@PostMapping("/eliminarPedido/{pedidoId}")
-	public @ResponseBody AccionRespuesta postEliminarPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
+	@GetMapping("/eliminarPedido/{pedidoId}")
+	public @ResponseBody AccionRespuesta getEliminarPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
 		
 		if(pedidoId == null || pedidoId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.pedidoService.eliminarPedidoPorId(pedidoId);

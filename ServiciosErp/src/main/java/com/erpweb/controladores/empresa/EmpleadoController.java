@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +53,7 @@ public class EmpleadoController {
 	}
 	
 	@PostMapping( "/crearEmpleado" )
-	public @ResponseBody AccionRespuesta postCrearEmpleado( EmpleadoDto empleadoDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearEmpleado( @RequestBody EmpleadoDto empleadoDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -67,7 +68,7 @@ public class EmpleadoController {
 	}
 	
 	@PostMapping( "/editarEmpleado" )
-	public @ResponseBody AccionRespuesta postEditarEmpleado( EmpleadoDto empleadoDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarEmpleado( @RequestBody EmpleadoDto empleadoDto, Usuario user, BindingResult result ) {
 		
 		this.empleadoValidator.validate(empleadoDto, result);
 		
@@ -79,12 +80,12 @@ public class EmpleadoController {
 		return this.empleadoService.getCrearEditarEmpleado(empleadoDto, user);
 	}
 	
-	@PostMapping("/eliminarEmpleado/{empleadoId}")
-	public @ResponseBody AccionRespuesta postEliminarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+	@GetMapping("/eliminarEmpleado/{empleadoId}")
+	public @ResponseBody AccionRespuesta getEliminarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
 		
 		if(empleadoId == null || empleadoId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.empleadoService.eliminarEmpleadoPorId(empleadoId);

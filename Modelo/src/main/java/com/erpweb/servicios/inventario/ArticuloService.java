@@ -45,9 +45,9 @@ public class ArticuloService {
 		try {
 			
 			//Guardamos el articulo en base de datos
-			articuloRepository.save(articulo);
+			Articulo articuloSave = articuloRepository.save(articulo);
 			
-			return this.devolverDatosArticuloDto(articuloDto, articulo);
+			return this.devolverDatosArticuloDto(articuloDto, articuloSave);
 			
 		}catch(Exception e) {
 			
@@ -75,9 +75,9 @@ public class ArticuloService {
 		
 		try {
 			//Guardamos el articulo en base de datos
-			articuloRepository.save(articulo);
+			Articulo articuloSave = articuloRepository.save(articulo);
 			
-			return this.devolverDatosActualizadosArticuloDto(articuloDto, articulo);
+			return this.devolverDatosActualizadosArticuloDto(articuloDto, articuloSave);
 			
 		}catch(Exception e) {
 			

@@ -5,11 +5,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.erpweb.utiles.enumerados.TipoImpuesto;
 
 
 @Entity
@@ -25,7 +29,7 @@ public class Pedido implements Serializable {
 	private String articulo; 				//Articulo
 	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
 	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
-	private String impuesto; 				//Impuesto 
+	private TipoImpuesto impuesto; 				//Impuesto 
 	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
 	
 	@Id
@@ -79,11 +83,12 @@ public class Pedido implements Serializable {
 		this.baseImponibleTotal = baseImponibleTotal;
 	}
 	
-	public String getImpuesto() {
+	@Enumerated(EnumType.STRING)
+	public TipoImpuesto getImpuesto() {
 		return impuesto;
 	}
 	
-	public void setImpuesto(String impuesto) {
+	public void setImpuesto(TipoImpuesto impuesto) {
 		this.impuesto = impuesto;
 	}
 	

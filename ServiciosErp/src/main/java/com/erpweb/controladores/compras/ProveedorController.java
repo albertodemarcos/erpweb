@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +53,7 @@ public class ProveedorController {
 	}
 	
 	@PostMapping( "/crearProveedor" )
-	public @ResponseBody AccionRespuesta postCrearProveedor( ProveedorDto proveedorDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearProveedor( @RequestBody ProveedorDto proveedorDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -67,7 +68,7 @@ public class ProveedorController {
 	}
 	
 	@PostMapping( "/editarProveedor" )
-	public @ResponseBody AccionRespuesta postEditarProveedor( ProveedorDto proveedorDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarProveedor( @RequestBody ProveedorDto proveedorDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -81,12 +82,12 @@ public class ProveedorController {
 		return this.proveedorService.getCrearEditarProveedor(proveedorDto, user);
 	}
 	
-	@PostMapping("/eliminarProveedor/{proveedorId}")
-	public @ResponseBody AccionRespuesta postEliminarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+	@GetMapping("/eliminarProveedor/{proveedorId}")
+	public @ResponseBody AccionRespuesta getEliminarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
 		
 		if(proveedorId == null || proveedorId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.proveedorService.eliminarProveedorPorId(proveedorId);

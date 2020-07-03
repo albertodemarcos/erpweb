@@ -93,7 +93,7 @@ public class EmpleadoValidator implements Validator {
 			errors.rejectValue("poblacion", "", "Debe elegir la poblacion");
 		}
 		
-		if( empleadoDto.getTipoEmpleado() != null  ) {
+		if( empleadoDto.getTipoEmpleado() == null  ) {
 			
 			errors.rejectValue("tipoEmpleado", "", "Debe elegir el tipo de empleado");
 		}

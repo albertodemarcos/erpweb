@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.erpweb.utiles.enumerados.TipoImpuesto;
+
 
 public class FacturaDto implements Serializable {
 
@@ -14,7 +16,7 @@ public class FacturaDto implements Serializable {
 	private Date fechaFin;       													//Cuando finaliza la factura
 	private String descripcion;      												//Descripcion de la factura
 	private BigDecimal baseImponible;     											//Precio sin impuesto
-	private BigDecimal cuotaTributaria;   											//Valor del impuesto sobre el producto
+	private TipoImpuesto impuesto;   											//Valor del impuesto sobre el producto
 	private BigDecimal importeTotal;      											//Base imponible mas cuota tributaria 
 	
 	public Long getId() {
@@ -73,14 +75,14 @@ public class FacturaDto implements Serializable {
 		this.baseImponible = baseImponible;
 	}
 	
-	public BigDecimal getCuotaTributaria() {
-		return cuotaTributaria;
+	public TipoImpuesto getImpuesto() {
+		return impuesto;
 	}
-	
-	public void setCuotaTributaria(BigDecimal cuotaTributaria) {
-		this.cuotaTributaria = cuotaTributaria;
+
+	public void setImpuesto(TipoImpuesto impuesto) {
+		this.impuesto = impuesto;
 	}
-	
+
 	public BigDecimal getImporteTotal() {
 		return importeTotal;
 	}

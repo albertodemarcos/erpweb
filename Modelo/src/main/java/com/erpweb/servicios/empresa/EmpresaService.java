@@ -43,9 +43,9 @@ public class EmpresaService {
 		
 		try {
 			//Guardamos la empresa en base de datos
-			empresaRepository.save(empresa);
+			Empresa empresaSave = empresaRepository.save(empresa);
 			
-			return this.devolverDatosEmpresaDto(empresaDto, empresa);
+			return this.devolverDatosEmpresaDto(empresaDto, empresaSave);
 			
 		}catch(Exception e) {
 			
@@ -71,9 +71,9 @@ public class EmpresaService {
 		
 		try {
 			//Guardamos la empresa en base de datos
-			empresaRepository.save(empresa);
+			Empresa empresaSave = empresaRepository.save(empresa);
 			
-			return this.devolverDatosActualizadosEmpresaDto(empresaDto, empresa);
+			return this.devolverDatosActualizadosEmpresaDto(empresaDto, empresaSave);
 			
 		}catch(Exception e) {
 			
@@ -269,6 +269,8 @@ public class EmpresaService {
 		AccionRespuesta respuesta = new AccionRespuesta();
 		
 		if(empresaSave != null && empresaDto != null) {
+			
+			empresaDto.setId(empresaSave.getId());
 			
 			respuesta.setId(empresaSave.getId());
 			

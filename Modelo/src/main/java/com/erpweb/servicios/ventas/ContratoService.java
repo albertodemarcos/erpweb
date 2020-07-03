@@ -41,14 +41,15 @@ public class ContratoService {
 		contrato.setFechaFin(contratoDto.getFechaFin());
 		contrato.setDescripcion(contratoDto.getDescripcion());
 		contrato.setBaseImponibleTotal(contratoDto.getBaseImponibleTotal());
+		contrato.setImpuesto(contratoDto.getImpuesto());
 		contrato.setImporteTotal(contratoDto.getImporteTotal());
 		
 		try {
 			
 			//Guardamos el contrato en base de datos
-			contratoRepository.save(contrato);
+			Contrato contratoSave = contratoRepository.save(contrato);
 			
-			return this.devolverDatosContratoDto(contratoDto, contrato);
+			return this.devolverDatosContratoDto(contratoDto, contratoSave);
 			
 		}catch(Exception e) {
 			
@@ -73,13 +74,14 @@ public class ContratoService {
 		contrato.setFechaFin(contratoDto.getFechaFin());
 		contrato.setDescripcion(contratoDto.getDescripcion());
 		contrato.setBaseImponibleTotal(contratoDto.getBaseImponibleTotal());
+		contrato.setImpuesto(contratoDto.getImpuesto());
 		contrato.setImporteTotal(contratoDto.getImporteTotal());
 
 		try {
 			//Guardamos el contrato en base de datos
-			contratoRepository.save(contrato);
+			Contrato contratoSave = contratoRepository.save(contrato);
 			
-			return this.devolverDatosActualizadosContratoDto(contratoDto, contrato);
+			return this.devolverDatosActualizadosContratoDto(contratoDto, contratoSave);
 			
 		}catch(Exception e) {
 			
@@ -170,6 +172,7 @@ public class ContratoService {
 			contratoDto.setFechaFin(contrato.getFechaFin());
 			contratoDto.setDescripcion(contrato.getDescripcion());
 			contratoDto.setBaseImponibleTotal(contrato.getBaseImponibleTotal());
+			contratoDto.setImpuesto(contrato.getImpuesto());
 			contratoDto.setImporteTotal(contrato.getImporteTotal());
 			
 		} catch(Exception e) {
@@ -302,6 +305,8 @@ public class ContratoService {
 		
 		if(contratoSave != null && contratoDto != null) {
 			
+			contratoDto.setId(contratoSave.getId());
+			
 			respuesta.setId(contratoSave.getId());
 			
 			respuesta.setCodigo("OK");
@@ -349,6 +354,7 @@ public class ContratoService {
 				contratoDto.setFechaFin(contrato.getFechaFin());
 				contratoDto.setDescripcion(contrato.getDescripcion());
 				contratoDto.setBaseImponibleTotal(contrato.getBaseImponibleTotal());
+				contratoDto.setImpuesto(contrato.getImpuesto());
 				contratoDto.setImporteTotal(contrato.getImporteTotal());
 				
 				contratosDto.add(contratoDto);		

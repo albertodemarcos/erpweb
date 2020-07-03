@@ -82,12 +82,12 @@ public class CompraController {
 		return this.compraService.getCrearEditarCompra(compraDto, user);
 	}
 	
-	@PostMapping("/eliminarCompra/{compraId}")
-	public @ResponseBody AccionRespuesta postEliminarCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+	@GetMapping("/eliminarCompra/{compraId}")
+	public @ResponseBody AccionRespuesta getEliminarCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
 		
 		if(compraId == null || compraId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.compraService.eliminarCompraPorId(compraId);

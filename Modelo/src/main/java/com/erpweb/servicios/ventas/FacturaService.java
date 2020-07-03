@@ -41,15 +41,15 @@ public class FacturaService {
 		factura.setFechaFin(facturaDto.getFechaFin());
 		factura.setDescripcion(facturaDto.getDescripcion());
 		factura.setBaseImponible(facturaDto.getBaseImponible());
-		factura.setCuotaTributaria(facturaDto.getCuotaTributaria());
+		factura.setImpuesto(facturaDto.getImpuesto());
 		factura.setImporteTotal(facturaDto.getImporteTotal());
 		
 		try {
 			
 			//Guardamos la factura en base de datos
-			facturaRepository.save(factura);
+			Factura facturaSave = facturaRepository.save(factura);
 			
-			return this.devolverDatosFacturaDto(facturaDto, factura);
+			return this.devolverDatosFacturaDto(facturaDto, facturaSave);
 			
 		}catch(Exception e) {
 			
@@ -74,15 +74,15 @@ public class FacturaService {
 		factura.setFechaFin(facturaDto.getFechaFin());
 		factura.setDescripcion(facturaDto.getDescripcion());
 		factura.setBaseImponible(facturaDto.getBaseImponible());
-		factura.setCuotaTributaria(facturaDto.getCuotaTributaria());
+		factura.setImpuesto(facturaDto.getImpuesto());
 		factura.setImporteTotal(facturaDto.getImporteTotal());
 		
 		try {
 			
 			//Guardamos la factura en base de datos
-			facturaRepository.save(factura);
+			Factura facturaSave = facturaRepository.save(factura);
 			
-			return this.devolverDatosActualizadosFacturaDto(facturaDto, factura);
+			return this.devolverDatosActualizadosFacturaDto(facturaDto, facturaSave);
 			
 		}catch(Exception e) {
 			
@@ -173,7 +173,7 @@ public class FacturaService {
 			facturaDto.setFechaFin(factura.getFechaFin());
 			facturaDto.setDescripcion(factura.getDescripcion());
 			facturaDto.setBaseImponible(factura.getBaseImponible());
-			facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
+			facturaDto.setImpuesto(factura.getImpuesto());
 			facturaDto.setImporteTotal(factura.getImporteTotal());
 			
 		} catch(Exception e) {
@@ -306,6 +306,8 @@ public class FacturaService {
 		
 		if(facturaSave != null && facturaDto != null) {
 			
+			facturaDto.setId(facturaSave.getId());
+			
 			respuesta.setId(facturaSave.getId());
 			
 			respuesta.setCodigo("OK");
@@ -353,7 +355,7 @@ public class FacturaService {
 				facturaDto.setFechaFin(factura.getFechaFin());
 				facturaDto.setDescripcion(factura.getDescripcion());
 				facturaDto.setBaseImponible(factura.getBaseImponible());
-				facturaDto.setCuotaTributaria(factura.getCuotaTributaria());
+				facturaDto.setImpuesto(factura.getImpuesto());
 				facturaDto.setImporteTotal(factura.getImporteTotal());
 				
 				facturasDto.add(facturaDto);				

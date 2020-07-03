@@ -32,7 +32,7 @@ public class VehiculoService {
 	
 	public AccionRespuesta crearVehiculoDesdeVehiculoDto(VehiculoDto vehiculoDto) {
 		
-		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
+		logger.debug("Entramos en el metodo crearvehiculoDesdevehiculoDto()" );
 		
 		Vehiculo vehiculo = new Vehiculo();
 
@@ -47,13 +47,13 @@ public class VehiculoService {
 		try {
 			
 			//Guardamos el vehiculo en base de datos
-			vehiculoRepository.save(vehiculo);
+			Vehiculo vehiculoSave = vehiculoRepository.save(vehiculo);
 			
-			return this.devolverDatosVehiculoDto(vehiculoDto, vehiculo);
+			return this.devolverDatosVehiculoDto(vehiculoDto, vehiculoSave);
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto() con ID={}", vehiculoDto.getId() );
+			logger.error("Error en el metodo crearvehiculoDesdevehiculoDto()" );
 			
 			e.printStackTrace();
 			
@@ -79,9 +79,9 @@ public class VehiculoService {
 		try {
 			
 			//Guardamos el vehiculo en base de datos
-			vehiculoRepository.save(vehiculo);
+			Vehiculo vehiculoSave = vehiculoRepository.save(vehiculo);
 			
-			return this.devolverDatosActualizadosVehiculoDto(vehiculoDto, vehiculo);
+			return this.devolverDatosActualizadosVehiculoDto(vehiculoDto, vehiculoSave);
 			
 		}catch(Exception e) {
 			
@@ -302,6 +302,8 @@ public class VehiculoService {
 		AccionRespuesta respuesta = new AccionRespuesta();
 		
 		if(vehiculoSave != null && vehiculoDto != null) {
+			
+			vehiculoDto.setId(vehiculoSave.getId());
 			
 			respuesta.setId(vehiculoSave.getId());
 			

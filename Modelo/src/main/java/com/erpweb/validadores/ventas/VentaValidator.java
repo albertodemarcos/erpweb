@@ -52,7 +52,7 @@ public class VentaValidator implements Validator {
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
 		}else if( (ventaDto.getFechaInicio() != null && ventaDto.getFechaFin() != null ) 
-				&& ventaDto.getFechaInicio().before( ventaDto.getFechaFin() )  ) {
+				&& ventaDto.getFechaFin().before( ventaDto.getFechaInicio() )  ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +53,7 @@ public class VehiculoController {
 	}
 	
 	@PostMapping( "/crearVehiculo" )
-	public @ResponseBody AccionRespuesta postCrearVehiculo( VehiculoDto vehiculoDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearVehiculo( @RequestBody VehiculoDto vehiculoDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -67,7 +68,7 @@ public class VehiculoController {
 	}
 	
 	@PostMapping( "/editarVehiculo"  )
-	public @ResponseBody AccionRespuesta postEditarVehiculo( VehiculoDto vehiculoDto, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarVehiculo( @RequestBody VehiculoDto vehiculoDto, BindingResult result ) {
 		
 		Usuario user = new Usuario();
 		
@@ -81,12 +82,12 @@ public class VehiculoController {
 		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);
 	}
 	
-	@PostMapping("/eliminarVehiculo/{vehiculoId}")
-	public @ResponseBody AccionRespuesta postEliminarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
+	@GetMapping("/eliminarVehiculo/{vehiculoId}")
+	public @ResponseBody AccionRespuesta getEliminarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
 		
 		if(vehiculoId == null || vehiculoId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.vehiculoService.eliminarVehiculoPorId(vehiculoId);

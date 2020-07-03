@@ -82,12 +82,12 @@ public class EventoController {
 		return this.eventoService.getCrearEditarEvento(eventoDto, user);
 	}
 	
-	@PostMapping("/eliminarEvento/{eventoId}")
-	public @ResponseBody AccionRespuesta postEliminarEvento( @PathVariable Long eventoId, Usuario user ) throws Exception {
+	@GetMapping("/eliminarEvento/{eventoId}")
+	public @ResponseBody AccionRespuesta getEliminarEvento( @PathVariable Long eventoId, Usuario user ) throws Exception {
 		
 		if(eventoId == null || eventoId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.eventoService.eliminarEventoPorId(eventoId);

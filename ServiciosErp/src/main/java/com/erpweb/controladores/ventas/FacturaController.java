@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,7 +60,7 @@ public class FacturaController {
 	}
 	
 	@PostMapping( "/crearFactura" )
-	public @ResponseBody AccionRespuesta postCrearFactura( FacturaDto facturaDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearFactura( @RequestBody FacturaDto facturaDto, Usuario user, BindingResult result ) {
 		
 		this.facturaValidator.validate(facturaDto, result);
 		
@@ -72,7 +73,7 @@ public class FacturaController {
 	}
 	
 	@PostMapping( "/editarFactura" )
-	public @ResponseBody AccionRespuesta postEditarFactura( FacturaDto facturaDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarFactura( @RequestBody FacturaDto facturaDto, Usuario user, BindingResult result ) {
 		
 		this.facturaValidator.validate(facturaDto, result);
 		
@@ -84,12 +85,12 @@ public class FacturaController {
 		return this.facturaService.getCrearEditarFactura(facturaDto, user);
 	}
 	
-	@PostMapping("/eliminarFactura/{facturaId}")
-	public @ResponseBody AccionRespuesta postEliminarFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
+	@GetMapping("/eliminarFactura/{facturaId}")
+	public @ResponseBody AccionRespuesta getEliminarFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
 		
 		if(facturaId == null || facturaId.longValue() < 1L ) {
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 		
 		return this.facturaService.eliminarFacturaPorId(facturaId);
