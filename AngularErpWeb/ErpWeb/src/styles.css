@@ -19,3 +19,55 @@ footer {
     width: 100%;
     height: 30px;
 }
+
+
+/* COLORES BOTONES */
+
+.fc-dayGridMonth-button,
+.fc-timeGridWeek-button,
+.fc-timeGridDay-button,
+.fc-listWeek-button {
+    background-color: #ffcc80 !important;
+    border-color: #ffcc80 !important;
+    color: black !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    /* #a7c3fb */
+}
+
+.fc-prevYear-button,
+.fc-prev-button,
+.fc-next-button,
+.fc-nextYear-button {
+    background-color: #ffcc80 !important;
+    border-color: #ffcc80 !important;
+    color: black !important;
+    font-size: 17px !important;
+}
+
+.fc-today-button {
+    background-color: #0099ff !important;
+    border-color: #0099ff !important;
+    color: black !important;
+    font-size: 18px !important;
+}
+
+.fc-btnCrearEventoButton-button {
+    background-color: #e6e6e6 !important;
+    border-color: #e6e6e6 !important;
+    color: black !important;
+    font-size: 18px !important;
+}
+
+.fc-button-group {
+    background-color: black !important;
+    border-color: none !important;
+}
+
+
+/* COLOR FILAS TABLA AGENDA*/
+
+.fc-list-day,
+.fc-list-day-cushion {
+    background-color: #ffcc80 !important;
+}

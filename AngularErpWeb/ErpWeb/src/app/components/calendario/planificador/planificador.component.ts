@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // FullCalendar v5
-import {CalendarOptions /*, DateSelectArg*/, EventSourceInput,
-        EventInput, EventClickArg, EventApi, EventAddArg } from '@fullcalendar/angular';
+import {CalendarOptions, EventSourceInput,
+        EventInput, EventClickArg, EventApi, EventAddArg, EventChangeArg } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import frLocale from '@fullcalendar/core/locales/fr';
+// Swat alet
+import swal from 'sweetalert2';
+
 // Propios
+import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import { EventoService } from 'src/app/services/planificador/evento.service';
 import { Evento } from 'src/app/model/entitys/evento.model';
-import { Event } from 'src/app/model/entitys/event.model';
-
 
 declare var $: any;
-
 
 
 @Component({
@@ -29,406 +30,308 @@ export class PlanificadorComponent implements OnInit  {
 
   // Evento
   public evento: Evento;
+  private eventoId: number;
+  private eventoDto: any;
   public eventosCalendario: EventApi[] = [];
-  private eventAddArg: EventAddArg;
   private inicioEventosCalendario: any;
-  private eventSourceInput: EventSourceInput;
+  private respuestaGetCliente: AccionRespuesta;
 
   constructor(private eventoService: EventoService, private router: Router) {
-    console.log('Constructor()');
     this.calendarioVisible = true;
     this.evento = new Evento();
-
     this.initFullCalendar();
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit()');
   }
 
-/* METODOS GENERALES */
+  /* METODOS GENERALES */
 
-// Iniciar Configuracion Calendario
- initFullCalendar(): void{
-
-  console.log('Iniciamos la configuracion del calendario');
-
-  this.configuracionCalendario = {
-    headerToolbar: {
-      left: 'prev,next today btnCrearEventoButton',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    },
-    initialView: 'dayGridMonth',
-    events: (info, successCallback, failureCallback) => {
-
-      this.inicioEventosCalendario = new Array<EventInput>();
-
-      this.eventoService.getEventos().then(
-        (eventos) => {
-          try {
-            // Introducimos los datos
-            eventos.forEach(evento => {
-              console.log('Entramos a setear el evento');
-              const eventoId = evento.id;
-              const eventoTitle = evento.titulo;
-              const eventoStart = evento.fechaInicio;
-              const eventoEnd = evento.fechaFin;
-              this.inicioEventosCalendario.push({
-                id: eventoId,
-                title: eventoTitle,
-                start: eventoStart,
-                end: eventoEnd
+  // Iniciar Configuracion Calendario
+  initFullCalendar(): void{
+    this.configuracionCalendario = {
+      headerToolbar: {
+        left: 'prevYear prev next nextYear today btnCrearEventoButton',
+        center: 'title',
+        right: 'dayGridMonth timeGridWeek timeGridDay listWeek'
+      },
+      initialView: 'dayGridMonth',
+      events: (info, successCallback, failureCallback) => {
+        this.inicioEventosCalendario = new Array<EventInput>();
+        this.eventoService.getEventos().then(
+          (eventos) => {
+            try {
+              // Introducimos los datos
+              eventos.forEach(evento => {
+                const eventoId = evento.id;
+                const eventoTitle = evento.titulo;
+                const eventoStart = evento.fechaInicio;
+                const eventoEnd = evento.fechaFin;
+                this.inicioEventosCalendario.push({
+                  id: eventoId,
+                  title: eventoTitle,
+                  start: eventoStart,
+                  end: eventoEnd
+                });
               });
-              console.log('Terminamos de setear el evento');
-            });
-            successCallback(this.inicioEventosCalendario);
-            console.log('SALIMOS en el metodo getListadoEventos()');
-          } catch (errores){
-            console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+              successCallback(this.inicioEventosCalendario);
+            } catch (errores){
+              console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+              failureCallback(this.inicioEventosCalendario);
+            }
+          }, (error) => {
+            console.error('Error, no se ha obtenido la informacion');
             failureCallback(this.inicioEventosCalendario);
           }
-        }, (error) => {
-          console.log('Error, no se ha obtenido la informacion');
-          failureCallback(this.inicioEventosCalendario);
-        }
-      );
-    },
-    weekends: true,
-    editable: true,
-    selectable: false,
-    selectMirror: true,
-    dayMaxEvents: true,
-    locales: [ esLocale, enLocale, frLocale ],
-    locale: 'es',
-    // select: this.crearEventoPlanificador.bind(this), // Seleccionar
-    eventClick: this.getEvento.bind(this), // Click evento
-    eventsSet: this.recargarCalendario.bind(this), // SIEMPRE QUE OCURRA ALGO EN EL PLANNING
-    // eventAdd: () => { this.iniciarEventos(); },
-    // eventChange:
-    // eventRemove:
-    customButtons: {
-      // Añadir evento
-      btnCrearEventoButton: {
-        // Texto del evento
-        text: 'Crear evento',
-        click: () => {
-          console.log('Pulsado el boton crear evento');
-          this.mostrarModalCrearEvento();
-          // Mostramos todos los eventos
-
-        }
-      }
-    },
-    // Style
-    height: 500
-  };
-
- }
-
- // Crear evento
- crearEventoPlanificador(): void {
-
-  console.log('Comienza la persistencia del evento' + JSON.stringify(this.evento) );
-
-  this.eventoService.crearEvento(this.evento).subscribe( accionRespuesta => {
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
-    // Si el resultado es true, navegamos hasta la vista
-    if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
-
-      console.log('Evento creado correctamente');
-      // Informamos de que se ha creado el evento correctamente 
-
-      // Reload
-
-      // Se cierra la modal de crear evento
-      this.ocultarModalCrearEvento();
-
-    }
-  });
-}
-
-editarEventoPlanificador(): void {
-
-}
-
-eliminarEventoPlanificador(): void {
-
-}
-
-getEvento(eventoSeleccionado: EventClickArg): void {
-
-  console.log('Se procede a recuperar el evento');
-
-  const eventoClick = eventoSeleccionado.event;
-
-  if (eventoClick != null && eventoClick.id.toString() !== '0' && eventoClick.id.toString() !== '-1'  ){
-
-    // Recuperamos el evento
-    const id: number = +eventoClick.id;
-    this.evento.id = id;
-    this.evento.titulo = eventoClick.title;
-
-    console.log('FECHA INICIO: ' + eventoClick.start);
-
-    this.evento.fechaInicio = eventoClick.start;
-
-    console.log('FECHA FIN: ' + eventoClick.end);
-
-    if ( eventoClick.end != null ){
-      this.evento.diaCompleto = false;
-      this.evento.fechaFin = eventoClick.end;
-    }else{
-      this.evento.diaCompleto = true;
-    }
-
-    this.evento.descripcion = '¡Esto es un prueba!';
-    // Rellenamos el objeto evento
-
-    // Mostrarmos la modal con el evento recuperado
-    this.mostrarModalGetEvento();
-
-  }
-
-
-
-}
-
-recargarCalendario(events: EventApi[]): void{
-
-  console.log('Entramos en el metodo getListadoEventos()');
-
-  // Contenedor de eventos iniciales al cargar el planificador
-  this.inicioEventosCalendario = new Array<EventApi>();
-
-  this.eventoService.getEventos().then(
-    (eventos) => {
-      try {
-        // Introducimos los datos
-        eventos.forEach(evento => {
-          // Introducimos los eventos en el array
-          this.inicioEventosCalendario.push({
-            id: evento.id,
-            title: evento.titulo,
-            start: evento.fechaInicio,
-            end: evento.fechaFin
-          });
-        });
-        console.log('SALIMOS en el metodo getListadoEventos()');
-        return this.inicioEventosCalendario;
-      } catch (errores){
-        console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
-        return this.inicioEventosCalendario;
-      }
-    }, (error) => {
-      console.log('Error, no se ha obtenido la informacion');
-      return this.inicioEventosCalendario;
-    }
-  );
-
-}
-
-
-
-/* METODOS AUXLIARES */
-
-mostrarModalCrearEvento(): void {
-  $('#crearEventoModal').modal('show');
-}
-
-ocultarModalCrearEvento(): void {
-  $('#crearEventoModal').modal('hide');
-}
-
-mostrarModalGetEvento(): void {
-  $('#visualizarEventoModal').modal('show');
-}
-
-}
-
-/*import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-// FullCalendar v4
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGrigPlugin from '@fullcalendar/timegrid';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
-import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import esLocale from '@fullcalendar/core/locales/es';
-import enLocale from '@fullcalendar/core/locales/en-gb';
-import frLocale from '@fullcalendar/core/locales/fr';
-
-// Propios
-import { ModalEventoComponent } from 'src/app/components/modales/planificador/modal-evento/modal-evento.component';
-
-import { EventoService } from 'src/app/services/planificador/evento.service';
-import { Evento } from 'src/app/model/entitys/evento.model';
-
-declare var $: any;
-
-@Component({
-  selector: 'app-planificador',
-  templateUrl: './planificador.component.html',
-  styleUrls: ['./planificador.component.css']
-})
-export class PlanificadorComponent implements OnInit  {
-
-  @ViewChild('planificador') fullcalendar: FullCalendarComponent;
-  @ViewChild('external') external: ElementRef;
-
-  public configuracionCalendario: any;
-  public eventosCalendario: any;
-
-  public evento: Evento;
-  private fullCalendarData: Evento[];
-
-  constructor(private eventoService: EventoService, private router: Router) {
-    this.eventosCalendario = [{title: 'Evento 1', date: '2020-06-24'}, {title: 'Evento 2', date: '2020-06-25'}];
-    this.evento = new Evento();
-
-    this.fullCalendarData = new Array<Evento>();
-  }
-
-  ngOnInit(): void {
-
-    this.getListadoEventos();
-
-    console.log('Datos: ' + JSON.stringify(this.fullCalendarData) );
-
-    // Iniciamos las propiedades del calendario
-    this.configuracionCalendario = {
-      // Dia, mes, semana, etc..
-      headerCalendario: {
-        left: 'prev,next today btnCrearEventoButton',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        );
       },
-      // Se puede editar
+      weekends: true,
       editable: true,
-      // Distintos idiomas
+      selectable: false,
+      selectMirror: true,
+      dayMaxEvents: true,
       locales: [ esLocale, enLocale, frLocale ],
-      // Idoma español por defecto
       locale: 'es',
-      // Plugins
-      calendarPlugins: [dayGridPlugin, timeGrigPlugin, interactionPlugin],
-      // Eventos
-      eventosCalendario: this.fullCalendarData,
-      // Boton crear evento
+      eventTextColor: '#000',
+      eventColor: '#0066ff',
+      eventBackgroundColor: '#80ccff',
+      // select: this.crearEventoPlanificador.bind(this), // Seleccionar
+      eventClick: this.getEvento.bind(this), // Click evento
+      // eventsSet: this.recargarCalendario.bind(this), // SIEMPRE QUE OCURRA ALGO EN EL PLANNING
+      // eventAdd: () => { this.iniciarEventos(); },
+      eventChange: (eventoDrag: EventChangeArg) => {
+        this.actualizaEventoDrag(eventoDrag);
+      },
+      // eventRemove:
       customButtons: {
         // Añadir evento
         btnCrearEventoButton: {
           // Texto del evento
           text: 'Crear evento',
           click: () => {
-            console.log('Pulsado el boton crear evento');
+            this.limpiarModalCrearEvento();
             this.mostrarModalCrearEvento();
-            // Mostramos todos los eventos
-            this.getListadoEventos();
           }
         }
       },
-      eventRender: () => {
-
-      }
+      // Style
+      height: 500
     };
   }
 
+  // Crear evento
+  crearEventoPlanificador(): void {
+    this.eventoService.crearEvento(this.evento).subscribe( accionRespuesta => {
+      // Si el resultado es true, navegamos hasta la vista
+      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
+        // Recargamos los eventos
+        this.recargarCalendario();
+        // Limpiamos la modal
+        this.limpiarModalCrearEvento();
+        // Informamos de que se ha creado el evento correctamente
+        swal('Evento', 'Se ha creado el evento', 'success');
+        // Se cierra la modal de crear evento
+        this.ocultarModalCrearEvento();
+      }
+    });
+  }
+
+  // Editar evento
+  editarEventoPlanificador(): void {
+    // Ocultamos la modal de visualizacion
+    this.ocultarModalGetEvento();
+    // Mostramos la modal de crear evento
+    this.mostrarModalCrearEvento();
+  }
+
+  // Elimnar evento
+  eliminarEventoPlanificador(): void {
+    // Evitamos borrar accidentalmente un evento
+    swal({
+      title: 'Eliminar Evento',
+      text: '¿Desea eliminar definitivamente este evento?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then( (resultado) => {
+      // Si se pulsa en cancelar, no se continua
+      if (!resultado.value) {
+        return;
+      }
+
+      // Llamamos al servicio de Eventos para eliminar el Evento
+      this.eventoService.eliminarEvento(this.evento.id).toPromise().then( (accionRespuesta) => {
+
+        // Si se ha eliminado correctamente
+        if ( accionRespuesta.resultado ) {
+        swal('Evento elimninado', 'Se ha eliminado el evento correctamente', 'success').then(() => {
+          this.recargarCalendario();
+          this.ocultarModalGetEvento();
+        });
+
+        } else {
+        console.log('Se ha producido un error al eliminar el evento');
+        swal('Error', 'El Evento no ha podido ser eliminado', 'error');
+        }
+
+      }, (errores) => {
+        console.log('Se ha producido un error al eliminar el Evento');
+        swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+      } );
+    } );
+  }
+
+  // Obtener evento
+  getEvento(eventoSeleccionado: EventClickArg): void {
+    const eventoClick = eventoSeleccionado.event;
+    if (eventoClick != null && eventoClick.id.toString() !== '0' && eventoClick.id.toString() !== '-1'  ){
+      // Recuperamos el ID del evento
+      this.eventoId = +eventoClick.id;
+      // Recuperamos el evento
+      this.eventoService.getEvento(this.eventoId).toPromise().then( (accionRespuesta) => {
+        try
+        {
+          this.respuestaGetCliente = accionRespuesta;
+          if ( this.respuestaGetCliente.resultado )
+          {
+            // tslint:disable-next-line: no-string-literal
+            this.eventoDto = this.respuestaGetCliente.data['eventoDto'];
+            // Rellenamos el objeto evento
+            this.obtenerEventoDesdeEventoDto(this.eventoDto);
+            // Mostrarmos la modal con el evento recuperado
+            this.mostrarModalGetEvento();
+          }
+        }catch (errores){
+          console.error('Se ha producido un error al transformar el evento' + errores);
+          swal('Error', 'Se ha producido un error renderizar el evento', 'error');
+        }
+      }, (error) => {
+        console.error('Error, no se ha podido recuperar el evento' + error);
+        swal('Error', 'Error, no se ha podido recuperar el evento', 'error');
+      });
+    }
+  }
+
+  // Recargar eventos del calendario
+  recargarCalendario(): void{
+    this.configuracionCalendario.eventSources = [];
+    this.configuracionCalendario.eventSources.push({
+      events: (info, successCallback, failureCallback) => {
+        this.inicioEventosCalendario = new Array<EventInput>();
+        this.eventoService.getEventos().then(
+          (eventos) => {
+            try {
+              // Introducimos los datos
+              eventos.forEach(evento => {
+                const eventoId = evento.id;
+                const eventoTitle = evento.titulo;
+                const eventoStart = evento.fechaInicio;
+                const eventoEnd = evento.fechaFin;
+                this.inicioEventosCalendario.push({
+                  id: eventoId,
+                  title: eventoTitle,
+                  start: eventoStart,
+                  end: eventoEnd
+                });
+              });
+              successCallback(this.inicioEventosCalendario);
+            } catch (errores){
+              console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+              failureCallback(this.inicioEventosCalendario);
+            }
+          }, (error) => {
+            console.error('Error, no se ha obtenido la informacion');
+            failureCallback(this.inicioEventosCalendario);
+          }
+        );
+      }
+    });
+  }
+
+  /* METODOS AUXLIARES */
 
   mostrarModalCrearEvento(): void {
     $('#crearEventoModal').modal('show');
   }
 
-  crearEventoPlanificador(): void {
-
-    console.log('Comienza la persistencia del evento' + JSON.stringify(this.evento) );
-
-    this.eventoService.crearEvento(this.evento).subscribe( accionRespuesta => {
-      console.log('Esta registrado' + accionRespuesta.resultado);
-      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
-      // Si el resultado es true, navegamos hasta la vista
-      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
-        this.getListadoEventos();
-      }
-    });
+  ocultarModalCrearEvento(): void {
+    $('#crearEventoModal').modal('hide');
   }
 
-  getListadoEventos(): void{
+  mostrarModalGetEvento(): void {
+    $('#visualizarEventoModal').modal('show');
+  }
 
-    console.log('Entramos en el metodo getListadoEventos()');
+  ocultarModalGetEvento(): void {
+    $('#visualizarEventoModal').modal('hide');
+  }
 
-    this.eventoService.getEventos().then(
-      (eventos) => {
-        try {
-          // Introducimos los datos
-          eventos.forEach(evento => this.fullCalendarData.push(evento));
-          // Refrescamos los datos del calendario
-          this.fullcalendar.events = this.fullCalendarData;
-
-        } catch (errores){
-          console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+  // Obtener evento antes de guardar desde un movimento en el calendario
+  actualizaEventoDrag(eventoDrag: EventChangeArg): void {
+    const eventoClick = eventoDrag.event;
+    if (eventoClick != null && eventoClick.id.toString() !== '0' && eventoClick.id.toString() !== '-1'  ){
+      // Recuperamos el ID del evento
+      this.eventoId = +eventoClick.id;
+      // Recuperamos el evento
+      this.eventoService.getEvento(this.eventoId).toPromise().then( (accionRespuesta) => {
+        try
+        {
+          this.respuestaGetCliente = accionRespuesta;
+          if ( this.respuestaGetCliente.resultado )
+          {
+            // tslint:disable-next-line: no-string-literal
+            this.eventoDto = this.respuestaGetCliente.data['eventoDto'];
+            // Rellenamos el objeto evento
+            this.obtenerEventoDesdeEventoDto(this.eventoDto);
+            // Actualizamos el evento recuperado
+            this.evento.fechaInicio = eventoDrag.event.start;
+            this.evento.fechaFin = eventoDrag.event.end;
+            // Actualizamos el evento
+            this.crearEventoPlanificador();
+          }
+        }catch (errores){
+          console.error('Se ha producido un error al transformar el evento' + errores);
+          swal('Error', 'Se ha producido un error en el evento cambiado', 'error');
         }
       }, (error) => {
-        console.log('Error, no se ha obtenido la informacion');
-      }
-    );
-
-  }
-
-
-
-  updateHeader() {
-    this.configuracionCalendario.header = {
-      left: 'prev,next,today  btnCrearEventoButton',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    };
-  }
-  get yearMonth(): string {
-    const dateObj = new Date();
-    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
-  }
-
-  // OTROS METODOS
-
-// Inicio Eventos del Calendario
- iniciarEventos(): any{
-
-  console.log('Entramos en el metodo getListadoEventos()');
-
-  // Contenedor de eventos iniciales al cargar el planificador
-  this.inicioEventosCalendario = new Array<EventSourceInput>();
-
-  this.eventoService.getEventos().then(
-    (eventos) => {
-      try {
-        // Introducimos los datos
-        eventos.forEach(evento => {
-          // Introducimos los eventos en el array
-          this.inicioEventosCalendario.push({
-            id: evento.id,
-            title: evento.titulo,
-            start: evento.fechaInicio,
-            end: evento.fechaFin
-          });
-        });
-        console.log('SALIMOS en el metodo getListadoEventos()');
-        return this.inicioEventosCalendario;
-      } catch (errores){
-        console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
-        return this.inicioEventosCalendario;
-      }
-    }, (error) => {
-      console.log('Error, no se ha obtenido la informacion');
-      return this.inicioEventosCalendario;
+        console.error('Error, no se ha podido recuperar el evento' + error);
+        swal('Error', 'Error, no se ha podido recuperar el evento', 'error');
+      });
     }
-  );
+  }
+
+  // Obtener el eventoDto
+  obtenerEventoDesdeEventoDto(eventoDto: any): void{
+    if ( eventoDto != null)
+    {
+      this.evento.id = eventoDto.id;
+      this.evento.titulo = eventoDto.titulo;
+      this.evento.fechaInicio = this.limpiarFecha(eventoDto.fechaInicio);
+      this.evento.fechaFin = this.limpiarFecha(eventoDto.fechaFin);
+      this.evento.descripcion = eventoDto.descripcion;
+    }
+  }
+
+  // Limpiamos el objeto evento
+  limpiarModalCrearEvento(): void {
+    this.evento.titulo = null;
+    this.evento.fechaInicio = null;
+    this.evento.fechaFin = null;
+    this.evento.descripcion = null;
+  }
+
+  // Limpiar fecha (string -> date)
+  limpiarFecha(fechaStr: string): Date{
+    if (fechaStr != null && fechaStr.trim() !== ''){
+      try {
+        const fechaLimpia: Date = new Date(fechaStr);
+        return fechaLimpia;
+      } catch (error) {
+        console.error('Error al convertir la fecha' + error);
+      }
+    }
+    return new Date();
+  }
 }
-[
-    { id: '1',  title: 'Evento prueba', start: '2020-06-28 15:00', end: '2020-06-28 18:00' },
-    { id: '1',  title: 'Evento prueba', start: '2020-06-28', end: '2020-06-28' }
-  ]
 
-
-
-}*/

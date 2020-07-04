@@ -109,9 +109,10 @@ const routes: Routes = [
   { path: 'usuarios/editar-usuario/:id', component: FormularioUsuarioComponent },
   { path: 'usuarios/usuario/:id', component: UsuarioComponent, data: {empleado: 'empleado'} },
   // RUTAS PERFIL
-  { path: 'perfil', component: FormularioClienteComponent }, // CAMBIAR
-  { path: 'salir', component: FormularioClienteComponent }, // CAMBIAR
-  { path: '**', redirectTo: 'inicio', pathMatch: 'full'}, // Ruta general
+  { path: 'perfil', component: UsuarioComponent },
+  { path: 'salir', component: FormularioClienteComponent },
+  // RUTA GENERAL
+  { path: '**', redirectTo: 'inicio', pathMatch: 'full'},
 ];
 
 

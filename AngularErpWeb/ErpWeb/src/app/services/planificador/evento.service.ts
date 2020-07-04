@@ -15,17 +15,31 @@ export class EventoService {
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   private urlCrearEvento: string;
   private urlListadoEventos: string;
+  private urlGetEvento: string;
+  private urlEditarEvento: string;
+  private urlEliminarEvento: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearEvento = '/eventos/crearEvento';
     this.urlListadoEventos = '/eventos/listado.json';
+    this.urlGetEvento = '/eventos/evento/';
+    this.urlEditarEvento = '/eventos/editarEvento/';
+    this.urlEliminarEvento = '/eventos/eliminarEvento/';
   }
 
   // METODOS GENERALES
 
-  public getEvento(){
+  public getEvento(id: number): Observable<AccionRespuesta>{
     console.log('METODO obtener');
+    const urlGet = this.urlGeneral + this.urlGetEvento + id;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
+  }
+
+  public getEventoEditar(eventoId: number): Observable<AccionRespuesta>{
+    console.log('METODO actualizar');
+    const urlGet = this.urlGeneral + this.urlEditarEvento + eventoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public crearEvento(evento: Evento): Observable<AccionRespuesta>{
@@ -34,12 +48,16 @@ export class EventoService {
     return this.httpClient.post<AccionRespuesta>(urlPost, evento, {headers: this.httpHeaders});
   }
 
-  public actualizarEvento(){
+  public actualizarEvento(evento: Evento): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
+    const urlPost = this.urlGeneral + this.urlEditarEvento;
+    return this.httpClient.post<AccionRespuesta>(urlPost, evento, {headers: this.httpHeaders});
   }
 
-  public eliminarEvento(){
+  public eliminarEvento(eventoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
+    const urlGet = this.urlGeneral + this.urlEliminarEvento + eventoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet);
   }
 
   public getEventos(): Promise<Evento[]> {
