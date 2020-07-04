@@ -23,9 +23,15 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
     this.tituloListado = 'Listado de Contratos';
     this.jqGridId = 'contratos-grid';
     this.jqGridPagerId = 'contratos-pager';
-    this.jqGridColNames = ['', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
+    this.jqGridColNames = ['ID', 'Ver', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
     this.jqGridColModel = [
-      { name: 'id', index: '', width: '40', search: false, sortable: false },
+      { name: 'id', index: '', hidden: true},
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
+        () => {
+          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
+          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
+        }
+      },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'fechaInicio', index: '', width: '', search: true, sortable: true },
       { name: 'fechaFin', index: '', width: '', search: true, sortable: true },
@@ -66,7 +72,18 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: true
+      autowidth: false,
+      onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
+        // Si se pulsa sobre la columna 1, pulsan sobre el boton
+        console.log('Se ha pulsado sobre el boton ver para ir al contrato con id: ' + iCol);
+        if (iCol === 1 )
+        {
+          // Obtenemos el valor de la columna oculta
+          const idCelValue = jQuery( '#' + this.jqGridId ).jqGrid ('getCell', rowid, 'id');
+          console.log('Se ha pulsado sobre el boton ver para ir al contrato con id: ' + idCelValue);
+          this.router.navigate(['contratos', 'contrato', idCelValue]);
+        }
+      }
     });
 
     // Filtros
