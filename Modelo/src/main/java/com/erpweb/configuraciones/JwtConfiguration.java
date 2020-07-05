@@ -1,4 +1,5 @@
-/*package com.erpweb.configuraciones;
+package com.erpweb.configuraciones;
+
 
 public class JwtConfiguration {
 
@@ -40,5 +41,6 @@ public class JwtConfiguration {
 			+ "xqLt/IbVlHIOjS0aExYwRRxsFkHwn62pKYENHwWsJVgQ5ufLk/g4gk1MFZycdM8v\r\n"
 			+ "VIhnw98RaiLP4OJhLaynGyPdJqpg141BHbCkxvIdH1vdTAIzlF4TbsLvJmPh64ch\r\n" + "MwIDAQAB\r\n"
 			+ "-----END PUBLIC KEY-----";
+	
+	
 }
-*/

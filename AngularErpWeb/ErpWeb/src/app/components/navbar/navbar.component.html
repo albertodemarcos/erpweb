@@ -155,6 +155,7 @@
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Empresa</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" [routerLink]="['empresa', '1']">Información</a></li>
+                            <li><a class="dropdown-item" [routerLink]="['empresa','editar-empresa', '1']">Editar información</a></li>
                         </ul>
                     </li>
                     <!--RRHH-->
@@ -185,8 +186,11 @@
                 </ul>
             </li>
         </ul>
-        <!--CUENTA-->
-        <ul class="navbar-nav mt-rigth nav-flex-icons">
+        <!--LOGIN/CUENTA-->
+        <ul class="navbar-nav navbar-rigth">
+            <!-- LOGIN -->
+            <li class=""><a class="btn btn-outline-primary" [routerLink]="['login']">Sign in</a></li>
+            <!-- CUENTA-->
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/perfil.png" width="20" height="20" alt=""> Perfil

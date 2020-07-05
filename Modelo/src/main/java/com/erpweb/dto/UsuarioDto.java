@@ -10,8 +10,8 @@ public class UsuarioDto implements Serializable {
 	private Long id;
 	private String codigo;
 	private String nombreCompleto;
-	private String usuario;
-	private String pass;
+	private String username;
+	private String password;
 	private String role;
     
 	public Long getId() {
@@ -38,20 +38,20 @@ public class UsuarioDto implements Serializable {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getRole() {

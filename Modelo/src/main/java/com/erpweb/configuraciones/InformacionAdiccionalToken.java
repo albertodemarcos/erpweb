@@ -1,4 +1,5 @@
-/*package com.erpweb.configuraciones;
+package com.erpweb.configuraciones;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +14,13 @@ import org.springframework.stereotype.Component;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.usuarios.UsuarioService;
 
+@SuppressWarnings("deprecation")
 @Component
 public class InformacionAdiccionalToken implements TokenEnhancer {
 
 	@Autowired
 	private UsuarioService usuarioService; 
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 		
@@ -36,7 +37,4 @@ public class InformacionAdiccionalToken implements TokenEnhancer {
 	}
 
 	
-	
-	
-	
-}*/
+}

@@ -23,6 +23,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
+import { LoginComponent } from './components/login/login.component';
 
 /* ------------------------------------------------- VISUALIZACION ENTITYS --------------------------------------------- */
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
@@ -68,7 +69,7 @@ import { FormularioArticuloComponent } from './components/formularios/inventario
 import { FormularioVehiculoComponent } from './components/formularios/inventario/formulario-vehiculo/formulario-vehiculo.component';
 import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
 
-/* -------------------------------------------------- MODALES --------------------------------------------------------- */
+/* -------------------------------------------------- MODALES ----------------------------------------------------------------------- */
 import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
 import { ModalEmpleadoComponent } from './components/modales/empresa/modal-empleado/modal-empleado.component';
 import { ModalEmpresaComponent } from './components/modales/empresa/modal-empresa/modal-empresa.component';
@@ -81,17 +82,7 @@ import { ModalVehiculoComponent } from './components/modales/inventario/modal-ve
 import { ModalContratoComponent } from './components/modales/ventas/modal-contrato/modal-contrato.component';
 import { ModalVentaComponent } from './components/modales/ventas/modal-venta/modal-venta.component';
 import { ModalFacturaComponent } from './components/modales/ventas/modal-factura/modal-factura.component';
-import { ModalGastoComponent } from './components/modales/bi/modal-gasto/modal-gasto.component';
-import { ModalIngresoComponent } from './components/modales/bi/modal-ingreso/modal-ingreso.component';
-
-/* -------------------------------------------------- UTILES --------------------------------------------------------- */
-import { BotonVerComponent } from './components/utiles/boton-ver/boton-ver.component';
-import { BotonListadoClienteComponent } from './components/utiles/botonesListado/boton-listado-cliente/boton-listado-cliente.component';
-import { BotonListadoCompraComponent } from './components/utiles/botonesListado/boton-listado-compra/boton-listado-compra.component';
-import { BotonListadoPedidoComponent } from './components/utiles/botonesListado/boton-listado-pedido/boton-listado-pedido.component';
-import { BotonListadoProveedorComponent } from './components/utiles/botonesListado/boton-listado-proveedor/boton-listado-proveedor.component';
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
-
 
 /* --------------------------------------------------- SERVICIOS --------------------------------------------------------------------- */
 
@@ -108,6 +99,7 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
+
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -162,9 +154,6 @@ FullCalendarModule.registerPlugins([
     ModalContratoComponent,
     ModalVentaComponent,
     ModalFacturaComponent,
-    ModalGastoComponent,
-    ModalIngresoComponent,
-    BotonVerComponent,
     PlanificadorComponent,
     ClienteComponent,
     ContratoComponent,
@@ -178,20 +167,16 @@ FullCalendarModule.registerPlugins([
     VehiculoComponent,
     EmpleadoComponent,
     EmpresaComponent,
-    BotonListadoClienteComponent,
-    BotonListadoCompraComponent,
-    BotonListadoPedidoComponent,
-    BotonListadoProveedorComponent,
     ListadoUsuariosComponent,
     FormularioUsuarioComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    LoginComponent
   ], // Modulos
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AgGridModule.withComponents([BotonVerComponent]),
     FullCalendarModule
   ],
   providers: [ // Servicios

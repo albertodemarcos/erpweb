@@ -2,9 +2,8 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import {HomeComponent} from 'src/app/components/home/home.component';
-
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
-
+import { LoginComponent } from './components/login/login.component';
 
 // LISTADOS
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
@@ -33,6 +32,8 @@ import { FormularioVentaComponent } from './components/formularios/ventas/formul
 import { FormularioContratoComponent } from './components/formularios/ventas/formulario-contrato/formulario-contrato.component';
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
 import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
+import { FormularioEmpresaComponent } from './components/formularios/empresa/formulario-empresa/formulario-empresa.component';
+
 
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
 import { ContratoComponent } from './components/cards/ventas/contrato/contrato.component';
@@ -48,9 +49,12 @@ import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
 import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
 
+
+
 const routes: Routes = [
   // RUTA INICIO
   { path: 'inicio', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   // RUTAS CRM
   { path: 'clientes', component: ListadoClientesComponent },
   { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
@@ -99,6 +103,7 @@ const routes: Routes = [
   { path: 'vehiculos/vehiculo/:id', component: VehiculoComponent, data: {vehiculo: 'vehiculo'} },
   // RUTAS EMPRESA
   { path: 'empresa/:id', component: EmpresaComponent },
+  { path: 'empresa/editar-empresa/:id', component: FormularioEmpresaComponent },
   { path: 'rrhh', component: ListadoEmpleadosComponent },
   { path: 'rrhh/nuevo-empleado', component: FormularioEmpleadoComponent },
   { path: 'rrhh/editar-empleado/:id', component: FormularioEmpleadoComponent },

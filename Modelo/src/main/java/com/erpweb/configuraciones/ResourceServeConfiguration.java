@@ -1,4 +1,5 @@
-/*package com.erpweb.configuraciones;
+package com.erpweb.configuraciones;
+
 
 import java.util.Arrays;
 
@@ -24,9 +25,10 @@ public class ResourceServeConfiguration extends ResourceServerConfigurerAdapter 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		//Se necesita autentificacion para todas las rutas
-		http.authorizeRequests()//.antMatchers(HttpMethod.GET, "/usuarios").permitAll()
-		.anyRequest().authenticated()
-		.and().cors().configurationSource(corsConfigurationSource());
+		http.authorizeRequests()
+			.antMatchers().permitAll()
+			.anyRequest().authenticated()
+			.and().cors().configurationSource(corsConfigurationSource());
 	}
 
 	
@@ -50,6 +52,5 @@ public class ResourceServeConfiguration extends ResourceServerConfigurerAdapter 
 	public CorsFilter corsFilter() {
 	    return new CorsFilter(this.corsConfigurationSource());
 	}
-	
-	
-}*/
+		
+}

@@ -114,8 +114,8 @@ export class FormularioUsuarioComponent implements OnInit {
     {
       this.usuario.id = usuarioDto.id;
       this.usuario.codigo = usuarioDto.codigo;
-      this.usuario.name = usuarioDto.nombre;
-      this.usuario.password = usuarioDto.apellidoPrimero;
+      this.usuario.username = usuarioDto.username;
+      this.usuario.password = usuarioDto.password;
     }
   }
 

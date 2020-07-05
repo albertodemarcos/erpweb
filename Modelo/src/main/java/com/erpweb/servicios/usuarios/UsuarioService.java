@@ -15,7 +15,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.ClientRegistrationException;
+import org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +28,16 @@ import com.erpweb.repositorios.usuarios.UsuarioRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 
+@SuppressWarnings("deprecation")
 @Service
-public class UsuarioService implements UserDetailsService {
-
+public class UsuarioService implements UserDetailsService { 
+	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+		
 	
 	public AccionRespuesta crearUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
@@ -42,17 +47,12 @@ public class UsuarioService implements UserDetailsService {
 		
 		usuario.setCodigo(usuarioDto.getCodigo());
 		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());
-		usuario.setUsuario(usuarioDto.getUsuario());
-		usuario.setPass(usuarioDto.getPass());
+		usuario.setUsername(usuarioDto.getUsername());
+		usuario.setPassword(usuarioDto.getPassword());
 		usuario.setRole(usuarioDto.getRole());
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add(usuarioDto.getRole());
-		
-		//Spring
-		usuario.setName(usuarioDto.getUsuario());
-		usuario.setPassword(usuarioDto.getPass());
-		usuario.setRoles( roles );
 		
 		try {
 			//Guardamos el usuario en base de datos
@@ -79,17 +79,12 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setId(usuarioDto.getId());
 		usuario.setCodigo(usuarioDto.getCodigo());
 		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());
-		usuario.setUsuario(usuarioDto.getUsuario());
-		usuario.setPass(usuarioDto.getPass());
+		usuario.setUsername(usuarioDto.getUsername());
+		usuario.setPassword(usuarioDto.getPassword());
 		usuario.setRole(usuarioDto.getRole());
 		
 		List<String> roles = new ArrayList<String>();
 		roles.add(usuarioDto.getRole());
-		
-		//Spring
-		usuario.setName(usuarioDto.getUsuario());
-		usuario.setPassword(usuarioDto.getPass());
-		usuario.setRoles( roles );
 		
 		try {
 			//Guardamos el usuario en base de datos
@@ -181,8 +176,8 @@ public class UsuarioService implements UserDetailsService {
 			usuarioDto.setId(usuario.getId());
 			usuarioDto.setCodigo(usuario.getCodigo());
 			usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
-			usuarioDto.setUsuario(usuario.getUsuario());
-			usuarioDto.setPass(usuario.getPass());
+			usuarioDto.setUsername(usuario.getUsername());
+			usuarioDto.setPassword(usuario.getPassword());
 			usuarioDto.setRole(usuario.getRole());
 			
 		} catch(Exception e) {
@@ -217,7 +212,7 @@ public class UsuarioService implements UserDetailsService {
 	
 	public AccionRespuesta getUsuario(Long usuarioId, Usuario user) {
 		
-		logger.debug("Entramos en el metodo getUsuario()");
+		logger.debug("Entramos en el metodo getUsername()");
 		
 		if( usuarioId == null) {
 			
@@ -360,8 +355,8 @@ public class UsuarioService implements UserDetailsService {
 				usuarioDto.setId(usuario.getId());
 				usuarioDto.setCodigo(usuario.getCodigo());
 				usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
-				usuarioDto.setUsuario(usuario.getUsuario());
-				usuarioDto.setPass(usuario.getPass());
+				usuarioDto.setUsername(usuario.getUsername());
+				usuarioDto.setPassword(usuario.getPassword());
 				usuarioDto.setRole(usuario.getRole());
 				
 				usuariosDto.add(usuarioDto);			
@@ -377,7 +372,7 @@ public class UsuarioService implements UserDetailsService {
 		
 		logger.debug("Entramos en el metodo loadUserByUsername() para autenticar usuario"); 
 		
-		Usuario usuario = usuarioRepository.findByUsuario(username);
+		Usuario usuario = usuarioRepository.findByUsername(username);
 		
 		if( usuario == null) {
 			
@@ -392,13 +387,15 @@ public class UsuarioService implements UserDetailsService {
 		
 		authorities.add(simple);
 		
-		return new User(usuario.getUsuario(), usuario.getPass(), usuario.getActivo(), true, true, true, authorities);
+		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getActivo(), true, true, true, authorities);
 	}
 	
 	public Usuario devolverInformacionUsuario(String username) {
 		
-		return usuarioRepository.findByUsuario(username);
+		return usuarioRepository.findByUsername(username);
 	}
+
+	
 	
 
 }

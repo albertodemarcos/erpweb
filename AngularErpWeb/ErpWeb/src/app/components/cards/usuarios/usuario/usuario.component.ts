@@ -65,7 +65,7 @@ export class UsuarioComponent implements OnInit {
       {
         this.usuario.id = usuarioDto.id;
         this.usuario.codigo = usuarioDto.codigo;
-        this.usuario.name = usuarioDto.name;
+        this.usuario.username = usuarioDto.username;
         this.usuario.password = usuarioDto.password;
       }
   }

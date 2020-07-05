@@ -15,15 +15,15 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 @Entity
 @Table(name="usuario")
-public class Usuario extends User implements Serializable {
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -5624847003092101671L;
 	
 	private Long id;
 	private String codigo;
 	private String nombreCompleto;
-	private String usuario;
-	private String pass;	
+	private String username;
+	private String password;	
 	private Boolean activo;
 	private String role;
     
@@ -57,20 +57,20 @@ public class Usuario extends User implements Serializable {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Boolean getActivo() {
@@ -88,7 +88,6 @@ public class Usuario extends User implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-
-    
+	
+	
 }

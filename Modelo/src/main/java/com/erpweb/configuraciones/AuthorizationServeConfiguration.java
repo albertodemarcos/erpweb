@@ -1,4 +1,5 @@
-/*package com.erpweb.configuraciones;
+package com.erpweb.configuraciones;
+
 
 import java.util.Arrays;
 
@@ -17,6 +18,8 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import com.erpweb.servicios.usuarios.UsuarioService;
+
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableAuthorizationServer
@@ -27,6 +30,9 @@ public class AuthorizationServeConfiguration extends AuthorizationServerConfigur
 	
 	@Autowired
 	private InformacionAdiccionalToken informacionAdiccionalToken;
+	
+	@Autowired
+    private UsuarioService usuarioService;
 	
 	@Autowired
 	@Qualifier("authenticationManager")
@@ -57,7 +63,8 @@ public class AuthorizationServeConfiguration extends AuthorizationServerConfigur
 		endpoints.authenticationManager(authenticationManager)
 		.tokenStore(tokenStore())
 		.accessTokenConverter(accessTokenConverter())
-		.tokenEnhancer(tokenEnhancerChain);
+		.tokenEnhancer(tokenEnhancerChain)
+		.userDetailsService(usuarioService);
 	}
 
 	@Bean
@@ -75,4 +82,4 @@ public class AuthorizationServeConfiguration extends AuthorizationServerConfigur
 	
 	
 	
-}*/
+}
