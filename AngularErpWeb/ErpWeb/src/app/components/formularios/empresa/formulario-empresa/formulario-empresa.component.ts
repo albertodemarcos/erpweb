@@ -17,11 +17,13 @@ export class FormularioEmpresaComponent implements OnInit {
   public empresa: Empresa;
   private empresaId: number;
   private empresaDto: any;
+  public tiposSociedadesJuridicas: string[];
   private respuestaGetEmpresa: AccionRespuesta;
 
   constructor(private empresaService: EmpresaService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.empresa = new Empresa();
+    this.tiposSociedadesJuridicas = [ 'SL', 'SA', 'SLU' ];
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal

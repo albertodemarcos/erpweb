@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nuevo empleado</div>
 
@@ -8,48 +8,48 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-                <div class="col-sm-6">
+                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.nombre" name="nombre">
                 </div>
             </div>
 
             <!-- CODIGO empleado -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código empleado</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label col-sm-4">Código empleado</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.codigo" name="codigo">
                 </div>
             </div>
 
             <!-- PRIMER APELLIDO -->
             <div class="form-group row">
-                <label for="apellidoPrimero" class="col-form-label col-sm-2">Primer apellido</label>
-                <div class="col-sm-6">
+                <label for="apellidoPrimero" class="col-form-label col-sm-4">Primer apellido</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.apellidoPrimero" name="apellidoPrimero">
                 </div>
             </div>
 
             <!-- SEGUNDO APELLIDO -->
             <div class="form-group row">
-                <label for="apellidoSegundo" class="col-form-label col-sm-2">Segundo apellido</label>
-                <div class="col-sm-6">
+                <label for="apellidoSegundo" class="col-form-label col-sm-4">Segundo apellido</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.apellidoSegundo" name="apellidoSegundo">
                 </div>
             </div>
 
             <!-- NIF -->
             <div class="form-group row">
-                <label for="nif" class="col-form-label col-sm-2">NIF/DNI</label>
-                <div class="col-sm-6">
+                <label for="nif" class="col-form-label col-sm-4">NIF/DNI</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.nif" name="nif">
                 </div>
             </div>
 
             <!-- TIPO EMPLEADO -->
             <div class="form-group row">
-                <label for="tipoempleado" class="col-form-label col-sm-2">Tipo de empleado</label>
-                <div class="col-sm-6">
+                <label for="tipoempleado" class="col-form-label col-sm-4">Tipo de empleado</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="tipoEmpleado" title="" [(ngModel)]="empleado.tipoEmpleado">
                             <option disabled="true" selected >Selecciona el tipo de empleado</option> 
@@ -61,56 +61,56 @@
 
             <!-- CODIGO POSTAL -->
             <div class="form-group row">
-                <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
-                <div class="col-sm-6">
+                <label for="codigoPostal" class="col-form-label col-sm-4">Código postal</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.codigoPostal" name="codigoPostal">
                 </div>
             </div>
 
             <!-- DIRECCION -->
             <div class="form-group row">
-                <label for="direccion" class="col-form-label col-sm-2">Dirección</label>
-                <div class="col-sm-6">
+                <label for="direccion" class="col-form-label col-sm-4">Dirección</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.direccion" name="direccion">
                 </div>
             </div>
 
             <!-- EDIFICIO -->
             <div class="form-group row">
-                <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
-                <div class="col-sm-6">
+                <label for="edificio" class="col-form-label col-sm-4">Edificio</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.edificio" name="edificio">
                 </div>
             </div>
 
             <!-- OBSERVACIONES -->
             <div class="form-group row">
-                <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-                <div class="col-sm-6">
+                <label for="observaciones" class="col-form-label col-sm-4">Observaciones</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.observaciones" name="observaciones">
                 </div>
             </div>
 
             <!-- TELEFONO -->
             <div class="form-group row">
-                <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-                <div class="col-sm-6">
+                <label for="telefono" class="col-form-label col-sm-4">Teléfono</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.telefono" name="telefono">
                 </div>
             </div>
 
             <!-- PAIS -->
             <div class="form-group row">
-                <label for="pais" class="col-form-label col-sm-2">País</label>
-                <div class="col-sm-6">
+                <label for="pais" class="col-form-label col-sm-4">País</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.pais" name="pais">
                 </div>
             </div>
 
             <!-- REGION -->
             <div class="form-group row">
-                <label for="region" class="col-form-label col-sm-2">Región</label>
-                <div class="col-sm-6">
+                <label for="region" class="col-form-label col-sm-4">Región</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="region" title="" [(ngModel)]="empleado.region">
                             <option disabled="true" selected >Selecciona región</option> 
@@ -122,8 +122,8 @@
 
             <!-- PROVINCIA -->
             <div class="form-group row">
-                <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
-                <div class="col-sm-6">
+                <label for="provincia" class="col-form-label col-sm-4">Provincia</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="provincia" title="" [(ngModel)]="empleado.provincia">
                             <option disabled="true"  selected >Selecciona provincia</option> 
@@ -135,15 +135,16 @@
 
             <!-- POBLACION -->
             <div class="form-group row">
-                <label for="poblacion" class="col-form-label col-sm-2">Población</label>
-                <div class="col-sm-6">
+                <label for="poblacion" class="col-form-label col-sm-4">Población</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.poblacion" name="poblacion">
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
                     <button class="btn btn-primary" role="button">Crear empleado</button>
                 </div>
             </div>

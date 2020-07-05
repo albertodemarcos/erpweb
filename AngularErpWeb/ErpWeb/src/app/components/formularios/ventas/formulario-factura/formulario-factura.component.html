@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nueva factura</div>
 
@@ -9,56 +9,56 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código factura</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label col-sm-4">Código factura</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.codigo" name="codigo">
                 </div>
             </div>
 
             <!-- FECHA CREACION -->
             <div class="form-group row">
-                <label for="fechaCreacion" class="col-form-label col-sm-2">Fecha creación</label>
-                <div class="col-sm-6">
+                <label for="fechaCreacion" class="col-form-label col-sm-4">Fecha creación</label>
+                <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="factura.fechaCreacion | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaCreacion = $event" name="fechaCreacion">
                 </div>
             </div>
 
             <!-- FECHA INICIO -->
             <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-2">Fecha inicio</label>
-                <div class="col-sm-6">
+                <label for="fechaInicio" class="col-form-label col-sm-4">Fecha inicio</label>
+                <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="factura.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaInicio = $event" name="fechaInicio">
                 </div>
             </div>
 
             <!-- FECHA FIN -->
             <div class="form-group row">
-                <label for="fechaFin" class="col-form-label col-sm-2">Fecha fín</label>
-                <div class="col-sm-6">
+                <label for="fechaFin" class="col-form-label col-sm-4">Fecha fín</label>
+                <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="factura.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaFin = $event" name="fechaFin">
                 </div>
             </div>
 
             <!-- DESCRIPCION -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-                <div class="col-sm-6">
+                <label for="descripcion" class="col-form-label col-sm-4">Descripción</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.descripcion" name="descripcion">
                 </div>
             </div>
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-                <div class="col-sm-6">
+                <label for="baseImponible" class="col-form-label col-sm-4">Base imponible</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.baseImponible" name="baseImponible">
                 </div>
             </div>
 
             <!-- IMPUESTOS -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-2">Impuestos</label>
-                <div class="col-sm-6">
+                <label for="impuesto" class="col-form-label col-sm-4">Impuestos</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="factura.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
@@ -70,15 +70,16 @@
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-                <div class="col-sm-6">
+                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.importeTotal" name="importeTotal">
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
                     <button class="btn btn-primary" role="button">Crear factura</button>
                 </div>
             </div>

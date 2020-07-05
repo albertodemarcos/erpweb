@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nuevo pedido</div>
 
@@ -9,48 +9,48 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código pedido</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label col-sm-4">Código pedido</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="pedido.codigo" name="codigo">
                 </div>
             </div>
 
             <!-- FECHA pedido -->
             <div class="form-group row">
-                <label for="fechaPedido" class="col-form-label col-sm-2">Fecha pedido</label>
-                <div class="col-sm-6">
+                <label for="fechaPedido" class="col-form-label col-sm-4">Fecha pedido</label>
+                <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="pedido.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedido.fechaPedido = $event" name="fechaPedido">
                 </div>
             </div>
 
             <!-- ARTICULO -->
             <div class="form-group row">
-                <label for="articulo" class="col-form-label col-sm-2">Artículo</label>
-                <div class="col-sm-6">
+                <label for="articulo" class="col-form-label col-sm-4">Artículo</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="pedido.articulo" name="articulo">
                 </div>
             </div>
 
             <!-- CANTIDAD -->
             <div class="form-group row">
-                <label for="cantidad" class="col-form-label col-sm-2">Cantidad</label>
-                <div class="col-sm-6">
+                <label for="cantidad" class="col-form-label col-sm-4">Cantidad</label>
+                <div class="col-sm-7">
                     <input type="number" class="form-control" [(ngModel)]="pedido.cantidad" name="cantidad">
                 </div>
             </div>
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-                <div class="col-sm-6">
+                <label for="baseImponible" class="col-form-label col-sm-4">Base imponible</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="pedido.baseImponibleTotal" name="baseImponible">
                 </div>
             </div>
 
             <!-- IMPUESTO -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-                <div class="col-sm-6">
+                <label for="impuesto" class="col-form-label col-sm-4">Impuesto</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="pedido.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
@@ -62,15 +62,16 @@
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-                <div class="col-sm-6">
+                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="pedido.importeTotal" name="importeTotal">
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
                     <button class="btn btn-primary" role="button">Crear pedido</button>
                 </div>
             </div>

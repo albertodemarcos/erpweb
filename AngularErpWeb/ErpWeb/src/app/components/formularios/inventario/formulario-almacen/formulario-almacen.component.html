@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nuevo almacén</div>
 
@@ -9,72 +9,72 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-                <div class="col-sm-6">
+                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.nombre" name="nombre">
                 </div>
             </div>
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código almacén</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label col-sm-4">Código almacén</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.codigo" name="codigo">
                 </div>
             </div>
 
             <!-- CODIGO POSTAL -->
             <div class="form-group row">
-                <label for="codigoPostal" class="col-form-label col-sm-2">Código postal</label>
-                <div class="col-sm-6">
+                <label for="codigoPostal" class="col-form-label col-sm-4">Código postal</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.codigoPostal" name="codigoPostal">
                 </div>
             </div>
 
             <!-- DIRECCION -->
             <div class="form-group row">
-                <label for="direccion" class="col-form-label col-sm-2">Dirección</label>
-                <div class="col-sm-6">
+                <label for="direccion" class="col-form-label col-sm-4">Dirección</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.direccion" name="direccion">
                 </div>
             </div>
 
             <!-- EDIFICIO -->
             <div class="form-group row">
-                <label for="edificio" class="col-form-label col-sm-2">Edificio</label>
-                <div class="col-sm-6">
+                <label for="edificio" class="col-form-label col-sm-4">Edificio</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.edificio" name="edificio">
                 </div>
             </div>
 
             <!-- OBSERVACIONES -->
             <div class="form-group row">
-                <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-                <div class="col-sm-6">
+                <label for="observaciones" class="col-form-label col-sm-4">Observaciones</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.observaciones" name="observaciones">
                 </div>
             </div>
 
             <!-- TELEFONO -->
             <div class="form-group row">
-                <label for="telefono" class="col-form-label col-sm-2">Teléfono</label>
-                <div class="col-sm-6">
+                <label for="telefono" class="col-form-label col-sm-4">Teléfono</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.telefono" name="telefono">
                 </div>
             </div>
 
             <!-- PAIS -->
             <div class="form-group row">
-                <label for="pais" class="col-form-label col-sm-2">País</label>
-                <div class="col-sm-6">
+                <label for="pais" class="col-form-label col-sm-4">País</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.pais" name="pais">
                 </div>
             </div>
 
             <!-- REGION -->
             <div class="form-group row">
-                <label for="region" class="col-form-label col-sm-2">Región</label>
-                <div class="col-sm-6">
+                <label for="region" class="col-form-label col-sm-4">Región</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="region" title="" [(ngModel)]="almacen.region">
                             <option disabled="true" selected >Selecciona región</option> 
@@ -86,8 +86,8 @@
 
             <!-- PROVINCIA -->
             <div class="form-group row">
-                <label for="provincia" class="col-form-label col-sm-2">Provincia</label>
-                <div class="col-sm-6">
+                <label for="provincia" class="col-form-label col-sm-4">Provincia</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="provincia" title="" [(ngModel)]="almacen.provincia">
                             <option disabled="true"  selected >Selecciona provincia</option> 
@@ -99,15 +99,16 @@
 
             <!-- POBLACION -->
             <div class="form-group row">
-                <label for="poblacion" class="col-form-label col-sm-2">Población</label>
-                <div class="col-sm-6">
+                <label for="poblacion" class="col-form-label col-sm-4">Población</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.poblacion" name="poblacion">
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
                     <button class="btn btn-primary" role="button">Crear almacén</button>
                 </div>
             </div>

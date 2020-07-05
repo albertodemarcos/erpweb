@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nueva empresa</div>
 
@@ -8,48 +8,54 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-                <div class="col-sm-6">
+                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.nombre" name="nombre">
                 </div>
             </div>
 
             <!-- CODIGO EMPRESA -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código empresa</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label col-sm-4">Código empresa</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.codigo" name="codigo">
                 </div>
             </div>
 
             <!-- CIF -->
             <div class="form-group row">
-                <label for="apellidoPrimero" class="col-form-label col-sm-2">CIF</label>
-                <div class="col-sm-6">
+                <label for="apellidoPrimero" class="col-form-label col-sm-4">CIF</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.cif" name="apellidoPrimero">
                 </div>
             </div>
 
             <!-- IDIOMA -->
             <div class="form-group row">
-                <label for="idioma" class="col-form-label col-sm-2">Idioma</label>
-                <div class="col-sm-6">
+                <label for="idioma" class="col-form-label col-sm-4">Idioma</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.idioma" name="idioma">
                 </div>
             </div>
 
             <!-- TIPO SOCIEDAD JURIDICA -->
             <div class="form-group row">
-                <label for="tipoSociedadJuridica" class="col-form-label col-sm-2">Tipo de sociedad jurídica</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="empresa.tipoSociedadJuridica" name="tipoSociedadJuridica">
+                <label for="tipoSociedadJuridica" class="col-form-label col-sm-4">Tipo de sociedad jurídica</label>
+                <div class="col-sm-7">
+                    <p>
+                        <select name="tipoSociedadJuridica" title="" [(ngModel)]="empresa.tipoSociedadJuridica">
+                            <option disabled="true"  selected >Selecciona el tipo</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposSociedadesJuridicas">{{tipo}}</option> 
+                        </select>
+                    </p>
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <button class="btn btn-primary" role="button">Crear empresa</button>
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
+                    <button class="btn btn-primary" role="button">Editar empresa</button>
                 </div>
             </div>
 

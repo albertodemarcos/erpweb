@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nuevo artículo</div>
 
@@ -9,40 +9,40 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-                <div class="col-sm-6">
+                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.nombre" name="nombre">
                 </div>
             </div>
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código articulo</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label col-sm-4">Código articulo</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.codigo" name="codigo">
                 </div>
             </div>
 
             <!-- DESCRIPCION -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-                <div class="col-sm-6">
+                <label for="descripcion" class="col-form-label col-sm-4">Descripción</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">
                 </div>
             </div>
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-2">Base imponible</label>
-                <div class="col-sm-6">
+                <label for="baseImponible" class="col-form-label col-sm-4">Base imponible</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.baseImponible" name="baseImponible">
                 </div>
             </div>
 
             <!-- IMPUESTO -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-2">Impuesto</label>
-                <div class="col-sm-6">
+                <label for="impuesto" class="col-form-label col-sm-4">Impuesto</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="articulo.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
@@ -54,16 +54,17 @@
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-2">Importe total</label>
-                <div class="col-sm-6">
+                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.importeTotal" name="importeTotal">
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <button class="btn btn-primary" role="button">Crear articulo</button>
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
+                    <button class="btn btn-primary" role="button">Crear artículo</button>
                 </div>
             </div>
 
