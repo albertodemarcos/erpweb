@@ -17,11 +17,12 @@ export class FormularioUsuarioComponent implements OnInit {
   private usuarioId: number;
   private usuarioDto: any;
   private respuestaGetUsuario: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
 
   constructor(private usuarioService: UsuarioService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.usuario = new Usuario();
-
+    this.erroresFormulario = new Map<string, object>();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -34,17 +35,6 @@ export class FormularioUsuarioComponent implements OnInit {
 
   // Metodos del formulario
   public crearUsuarioFormulario(): void {
-
-    console.log('Estamos dentro del metodo crear formulario');
-
-    this.usuarioService.crearUsuario(this.usuario).subscribe( accionRespuesta => {
-      console.log('Esta registrado' + accionRespuesta.resultado);
-      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
-      // Si el resultado es true, navegamos hasta la vista
-      if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
-        this.router.navigate(['usuarios', 'usuario', accionRespuesta.id]);
-      }
-    });
 
     console.log('Estamos dentro del metodo crearUsuarioFormulario()');
 
@@ -116,6 +106,8 @@ export class FormularioUsuarioComponent implements OnInit {
       this.usuario.codigo = usuarioDto.codigo;
       this.usuario.username = usuarioDto.username;
       this.usuario.password = usuarioDto.password;
+      this.usuario.nombreCompleto = usuarioDto.nombreCompleto;
+      this.usuario.email = usuarioDto.email;
     }
   }
 
@@ -140,14 +132,12 @@ export class FormularioUsuarioComponent implements OnInit {
 
     }else{
 
-      if (esEditarUsuario != null && esEditarUsuario ){
-
-        swal('Usuario editado', 'Se ha editado el usuario correctamente', 'success');
-
-       }else{
-
-        swal('Nuevo usuario', 'Se ha creado el usuario correctamente', 'success');
-
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del usuario', 'error');
       }
     }
 

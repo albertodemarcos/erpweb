@@ -29,7 +29,7 @@ public class EmpresaValidator implements Validator {
 
 		if (empresaDto.getId() == null || empresaDto.getId().intValue() < 1) {
 
-			errors.reject("ERROR_EMPRESA", "La empresa no esta asociado a una empresa");
+			errors.reject("ERROR_EMPRESA", "La empresa no no existe");
 		}
 
 		if (StringUtils.isBlank(empresaDto.getCodigo())) {

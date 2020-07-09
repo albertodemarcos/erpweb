@@ -57,9 +57,9 @@ public class FacturaValidator implements Validator {
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}
 		
-		if( StringUtils.isBlank( facturaDto.getDescripcion() )  ) {
+		if( facturaDto.getImpuesto() == null  ) {
 			
-			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
+			errors.rejectValue("impuesto", "", "El selector de impuestos no puede estar vacío");
 		}
 		
 		if( facturaDto.getBaseImponible() == null  ) {

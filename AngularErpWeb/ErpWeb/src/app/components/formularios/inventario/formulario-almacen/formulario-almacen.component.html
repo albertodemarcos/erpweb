@@ -9,33 +9,45 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <label for="nombre" class="col-form-label col-sm-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.nombre" name="nombre">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
+                        <span class="error text-danger">{{erroresFormulario['nombre']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4">Código almacén</label>
+                <label for="codigo" class="col-form-label col-sm-4 required">Código almacén</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- CODIGO POSTAL -->
             <div class="form-group row">
-                <label for="codigoPostal" class="col-form-label col-sm-4">Código postal</label>
+                <label for="codigoPostal" class="col-form-label col-sm-4 required">Código postal</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.codigoPostal" name="codigoPostal">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigoPostal']">
+                        <span class="error text-danger">{{erroresFormulario['codigoPostal']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- DIRECCION -->
             <div class="form-group row">
-                <label for="direccion" class="col-form-label col-sm-4">Dirección</label>
+                <label for="direccion" class="col-form-label col-sm-4 required">Dirección</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.direccion" name="direccion">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['direccion']">
+                        <span class="error text-danger">{{erroresFormulario['direccion']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -57,23 +69,29 @@
 
             <!-- TELEFONO -->
             <div class="form-group row">
-                <label for="telefono" class="col-form-label col-sm-4">Teléfono</label>
+                <label for="telefono" class="col-form-label col-sm-4 required">Teléfono</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.telefono" name="telefono">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['telefono']">
+                        <span class="error text-danger">{{erroresFormulario['telefono']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- PAIS -->
             <div class="form-group row">
-                <label for="pais" class="col-form-label col-sm-4">País</label>
+                <label for="pais" class="col-form-label col-sm-4 required">País</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.pais" name="pais">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['pais']">
+                        <span class="error text-danger">{{erroresFormulario['pais']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- REGION -->
             <div class="form-group row">
-                <label for="region" class="col-form-label col-sm-4">Región</label>
+                <label for="region" class="col-form-label col-sm-4 required">Región</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="region" title="" [(ngModel)]="almacen.region">
@@ -81,12 +99,15 @@
                             <option [value]="region" *ngFor="let region of regiones">{{region}}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['region']">
+                        <span class="error text-danger">{{erroresFormulario['region']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- PROVINCIA -->
             <div class="form-group row">
-                <label for="provincia" class="col-form-label col-sm-4">Provincia</label>
+                <label for="provincia" class="col-form-label col-sm-4 required">Provincia</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="provincia" title="" [(ngModel)]="almacen.provincia">
@@ -94,14 +115,20 @@
                             <option [value]="provincia" *ngFor="let provincia of provincias">{{provincia}}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['provincia']">
+                        <span class="error text-danger">{{erroresFormulario['provincia']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- POBLACION -->
             <div class="form-group row">
-                <label for="poblacion" class="col-form-label col-sm-4">Población</label>
+                <label for="poblacion" class="col-form-label col-sm-4 required">Población</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="almacen.poblacion" name="poblacion">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['poblacion']">
+                        <span class="error text-danger">{{erroresFormulario['poblacion']}}</span>
+                    </div>
                 </div>
             </div>
 

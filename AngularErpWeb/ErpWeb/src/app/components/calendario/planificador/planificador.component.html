@@ -1,17 +1,3 @@
-<!-- dayGridMonth-->
-
-<!--<full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="customButtons" [header]="headerCalendario" [plugins]="calendarPlugins" [weekends]="true" [locales]="locales" [locale]="locale" (eventClick)="crearEventoPlanificador()"
-    [events]="eventosCalendario">
-</full-calendar>-->
-
-<!-- Para editar eventos (eventClick)="crearEventoPlanificador()" -->
-
-<!--<div *ngIf="configuracionCalendario">
-    <full-calendar #planificador defaultView="timeGridWeek" [editable]="true" [customButtons]="configuracionCalendario.customButtons" [header]="configuracionCalendario.headerCalendario" [plugins]="configuracionCalendario.calendarPlugins" [weekends]="true"
-        [locales]="configuracionCalendario.locales" [locale]="configuracionCalendario.locale" [events]="configuracionCalendario.eventosCalendario">
-    </full-calendar>
-</div>-->
-
 <div *ngIf="configuracionCalendario">
 
     <full-calendar *ngIf="calendarioVisible" [options]='configuracionCalendario'>
@@ -25,7 +11,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Crear Evento</h5>
+                <h5 class="modal-title">{{tituloCrearEditar}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -78,7 +64,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <button class="btn btn-primary" role="button">Crear evento</button>
+                                <button class="btn btn-primary" role="button">{{botonCrearEditar}}</button>
                             </div>
                         </div>
                     </form>

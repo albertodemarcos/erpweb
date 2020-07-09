@@ -6,19 +6,12 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 /*exclude = SecurityAutoConfiguration.class*/
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-public class ServiciosErpApplication /*implements CommandLineRunner*/ {
+public class ServiciosErpApplication {
 
-	/*@Autowired
-	private BCryptPasswordEncoder passwordEncoder;*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ServiciosErpApplication.class, args);
 	}
 
-	/*@Override
-	public void run(String... args) throws Exception {
-		String password = "12345";
-		
-	}*/
 
 }

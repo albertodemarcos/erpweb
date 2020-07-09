@@ -17,10 +17,29 @@
                 <dt>Usuario</dt>
                 <dd>{{usuario.username}}</dd>
             </dl>
-            <!-- PASSWORD USER -->
-            <dl class="col" *ngIf="usuario.password">
+            <!-- EMAIL -->
+            <dl class="col">
                 <dt>Contraseña</dt>
                 <dd>*****</dd>
+            </dl>
+        </div>
+        <!-- Fila 2-->
+        <div class="form-group row text-left">
+            <!-- NOMBRE REAL -->
+            <dl class="col" *ngIf="usuario.nombreCompleto">
+                <dt>Código usuario</dt>
+                <dd>{{usuario.codigo}}</dd>
+            </dl>
+            <!-- ROLE -->
+            <dl class="col" *ngIf="usuario.role">
+                <dt>Tipo</dt>
+                <dd>{{usuario.username}}</dd>
+            </dl>
+            <!-- EMAIL -->
+            <dl class="col">
+                <dt>Activo</dt>
+                <dd *ngIf="usuario.activo">Sí</dd>
+                <dd *ngIf="!usuario.activo">No</dd>
             </dl>
         </div>
 

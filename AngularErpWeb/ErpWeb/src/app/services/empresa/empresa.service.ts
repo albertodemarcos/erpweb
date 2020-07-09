@@ -41,7 +41,7 @@ export class EmpresaService {
 
   public crearEmpresa(empresa: Empresa): Observable<AccionRespuesta> {
     console.log('METODO crear');
-    const urlPost = this.urlGeneral + this.urlCrearEmpresa;
+    const urlPost = this.urlGeneral + this.urlEditarEmpresa;
     return this.httpClient.post<AccionRespuesta>(urlPost, empresa, {headers: this.httpHeaders});
   }
 

@@ -19,10 +19,12 @@ export class FormularioAlmacenComponent implements OnInit {
   public provincias: string[];
   public regiones: string[];
   private respuestaGetAlmacen: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
 
   constructor(private almacenService: AlmacenService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.almacen = new Almacen();
+    this.erroresFormulario = new Map<string, object>();
 
     this.provincias = ['Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila', 'Badajoz', 'Barcelona', 'Burgos',
       'Cáceres', 'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'La Coruña', 'Cuenca', 'Gerona', 'Granada',
@@ -150,7 +152,13 @@ export class FormularioAlmacenComponent implements OnInit {
 
     }else{
       // Error
-      swal('Nuevo almacen', 'Se ha producido un error al crear el almacén', 'success');
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del almacén', 'error');
+      }
     }
 
   }

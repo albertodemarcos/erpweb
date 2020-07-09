@@ -19,11 +19,13 @@ export class FormularioEmpresaComponent implements OnInit {
   private empresaDto: any;
   public tiposSociedadesJuridicas: string[];
   private respuestaGetEmpresa: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
 
   constructor(private empresaService: EmpresaService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.empresa = new Empresa();
     this.tiposSociedadesJuridicas = [ 'SL', 'SA', 'SLU' ];
+    this.erroresFormulario = new Map<string, object>();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -135,15 +137,13 @@ respuestaCrearEditarEmpresa(accionRespuesta: AccionRespuesta, esEditarEmpresa: b
      }
 
   }else{
-
-    if (esEditarEmpresa != null && esEditarEmpresa ){
-
-      swal('Empresa editado', 'Se ha editado el empresa correctamente', 'success');
-
-     }else{
-
-      swal('Nuevo empresa', 'Se ha creado el empresa correctamente', 'success');
-
+    // Error
+    if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+    {
+      this.erroresFormulario = accionRespuesta.data;
+    }else
+    {
+      swal('Error', 'Se ha producido un error al guardar los datos de la empresa', 'error');
     }
   }
 

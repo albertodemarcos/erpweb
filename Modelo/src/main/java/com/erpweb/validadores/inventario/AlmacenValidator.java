@@ -48,10 +48,10 @@ public class AlmacenValidator implements Validator {
 			errors.rejectValue("direccion", "", "La campo direccion no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( empleadoDto.getEdificio() )  ) {
+		/*if( StringUtils.isBlank( empleadoDto.getEdificio() )  ) {
 			
 			errors.rejectValue("edificio", "", "El campo edificio no puede estar vacío");
-		}
+		}*/
 		
 		/*if( StringUtils.isBlank( empleadoDto.getObservaciones() )  ) {
 			

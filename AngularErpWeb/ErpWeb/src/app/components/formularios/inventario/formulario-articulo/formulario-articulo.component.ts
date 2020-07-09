@@ -18,11 +18,16 @@ export class FormularioArticuloComponent implements OnInit {
   private articuloDto: any;
   public tiposImpuestos: string[];
   private respuestaGetArticulo: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
+  public mapaIva: Map<string, string>;
 
   constructor(private articuloService: ArticuloService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.articulo = new Articulo();
+    this.erroresFormulario = new Map<string, object>();
     this.tiposImpuestos = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -136,17 +141,21 @@ export class FormularioArticuloComponent implements OnInit {
 
     }else{
 
-      if (esEditarArticulo != null && esEditarArticulo ){
-
-        swal('articulo editado', 'Se ha editado el articulo correctamente', 'success');
-
-       }else{
-
-        swal('Nuevo articulo', 'Se ha creado el articulo correctamente', 'success');
-
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del artículo', 'error');
       }
     }
 
+  }
+
+  rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
 
 }

@@ -71,3 +71,14 @@ footer {
 .fc-list-day-cushion {
     background-color: #ffcc80 !important;
 }
+
+
+/* COLOR ESTRELLA FORMULARIO*/
+
+.required:after {
+    color: #e04141;
+    content: "*";
+    font-size: 12px;
+    margin-left: 4px;
+    font-weight: bolder;
+}

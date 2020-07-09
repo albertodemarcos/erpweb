@@ -9,62 +9,83 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4">Código compra</label>
+                <label for="codigo" class="col-form-label col-sm-4 required">Código compra</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="compra.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- FECHA COMPRA -->
             <div class="form-group row">
-                <label for="fechaCompra" class="col-form-label col-sm-4">Fecha compra</label>
+                <label for="fechaCompra" class="col-form-label col-sm-4 required">Fecha compra</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="compra.fechaCompra | date:'yyyy-MM-dd'" (ngModelChange)="compra.fechaCompra = $event" name="fechaCompra">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaCompra']">
+                        <span class="error text-danger">{{erroresFormulario['fechaCompra']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- ARTICULO -->
             <div class="form-group row">
-                <label for="articulo" class="col-form-label col-sm-4">Artículo</label>
+                <label for="articulo" class="col-form-label col-sm-4 required">Artículo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="compra.articulo" name="articulo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['articulo']">
+                        <span class="error text-danger">{{erroresFormulario['articulo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- CANTIDAD -->
             <div class="form-group row">
-                <label for="cantidad" class="col-form-label col-sm-4">Cantidad</label>
+                <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
                 <div class="col-sm-7">
                     <input type="number" class="form-control" [(ngModel)]="compra.cantidad" name="cantidad">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
+                        <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-4">Base imponible</label>
+                <label for="baseImponibleTotal" class="col-form-label col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="compra.baseImponibleTotal" name="baseImponible">
+                    <input type="text" class="form-control" [(ngModel)]="compra.baseImponibleTotal" name="baseImponibleTotal">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponibleTotal']">
+                        <span class="error text-danger">{{erroresFormulario['baseImponibleTotal']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- IMPUESTO -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4">Impuesto</label>
+                <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="compra.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{tipo}}</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{ mapaIva.get(tipo) | capitalizar }}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['impuesto']">
+                        <span class="error text-danger">{{erroresFormulario['impuesto']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="compra.importeTotal" name="importeTotal">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
+                        <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
+                    </div>
                 </div>
             </div>
 

@@ -78,18 +78,18 @@ public class ClienteValidator implements Validator {
 		
 		if( StringUtils.isBlank( clienteDto.getPais()) ) {
 			
-			errors.rejectValue("pais", "", "Debe elegir la provincia");
+			errors.rejectValue("pais", "", "Debe elegir el país");
 		}
 		
-		if( StringUtils.isBlank( clienteDto.getProvincia() ) ) {
+		/*if( StringUtils.isBlank( clienteDto.getRegion() ) ) {
 			
-			errors.rejectValue("provincia", "", "Debe elegir la provincia");
-		}
+			errors.rejectValue("provincia", "", "Debe elegir la región");
+		}*/
 		
-		if( StringUtils.isBlank( clienteDto.getPoblacion() ) ) {
+		/*if( StringUtils.isBlank( clienteDto.getPoblacion() ) ) {
 			
 			errors.rejectValue("poblacion", "", "Debe elegir la poblacion");
-		}
+		}*/
 		
 		if( clienteDto.getTipoCliente() == null ) {
 			

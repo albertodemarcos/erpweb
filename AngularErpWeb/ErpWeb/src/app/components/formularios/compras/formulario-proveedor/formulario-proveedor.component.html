@@ -12,6 +12,9 @@
                 <label for="nombre" class="col-form-label col-sm-4">Nombre proveedor</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.nombre" name="nombre">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
+                        <span class="error text-danger">{{erroresFormulario['nombre']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -20,6 +23,9 @@
                 <label for="codigo" class="col-form-label col-sm-4">Código proveedor</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -28,6 +34,9 @@
                 <label for="nombreEmpresa" class="col-form-label col-sm-4">Nombre empresa</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.nombreEmpresa" name="nombreEmpresa">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['nombreEmpresa']">
+                        <span class="error text-danger">{{erroresFormulario['nombreEmpresa']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -36,6 +45,9 @@
                 <label for="telefono" class="col-form-label col-sm-4">Teléfono</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.telefono" name="telefono">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['telefono']">
+                        <span class="error text-danger">{{erroresFormulario['telefono']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -46,9 +58,12 @@
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="proveedor.tipoProveedor">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposProveedores">{{tipo}}</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposProveedores">{{ tipo | capitalizar }}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['tipoProveedor']">
+                        <span class="error text-danger">{{erroresFormulario['tipoProveedor']}}</span>
+                    </div>
                 </div>
             </div>
 

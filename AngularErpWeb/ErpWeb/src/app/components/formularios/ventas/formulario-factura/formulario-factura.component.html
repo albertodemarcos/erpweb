@@ -9,9 +9,12 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4">Código factura</label>
+                <label for="codigo" class="col-form-label col-sm-4 required">Código factura</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -25,17 +28,23 @@
 
             <!-- FECHA INICIO -->
             <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-4">Fecha inicio</label>
+                <label for="fechaInicio" class="col-form-label col-sm-4 required">Fecha inicio</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="factura.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaInicio = $event" name="fechaInicio">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
+                        <span class="error text-danger">{{erroresFormulario['fechaInicio']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- FECHA FIN -->
             <div class="form-group row">
-                <label for="fechaFin" class="col-form-label col-sm-4">Fecha fín</label>
+                <label for="fechaFin" class="col-form-label col-sm-4 required">Fecha fín</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="factura.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaFin = $event" name="fechaFin">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaFin']">
+                        <span class="error text-danger">{{erroresFormulario['fechaFin']}}</span>
+                    </div>
                 </div>
             </div>
 
@@ -49,30 +58,39 @@
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-4">Base imponible</label>
+                <label for="baseImponible" class="col-form-label col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.baseImponible" name="baseImponible">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponible']">
+                        <span class="error text-danger">{{erroresFormulario['baseImponible']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- IMPUESTOS -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4">Impuestos</label>
+                <label for="impuesto" class="col-form-label col-sm-4 required">Impuestos</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="factura.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{tipo}}</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{mapaIva.get(tipo) | capitalizar}}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['impuesto']">
+                        <span class="error text-danger">{{erroresFormulario['impuesto']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.importeTotal" name="importeTotal">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
+                        <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
+                    </div>
                 </div>
             </div>
 

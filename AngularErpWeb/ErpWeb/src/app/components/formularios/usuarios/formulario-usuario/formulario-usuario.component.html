@@ -9,25 +9,56 @@
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2">Código usuario</label>
+                <label for="codigo" class="col-form-label col-sm-2 required">Código usuario</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="username" class="col-form-label col-sm-2">Usuario</label>
+                <label for="nombreCompleto" class="col-form-label col-sm-2 required">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['nombreCompleto']">
+                        <span class="error text-danger">{{erroresFormulario['nombreCompleto']}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group row">
+                <label for="email" class="col-form-label col-sm-2 required">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['email']">
+                        <span class="error text-danger">{{erroresFormulario['email']}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USERNAME -->
+            <div class="form-group row">
+                <label for="username" class="col-form-label col-sm-2 required">Usuario</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['username']">
+                        <span class="error text-danger">{{erroresFormulario['username']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- PASSWORD -->
             <div class="form-group row">
-                <label for="password" class="col-form-label col-sm-2">Contraseña</label>
+                <label for="password" class="col-form-label col-sm-2 required">Contraseña</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="usuario.password" name="password">
+                    <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['password']">
+                        <span class="error text-danger">{{erroresFormulario['password']}}</span>
+                    </div>
                 </div>
             </div>
 

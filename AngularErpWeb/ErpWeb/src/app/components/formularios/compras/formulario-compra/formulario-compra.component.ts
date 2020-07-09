@@ -18,15 +18,18 @@ export class FormularioCompraComponent implements OnInit {
 
   public compra: Compra;
   private compraId: number;
-  private idDatePicker: string;
   private compraDto: any;
   public tiposImpuesto: string[];
   private respuestaGetCompra: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
+  public mapaIva: Map<string, string>;
 
   constructor(private compraService: CompraService, private router: Router, private activateRouter: ActivatedRoute) {
     this.compra = new Compra();
-    this.idDatePicker = 'fechaCompraDatePicker';
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
+    this.erroresFormulario = new Map<string, object>();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -162,7 +165,13 @@ export class FormularioCompraComponent implements OnInit {
 
     }else{
       // Error
-      swal('Nueva compra', 'Se ha producido un error al crear la compra', 'error');
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos de la compra', 'error');
+      }
     }
 
   }
@@ -179,5 +188,12 @@ export class FormularioCompraComponent implements OnInit {
     }
     return new Date();
   }
+
+  rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+  }
+
 
 } // compra.fechaCompra = $event

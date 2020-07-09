@@ -1,9 +1,18 @@
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+
+/*** SERVICIOS */
+
+import { AutenticacionService } from './services/autenticacion/autenticacion.service';
+
+/** COMPONENTES */
+
+// IMPORTANTES
 import {HomeComponent} from 'src/app/components/home/home.component';
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 // LISTADOS
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
@@ -34,7 +43,7 @@ import { FormularioFacturaComponent } from './components/formularios/ventas/form
 import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
 import { FormularioEmpresaComponent } from './components/formularios/empresa/formulario-empresa/formulario-empresa.component';
 
-
+// CARDS
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
 import { ContratoComponent } from './components/cards/ventas/contrato/contrato.component';
 import { VentaComponent } from './components/cards/ventas/venta/venta.component';
@@ -49,73 +58,74 @@ import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
 import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
 
-
+// canActiva -> meter en los sitios que se hacen peticiones
 
 const routes: Routes = [
   // RUTA INICIO
-  { path: 'inicio', component: HomeComponent },
+  { path: 'inicio', component: HomeComponent, canActivate: [AutenticacionService] },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AutenticacionService] },
   // RUTAS CRM
-  { path: 'clientes', component: ListadoClientesComponent },
-  { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent },
-  { path: 'clientes/editar-cliente/:id', component: FormularioClienteComponent },
-  { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'} },
+  { path: 'clientes', component: ListadoClientesComponent, canActivate: [AutenticacionService] },
+  { path: 'clientes/nuevo-cliente', component: FormularioClienteComponent, canActivate: [AutenticacionService] },
+  { path: 'clientes/editar-cliente/:id', component: FormularioClienteComponent, canActivate: [AutenticacionService] },
+  { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'}, canActivate: [AutenticacionService] },
   // RUTAS PLANIFICADOR
-  { path: 'planificador/calendario', component: PlanificadorComponent },
+  { path: 'planificador/calendario', component: PlanificadorComponent, canActivate: [AutenticacionService] },
   // RUTAS VENTAS
-  { path: 'contratos', component: ListadoContratosComponent },
-  { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent },
-  { path: 'contratos/editar-contrato/:id', component: FormularioContratoComponent },
-  { path: 'contratos/contrato/:id', component: ContratoComponent, data: {contrato: 'contrato'} },
-  { path: 'ventas', component: ListadoVentasComponent },
-  { path: 'ventas/nueva-venta', component: FormularioVentaComponent },
-  { path: 'ventas/editar-venta/:id', component: FormularioVentaComponent },
-  { path: 'ventas/venta/:id', component: VentaComponent, data: {venta: 'venta'} },
-  { path: 'facturas', component: ListadoFacturasComponent },
-  { path: 'facturas/nuevo-factura', component: FormularioFacturaComponent },
-  { path: 'facturas/editar-factura/:id', component: FormularioFacturaComponent },
-  { path: 'facturas/factura/:id', component: FacturaComponent, data: {factura: 'factura'} },
+  { path: 'contratos', component: ListadoContratosComponent, canActivate: [AutenticacionService] },
+  { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent, canActivate: [AutenticacionService] },
+  { path: 'contratos/editar-contrato/:id', component: FormularioContratoComponent, canActivate: [AutenticacionService] },
+  { path: 'contratos/contrato/:id', component: ContratoComponent, data: {contrato: 'contrato'}, canActivate: [AutenticacionService] },
+  { path: 'ventas', component: ListadoVentasComponent, canActivate: [AutenticacionService] },
+  { path: 'ventas/nueva-venta', component: FormularioVentaComponent, canActivate: [AutenticacionService] },
+  { path: 'ventas/editar-venta/:id', component: FormularioVentaComponent, canActivate: [AutenticacionService] },
+  { path: 'ventas/venta/:id', component: VentaComponent, data: {venta: 'venta'}, canActivate: [AutenticacionService] },
+  { path: 'facturas', component: ListadoFacturasComponent, canActivate: [AutenticacionService] },
+  { path: 'facturas/nuevo-factura', component: FormularioFacturaComponent, canActivate: [AutenticacionService] },
+  { path: 'facturas/editar-factura/:id', component: FormularioFacturaComponent, canActivate: [AutenticacionService] },
+  { path: 'facturas/factura/:id', component: FacturaComponent, data: {factura: 'factura'}, canActivate: [AutenticacionService] },
   // RUTAS COMPRAS
-  { path: 'compras', component: ListadoComprasComponent },
-  { path: 'compras/nueva-compra', component: FormularioCompraComponent },
-  { path: 'compras/editar-compra/:id', component: FormularioCompraComponent },
-  { path: 'compras/compra/:id', component: CompraComponent, data: {compra: 'compra'} },
-  { path: 'pedidos', component: ListadoPedidosComponent },
-  { path: 'pedidos/nuevo-pedido', component: FormularioPedidoComponent },
-  { path: 'pedidos/editar-pedido/:id', component: FormularioPedidoComponent },
-  { path: 'pedidos/pedido/:id', component: PedidoComponent, data: {pedido: 'pedido'} },
-  { path: 'proveedores', component: ListadoProveedoresComponent },
-  { path: 'proveedores/nuevo-proveedor', component: FormularioProveedorComponent },
-  { path: 'proveedores/editar-proveedor/:id', component: FormularioProveedorComponent },
-  { path: 'proveedores/proveedor/:id', component: ProveedorComponent, data: {proveedor: 'proveedor'} },
+  { path: 'compras', component: ListadoComprasComponent, canActivate: [AutenticacionService] },
+  { path: 'compras/nueva-compra', component: FormularioCompraComponent, canActivate: [AutenticacionService] },
+  { path: 'compras/editar-compra/:id', component: FormularioCompraComponent, canActivate: [AutenticacionService] },
+  { path: 'compras/compra/:id', component: CompraComponent, data: {compra: 'compra'}, canActivate: [AutenticacionService] },
+  { path: 'pedidos', component: ListadoPedidosComponent, canActivate: [AutenticacionService] },
+  { path: 'pedidos/nuevo-pedido', component: FormularioPedidoComponent, canActivate: [AutenticacionService] },
+  { path: 'pedidos/editar-pedido/:id', component: FormularioPedidoComponent, canActivate: [AutenticacionService] },
+  { path: 'pedidos/pedido/:id', component: PedidoComponent, data: {pedido: 'pedido'}, canActivate: [AutenticacionService] },
+  { path: 'proveedores', component: ListadoProveedoresComponent, canActivate: [AutenticacionService] },
+  { path: 'proveedores/nuevo-proveedor', component: FormularioProveedorComponent, canActivate: [AutenticacionService] },
+  { path: 'proveedores/editar-proveedor/:id', component: FormularioProveedorComponent, canActivate: [AutenticacionService] },
+  { path: 'proveedores/proveedor/:id', component: ProveedorComponent, data: {proveedor: 'proveedor'}, canActivate: [AutenticacionService] },
   // RUTAS INVENTARIO
-  { path: 'catalago/articulos', component: ListadoArticulosComponent },
-  { path: 'catalago/articulos/nuevo-articulo', component: FormularioArticuloComponent },
-  { path: 'catalago/editar-articulo/:id', component: FormularioArticuloComponent },
-  { path: 'catalago/articulo/:id', component: ArticuloComponent, data: {articulo: 'articulo'} },
-  { path: 'almacenes', component: ListadoAlmacenComponent },
-  { path: 'almacenes/nuevo-almacen', component: FormularioAlmacenComponent },
-  { path: 'almacenes/editar-almacen/:id', component: FormularioAlmacenComponent },
-  { path: 'almacenes/almacen/:id', component: AlmacenComponent, data: {almacen: 'almacen'} },
-  { path: 'vehiculos', component: ListadoVehiculosComponent },
-  { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent },
-  { path: 'vehiculos/editar-vehiculo/:id', component: FormularioVehiculoComponent },
-  { path: 'vehiculos/vehiculo/:id', component: VehiculoComponent, data: {vehiculo: 'vehiculo'} },
+  { path: 'catalago/articulos', component: ListadoArticulosComponent, canActivate: [AutenticacionService] },
+  { path: 'catalago/articulos/nuevo-articulo', component: FormularioArticuloComponent, canActivate: [AutenticacionService] },
+  { path: 'catalago/editar-articulo/:id', component: FormularioArticuloComponent, canActivate: [AutenticacionService] },
+  { path: 'catalago/articulo/:id', component: ArticuloComponent, data: {articulo: 'articulo'}, canActivate: [AutenticacionService] },
+  { path: 'almacenes', component: ListadoAlmacenComponent, canActivate: [AutenticacionService] },
+  { path: 'almacenes/nuevo-almacen', component: FormularioAlmacenComponent, canActivate: [AutenticacionService] },
+  { path: 'almacenes/editar-almacen/:id', component: FormularioAlmacenComponent, canActivate: [AutenticacionService] },
+  { path: 'almacenes/almacen/:id', component: AlmacenComponent, data: {almacen: 'almacen'}, canActivate: [AutenticacionService] },
+  { path: 'vehiculos', component: ListadoVehiculosComponent, canActivate: [AutenticacionService] },
+  { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent, canActivate: [AutenticacionService] },
+  { path: 'vehiculos/editar-vehiculo/:id', component: FormularioVehiculoComponent, canActivate: [AutenticacionService] },
+  { path: 'vehiculos/vehiculo/:id', component: VehiculoComponent, data: {vehiculo: 'vehiculo'}, canActivate: [AutenticacionService] },
   // RUTAS EMPRESA
-  { path: 'empresa/:id', component: EmpresaComponent },
-  { path: 'empresa/editar-empresa/:id', component: FormularioEmpresaComponent },
-  { path: 'rrhh', component: ListadoEmpleadosComponent },
-  { path: 'rrhh/nuevo-empleado', component: FormularioEmpleadoComponent },
-  { path: 'rrhh/editar-empleado/:id', component: FormularioEmpleadoComponent },
-  { path: 'rrhh/empleado/:id', component: EmpleadoComponent, data: {empleado: 'empleado'} },
+  { path: 'empresa/:id', component: EmpresaComponent, canActivate: [AutenticacionService] },
+  { path: 'empresa/editar-empresa/:id', component: FormularioEmpresaComponent, canActivate: [AutenticacionService] },
+  { path: 'rrhh', component: ListadoEmpleadosComponent, canActivate: [AutenticacionService] },
+  { path: 'rrhh/nuevo-empleado', component: FormularioEmpleadoComponent, canActivate: [AutenticacionService] },
+  { path: 'rrhh/editar-empleado/:id', component: FormularioEmpleadoComponent, canActivate: [AutenticacionService] },
+  { path: 'rrhh/empleado/:id', component: EmpleadoComponent, data: {empleado: 'empleado'}, canActivate: [AutenticacionService] },
   // RUTAS ADMINISTRACION
-  { path: 'usuarios', component: ListadoUsuariosComponent },
-  { path: 'usuarios/nuevo-usuario', component: FormularioUsuarioComponent },
-  { path: 'usuarios/editar-usuario/:id', component: FormularioUsuarioComponent },
-  { path: 'usuarios/usuario/:id', component: UsuarioComponent, data: {empleado: 'empleado'} },
+  { path: 'usuarios', component: ListadoUsuariosComponent, canActivate: [AutenticacionService] },
+  { path: 'usuarios/nuevo-usuario', component: FormularioUsuarioComponent, canActivate: [AutenticacionService] },
+  { path: 'usuarios/editar-usuario/:id', component: FormularioUsuarioComponent, canActivate: [AutenticacionService] },
+  { path: 'usuarios/usuario/:id', component: UsuarioComponent, data: {empleado: 'empleado'}, canActivate: [AutenticacionService] },
   // RUTAS PERFIL
-  { path: 'perfil', component: UsuarioComponent },
-  { path: 'salir', component: FormularioClienteComponent },
+  { path: 'perfil', component: UsuarioComponent, canActivate: [AutenticacionService] },
+  { path: 'salir', component: LogoutComponent, canActivate: [AutenticacionService] },
   // RUTA GENERAL
   { path: '**', redirectTo: 'inicio', pathMatch: 'full'},
 ];

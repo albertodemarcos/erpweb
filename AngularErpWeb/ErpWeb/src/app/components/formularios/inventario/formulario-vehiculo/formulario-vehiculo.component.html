@@ -9,67 +9,88 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4">Código vehículo</label>
+                <label for="codigo" class="col-form-label col-sm-4 required">Código vehículo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- MATRICULA -->
             <div class="form-group row">
-                <label for="matricula" class="col-form-label col-sm-4">Matrícula</label>
+                <label for="matricula" class="col-form-label col-sm-4 required">Matrícula</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.matricula" name="matricula">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['matricula']">
+                        <span class="error text-danger">{{erroresFormulario['matricula']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- MARCA -->
             <div class="form-group row">
-                <label for="marca" class="col-form-label col-sm-4">Marca</label>
+                <label for="marca" class="col-form-label col-sm-4 required">Marca</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.marca" name="marca">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['marca']">
+                        <span class="error text-danger">{{erroresFormulario['marca']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- MODELO -->
             <div class="form-group row">
-                <label for="modelo" class="col-form-label col-sm-4">Modelo</label>
+                <label for="modelo" class="col-form-label col-sm-4 required">Modelo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.modelo" name="modelo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['modelo']">
+                        <span class="error text-danger">{{erroresFormulario['modelo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- FECHA METRICULACION -->
             <div class="form-group row">
-                <label for="fechaMatriculacion" class="col-form-label col-sm-4">Fecha matriculación</label>
+                <label for="fechaMatriculacion" class="col-form-label col-sm-4 required">Fecha matriculación</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="vehiculo.fechaMatriculacion | date:'yyyy-MM-dd'" (ngModelChange)="vehiculo.fechaMatriculacion = $event" name="fechaMatriculacion">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaMatriculacion']">
+                        <span class="error text-danger">{{erroresFormulario['fechaMatriculacion']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- TIPO VEHICULO -->
             <div class="form-group row">
-                <label for="tipoVehiculo" class="col-form-label col-sm-4">Tipo de vehículo</label>
+                <label for="tipoVehiculo" class="col-form-label col-sm-4 required">Tipo de vehículo</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoVehiculo" title="" [(ngModel)]="vehiculo.tipoVehiculo">
                             <option disabled="true"  selected >Selecciona tipo vehículo</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposVehiculos">{{tipo}}</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposVehiculos">{{tipo |capitalizar }}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['tipoVehiculo']">
+                        <span class="error text-danger">{{erroresFormulario['tipoVehiculo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- TIPO COMBUSTIBLE -->
             <div class="form-group row">
-                <label for="tipoVehiculo" class="col-form-label col-sm-4">Tipo de combustible</label>
+                <label for="tipoVehiculo" class="col-form-label col-sm-4 required">Tipo de combustible</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoCombustible" title="" [(ngModel)]="vehiculo.tipoCombustible">
                             <option disabled="true"  selected >Selecciona tipo combustible</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposCombustible">{{tipo}}</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposCombustible">{{tipo | capitalizar}}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['tipoCombustible']">
+                        <span class="error text-danger">{{erroresFormulario['tipoCombustible']}}</span>
+                    </div>
                 </div>
             </div>
 

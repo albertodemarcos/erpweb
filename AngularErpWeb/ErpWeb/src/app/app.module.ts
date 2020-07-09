@@ -99,6 +99,8 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
+import { LogoutComponent } from './components/logout/logout.component';
+import { CapitalizarPipe } from './Pipes/capitalizar.pipe';
 
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
@@ -170,7 +172,9 @@ FullCalendarModule.registerPlugins([
     ListadoUsuariosComponent,
     FormularioUsuarioComponent,
     UsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent,
+    CapitalizarPipe
   ], // Modulos
   imports: [
     BrowserModule,

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../services/autenticacion/auth.service';
+import { AutenticacionService } from 'src/app/services/autenticacion/autenticacion.service';
 import { AccionRespuesta } from '../../model/utiles/accion-respuesta.model';
 import { Usuario } from '../../model/entitys/usuario.model';
 import swal from 'sweetalert2';
-
-
-
+import { UsuarioLoginService } from 'src/app/services/autenticacion/usuario-login.service';
+import { EncriptadorService } from 'src/app/services/autenticacion/encriptador.service';
 
 
 @Component({
@@ -17,12 +16,15 @@ import swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
 
   public titulo: string;
-
+  public invalidLogin: boolean;
   public usuario: Usuario;
+  private usuarioDto: any;
+  private respuestaGetUsuario: AccionRespuesta;
 
-  constructor(private authService: AuthService, private router: Router, private activateRouter: ActivatedRoute) {
 
+  constructor(private usuarioLoginService: UsuarioLoginService, private encriptadorService: EncriptadorService, private router: Router) {
     this.titulo = 'Bienvenido';
+    this.invalidLogin = false;
     this.usuario = new Usuario();
   }
 
@@ -37,12 +39,42 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.usuario).subscribe( accionRespuesta => {
-      console.log('RESPUESTA: ' + JSON.stringify(accionRespuesta));
-      swal('ErpWeb', 'Registro correcto', 'success');
-      this.router.navigate(['inicio']);
-    });
+    this.usuario.password = this.encriptadorService.encriptarTextoParaEnvioHtttp(this.usuario.password);
 
+    console.log('Codificado: ' + this.usuario.password);
+
+    this.usuarioLoginService.autenticarUsuario(this.usuario).toPromise().then(
+      ( accionRespuesta ) => {
+
+        console.log('Obtenemos: ' + JSON.stringify(accionRespuesta));
+
+        if ( !accionRespuesta.resultado )
+        {
+          this.usuario.username = null;
+          this.usuario.password = null;
+          swal('Error', 'Usuario no esta registrado. Comprueba si el nombre de usuario y contraseña son correctos', 'error');
+          return;
+        }
+
+        // tslint:disable-next-line: no-string-literal
+        this.usuarioDto = accionRespuesta.data['usuarioDto'];
+
+        sessionStorage.setItem('username', this.usuarioDto.username);
+
+        // sessionStorage.setItem('password', this.usuarioDto.password);
+
+        this.router.navigate(['inicio']);
+
+        this.invalidLogin = false;
+
+      }, (errores) => {
+
+        this.invalidLogin = true;
+
+        swal('Error', 'Usuario no esta registrado. Comprueba si el nombre de usuario y contraseña son correctos', 'error');
+
+      }
+    );
 
   }
 
@@ -73,6 +105,8 @@ export class LoginComponent implements OnInit {
 
     return true;
   }
+
+
 
 
   ngOnInit(): void {

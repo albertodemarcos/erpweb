@@ -19,6 +19,7 @@ export class FormularioEmpleadoComponent implements OnInit {
   public tiposEmpleados: string[];
   private empleadoDto: any;
   private respuestaGetCliente: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
 
   constructor(private empleadoService: EmpleadoService, private router: Router, private activateRouter: ActivatedRoute) {
 
@@ -34,6 +35,8 @@ export class FormularioEmpleadoComponent implements OnInit {
     this.regiones = ['Andalucía', 'Aragón', 'Principado de Asturias', 'Islas Baleares', 'Islas Canarias', 'Cantabria', 'Castilla y León',
       'Castilla-La Mancha', 'Cataluña', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'Comunidad de Madrid', 'Región de Murcia',
       'Comunidad Foral de Navarra', 'País Vasco', 'La Rioja', 'Ciudad Autónoma de Ceuta', 'Ciudad Autónoma de Melilla' ];
+
+    this.erroresFormulario = new Map<string, object>();
 
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -159,14 +162,12 @@ export class FormularioEmpleadoComponent implements OnInit {
 
     }else{
 
-      if (esEditarEmpleado != null && esEditarEmpleado ){
-
-        swal('Empleado editado', 'Se ha editado el empleado correctamente', 'success');
-
-       }else{
-
-        swal('Nuevo empleado', 'Se ha creado el empleado correctamente', 'success');
-
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del empleado', 'error');
       }
     }
 

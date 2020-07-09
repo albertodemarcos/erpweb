@@ -20,6 +20,7 @@ export class FormularioClienteComponent implements OnInit {
   public regiones: string[];
   private clienteDto: any;
   private respuestaGetCliente: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
 
   constructor(private clienteService: ClienteService, private router: Router, private activateRouter: ActivatedRoute) {
     this.cliente = new Cliente();
@@ -34,6 +35,8 @@ export class FormularioClienteComponent implements OnInit {
     this.regiones = ['Andalucía', 'Aragón', 'Principado de Asturias', 'Islas Baleares', 'Islas Canarias', 'Cantabria', 'Castilla y León',
       'Castilla-La Mancha', 'Cataluña', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'Comunidad de Madrid', 'Región de Murcia',
       'Comunidad Foral de Navarra', 'País Vasco', 'La Rioja', 'Ciudad Autónoma de Ceuta', 'Ciudad Autónoma de Melilla' ];
+
+    this.erroresFormulario = new Map<string, object>();
 
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -156,8 +159,15 @@ export class FormularioClienteComponent implements OnInit {
        }
 
     }else{
-      // Error
-      swal('Nuevo cliente', 'Se ha producido un error al crear el cliente', 'error');
+
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del cliente', 'error');
+      }
+
     }
 
   }

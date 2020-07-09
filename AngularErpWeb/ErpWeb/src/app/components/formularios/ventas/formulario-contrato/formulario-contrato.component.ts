@@ -20,10 +20,15 @@ export class FormularioContratoComponent implements OnInit {
   private contratoId: number;
   private contratoDto: any;
   private respuestaGetContrato: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
+  public mapaIva: Map<string, string>;
 
   constructor(private contratoService: ContratoService, private router: Router, private activateRouter: ActivatedRoute) {
     this.contrato = new Contrato();
+    this.erroresFormulario = new Map<string, object>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -139,7 +144,13 @@ export class FormularioContratoComponent implements OnInit {
 
     }else{
       // Error
-      swal('Contrato', 'Se ha producido un error al guardar el contrato', 'success');
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del contrato', 'error');
+      }
     }
   }
 
@@ -154,6 +165,12 @@ export class FormularioContratoComponent implements OnInit {
       }
     }
     return new Date();
+  }
+
+  rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
 
 

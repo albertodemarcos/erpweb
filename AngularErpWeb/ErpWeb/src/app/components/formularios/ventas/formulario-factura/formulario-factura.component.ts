@@ -20,10 +20,15 @@ export class FormularioFacturaComponent implements OnInit {
   private facturaId: number;
   private facturaDto: any;
   private respuestaGetFactura: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
+  public mapaIva: Map<string, string>;
 
   constructor(private facturaService: FacturaService, private router: Router, private activateRouter: ActivatedRoute) {
     this.factura = new Factura();
+    this.erroresFormulario = new Map<string, object>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -130,24 +135,22 @@ export class FormularioFacturaComponent implements OnInit {
 
       if (esEditarFactura != null && esEditarFactura ){
 
-        swal('Factura editado', 'Se ha editado la factura correctamente', 'success');
+        swal('Factura editada', 'Se ha editado la factura correctamente', 'success');
 
        }else{
 
-        swal('Nuevo cliente', 'Se ha creado la factura correctamente', 'success');
+        swal('Nuevo factura', 'Se ha creado la factura correctamente', 'success');
 
        }
 
     }else{
 
-      if (esEditarFactura != null && esEditarFactura ){
-
-        swal('Factura editada', 'Se ha producido un error al editar la factura correctamente', 'success');
-
-       }else{
-
-        swal('Nueva factura', 'Se ha producido un error al crear la factura correctamente', 'success');
-
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos de la factura', 'error');
       }
     }
   }
@@ -163,6 +166,12 @@ export class FormularioFacturaComponent implements OnInit {
       }
     }
     return new Date();
+  }
+
+  rellenaMapaIva(): void {
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
 
 }

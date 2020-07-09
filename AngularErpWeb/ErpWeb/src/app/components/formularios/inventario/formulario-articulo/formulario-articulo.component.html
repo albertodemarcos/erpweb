@@ -9,54 +9,72 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4">Nombre</label>
+                <label for="nombre" class="col-form-label col-sm-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.nombre" name="nombre">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
+                        <span class="error text-danger">{{erroresFormulario['nombre']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4">Código articulo</label>
+                <label for="codigo" class="col-form-label col-sm-4 required">Código articulo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- DESCRIPCION -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-4">Descripción</label>
+                <label for="descripcion" class="col-form-label col-sm-4 required">Descripción</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['descripcion']">
+                        <span class="error text-danger">{{erroresFormulario['descripcion']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-4">Base imponible</label>
+                <label for="baseImponible" class="col-form-label col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.baseImponible" name="baseImponible">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponible']">
+                        <span class="error text-danger">{{erroresFormulario['baseImponible']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- IMPUESTO -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4">Impuesto</label>
+                <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="articulo.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposImpuestos">{{tipo}}</option> 
+                            <option [value]="tipo" *ngFor="let tipo of tiposImpuestos">{{mapaIva.get(tipo) | capitalizar}}</option> 
                         </select>
                     </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['impuesto']">
+                        <span class="error text-danger">{{erroresFormulario['impuesto']}}</span>
+                    </div>
                 </div>
             </div>
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.importeTotal" name="importeTotal">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
+                        <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
+                    </div>
                 </div>
             </div>
 

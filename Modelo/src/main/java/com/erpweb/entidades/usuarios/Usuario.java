@@ -9,19 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 
 
 @Entity
 @Table(name="usuario")
-public class Usuario implements Serializable {
+public class Usuario  implements Serializable {
 
 	private static final long serialVersionUID = -5624847003092101671L;
 	
 	private Long id;
 	private String codigo;
 	private String nombreCompleto;
+	private String email;
 	private String username;
 	private String password;	
 	private Boolean activo;
@@ -55,6 +55,14 @@ public class Usuario implements Serializable {
 
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getUsername() {

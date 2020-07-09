@@ -27,7 +27,12 @@ public class ErroresService {
 			
 			errores.put("validacion", Boolean.FALSE);
 			
-			errores.put("errores", result.getAllErrors());
+			for(ObjectError objectError : result.getAllErrors()) {
+				
+				String[] campos = objectError.getCodes();
+				
+				errores.put(campos[1], objectError.getDefaultMessage());
+			}
 			
 		}else {
 			

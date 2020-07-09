@@ -5,11 +5,11 @@ import java.io.Serializable;
 
 public class UsuarioDto implements Serializable {
 
-	private static final long serialVersionUID = -7816139174470066257L;
 
 	private Long id;
 	private String codigo;
 	private String nombreCompleto;
+	private String email;
 	private String username;
 	private String password;
 	private String role;
@@ -36,6 +36,14 @@ public class UsuarioDto implements Serializable {
 
 	public void setNombreCompleto(String nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getUsername() {

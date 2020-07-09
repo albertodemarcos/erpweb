@@ -28,24 +28,24 @@ export class UsuarioComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       this.usuarioId = params['id'];
       this.getUsuario();
-    } );
+    });
   }
 
   getUsuario(): void{
 
-    this.usuarioService.getUsuario(this.usuarioId).toPromise().then( (usuarioDto) => {
+    this.usuarioService.getUsuario(this.usuarioId).toPromise().then( (accionRespuesta) => {
       try
       {
         console.log('Recuperamos el Usuario');
 
-        this.respuestaGetUsuario = usuarioDto;
+        this.respuestaGetUsuario = accionRespuesta;
 
         if ( this.respuestaGetUsuario.resultado )
         {
         console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetUsuario.data) );
         console.log('ES: ' + typeof(this.respuestaGetUsuario.data));
         // tslint:disable-next-line: no-string-literal
-        this.usuarioDto = this.respuestaGetUsuario.data['UsuarioDto'];
+        this.usuarioDto = this.respuestaGetUsuario.data['usuarioDto'];
         this.obtenerUsuarioDesdeUsuarioDto(this.usuarioDto);
         }
 
@@ -53,8 +53,9 @@ export class UsuarioComponent implements OnInit {
 
         console.log('Se ha producido un error al transformar el Usuario' + errores);
       }
-      }, (error) => {
-      console.log('Error, no se ha podido recuperar el Usuario' + error);
+    }, (error) => {
+
+        console.log('Error, no se ha podido recuperar el Usuario' + error);
       }
     );
   }
@@ -67,6 +68,9 @@ export class UsuarioComponent implements OnInit {
         this.usuario.codigo = usuarioDto.codigo;
         this.usuario.username = usuarioDto.username;
         this.usuario.password = usuarioDto.password;
+        this.usuario.nombreCompleto = usuarioDto.nombreCompleto;
+        this.usuario.email = usuarioDto.email;
+        this.usuario.role = usuarioDto.role;
       }
   }
 

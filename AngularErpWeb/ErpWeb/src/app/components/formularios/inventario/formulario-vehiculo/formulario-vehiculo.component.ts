@@ -4,6 +4,7 @@ import { VehiculoService } from 'src/app/services/inventario/vehiculo.service';
 import { Vehiculo } from 'src/app/model/entitys/vehiculo.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+import { CapitalizarPipe } from 'src/app/Pipes/capitalizar.pipe';
 
 @Component({
   selector: 'app-formulario-vehiculo',
@@ -18,10 +19,12 @@ export class FormularioVehiculoComponent implements OnInit {
   public tiposVehiculos: string[];
   private vehiculoDto: any;
   private respuestaGetVehiculo: AccionRespuesta;
+  public erroresFormulario: Map<string, object>;
 
   constructor(private vehiculoService: VehiculoService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.vehiculo = new Vehiculo();
+    this.erroresFormulario = new Map<string, object>();
     this.tiposVehiculos = ['COCHE', 'FURGONETA', 'CAMION', 'MOTOCICLETA', 'CICLOMOTOR', 'MIXTO'];
     this.tiposCombustible = ['DIESEL', 'GASOLINA', 'HIBRIDO', 'ELECTRICO', 'GAS'];
     this.activateRouter.params.subscribe( params => {
@@ -136,7 +139,13 @@ export class FormularioVehiculoComponent implements OnInit {
 
     }else{
 
-      swal('Nuevo vehiculo', 'Se ha producido un error al crear el vehiculo', 'success');
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del vehículo', 'error');
+      }
     }
   }
 

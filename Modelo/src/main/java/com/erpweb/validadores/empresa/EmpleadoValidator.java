@@ -63,10 +63,10 @@ public class EmpleadoValidator implements Validator {
 			errors.rejectValue("direccion", "", "La campo direccion no puede estar vacío");
 		}
 		
-		if( StringUtils.isBlank( empleadoDto.getEdificio() )  ) {
+		/*if( StringUtils.isBlank( empleadoDto.getEdificio() )  ) {
 			
 			errors.rejectValue("edificio", "", "El campo edificio no puede estar vacío");
-		}
+		}*/
 		
 		/*if( StringUtils.isBlank( empleadoDto.getObservaciones() )  ) {
 			
@@ -80,17 +80,22 @@ public class EmpleadoValidator implements Validator {
 		
 		if( StringUtils.isBlank( empleadoDto.getPais()) ) {
 			
-			errors.rejectValue("pais", "", "Debe elegir el pais");
+			errors.rejectValue("pais", "", "Debe elegir el país");
 		}
 		
-		if( StringUtils.isBlank( empleadoDto.getProvincia() ) ) {
+		/*if( StringUtils.isBlank( empleadoDto.getRegion()) ) {
+			
+			errors.rejectValue("region", "", "Debe elegir la región");
+		}*/
+		
+		/*if( StringUtils.isBlank( empleadoDto.getProvincia() ) ) {
 			
 			errors.rejectValue("provincia", "", "Debe elegir la provincia");
-		}
+		}*/
 		
 		if( StringUtils.isBlank( empleadoDto.getPoblacion() ) ) {
 			
-			errors.rejectValue("poblacion", "", "Debe elegir la poblacion");
+			errors.rejectValue("poblacion", "", "Debe elegir la población");
 		}
 		
 		if( empleadoDto.getTipoEmpleado() == null  ) {

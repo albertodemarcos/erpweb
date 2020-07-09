@@ -3,7 +3,6 @@ package com.erpweb.controladores.usuarios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,7 @@ public class UsuarioController {
 		return this.usuarioService.getUsuario(usuarioId, user);
 	}
 	
-	@Secured({"ROLE_ADMIN"})
+	
 	@GetMapping("/listado.json")
 	public @ResponseBody List<UsuarioDto> getUsuarios( ) throws Exception {
 		
@@ -54,7 +53,7 @@ public class UsuarioController {
 		return this.usuarioService.getUsuario(usuarioId, user);
 	}
 	
-	@Secured({"ROLE_ADMIN"})
+	
 	@PostMapping( "/crearUsuario" )
 	public @ResponseBody AccionRespuesta postCrearUsuario( @RequestBody UsuarioDto usuarioDto, BindingResult result ) {
 		
@@ -85,7 +84,7 @@ public class UsuarioController {
 		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);
 	}
 	
-	@Secured({"ROLE_ADMIN"})
+	
 	@GetMapping("/eliminarUsuario/{usuarioId}")
 	public @ResponseBody AccionRespuesta getEliminarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
 		

@@ -18,11 +18,13 @@ export class FormularioProveedorComponent implements OnInit {
   private proveedorDto: any;
   public tiposProveedores: string[];
   private respuestaGetProveedor: AccionRespuesta;
+  public erroresFormulario: Map<string, object>; 
 
   constructor(private proveedorService: ProveedorService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.proveedor = new Proveedor();
     this.tiposProveedores = ['PRODUCTOS', 'SERVICIOS', 'RECURSOS', 'OTROS'];
+    this.erroresFormulario = new Map<string, object>();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -146,18 +148,17 @@ export class FormularioProveedorComponent implements OnInit {
 
     }else{
 
-      if (esEditarProveedor != null && esEditarProveedor ){
-
-        swal('Cliente editado', 'Se ha editado el proveedor correctamente', 'success');
-
-       }else{
-
-        swal('Nuevo proveedor', 'Se ha creado el proveedor correctamente', 'success');
-
+      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      {
+        this.erroresFormulario = accionRespuesta.data;
+      }else
+      {
+        swal('Error', 'Se ha producido un error al guardar los datos del proveedor', 'error');
       }
     }
 
   }
+
 
 
 }

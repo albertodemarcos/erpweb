@@ -35,10 +35,14 @@ export class PlanificadorComponent implements OnInit  {
   public eventosCalendario: EventApi[] = [];
   private inicioEventosCalendario: any;
   private respuestaGetCliente: AccionRespuesta;
+  public tituloCrearEditar: string;
+  public botonCrearEditar: string;
 
   constructor(private eventoService: EventoService, private router: Router) {
     this.calendarioVisible = true;
     this.evento = new Evento();
+    this.tituloCrearEditar = 'Crear evento';
+    this.botonCrearEditar = 'Crear';
     this.initFullCalendar();
   }
 
@@ -109,6 +113,8 @@ export class PlanificadorComponent implements OnInit  {
           // Texto del evento
           text: 'Crear evento',
           click: () => {
+            this.tituloCrearEditar = 'Crear evento';
+            this.botonCrearEditar = 'Crear';
             this.limpiarModalCrearEvento();
             this.mostrarModalCrearEvento();
           }
@@ -121,6 +127,14 @@ export class PlanificadorComponent implements OnInit  {
 
   // Crear evento
   crearEventoPlanificador(): void {
+
+    console.log('Paso');
+
+    if ( !this.comprobarFormularioCrearEvento())
+    {
+      return;
+    }
+
     this.eventoService.crearEvento(this.evento).subscribe( accionRespuesta => {
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
@@ -138,6 +152,9 @@ export class PlanificadorComponent implements OnInit  {
 
   // Editar evento
   editarEventoPlanificador(): void {
+    // Cambiamos nombre y boton de la modal porque es editar
+    this.tituloCrearEditar = 'Editar evento';
+    this.botonCrearEditar = 'Editar';
     // Ocultamos la modal de visualizacion
     this.ocultarModalGetEvento();
     // Mostramos la modal de crear evento
@@ -148,7 +165,7 @@ export class PlanificadorComponent implements OnInit  {
   eliminarEventoPlanificador(): void {
     // Evitamos borrar accidentalmente un evento
     swal({
-      title: 'Eliminar Evento',
+      title: 'Eliminar evento',
       text: '¿Desea eliminar definitivamente este evento?',
       type: 'warning',
       showCancelButton: true,
@@ -333,5 +350,41 @@ export class PlanificadorComponent implements OnInit  {
     }
     return new Date();
   }
+
+  // Comprobar formulario
+  comprobarFormularioCrearEvento(): boolean{
+
+    // Titulo
+    if (this.evento.titulo == null || this.evento.titulo.trim() === '')
+    {
+      swal('Error', 'Introduce el titulo del evento', 'error');
+      return false;
+    }
+    // Fechas
+    if (this.evento.fechaInicio ==  null && this.evento.fechaFin ==  null)
+    {
+      swal('Error', 'Introduce las fechas del evento', 'error');
+      return false;
+
+    } else  if (this.evento.fechaInicio ==  null)
+    {
+      swal('Error', 'Introduce la fecha inicio del evento', 'error');
+      return false;
+
+    }else  if (this.evento.fechaFin ==  null)
+    {
+      swal('Error', 'Introduce la fecha fín del evento', 'error');
+      return false;
+
+    } else if ( this.evento.fechaFin.valueOf() < this.evento.fechaInicio.valueOf() )
+    {
+      swal('Error', 'La fecha de inicio es posterior de la fecha fín', 'error');
+      return false;
+    }
+
+    return true;
+  }
+
+
 }
 

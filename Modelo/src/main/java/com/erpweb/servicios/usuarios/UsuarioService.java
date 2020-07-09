@@ -9,18 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.ClientRegistrationException;
-import org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.erpweb.dto.UsuarioDto;
 import com.erpweb.entidades.usuarios.Usuario;
@@ -28,16 +17,14 @@ import com.erpweb.repositorios.usuarios.UsuarioRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 
-@SuppressWarnings("deprecation")
+
 @Service
-public class UsuarioService implements UserDetailsService { 
+public class UsuarioService { 
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-		
 	
 	public AccionRespuesta crearUsuarioDesdeUsuarioDto(UsuarioDto usuarioDto) {
 		
@@ -46,13 +33,12 @@ public class UsuarioService implements UserDetailsService {
 		Usuario usuario = new Usuario();
 		
 		usuario.setCodigo(usuarioDto.getCodigo());
-		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());
+		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());		
 		usuario.setUsername(usuarioDto.getUsername());
 		usuario.setPassword(usuarioDto.getPassword());
-		usuario.setRole(usuarioDto.getRole());
-		
-		List<String> roles = new ArrayList<String>();
-		roles.add(usuarioDto.getRole());
+		usuario.setEmail(usuarioDto.getEmail());
+		usuario.setActivo(Boolean.TRUE);
+		usuario.setRole("USER");
 		
 		try {
 			//Guardamos el usuario en base de datos
@@ -79,12 +65,11 @@ public class UsuarioService implements UserDetailsService {
 		usuario.setId(usuarioDto.getId());
 		usuario.setCodigo(usuarioDto.getCodigo());
 		usuario.setNombreCompleto(usuarioDto.getNombreCompleto());
+		usuario.setEmail(usuarioDto.getEmail());
 		usuario.setUsername(usuarioDto.getUsername());
 		usuario.setPassword(usuarioDto.getPassword());
-		usuario.setRole(usuarioDto.getRole());
-		
-		List<String> roles = new ArrayList<String>();
-		roles.add(usuarioDto.getRole());
+		usuario.setActivo(Boolean.TRUE);
+		usuario.setRole("USER");
 		
 		try {
 			//Guardamos el usuario en base de datos
@@ -159,7 +144,7 @@ public class UsuarioService implements UserDetailsService {
 	
 	public UsuarioDto obtenerUsuarioDtoDesdeUsuario(Long id) {
 		
-		logger.debug("Entramos en el metodo obtenerUsuarioDtoDesdeUsuario() con ID={}", id );
+		logger.debug("Entramos en el metodo obtenerUsuarioDtoDesdeUsuario()" );
 		
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
 		
@@ -176,8 +161,9 @@ public class UsuarioService implements UserDetailsService {
 			usuarioDto.setId(usuario.getId());
 			usuarioDto.setCodigo(usuario.getCodigo());
 			usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
+			usuarioDto.setEmail(usuario.getEmail());
 			usuarioDto.setUsername(usuario.getUsername());
-			usuarioDto.setPassword(usuario.getPassword());
+			usuarioDto.setPassword("");
 			usuarioDto.setRole(usuario.getRole());
 			
 		} catch(Exception e) {
@@ -233,9 +219,11 @@ public class UsuarioService implements UserDetailsService {
 			
 			HashMap<String, Object> mapa = new HashMap<String, Object>();
 			
+			usuarioDto.setPassword("");
+			
 			mapa.put("usuarioDto", usuarioDto);
 			
-			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			AccionRespuesta.setData(mapa);
 			
 		}else {
 			
@@ -284,6 +272,8 @@ public class UsuarioService implements UserDetailsService {
 			
 			HashMap<String, Object> data= new HashMap<String, Object> ();
 			
+			usuarioDto.setPassword("");
+			
 			data.put("usuarioDto", usuarioDto);
 			
 			respuesta.setData(data);
@@ -320,6 +310,8 @@ public class UsuarioService implements UserDetailsService {
 			
 			HashMap<String, Object> data= new HashMap<String, Object> ();
 			
+			usuarioDto.setPassword("");
+			
 			data.put("usuarioDto", usuarioDto);
 			
 			respuesta.setData(data);
@@ -333,6 +325,8 @@ public class UsuarioService implements UserDetailsService {
 			respuesta.setResultado(Boolean.FALSE);
 			
 			HashMap<String, Object> data= new HashMap<String, Object> ();
+			
+			usuarioDto.setPassword("");
 			
 			data.put("usuarioDto", usuarioDto);
 			
@@ -356,46 +350,16 @@ public class UsuarioService implements UserDetailsService {
 				usuarioDto.setCodigo(usuario.getCodigo());
 				usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
 				usuarioDto.setUsername(usuario.getUsername());
-				usuarioDto.setPassword(usuario.getPassword());
+				usuarioDto.setPassword("");
 				usuarioDto.setRole(usuario.getRole());
-				
+				usuario.setActivo(Boolean.TRUE);
 				usuariosDto.add(usuarioDto);			
 			}
 		}
 		
 		return usuariosDto;
 	}
-
-	@Override
-	@Transactional(readOnly=true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		logger.debug("Entramos en el metodo loadUserByUsername() para autenticar usuario"); 
-		
-		Usuario usuario = usuarioRepository.findByUsername(username);
-		
-		if( usuario == null) {
-			
-			logger.error("Error, el usuario no esta registrado");
-			
-			throw new UsernameNotFoundException("Error, el usuario no esta registrado");
-		}
-		
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		SimpleGrantedAuthority simple = new SimpleGrantedAuthority(usuario.getRole());
-		
-		authorities.add(simple);
-		
-		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getActivo(), true, true, true, authorities);
-	}
 	
-	public Usuario devolverInformacionUsuario(String username) {
-		
-		return usuarioRepository.findByUsername(username);
-	}
-
-	
-	
-
 }
+
