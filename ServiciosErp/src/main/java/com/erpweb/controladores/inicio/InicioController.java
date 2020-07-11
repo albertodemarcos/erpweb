@@ -32,9 +32,9 @@ public class InicioController {
 	
 
 	@PostMapping("/login")
-	public @ResponseBody AccionRespuesta accesoUsuarios (@RequestBody UsuarioDto UsuarioDto) throws Exception {
+	public @ResponseBody AccionRespuesta accesoUsuarios (@RequestBody UsuarioDto usuarioDto) throws Exception {
 
-		return this.loginService.obtieneUsuarioDeUsername(UsuarioDto);
+		return this.loginService.obtieneUsuarioDeUsername(usuarioDto);
 	}
 	
 	
