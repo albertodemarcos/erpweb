@@ -7,6 +7,8 @@ import com.erpweb.utiles.enumerados.TipoCliente;
 
 public class ClienteDto implements Serializable {
 
+	private static final long serialVersionUID = -5045977763605932283L;
+	
 	private Long id;
     private String codigo;  
     private TipoCliente tipoCliente;

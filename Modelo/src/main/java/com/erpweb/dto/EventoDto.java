@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class EventoDto implements Serializable {
 
+	private static final long serialVersionUID = 3389238253872921259L;
+	
 	private Long id;
 	private String titulo;
 	private Date fechaInicio;

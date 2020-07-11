@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class AlmacenDto implements Serializable {
 
+	private static final long serialVersionUID = -5049400002115939433L;
+	
 	private Long id;
 	private String codigo;
 	private String nombre;

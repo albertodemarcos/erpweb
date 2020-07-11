@@ -8,6 +8,9 @@ import com.erpweb.utiles.enumerados.TipoVehiculo;
 
 public class VehiculoDto implements Serializable {
 
+	private static final long serialVersionUID = -8138613101024601031L;
+	
+	
 	private Long id;
 	private String codigo;
 	private String matricula;

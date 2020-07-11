@@ -7,7 +7,8 @@ import com.erpweb.utiles.enumerados.TipoEmpleado;
 
 public class EmpleadoDto implements Serializable {
 
-
+	private static final long serialVersionUID = 2825150319111189342L;
+	
 	private Long id;
     private String codigo;
 	private TipoEmpleado tipoEmpleado;

@@ -6,6 +6,9 @@ import java.io.Serializable;
 public class UsuarioDto implements Serializable {
 
 
+	private static final long serialVersionUID = 8057956007765290768L;
+	
+	
 	private Long id;
 	private String codigo;
 	private String nombreCompleto;

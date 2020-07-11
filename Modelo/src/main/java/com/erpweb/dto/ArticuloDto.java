@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 public class ArticuloDto implements Serializable {
 
 
+	private static final long serialVersionUID = 4936944605420860256L;
+	
 	private Long id;
 	private String codigo;
 	private String nombre;

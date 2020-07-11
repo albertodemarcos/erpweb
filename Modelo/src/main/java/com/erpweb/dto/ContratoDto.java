@@ -9,6 +9,8 @@ import com.erpweb.utiles.enumerados.TipoImpuesto;
 
 public class ContratoDto implements Serializable {
 
+	private static final long serialVersionUID = -7766898516171882200L;
+	
 	private Long id;
 	private String codigo;
 	private Date fechaCreacion;  													//Cuando se crea el contrato

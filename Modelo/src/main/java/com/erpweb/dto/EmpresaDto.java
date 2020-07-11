@@ -7,6 +7,8 @@ import com.erpweb.utiles.enumerados.TipoSociedadJuridica;
 public class EmpresaDto implements Serializable {
 
 
+	private static final long serialVersionUID = 2487468962177027825L;
+	
 	private Long id;
 	private String codigo;
 	private String nombre;

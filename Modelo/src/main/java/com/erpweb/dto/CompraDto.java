@@ -9,6 +9,8 @@ import com.erpweb.utiles.enumerados.TipoImpuesto;
 
 public class CompraDto implements Serializable {
 
+	private static final long serialVersionUID = 3542288744692862179L;
+	
 	private Long id;
 	private String codigo;
 	private Date fechaCompra;

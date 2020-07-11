@@ -11,6 +11,9 @@ import com.erpweb.utiles.enumerados.TipoImpuesto;
 public class VentaDto implements Serializable {
 
 
+	private static final long serialVersionUID = 7011372039239889400L;
+	
+	
 	private Long id;
 	private String codigo;
 	private Date fechaCreacion;  														//Cuando se crea la factura
