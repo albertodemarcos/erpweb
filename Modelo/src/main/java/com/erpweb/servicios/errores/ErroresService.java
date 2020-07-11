@@ -1,4 +1,4 @@
-package com.erpweb.servicios;
+package com.erpweb.servicios.errores;
 
 import java.util.ArrayList;
 import java.util.HashMap;

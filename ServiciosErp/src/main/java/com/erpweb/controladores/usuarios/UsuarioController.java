@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.UsuarioDto;
 import com.erpweb.entidades.usuarios.Usuario;
-import com.erpweb.servicios.ErroresService;
+import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.usuarios.UsuarioService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.usuarios.UsuarioValidator;
