@@ -1,0 +1,15 @@
+.formluario {
+    width: 800px;
+    height: 400px;
+    margin: 5% 25% 25% 25%;
+}
+
+.cabecera {
+    background-color: #3198FF;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.cuerpo {
+    padding: 10% 15% 5% 15%;
+}

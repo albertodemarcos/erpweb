@@ -1,30 +1,34 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">{{titulo}}</div>
 
-    <div class="card-body bg-light">
+    <div class="card-body cuerpo bg-light">
         <!-- FORMULARIO -->
         <form autocomplete="off" (ngSubmit)="getLoginUsuario()">
 
             <!-- NAME -->
             <div class="form-group row">
-                <label for="username" class="col-form-label col-sm-2">Usuario</label>
-                <div class="col-sm-6">
+                <label for="username" class="col-form-label col-sm-4 text-left required"><strong>Usuario</strong></label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username" placeholder="Nombre usuario" autofocus required>
                 </div>
             </div>
 
             <!-- PASSWORD -->
             <div class="form-group row">
-                <label for="password" class="col-form-label col-sm-2">Contraseña</label>
-                <div class="col-sm-6">
+                <label for="password" class="col-form-label col-sm-4 text-left required"><strong>Contraseña</strong></label>
+                <div class="col-sm-7">
                     <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" placeholder="contraseña" required>
                 </div>
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row text-center m-5">
+                <div class="col-sm-12">
+                    <!--SALTO DE LINEA -->
+                </div>
+                <br/>
+                <div class="col-sm-12">
                     <button class="btn btn-primary" role="button">Entrar</button>
                 </div>
             </div>
