@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioLoginService } from 'src/app/services/autenticacion/usuario-login.service';
+import { Observable } from 'rxjs';
 
 declare var $: any;
 
@@ -9,7 +11,12 @@ declare var $: any;
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  public visible: boolean;
+  private subcriptor = new Observable<boolean>();
+
+  constructor(private usuarioLoginService: UsuarioLoginService) {
+
+  }
 
   ngOnInit(): void {
 
@@ -27,5 +34,29 @@ export class NavbarComponent implements OnInit {
       });
       return false;
     });
+
+    $('#perfilLogado').hide();
+
   }
+
+  recargarNavBar(): void {
+    console.log('Entramos a recargar el navbar');
+    const estaLogado = this.usuarioLoginService.esUsuarioLogado();
+
+    if (estaLogado)
+    {
+      console.log('Mostramos el navbar');
+      $('#perfilLogado').show();
+    }
+    else
+    {
+      console.log('Ocultamos el navbar');
+      $('#perfilLogado').hide();
+    }
+
+  }
+
+
+
+
 }
