@@ -57,6 +57,7 @@ import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehicu
 import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
 import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
+import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
 
 // canActiva -> meter en los sitios que se hacen peticiones
 
@@ -72,6 +73,7 @@ const routes: Routes = [
   { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'}, canActivate: [AutenticacionService] },
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent, canActivate: [AutenticacionService] },
+  { path: 'planificador/jqgrid5', component: Jqgrid5Component },
   // RUTAS VENTAS
   { path: 'contratos', component: ListadoContratosComponent, canActivate: [AutenticacionService] },
   { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent, canActivate: [AutenticacionService] },

@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import CryptoJS from 'crypto-js';
-import Base64 from 'crypto-js/enc-base64';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +11,6 @@ export class EncriptadorService {
 
     this.encriptado = 'AngularApp';
   }
-
-
-
 
   encriptarTextoParaEnvioHtttp(encriptador: string): string {
 

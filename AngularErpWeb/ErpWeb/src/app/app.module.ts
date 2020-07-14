@@ -4,8 +4,9 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AgGridModule } from 'ag-grid-angular';
 import { FullCalendarModule } from '@fullcalendar/angular';
+
+import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
 
 // FullCalendar
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -102,7 +103,6 @@ import { VentaService } from './services/ventas/venta.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CapitalizarPipe } from './Pipes/capitalizar.pipe';
 
-
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 registerLocaleData(localEs);
@@ -174,7 +174,8 @@ FullCalendarModule.registerPlugins([
     UsuarioComponent,
     LoginComponent,
     LogoutComponent,
-    CapitalizarPipe
+    CapitalizarPipe,
+    Jqgrid5Component
   ], // Modulos
   imports: [
     BrowserModule,

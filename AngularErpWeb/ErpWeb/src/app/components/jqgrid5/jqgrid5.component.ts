@@ -1,16 +1,17 @@
-import { Component, OnInit , AfterViewInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import { ClienteService } from 'src/app/services/crm/cliente.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Cliente } from 'src/app/model/entitys/cliente.model';
+import { ClienteService } from 'src/app/services/crm/cliente.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-listado-clientes',
-  templateUrl: './listado-clientes.component.html',
-  styleUrls: ['./listado-clientes.component.css']
+  selector: 'app-jqgrid5',
+  templateUrl: './jqgrid5.component.html',
+  styleUrls: ['./jqgrid5.component.css']
 })
-export class ListadoClientesComponent implements OnInit, AfterViewInit {
+export class Jqgrid5Component implements OnInit, AfterViewInit {
 
   public tituloListado: string;
   private jqGridId: string;
@@ -32,7 +33,7 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
             '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
         }
       },
-      { name: 'codigo', index: '', width: '', search: true, sortable: false },
+      { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'nombre', index: '', width: '', search: true, sortable: true },
       { name: 'apellidoPrimero', index: '', width: '', search: true, sortable: true },
       { name: 'apellidoSegundo', index: '', width: '', search: true, sortable: true },
@@ -41,9 +42,9 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
       { name: 'tipoCliente', index: '', width: '', search: true, sortable: true}
     ];
     this.jqGridData = new Array<Cliente>();
-  }
+   }
 
-  getListadoClientes(): void{
+   getListadoClientes(): void{
 
     console.log('Entramos en el metodo getListadoClientes()');
 
@@ -51,6 +52,7 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
         try {
           // Introducimos los datos
           clientes.forEach(cliente => this.jqGridData.push(cliente));
+          jQuery('#' + this.jqGridId).trigger('reloadGrid');
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -77,6 +79,14 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
       autowidth: false,
       guiStyle: 'bootstrap4',
       iconSet: 'fontAwesome',
+      loadonce: false,
+      searching: {
+        multipleSearch: true,
+        loadDefaults: false,
+        sopt: ['eq', 'ne', 'cn', 'bw', 'bn', 'ge', 'le', 'lt', 'gt'],
+        showQuery: false
+      },
+      navOptions: { add: false, edit: false, search: false, del: false, refresh: true, refreshstate: 'current' },
       onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
         // Si se pulsa sobre la columna 1, pulsan sobre el boton
         console.log('Se ha pulsado sobre el boton ver para ir al cliente con id: ' + iCol);
@@ -88,10 +98,16 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
           this.router.navigate(['clientes', 'cliente', idCelValue]);
         }
       }
-    });
+    }).jqGrid('navGrid');
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators: false});
+
+    // Refrescar
+    jQuery('#refresh_' + this.jqGridId).on('click', () => {
+      alert('Estas refrescando');
+      this.getListadoClientes();
+    });
 
     // Exportar a Excel
     jQuery('#exportar').on('click', () => {
@@ -101,11 +117,8 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
   ngOnInit(): void {
     this.getListadoClientes();
   }
-
 
 }
