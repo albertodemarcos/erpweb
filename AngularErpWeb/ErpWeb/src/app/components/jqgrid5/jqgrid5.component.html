@@ -3,10 +3,14 @@
         {{tituloListado}}
     </div>
     <div class="card-body">
-        <div class="tabla-clientes">
-            <table id="clientes-grid"></table>
+        <div class="row form-group tabla-clientes">
+            <div class="col-12">
+                <table id="clientes-grid"></table>
+                <div id="clientes-pager"></div>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-success" id="exportar">Exportar</button>
+            </div>
         </div>
-        <div id="clientes-pager"></div>
-        <button id="exportar">Exportar a Excel</button>
     </div>
 </div>

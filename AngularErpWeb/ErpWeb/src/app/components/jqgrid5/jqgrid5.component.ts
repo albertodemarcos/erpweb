@@ -52,7 +52,6 @@ export class Jqgrid5Component implements OnInit, AfterViewInit {
         try {
           // Introducimos los datos
           clientes.forEach(cliente => this.jqGridData.push(cliente));
-          jQuery('#' + this.jqGridId).trigger('reloadGrid');
           // Reload JqGrid
           jQuery('#' + this.jqGridId).jqGrid('setGridParam', {data: this.jqGridData}).trigger('reloadGrid');
         } catch (errores){
@@ -105,7 +104,9 @@ export class Jqgrid5Component implements OnInit, AfterViewInit {
 
     // Refrescar
     jQuery('#refresh_' + this.jqGridId).on('click', () => {
-      alert('Estas refrescando');
+      // Limpiamos previamente
+      this.jqGridData = new Array<Cliente>();
+      // Pedimos los datos
       this.getListadoClientes();
     });
 
