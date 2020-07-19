@@ -82,3 +82,50 @@ footer {
     margin-left: 4px;
     font-weight: bolder;
 }
+
+
+/* Cabecera */
+
+.ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-hdiv {
+    background-color: #ffcc80 !important;
+}
+
+
+/* Pies */
+
+.ui-jqgrid-bootstrap.ui-jqgrid .ui-jqgrid-toppager,
+.ui-jqgrid-bootstrap.ui-jqgrid .ui-jqgrid-pager {
+    background-color: #ffcc80 !important;
+}
+
+
+/* Botones del paginador*/
+
+.table>thead>tr>td.active,
+.table>tbody>tr>td.active,
+.table>thead>tr>th.active,
+.ui-pg-table .ui-pg-button.active,
+.ui-jqgrid-actions .ui-pg-div.active {
+    background-color: #c0f2ff !important;
+}
+
+.ui-pg-table .ui-pg-button.active,
+.ui-jqgrid-actions .ui-pg-div.active {
+    border-radius: .4em;
+}
+
+.ui-jqgrid-btable tr.jqgrow.success,
+.ui-jqgrid-btable tr.jqgrow.success>td {
+    background-color: #eebb14 !important;
+}
+
+
+/* señalar */
+
+.ui-jqgrid-btable tr.jqgrow.active,
+.ui-jqgrid-btable tr.jqgrow.active>td .ui-jqgrid-btable>tbody>tr.jqgrow.active>td:hover,
+.ui-jqgrid-btable.table-hover>tbody>tr.jqgrow.active:hover>td,
+.ui-jqgrid-btable.table-hover>tbody>tr.jqgrow:hover>.active,
+.ui-jqgrid-btable.table-hover>tbody>tr.jqgrow.active:hover>th {
+    background-color: #ffcc80 !important;
+}

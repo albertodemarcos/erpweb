@@ -3,8 +3,8 @@ import { Cliente } from 'src/app/model/entitys/cliente.model';
 import { ClienteService } from 'src/app/services/crm/cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
-
 declare var jQuery: any;
+declare var TableExport: any;
 
 @Component({
   selector: 'app-jqgrid5',
@@ -19,6 +19,7 @@ export class Jqgrid5Component implements OnInit, AfterViewInit {
   private jqGridColNames: string[];
   private jqGridColModel: {};
   private jqGridData: Cliente[];
+  private tableExport: any;
 
   constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de clientes';
@@ -42,6 +43,13 @@ export class Jqgrid5Component implements OnInit, AfterViewInit {
       { name: 'tipoCliente', index: '', width: '', search: true, sortable: true}
     ];
     this.jqGridData = new Array<Cliente>();
+    this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+      filename : 'listado_cliente',
+      formats: ['xlsx', 'xls'],
+      position : 'bottom',
+      exportButtons: false,
+      ignoreCols: 1,
+    });
    }
 
    getListadoClientes(): void{
@@ -72,10 +80,11 @@ export class Jqgrid5Component implements OnInit, AfterViewInit {
       pager: this.jqGridPagerId,
       caption: '',
       rowNum: 10,
-      rowList: [10, 20],
+      rowList: [10, 20, 50, 100, 200, 500],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
+      shrinkToFit: true,
       guiStyle: 'bootstrap4',
       iconSet: 'fontAwesome',
       loadonce: false,
@@ -111,9 +120,41 @@ export class Jqgrid5Component implements OnInit, AfterViewInit {
     });
 
     // Exportar a Excel
-    jQuery('#exportar').on('click', () => {
+    /*jQuery('#exportar').on('click', () => {
       console.log('Se inicia la exportacion a excel del listado de clientes');
       jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listadoClientes' , escape: 'false'} );
+    });*/
+
+    jQuery('#exportar').on('click', () => {
+
+      console.log('Se inicia la exportacion a excel del listado de clientes');
+
+      // Inicializamos la varaible
+      this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+        header: true,
+        footers: true,
+        formats: ['xlsx', 'csv', 'txt'],
+        filename : 'listado_clientes',
+        bootstrap: true,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: [0, 2],
+        trimWhitespace: true,
+        RTL: false,
+        sheetname: 'id'
+      });
+
+      // Obtenemos los datos
+      const exportData = this.tableExport.getExportData()['clientes-grid'].xlsx;
+
+      // Exportamos los datos
+      this.tableExport.export2file(
+        exportData.data,
+        exportData.mimeType,
+        exportData.filename,
+        exportData.fileExtension
+      );
     });
 
   }
