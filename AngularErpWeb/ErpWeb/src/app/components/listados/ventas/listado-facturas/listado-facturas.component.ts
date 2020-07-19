@@ -4,6 +4,7 @@ import { FacturaService } from 'src/app/services/ventas/factura.service';
 import { Factura } from 'src/app/model/entitys/factura.model';
 
 declare var jQuery: any;
+declare var TableExport: any;
 
 @Component({
   selector: 'app-listado-facturas',
@@ -18,6 +19,7 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
   private jqGridColNames: string[];
   private jqGridColModel: {};
   private jqGridData: Factura[];
+  private tableExport: any;
 
   constructor(private facturaService: FacturaService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de Facturas';
@@ -72,7 +74,18 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
+      shrinkToFit: true,
+      guiStyle: 'bootstrap4',
+      iconSet: 'fontAwesome',
+      loadonce: false,
+        searching: {
+        multipleSearch: true,
+        loadDefaults: false,
+        sopt: ['eq', 'ne', 'cn', 'bw', 'bn', 'ge', 'le', 'lt', 'gt'],
+        showQuery: false
+      },
+      navOptions: { add: false, edit: false, search: false, del: false, refresh: true, refreshstate: 'current' },
       onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
         // Si se pulsa sobre la columna 1, pulsan sobre el boton
         console.log('Se ha pulsado sobre el boton ver para ir a la factura con id: ' + iCol);
@@ -84,17 +97,50 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
           this.router.navigate(['facturas', 'factura', idCelValue]);
         }
       }
-    });
+    }).jqGrid('navGrid');
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    // Refrescar
+    jQuery('#refresh_' + this.jqGridId).on('click', () => {
+      // Limpiamos previamente
+      this.jqGridData = new Array<Factura>();
+      // Pedimos los datos
+      this.getListadoFacturas();
+    });
+
+    // Exportar a Excel
     jQuery('#exportar').on('click', () => {
 
       console.log('Se inicia la exportacion a excel del listado de facturas');
 
-      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-facturas' , escape: 'false'} );
+      // Inicializamos la varaible
+      this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+        header: true,
+        footers: true,
+        formats: ['xlsx', 'csv', 'txt'],
+        filename : 'listado_facturas',
+        bootstrap: true,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: [0, 2],
+        trimWhitespace: true,
+        RTL: false,
+        sheetname: 'id'
+      });
 
+      // Obtenemos los datos
+      const exportData = this.tableExport.getExportData()['facturas-grid'].xlsx;
+
+      // Exportamos los datos
+      this.tableExport.export2file(
+        exportData.data,
+        exportData.mimeType,
+        exportData.filename,
+        exportData.fileExtension
+      );
     });
 
   }

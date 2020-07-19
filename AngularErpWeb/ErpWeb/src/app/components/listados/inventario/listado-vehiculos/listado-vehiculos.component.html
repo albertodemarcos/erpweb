@@ -1,12 +1,15 @@
-<div class="card">
-    <div class="card-header text-center">
-        {{tituloListado}}
+<div class="row tabla-jgrid">
+    <div class="col-xl-12 col-12">
+        <h1 class="bg-blue">{{tituloListado}}</h1>
     </div>
-    <div class="card-body">
-        <div class="tabla-clientes">
-            <table id="vehiculos-grid"></table>
-        </div>
+    <div class="col-xl-12 col-12">
+        <table id="vehiculos-grid"></table>
         <div id="vehiculos-pager"></div>
-        <button id="exportar">Exportar a Excel</button>
+    </div>
+    <div class="col-12">
+        <br/>
+        <button type="button" class="btn btn-success" id="exportar">
+            <i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i> Exportar
+        </button>
     </div>
 </div>

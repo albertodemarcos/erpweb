@@ -4,6 +4,7 @@ import { ContratoService } from 'src/app/services/ventas/contrato.service';
 import { Contrato } from 'src/app/model/entitys/contrato.model';
 
 declare var jQuery: any;
+declare var TableExport: any;
 
 @Component({
   selector: 'app-listado-contratos',
@@ -18,6 +19,7 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
   private jqGridColNames: string[];
   private jqGridColModel: {};
   private jqGridData: Contrato[];
+  private tableExport: any;
 
   constructor(private contratoService: ContratoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de Contratos';
@@ -72,7 +74,18 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
+      shrinkToFit: true,
+      guiStyle: 'bootstrap4',
+      iconSet: 'fontAwesome',
+      loadonce: false,
+        searching: {
+        multipleSearch: true,
+        loadDefaults: false,
+        sopt: ['eq', 'ne', 'cn', 'bw', 'bn', 'ge', 'le', 'lt', 'gt'],
+        showQuery: false
+      },
+      navOptions: { add: false, edit: false, search: false, del: false, refresh: true, refreshstate: 'current' },
       onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
         // Si se pulsa sobre la columna 1, pulsan sobre el boton
         console.log('Se ha pulsado sobre el boton ver para ir al contrato con id: ' + iCol);
@@ -84,17 +97,50 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
           this.router.navigate(['contratos', 'contrato', idCelValue]);
         }
       }
-    });
+    }).jqGrid('navGrid');
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    // Refrescar
+    jQuery('#refresh_' + this.jqGridId).on('click', () => {
+      // Limpiamos previamente
+      this.jqGridData = new Array<Contrato>();
+      // Pedimos los datos
+      this.getListadoContratos();
+    });
+
+    // Exportar a Excel
     jQuery('#exportar').on('click', () => {
 
       console.log('Se inicia la exportacion a excel del listado de contratos');
 
-      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-contratos' , escape: 'false'} );
+      // Inicializamos la varaible
+      this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+        header: true,
+        footers: true,
+        formats: ['xlsx', 'csv', 'txt'],
+        filename : 'listado_contratos',
+        bootstrap: true,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: [0, 2],
+        trimWhitespace: true,
+        RTL: false,
+        sheetname: 'id'
+      });
 
+      // Obtenemos los datos
+      const exportData = this.tableExport.getExportData()['contratos-grid'].xlsx;
+
+      // Exportamos los datos
+      this.tableExport.export2file(
+        exportData.data,
+        exportData.mimeType,
+        exportData.filename,
+        exportData.fileExtension
+      );
     });
   }
 

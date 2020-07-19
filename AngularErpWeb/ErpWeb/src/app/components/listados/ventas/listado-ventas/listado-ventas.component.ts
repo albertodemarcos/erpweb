@@ -4,6 +4,7 @@ import { VentaService } from 'src/app/services/ventas/venta.service';
 import { Venta } from 'src/app/model/entitys/venta.model';
 
 declare var jQuery: any;
+declare var TableExport: any;
 
 @Component({
   selector: 'app-listado-ventas',
@@ -18,6 +19,7 @@ export class ListadoVentasComponent implements OnInit, AfterViewInit {
   private jqGridColNames: string[];
   private jqGridColModel: {};
   private jqGridData: Venta[];
+  private tableExport: any;
 
   constructor(private ventaService: VentaService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de ventas';
@@ -72,29 +74,73 @@ export class ListadoVentasComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
+      shrinkToFit: true,
+      guiStyle: 'bootstrap4',
+      iconSet: 'fontAwesome',
+      loadonce: false,
+        searching: {
+        multipleSearch: true,
+        loadDefaults: false,
+        sopt: ['eq', 'ne', 'cn', 'bw', 'bn', 'ge', 'le', 'lt', 'gt'],
+        showQuery: false
+      },
+      navOptions: { add: false, edit: false, search: false, del: false, refresh: true, refreshstate: 'current' },
       onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
         // Si se pulsa sobre la columna 1, pulsan sobre el boton
-        console.log('Se ha pulsado sobre el boton ver para ir al cliente con id: ' + iCol);
+        console.log('Se ha pulsado sobre el boton ver para ir a la venta con id: ' + iCol);
         if (iCol === 1 )
         {
           // Obtenemos el valor de la columna oculta
           const idCelValue = jQuery( '#' + this.jqGridId ).jqGrid ('getCell', rowid, 'id');
-          console.log('Se ha pulsado sobre el boton ver para ir al cliente con id: ' + idCelValue);
+          console.log('Se ha pulsado sobre el boton ver para ir a la venta con id: ' + idCelValue);
           this.router.navigate(['ventas', 'venta', idCelValue]);
         }
       }
-    });
+    }).jqGrid('navGrid');
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    // Refrescar
+    jQuery('#refresh_' + this.jqGridId).on('click', () => {
+      // Limpiamos previamente
+      this.jqGridData = new Array<Venta>();
+      // Pedimos los datos
+      this.getListadoVentas();
+    });
+
+    // Exportar a Excel
     jQuery('#exportar').on('click', () => {
 
       console.log('Se inicia la exportacion a excel del listado de ventas');
 
-      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-ventas' , escape: 'false'} );
+      // Inicializamos la varaible
+      this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+        header: true,
+        footers: true,
+        formats: ['xlsx', 'csv', 'txt'],
+        filename : 'listado_ventas',
+        bootstrap: true,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: [0, 2],
+        trimWhitespace: true,
+        RTL: false,
+        sheetname: 'id'
+      });
 
+      // Obtenemos los datos
+      const exportData = this.tableExport.getExportData()['ventas-grid'].xlsx;
+
+      // Exportamos los datos
+      this.tableExport.export2file(
+        exportData.data,
+        exportData.mimeType,
+        exportData.filename,
+        exportData.fileExtension
+      );
     });
 
   }

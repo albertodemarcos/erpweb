@@ -35,9 +35,9 @@
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "node_modules/free-jqgrid/dist/jquery.jqgrid.min.js",
                             "node_modules/free-jqgrid/dist/i18n/grid.locale-es.js",
-                            "node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js",
-                            "node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js",
-                            "node_modules/tableexport.jquery.plugin/tableExport.min.js",
+                            "node_modules/xlsx/dist/xlsx.full.min.js",
+                            "node_modules/file-saver/dist/FileSaver.min.js",
+                            "node_modules/tableexport/dist/js/tableexport.min.js",
                             "node_modules/jquery-ui/ui/widgets/datepicker.js"
                         ]
                     },

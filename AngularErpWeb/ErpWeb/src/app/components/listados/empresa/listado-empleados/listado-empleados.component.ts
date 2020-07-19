@@ -4,6 +4,7 @@ import { EmpleadoService } from 'src/app/services/empresa/empleado.service';
 import { Empleado } from 'src/app/model/entitys/empleado.model';
 
 declare var jQuery: any;
+declare var TableExport: any;
 
 @Component({
   selector: 'app-listado-empleados',
@@ -18,6 +19,7 @@ export class ListadoEmpleadosComponent implements OnInit, AfterViewInit {
   private jqGridColNames: string[];
   private jqGridColModel: {};
   private jqGridData: Empleado[];
+  private tableExport: any;
 
   constructor(private empleadoService: EmpleadoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de empleados';
@@ -73,7 +75,18 @@ export class ListadoEmpleadosComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
+      shrinkToFit: true,
+      guiStyle: 'bootstrap4',
+      iconSet: 'fontAwesome',
+      loadonce: false,
+      searching: {
+        multipleSearch: true,
+        loadDefaults: false,
+        sopt: ['eq', 'ne', 'cn', 'bw', 'bn', 'ge', 'le', 'lt', 'gt'],
+        showQuery: false
+      },
+      navOptions: { add: false, edit: false, search: false, del: false, refresh: true, refreshstate: 'current' },
       onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
         // Si se pulsa sobre la columna 1, pulsan sobre el boton
         console.log('Se ha pulsado sobre el boton ver para ir al empleado con id: ' + iCol);
@@ -85,17 +98,50 @@ export class ListadoEmpleadosComponent implements OnInit, AfterViewInit {
           this.router.navigate(['rrhh', 'empleado', idCelValue]);
         }
       }
-    });
+    }).jqGrid('navGrid');
 
     // Filtros
-    jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
+    jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators: false});
 
+    // Refrescar
+    jQuery('#refresh_' + this.jqGridId).on('click', () => {
+      // Limpiamos previamente
+      this.jqGridData = new Array<Empleado>();
+      // Pedimos los datos
+      this.getListadoEmpleados();
+    });
+
+    // Exportar a Excel
     jQuery('#exportar').on('click', () => {
 
       console.log('Se inicia la exportacion a excel del listado de empleados');
 
-      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-empleados' , escape: 'false'} );
+      // Inicializamos la varaible
+      this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+        header: true,
+        footers: true,
+        formats: ['xlsx', 'csv', 'txt'],
+        filename : 'listado_empleados',
+        bootstrap: true,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: [0, 2],
+        trimWhitespace: true,
+        RTL: false,
+        sheetname: 'id'
+      });
 
+      // Obtenemos los datos
+      const exportData = this.tableExport.getExportData()['empleados-grid'].xlsx;
+
+      // Exportamos los datos
+      this.tableExport.export2file(
+        exportData.data,
+        exportData.mimeType,
+        exportData.filename,
+        exportData.fileExtension
+      );
     });
 
   }

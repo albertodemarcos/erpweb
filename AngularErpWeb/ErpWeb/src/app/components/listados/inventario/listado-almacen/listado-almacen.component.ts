@@ -4,6 +4,7 @@ import { AlmacenService } from 'src/app/services/inventario/almacen.service';
 import { Almacen } from 'src/app/model/entitys/almacen.model';
 
 declare var jQuery: any;
+declare var TableExport: any;
 
 @Component({
   selector: 'app-listado-almacen',
@@ -18,6 +19,7 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
   private jqGridColNames: string[];
   private jqGridColModel: {};
   private jqGridData: Almacen[];
+  private tableExport: any;
 
   constructor(private almacenService: AlmacenService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de almcenes';
@@ -41,7 +43,7 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Almacen>();
   }
 
-  getListadoAlmacens(): void{
+  getListadoAlmacenes(): void{
 
     console.log('Entramos en el metodo getListadoAlmacens()');
 
@@ -72,7 +74,18 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
+      shrinkToFit: true,
+      guiStyle: 'bootstrap4',
+      iconSet: 'fontAwesome',
+      loadonce: false,
+        searching: {
+        multipleSearch: true,
+        loadDefaults: false,
+        sopt: ['eq', 'ne', 'cn', 'bw', 'bn', 'ge', 'le', 'lt', 'gt'],
+        showQuery: false
+      },
+      navOptions: { add: false, edit: false, search: false, del: false, refresh: true, refreshstate: 'current' },
       onCellSelect: (rowid: any, iCol: any, cellcontent: any, e: any) => {
         // Si se pulsa sobre la columna 1, pulsan sobre el boton
         console.log('Se ha pulsado sobre el boton ver para ir al almacen con id: ' + iCol);
@@ -84,26 +97,59 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
           this.router.navigate(['almacenes', 'almacen', idCelValue]);
         }
       }
-    });
+    }).jqGrid('navGrid');
 
     // Filtros
     jQuery('#' + this.jqGridId).jqGrid('filterToolbar', {searchOperators : true});
 
+    // Refrescar
+    jQuery('#refresh_' + this.jqGridId).on('click', () => {
+      // Limpiamos previamente
+      this.jqGridData = new Array<Almacen>();
+      // Pedimos los datos
+      this.getListadoAlmacenes();
+    });
+
+    // Exportar a Excel
     jQuery('#exportar').on('click', () => {
 
       console.log('Se inicia la exportacion a excel del listado de almacenes');
 
-      jQuery('#' + this.jqGridId).tableExport({ type: 'excel', fileName: 'listado-almacenes' , escape: 'false'} );
+      // Inicializamos la varaible
+      this.tableExport = new TableExport(jQuery('#' + this.jqGridId), {
+        header: true,
+        footers: true,
+        formats: ['xlsx', 'csv', 'txt'],
+        filename : 'listado_almacenes',
+        bootstrap: true,
+        exportButtons: false,
+        position: 'bottom',
+        ignoreRows: null,
+        ignoreCols: [0, 2],
+        trimWhitespace: true,
+        RTL: false,
+        sheetname: 'id'
+      });
 
+      // Obtenemos los datos
+      const exportData = this.tableExport.getExportData()['almacenes-grid'].xlsx;
+
+      // Exportamos los datos
+      this.tableExport.export2file(
+        exportData.data,
+        exportData.mimeType,
+        exportData.filename,
+        exportData.fileExtension
+      );
     });
 
   }
 
   ngOnInit(): void {
-    this.getListadoAlmacens();
+    this.getListadoAlmacenes();
   }
 
- 
+
 
 
 }
