@@ -3,13 +3,16 @@ package com.erpweb.entidades.compras;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,12 +28,13 @@ public class Pedido implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Set<LineaPedido> lineaPedido;
 	private Date fechaPedido;
-	private String articulo; 				//Articulo
-	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
-	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
-	private TipoImpuesto impuesto; 				//Impuesto 
-	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
+	private String articulo;
+	private BigDecimal cantidad;			
+	private BigDecimal baseImponibleTotal;	
+	private TipoImpuesto impuesto; 			 
+	private BigDecimal importeTotal;	    
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PEDIDO_SEQ")
@@ -51,6 +55,15 @@ public class Pedido implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@OneToMany(mappedBy="pedido",cascade=CascadeType.ALL, orphanRemoval=true)
+	public Set<LineaPedido> getLineaPedido() {
+		return lineaPedido;
+	}
+
+	public void setLineaPedido(Set<LineaPedido> lineaPedido) {
+		this.lineaPedido = lineaPedido;
+	}
+
 	public Date getFechaPedido() {
 		return fechaPedido;
 	}
@@ -66,7 +79,7 @@ public class Pedido implements Serializable {
 	public void setArticulo(String articulo) {
 		this.articulo = articulo;
 	}
-	
+
 	public BigDecimal getCantidad() {
 		return cantidad;
 	}

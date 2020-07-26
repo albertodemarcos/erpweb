@@ -2,11 +2,14 @@ package com.erpweb.entidades.inventario;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,6 +24,7 @@ public class Articulo extends Producto implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Set<Almacen> almacenes;
 	private String nombre;
 	private String descripcion;
 	private BigDecimal baseImponible;
@@ -44,6 +48,15 @@ public class Articulo extends Producto implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	@ManyToMany(mappedBy = "articulos" ,cascade = CascadeType.ALL)	
+	public Set<Almacen> getAlmacenes() {
+		return almacenes;
+	}
+
+	public void setAlmacenes(Set<Almacen> almacenes) {
+		this.almacenes = almacenes;
 	}
 
 	public String getNombre() {
@@ -85,7 +98,7 @@ public class Articulo extends Producto implements Serializable {
 	public void setImporteTotal(BigDecimal importeTotal) {
 		this.importeTotal = importeTotal;
 	}
-	
+
 	
 	
 }

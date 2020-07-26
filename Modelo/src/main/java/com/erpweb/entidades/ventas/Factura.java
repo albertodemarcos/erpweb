@@ -3,13 +3,16 @@ package com.erpweb.entidades.ventas;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,6 +29,7 @@ public class Factura implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Set<LineaFactura> lineaFactura;
 	private Date fechaCreacion;  													//Cuando se crea la factura
 	private Date fechaInicio;    													//Cuando empieza la factura
 	private Date fechaFin;       													//Cuando finaliza la factura
@@ -54,6 +58,15 @@ public class Factura implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@OneToMany(mappedBy="factura",cascade=CascadeType.ALL, orphanRemoval=true)
+	public Set<LineaFactura> getLineaFactura() {
+		return lineaFactura;
+	}
+
+	public void setLineaFactura(Set<LineaFactura> lineaFactura) {
+		this.lineaFactura = lineaFactura;
+	}
+
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}

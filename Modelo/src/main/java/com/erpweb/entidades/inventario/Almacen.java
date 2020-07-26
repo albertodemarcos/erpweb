@@ -1,11 +1,17 @@
 package com.erpweb.entidades.inventario;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -33,6 +39,11 @@ public class Almacen implements Serializable {
    	private String provincia;
    	private String pais;
 		
+   	//Articulo del Almacen
+   	private Set<Articulo> articulos;
+   	
+   	//Stock articulos almacen
+   	private Set<StockArticulo> stockAlmacen;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ALMACEN_SEQ")
@@ -131,6 +142,29 @@ public class Almacen implements Serializable {
 
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+
+	@JoinTable(
+		name = "almacen_articulo",
+		joinColumns = @JoinColumn(name = "almacen_id", nullable=true),
+		inverseJoinColumns = @JoinColumn(name = "articulo_id", nullable=true)
+	)
+	@ManyToMany(cascade = CascadeType.ALL)
+	public Set<Articulo> getArticulos() {
+		return articulos;
+	}
+
+	public void setArticulos(Set<Articulo> articulos) {
+		this.articulos = articulos;
+	}
+
+	@OneToMany(mappedBy="almacen", cascade=CascadeType.ALL, orphanRemoval=true)
+	public Set<StockArticulo> getStockAlmacen() {
+		return stockAlmacen;
+	}
+
+	public void setStockAlmacen(Set<StockArticulo> stockAlmacen) {
+		this.stockAlmacen = stockAlmacen;
 	}
 	
 	

@@ -3,13 +3,18 @@ package com.erpweb.entidades.ventas;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,12 +29,14 @@ public class Contrato implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Factura factura;
+	private Set<LineaContrato> lineasContrato;
 	private Date fechaCreacion;  													//Cuando se crea el contrato
 	private Date fechaInicio;    													//Cuando empieza el contrato
 	private Date fechaFin;       													//Cuando finaliza el contrato
 	private String descripcion;														//Descripcion del contrato
 	private BigDecimal baseImponibleTotal;											//Importe total del contrato sin impuestos
-	private TipoImpuesto impuesto;
+	private TipoImpuesto impuesto;													//Tipo de impuesto aplicado¿?
 	private BigDecimal importeTotal;	    										//Importe total del contro con impuestos
 
 	@Id
@@ -51,6 +58,24 @@ public class Contrato implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@OneToOne(fetch = FetchType.EAGER, optional=false)
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
+	@OneToMany(mappedBy="contrato",cascade=CascadeType.ALL, orphanRemoval=true)
+	public Set<LineaContrato> getLineasContrato() {
+		return lineasContrato;
+	}
+
+	public void setLineasContrato(Set<LineaContrato> lineasContrato) {
+		this.lineasContrato = lineasContrato;
+	}
+
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
