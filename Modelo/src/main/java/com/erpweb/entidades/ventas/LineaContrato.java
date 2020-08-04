@@ -27,7 +27,10 @@ public class LineaContrato extends Linea implements Serializable {
 	private BigDecimal baseImponible; 		// Precio sin impuesto
 	private BigDecimal importeTotal; 		// Precio con impuesto
 	private BigDecimal importeImpuesto; 	// Diferencia entre precio sin impuesto y con impuesto
-
+	private Integer cantidad;				// Cantidad del articulo
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LINEA_CONTRATO_SEQ")
 	@SequenceGenerator(name="LINEA_CONTRATO_SEQ",sequenceName="SEQUENCE_LINEA_CONTRATO", allocationSize=1)
@@ -79,6 +82,14 @@ public class LineaContrato extends Linea implements Serializable {
 
 	public void setImporteImpuesto(BigDecimal importeImpuesto) {
 		this.importeImpuesto = importeImpuesto;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
 }

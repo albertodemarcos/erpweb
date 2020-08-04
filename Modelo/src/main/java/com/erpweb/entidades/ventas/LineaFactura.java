@@ -28,7 +28,8 @@ public class LineaFactura extends Linea implements Serializable {
 	private BigDecimal baseImponible; 		// Precio sin impuesto
 	private BigDecimal importeTotal; 		// Precio con impuesto
 	private BigDecimal importeImpuesto; 	// Diferencia entre precio sin impuesto y con impuesto
-
+	private Integer cantidad;				// Cantidad del articulo
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LINEA_FACTURA_SEQ")
@@ -81,6 +82,14 @@ public class LineaFactura extends Linea implements Serializable {
 
 	public void setImporteImpuesto(BigDecimal importeImpuesto) {
 		this.importeImpuesto = importeImpuesto;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
 }

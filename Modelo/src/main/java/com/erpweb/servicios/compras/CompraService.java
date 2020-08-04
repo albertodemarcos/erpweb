@@ -1,9 +1,13 @@
 package com.erpweb.servicios.compras;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -13,38 +17,37 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.compras.Compra;
+import com.erpweb.entidades.compras.LineaCompra;
+import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.patrones.builder.constructores.ConstructorCompra;
 import com.erpweb.repositorios.compras.CompraRepository;
+import com.erpweb.repositorios.compras.LineaCompraRepository;
+import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.utiles.AccionRespuesta;
-
-
 
 @Service
 public class CompraService {
 
-	@Autowired
+	@Autowired 
 	private CompraRepository compraRepository;
+	@Autowired 
+	private LineaCompraRepository lineaCompraRepository;
+	@Autowired 
+	private ArticuloRepository articuloRepository;
+	
+	@Autowired 
+	private ConstructorCompra constructorCompra;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public AccionRespuesta crearCompraDesdeCompraDto(CompraDto compraDto) {
 		
 		logger.debug("Entramos en el metodo crearCompraDesdeCompraDto() con ID={}", compraDto.getId() );
-		
-		Compra compra = new Compra();
-		
-		compra.setCodigo(compraDto.getCodigo());
-		compra.setFechaCompra(compraDto.getFechaCompra());
-		compra.setArticulo(compraDto.getArticulo());
-		compra.setCantidad(compraDto.getCantidad());
-		compra.setBaseImponibleTotal(compraDto.getBaseImponibleTotal());
-		compra.setImpuesto(compraDto.getImpuesto());
-		compra.setImporteTotal(compraDto.getImporteTotal());
-		
+
 		try {
 			
-			//Guardamos la compra en base de datos
-			Compra compraSave = compraRepository.save(compra);
+			Compra compraSave = constructorCompra.crearEntidadLineasEntidad(compraDto);
 			
 			return this.devolverDatosCompraDto(compraDto, compraSave);
 			
@@ -62,21 +65,57 @@ public class CompraService {
 		
 		logger.debug("Entramos en el metodo actualizarCompraDesdeCompraDto() con ID={}", compraDto.getId() );
 		
-		Compra compra = new Compra();
-
-		compra.setId(compraDto.getId());
-		compra.setCodigo(compraDto.getCodigo());
-		compra.setFechaCompra(compraDto.getFechaCompra());
-		compra.setArticulo(compraDto.getArticulo());
-		compra.setCantidad(compraDto.getCantidad());
-		compra.setBaseImponibleTotal(compraDto.getBaseImponibleTotal());
-		compra.setImpuesto(compraDto.getImpuesto());
-		compra.setImporteTotal(compraDto.getImporteTotal());
-		
 		try {
 			
+			//Recuperamos la compra
+			Optional<Compra> compraOptional = compraRepository.findById(compraDto.getId());
+			
+			Compra compra = compraOptional.orElse(null);
+			
+			if(compra == null) {
+				
+				return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+			}
+			
+			compra.setCodigo(compraDto.getCodigo());
+			compra.setFechaCompra(compraDto.getFechaCompra());
+			compra.setBaseImponibleTotal(compraDto.getBaseImponibleTotal());
+			compra.setImpuesto(compraDto.getImpuesto());
+			compra.setImporteTotal(compraDto.getImporteTotal());
+			
+			Set<Long> articuloIds = compraDto.getArticulosCantidad().entrySet().stream().map(art -> art.getKey() ).collect(Collectors.toSet());
+			
+			List<Articulo> articulos = articuloRepository.findByIdIn( articuloIds );
+			
+			//Eliminamos las anteriores lineas
+			lineaCompraRepository.deleteAll( compra.getLineasCompra() );
+			
+			Set<LineaCompra> lineasCompra = new HashSet<LineaCompra>();
+			
+			//Por cada articulo, se crea una linea de compra
+			for(Articulo articulo : articulos) {
+				
+				LineaCompra lineaCompra = new LineaCompra();
+				
+				lineaCompra.setCompra(compra);
+				lineaCompra.setArticulo(articulo);
+				lineaCompra.setBaseImponible(articulo.getBaseImponible());
+				lineaCompra.setImporteTotal(articulo.getImporteTotal());
+				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
+				lineaCompra.setImporteImpuesto( importeImpuesto ); 
+				lineaCompra.setDescripcionLinea("");
+				
+				lineasCompra.add(lineaCompra);
+			}
+			
+			lineaCompraRepository.saveAll(lineasCompra);
+			
+			compra.getLineasCompra().clear();
+			
+			compra.getLineasCompra().addAll(lineasCompra);
+			
 			//Actualizamos la compra en base de datos
-			Compra compraSave = compraRepository.save(compra);
+			Compra compraSave = compraRepository.saveAndFlush(compra);
 			
 			return this.devolverDatosActualizadosCompraDto(compraDto, compraSave);
 			
@@ -351,7 +390,7 @@ public class CompraService {
 				compraDto.setImpuesto(compra.getImpuesto());
 				compraDto.setImporteTotal(compra.getImporteTotal());
 				
-				comprasDto.add(compraDto);			
+				comprasDto.add(compraDto);
 			}
 		}
 		

@@ -3,6 +3,7 @@ package com.erpweb.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.erpweb.utiles.enumerados.TipoImpuesto;
 
@@ -14,12 +15,12 @@ public class PedidoDto implements Serializable {
 	private Long id;
 	private String codigo;
 	private Date fechaPedido;
-	private String articulo; 				//Articulo
-	private BigDecimal cantidad;			//Cantidad de articulos del mismo tipo y precio
-	private BigDecimal baseImponibleTotal;	//Importe de la linea correspondiente al importe de los articulos sin impuestos
-	private TipoImpuesto impuesto; 			//Impuesto 
-	private BigDecimal importeTotal;	    //Importe de la linea correspondiente al importe de los articuloscon impuestos
-	
+	private String articulo; 								//Articulo
+	private BigDecimal cantidad;							//Cantidad de articulos del mismo tipo y precio
+	private BigDecimal baseImponibleTotal;					//Importe de la linea correspondiente al importe de los articulos sin impuestos
+	private TipoImpuesto impuesto; 							//Impuesto 
+	private BigDecimal importeTotal;	    				//Importe de la linea correspondiente al importe de los articuloscon impuestos
+	private HashMap<Long, BigDecimal> articulosCantidad; 	//Mapa articuloId, Cantidad de articulos
 	public Long getId() {
 		return id;
 	}
@@ -82,6 +83,14 @@ public class PedidoDto implements Serializable {
 
 	public void setImporteTotal(BigDecimal importeTotal) {
 		this.importeTotal = importeTotal;
+	}
+
+	public HashMap<Long, BigDecimal> getArticulosCantidad() {
+		return articulosCantidad;
+	}
+
+	public void setArticulosCantidad(HashMap<Long, BigDecimal> articulosCantidad) {
+		this.articulosCantidad = articulosCantidad;
 	}
 	
 	

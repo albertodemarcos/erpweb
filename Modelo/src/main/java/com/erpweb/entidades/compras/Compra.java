@@ -3,6 +3,7 @@ package com.erpweb.entidades.compras;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class Compra implements Serializable {
 	private String codigo;
 	private Date fechaCompra;
 	private String articulo; 				
-	private Set<LineaCompra> lineasCompra;		
+	private Set<LineaCompra> lineasCompra = new HashSet<LineaCompra>();
 	private BigDecimal cantidad;			
 	private BigDecimal baseImponibleTotal;	
 	private TipoImpuesto impuesto; 			

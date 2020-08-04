@@ -28,7 +28,7 @@ public class Pedido implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Set<LineaPedido> lineaPedido;
+	private Set<LineaPedido> lineasPedido;
 	private Date fechaPedido;
 	private String articulo;
 	private BigDecimal cantidad;			
@@ -56,12 +56,12 @@ public class Pedido implements Serializable {
 	}
 	
 	@OneToMany(mappedBy="pedido",cascade=CascadeType.ALL, orphanRemoval=true)
-	public Set<LineaPedido> getLineaPedido() {
-		return lineaPedido;
+	public Set<LineaPedido> getLineasPedido() {
+		return lineasPedido;
 	}
 
-	public void setLineaPedido(Set<LineaPedido> lineaPedido) {
-		this.lineaPedido = lineaPedido;
+	public void setLineasPedido(Set<LineaPedido> lineasPedido) {
+		this.lineasPedido = lineasPedido;
 	}
 
 	public Date getFechaPedido() {

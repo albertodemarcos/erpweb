@@ -1,9 +1,13 @@
 package com.erpweb.servicios.ventas;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -12,8 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.VentaDto;
+import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.entidades.ventas.LineaVenta;
 import com.erpweb.entidades.ventas.Venta;
+import com.erpweb.patrones.builder.constructores.ConstructorVenta;
+import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.repositorios.ventas.LineaVentaRepository;
 import com.erpweb.repositorios.ventas.VentaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -23,6 +32,14 @@ public class VentaService {
 
 	@Autowired
 	private VentaRepository ventaRepository;
+	@Autowired
+	private LineaVentaRepository lineaVentaRepository;
+	@Autowired
+	private ArticuloRepository articuloRepository;
+	
+	
+	@Autowired
+	private ConstructorVenta constructorVenta;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,22 +48,11 @@ public class VentaService {
 	public AccionRespuesta crearVentaDesdeVentaDto(VentaDto ventaDto) {
 		
 		logger.debug("Entramos en el metodo crearVentaDesdeVentaDto() con ID={}", ventaDto.getId() );
-		
-		Venta venta = new Venta();
-		
-		venta.setCodigo(ventaDto.getCodigo());
-		venta.setFechaCreacion(ventaDto.getFechaCreacion());
-		venta.setFechaInicio(ventaDto.getFechaInicio());
-		venta.setFechaFin(ventaDto.getFechaFin());
-		venta.setDescripcion(ventaDto.getDescripcion());
-		venta.setBaseImponibleTotal(ventaDto.getBaseImponibleTotal());
-		venta.setImpuesto(ventaDto.getImpuesto());
-		venta.setImporteTotal(ventaDto.getImporteTotal());
 
 		try {
 			
 			//Guardamos la venta en base de datos
-			Venta ventaSave = ventaRepository.save(venta);
+			Venta ventaSave = constructorVenta.crearEntidadLineasEntidad(ventaDto);
 			
 			return this.devolverDatosVentaDto(ventaDto, ventaSave);
 			
@@ -64,22 +70,59 @@ public class VentaService {
 		
 		logger.debug("Entramos en el metodo crearventaDesdeventaDto() con ID={}", ventaDto.getId() );
 		
-		Venta venta = new Venta();
-
-		venta.setId(ventaDto.getId());
-		venta.setCodigo(ventaDto.getCodigo());
-		venta.setFechaCreacion(ventaDto.getFechaCreacion());
-		venta.setFechaInicio(ventaDto.getFechaInicio());
-		venta.setFechaFin(ventaDto.getFechaFin());
-		venta.setDescripcion(ventaDto.getDescripcion());
-		venta.setBaseImponibleTotal(ventaDto.getBaseImponibleTotal());
-		venta.setImpuesto(ventaDto.getImpuesto());
-		venta.setImporteTotal(ventaDto.getImporteTotal());
-
 		try {
 			
-			//Guardamos la venta en base de datos
-			Venta ventaSave = ventaRepository.save(venta);
+			Optional<Venta> ventaOptional = ventaRepository.findById( ventaDto.getId() );
+			
+			Venta venta = ventaOptional.orElse(null);
+			
+			if( venta == null ) {
+				
+				return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+			}
+			
+			venta.setCodigo(ventaDto.getCodigo());
+			venta.setFechaCreacion(ventaDto.getFechaCreacion());
+			venta.setFechaInicio(ventaDto.getFechaInicio());
+			venta.setFechaFin(ventaDto.getFechaFin());
+			venta.setDescripcion(ventaDto.getDescripcion());
+			venta.setBaseImponibleTotal(ventaDto.getBaseImponibleTotal());
+			venta.setImpuesto(ventaDto.getImpuesto());
+			venta.setImporteTotal(ventaDto.getImporteTotal());
+			
+			Set<Long> articuloIds = ventaDto.getArticulosCantidad().entrySet().stream().map(art -> art.getKey() ).collect(Collectors.toSet());
+			
+			List<Articulo> articulos = articuloRepository.findByIdIn( articuloIds );
+			
+			//Eliminamos las anteriores lineas
+			lineaVentaRepository.deleteAll( venta.getLineasVenta() );
+
+			Set<LineaVenta> lineasVenta = new HashSet<LineaVenta>();
+			
+			//Por cada articulo, se crea una linea de contrato
+			for(Articulo articulo : articulos) {
+				
+				LineaVenta lineaVenta = new LineaVenta();
+				
+				lineaVenta.setVenta(venta);
+				lineaVenta.setArticulo(articulo);
+				lineaVenta.setBaseImponible(articulo.getBaseImponible());
+				lineaVenta.setImporteTotal(articulo.getImporteTotal());
+				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
+				lineaVenta.setImporteImpuesto( importeImpuesto ); 
+				lineaVenta.setDescripcionLinea("");
+				
+				lineasVenta.add(lineaVenta);
+			}
+			
+			lineaVentaRepository.saveAll(lineasVenta);
+			
+			venta.getLineasVenta().clear();
+			
+			venta.getLineasVenta().addAll(lineasVenta);
+			
+			//Actualizamos la venta en base de datos
+			Venta ventaSave =  ventaRepository.saveAndFlush(venta);
 			
 			return this.devolverDatosActualizadosVentaDto(ventaDto, ventaSave);
 			

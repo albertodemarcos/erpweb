@@ -1,10 +1,14 @@
 package com.erpweb.servicios.ventas;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -13,9 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.ContratoDto;
+import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Contrato;
+import com.erpweb.entidades.ventas.LineaContrato;
+import com.erpweb.patrones.builder.constructores.ConstructorContrato;
+import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.repositorios.ventas.ContratoRepository;
+import com.erpweb.repositorios.ventas.LineaContratoRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 
@@ -24,6 +33,13 @@ public class ContratoService {
 
 	@Autowired
 	private ContratoRepository contratoRepository;
+	@Autowired
+	private LineaContratoRepository lineaContratoRepository;
+	@Autowired
+	private ArticuloRepository articuloRepository;
+	
+	@Autowired
+	private ConstructorContrato constructorContrato;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -33,21 +49,10 @@ public class ContratoService {
 		
 		logger.debug("Entramos en el metodo crearContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
 		
-		Contrato contrato = new Contrato();
-		
-		contrato.setCodigo(contratoDto.getCodigo());
-		contrato.setFechaCreacion(contratoDto.getFechaCreacion());
-		contrato.setFechaInicio(contratoDto.getFechaInicio());
-		contrato.setFechaFin(contratoDto.getFechaFin());
-		contrato.setDescripcion(contratoDto.getDescripcion());
-		contrato.setBaseImponibleTotal(contratoDto.getBaseImponibleTotal());
-		contrato.setImpuesto(contratoDto.getImpuesto());
-		contrato.setImporteTotal(contratoDto.getImporteTotal());
-		
 		try {
 			
 			//Guardamos el contrato en base de datos
-			Contrato contratoSave = contratoRepository.save(contrato);
+			Contrato contratoSave = constructorContrato.crearEntidadLineasEntidad(contratoDto);
 			
 			return this.devolverDatosContratoDto(contratoDto, contratoSave);
 			
@@ -64,22 +69,60 @@ public class ContratoService {
 	public AccionRespuesta actualizarContratoDesdeContratoDto(ContratoDto contratoDto) {
 		
 		logger.debug("Entramos en el metodo actualizarContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
-		
-		Contrato contrato = new Contrato();
-
-		contrato.setId(contratoDto.getId());
-		contrato.setCodigo(contratoDto.getCodigo());
-		contrato.setFechaCreacion(contratoDto.getFechaCreacion());
-		contrato.setFechaInicio(contratoDto.getFechaInicio());
-		contrato.setFechaFin(contratoDto.getFechaFin());
-		contrato.setDescripcion(contratoDto.getDescripcion());
-		contrato.setBaseImponibleTotal(contratoDto.getBaseImponibleTotal());
-		contrato.setImpuesto(contratoDto.getImpuesto());
-		contrato.setImporteTotal(contratoDto.getImporteTotal());
 
 		try {
+			
+			Optional<Contrato> contratoOptional = contratoRepository.findById(contratoDto.getId());
+			
+			Contrato contrato = contratoOptional.orElse(null);
+			
+			if( contrato == null) {
+				
+				return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+			}
+			
+			contrato.setCodigo(contratoDto.getCodigo());
+			contrato.setFechaCreacion(contratoDto.getFechaCreacion());
+			contrato.setFechaInicio(contratoDto.getFechaInicio());
+			contrato.setFechaFin(contratoDto.getFechaFin());
+			contrato.setDescripcion(contratoDto.getDescripcion());
+			contrato.setBaseImponibleTotal(contratoDto.getBaseImponibleTotal());
+			contrato.setImpuesto(contratoDto.getImpuesto());
+			contrato.setImporteTotal(contratoDto.getImporteTotal());
+			
+			Set<Long> articuloIds = contratoDto.getArticulosCantidad().entrySet().stream().map(art -> art.getKey() ).collect(Collectors.toSet());
+			
+			List<Articulo> articulos = articuloRepository.findByIdIn( articuloIds );
+			
+			//Eliminamos las anteriores lineas
+			lineaContratoRepository.deleteAll( contrato.getLineasContrato() );
+
+			Set<LineaContrato> lineasContrato = new HashSet<LineaContrato>();
+			
+			//Por cada articulo, se crea una linea de contrato
+			for(Articulo articulo : articulos) {
+				
+				LineaContrato lineaContrato = new LineaContrato();
+				
+				lineaContrato.setContrato(contrato);
+				lineaContrato.setArticulo(articulo);
+				lineaContrato.setBaseImponible(articulo.getBaseImponible());
+				lineaContrato.setImporteTotal(articulo.getImporteTotal());
+				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
+				lineaContrato.setImporteImpuesto( importeImpuesto ); 
+				lineaContrato.setDescripcionLinea("");
+				
+				lineasContrato.add(lineaContrato);
+			}
+			
+			lineaContratoRepository.saveAll(lineasContrato);
+			
+			contrato.getLineasContrato().clear();
+			
+			contrato.getLineasContrato().addAll(lineasContrato);
+			
 			//Guardamos el contrato en base de datos
-			Contrato contratoSave = contratoRepository.save(contrato);
+			Contrato contratoSave = contratoRepository.saveAndFlush(contrato);
 			
 			return this.devolverDatosActualizadosContratoDto(contratoDto, contratoSave);
 			

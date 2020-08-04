@@ -1,10 +1,14 @@
 package com.erpweb.servicios.ventas;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -13,9 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.FacturaDto;
+import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Factura;
+import com.erpweb.entidades.ventas.LineaFactura;
+import com.erpweb.patrones.builder.constructores.ConstructorFactura;
+import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
+import com.erpweb.repositorios.ventas.LineaFacturaRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 
@@ -24,6 +33,13 @@ public class FacturaService {
 
 	@Autowired
 	private FacturaRepository facturaRepository;
+	@Autowired
+	private LineaFacturaRepository lineaFacturaRepository;
+	@Autowired
+	private ArticuloRepository articuloRepository;
+	
+	@Autowired
+	private ConstructorFactura constructorFactura;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -33,21 +49,10 @@ public class FacturaService {
 		
 		logger.debug("Entramos en el metodo crearFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 		
-		Factura factura = new Factura();
-		
-		factura.setCodigo(facturaDto.getCodigo());
-		factura.setFechaCreacion(facturaDto.getFechaCreacion());
-		factura.setFechaInicio(facturaDto.getFechaInicio());
-		factura.setFechaFin(facturaDto.getFechaFin());
-		factura.setDescripcion(facturaDto.getDescripcion());
-		factura.setBaseImponible(facturaDto.getBaseImponible());
-		factura.setImpuesto(facturaDto.getImpuesto());
-		factura.setImporteTotal(facturaDto.getImporteTotal());
-		
 		try {
 			
 			//Guardamos la factura en base de datos
-			Factura facturaSave = facturaRepository.save(factura);
+			Factura facturaSave = constructorFactura.crearEntidadLineasEntidad(facturaDto);
 			
 			return this.devolverDatosFacturaDto(facturaDto, facturaSave);
 			
@@ -65,19 +70,58 @@ public class FacturaService {
 		
 		logger.debug("Entramos en el metodo actualizarFacturaDesdeFacturaDto() con ID={}", facturaDto.getId() );
 		
-		Factura factura = new Factura();
-		
-		factura.setId(facturaDto.getId());
-		factura.setCodigo(facturaDto.getCodigo());
-		factura.setFechaCreacion(facturaDto.getFechaCreacion());
-		factura.setFechaInicio(facturaDto.getFechaInicio());
-		factura.setFechaFin(facturaDto.getFechaFin());
-		factura.setDescripcion(facturaDto.getDescripcion());
-		factura.setBaseImponible(facturaDto.getBaseImponible());
-		factura.setImpuesto(facturaDto.getImpuesto());
-		factura.setImporteTotal(facturaDto.getImporteTotal());
-		
 		try {
+			
+			Optional<Factura> facturaOptional = facturaRepository.findById( facturaDto.getId() );
+			
+			Factura factura = facturaOptional.orElse(null);
+			
+			if( factura == null ) {
+				
+				return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+			}
+			
+			factura.setCodigo(facturaDto.getCodigo());
+			factura.setFechaCreacion(facturaDto.getFechaCreacion());
+			factura.setFechaInicio(facturaDto.getFechaInicio());
+			factura.setFechaFin(facturaDto.getFechaFin());
+			factura.setDescripcion(facturaDto.getDescripcion());
+			factura.setBaseImponible(facturaDto.getBaseImponible());
+			factura.setImpuesto(facturaDto.getImpuesto());
+			factura.setImporteTotal(facturaDto.getImporteTotal());
+			
+			Set<Long> articuloIds = facturaDto.getArticulosCantidad().entrySet().stream().map(art -> art.getKey() ).collect(Collectors.toSet());
+			
+			List<Articulo> articulos = articuloRepository.findByIdIn( articuloIds );
+			
+			//Eliminamos las anteriores lineas
+			lineaFacturaRepository.deleteAll( factura.getLineasFactura() );
+
+			Set<LineaFactura> lineasVenta = new HashSet<LineaFactura>();
+			
+			//Por cada articulo, se crea una linea de contrato
+			for(Articulo articulo : articulos) {
+				
+				LineaFactura lineaFactura = new LineaFactura();
+				
+				lineaFactura.setFactura(factura);
+				lineaFactura.setArticulo(articulo);
+				lineaFactura.setBaseImponible(articulo.getBaseImponible());
+				lineaFactura.setImporteTotal(articulo.getImporteTotal());
+				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
+				lineaFactura.setImporteImpuesto( importeImpuesto ); 
+				lineaFactura.setDescripcionLinea("");
+				
+				lineasVenta.add(lineaFactura);
+			}
+			
+			lineaFacturaRepository.saveAll(lineasVenta);
+			
+			factura.getLineasFactura().clear();
+			
+			factura.getLineasFactura().addAll(lineasVenta);
+			
+			facturaRepository.saveAndFlush(factura);
 			
 			//Guardamos la factura en base de datos
 			Factura facturaSave = facturaRepository.save(factura);

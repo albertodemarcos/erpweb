@@ -29,7 +29,7 @@ public class Factura implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Set<LineaFactura> lineaFactura;
+	private Set<LineaFactura> lineasFactura;
 	private Date fechaCreacion;  													//Cuando se crea la factura
 	private Date fechaInicio;    													//Cuando empieza la factura
 	private Date fechaFin;       													//Cuando finaliza la factura
@@ -59,12 +59,12 @@ public class Factura implements Serializable {
 	}
 	
 	@OneToMany(mappedBy="factura",cascade=CascadeType.ALL, orphanRemoval=true)
-	public Set<LineaFactura> getLineaFactura() {
-		return lineaFactura;
+	public Set<LineaFactura> getLineasFactura() {
+		return lineasFactura;
 	}
 
-	public void setLineaFactura(Set<LineaFactura> lineaFactura) {
-		this.lineaFactura = lineaFactura;
+	public void setLineasFactura(Set<LineaFactura> lineasFactura) {
+		this.lineasFactura = lineasFactura;
 	}
 
 	public Date getFechaCreacion() {

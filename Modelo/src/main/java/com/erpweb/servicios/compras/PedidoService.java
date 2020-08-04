@@ -1,9 +1,13 @@
 package com.erpweb.servicios.compras;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -12,9 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.PedidoDto;
+import com.erpweb.entidades.compras.LineaPedido;
 import com.erpweb.entidades.compras.Pedido;
+import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.patrones.builder.constructores.ConstructorPedido;
+import com.erpweb.repositorios.compras.LineaPedidoRepository;
 import com.erpweb.repositorios.compras.PedidoRepository;
+import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
 @Service
@@ -22,27 +31,26 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
+	private LineaPedidoRepository lineaPedidoRepository;
+	@Autowired
+	private ArticuloRepository articuloRepository;
+	
+	@Autowired
+	private ConstructorPedido constructorPedido; 
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
 	
 	public AccionRespuesta crearPedidoDesdePedidoDto(PedidoDto pedidoDto) {
 		
 		logger.debug("Entramos en el metodo crearPedidoDesdePedidoDto() con ID={}", pedidoDto.getId() );
-		
-		Pedido pedido = new Pedido();
-		
-		pedido.setCodigo(pedidoDto.getCodigo());
-		pedido.setFechaPedido(pedidoDto.getFechaPedido());
-		pedido.setArticulo(pedidoDto.getArticulo());
-		pedido.setCantidad(pedidoDto.getCantidad());
-		pedido.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
-		pedido.setImpuesto(pedidoDto.getImpuesto());
-		pedido.setImporteTotal(pedidoDto.getImporteTotal());
-		
+
 		try {
 			
 			//Guardamos el pedido en base de datos
-			Pedido pedioSave = pedidoRepository.save(pedido);
+			Pedido pedioSave = constructorPedido.crearEntidadLineasEntidad(pedidoDto);
 			
 			return this.devolverDatosPedidoDto(pedidoDto, pedioSave);
 			
@@ -60,21 +68,57 @@ public class PedidoService {
 		
 		logger.debug("Entramos en el metodo actualizarPedidoDesdePedidoDto() con ID={}", pedidoDto.getId() );
 		
-		Pedido pedido = new Pedido();
-		
-		pedido.setId(pedidoDto.getId());
-		pedido.setCodigo(pedidoDto.getCodigo());
-		pedido.setFechaPedido(pedidoDto.getFechaPedido());
-		pedido.setArticulo(pedidoDto.getArticulo());
-		pedido.setCantidad(pedidoDto.getCantidad());
-		pedido.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
-		pedido.setImpuesto(pedidoDto.getImpuesto());
-		pedido.setImporteTotal(pedidoDto.getImporteTotal());
-		
 		try {
 			
+			//Recuperamos el pedido
+			Optional<Pedido> pedidoOptional = pedidoRepository.findById( pedidoDto.getId() );
+			
+			Pedido pedido = pedidoOptional.orElse(null);
+			
+			if( pedido == null ) {
+				
+				return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
+			}
+			
+			pedido.setCodigo(pedidoDto.getCodigo());
+			pedido.setFechaPedido(pedidoDto.getFechaPedido());
+			pedido.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
+			pedido.setImpuesto(pedidoDto.getImpuesto());
+			pedido.setImporteTotal(pedidoDto.getImporteTotal());
+			
+			Set<Long> articuloIds = pedidoDto.getArticulosCantidad().entrySet().stream().map(art -> art.getKey() ).collect(Collectors.toSet());
+			
+			List<Articulo> articulos = articuloRepository.findByIdIn( articuloIds );
+			
+			//Eliminamos las anteriores lineas
+			lineaPedidoRepository.deleteAll( pedido.getLineasPedido() );
+
+			Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
+			
+			//Por cada articulo, se crea una linea de pedido
+			for(Articulo articulo : articulos) {
+				
+				LineaPedido lineaPedido = new LineaPedido();
+				
+				lineaPedido.setPedido(pedido);
+				lineaPedido.setArticulo(articulo);
+				lineaPedido.setBaseImponible(articulo.getBaseImponible());
+				lineaPedido.setImporteTotal(articulo.getImporteTotal());
+				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
+				lineaPedido.setImporteImpuesto( importeImpuesto ); 
+				lineaPedido.setDescripcionLinea("");
+				
+				lineasPedido.add(lineaPedido);
+			}
+			
+			lineaPedidoRepository.saveAll(lineasPedido);
+			
+			pedido.getLineasPedido().clear();
+			
+			pedido.getLineasPedido().addAll(lineasPedido);
+			
 			//Actualizamos el pedido en base de datos
-			Pedido pedioSave = pedidoRepository.save(pedido);
+			Pedido pedioSave = pedidoRepository.saveAndFlush(pedido);
 			
 			return this.devolverDatosActualizadosPedidoDto(pedidoDto, pedioSave);
 			
@@ -84,7 +128,7 @@ public class PedidoService {
 			
 			e.printStackTrace();
 			
-			return new AccionRespuesta();
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 		}
 	}
 	
