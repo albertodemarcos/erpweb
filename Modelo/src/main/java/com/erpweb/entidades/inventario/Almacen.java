@@ -1,6 +1,7 @@
 package com.erpweb.entidades.inventario;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -40,10 +41,10 @@ public class Almacen implements Serializable {
    	private String pais;
 		
    	//Articulo del Almacen
-   	private Set<Articulo> articulos;
+   	private Set<Articulo> articulos = new HashSet<Articulo>();
    	
    	//Stock articulos almacen
-   	private Set<StockArticulo> stockAlmacen;
+   	private Set<StockArticulo> stockAlmacen = new HashSet<StockArticulo>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ALMACEN_SEQ")

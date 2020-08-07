@@ -2,6 +2,7 @@ package com.erpweb.entidades.inventario;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class Articulo extends Producto implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Set<Almacen> almacenes;
+	private Set<Almacen> almacenes = new HashSet<Almacen>();
 	private String nombre;
 	private String descripcion;
 	private BigDecimal baseImponible;

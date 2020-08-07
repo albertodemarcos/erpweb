@@ -19,9 +19,11 @@ public class StockArticulo implements Serializable {
 	private static final long serialVersionUID = 3830853905216577288L;
 
 	private Long id;
+	private String codigo;
 	private Articulo articulo;
 	private Almacen almacen;
 	private Long cantidad;
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STOCK_ARTICULO_SEQ")
@@ -32,6 +34,14 @@ public class StockArticulo implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

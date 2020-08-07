@@ -127,7 +127,7 @@ public class AlmacenService {
 	
 	public AccionRespuesta eliminarAlmacenPorId(Long almacenId) {
 		
-		logger.error("Entramos en el metodo eliminarAlmacenPorId()" );
+		logger.trace("Entramos en el metodo eliminarAlmacenPorId()" );
 		
 		if( almacenId == null) {
 			
