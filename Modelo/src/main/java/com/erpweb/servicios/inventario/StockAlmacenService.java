@@ -3,13 +3,13 @@ package com.erpweb.servicios.inventario;
 import java.util.HashMap;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.erpweb.dto.StockArticuloDto;
 import com.erpweb.entidades.inventario.Almacen;
@@ -264,7 +264,7 @@ public class StockAlmacenService {
 			
 			Long cantidad = stockArticuloRepository.obtieneCantidadArticuloAlmacen(almacenId, articuloId);
 			
-			if( cantidad ==null || cantidad.longValue() <= 0) {
+			if( cantidad == null || cantidad.longValue() <= 0) {
 				
 				return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 			}

@@ -10,13 +10,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.utiles.enumerados.TipoImpuesto;
 
 
@@ -28,10 +31,9 @@ public class Compra implements Serializable {
 	
 	private Long id;
 	private String codigo;
+	private Factura factura;
 	private Date fechaCompra;
-	private String articulo; 				
 	private Set<LineaCompra> lineasCompra = new HashSet<LineaCompra>();
-	private BigDecimal cantidad;			
 	private BigDecimal baseImponibleTotal;	
 	private TipoImpuesto impuesto; 			
 	private BigDecimal importeTotal;	    
@@ -56,20 +58,21 @@ public class Compra implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@OneToOne(fetch = FetchType.EAGER, optional=false)
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
 	public Date getFechaCompra() {
 		return fechaCompra;
 	}
 
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
-	}
-
-	public String getArticulo() {
-		return articulo;
-	}
-	
-	public void setArticulo(String articulo) {
-		this.articulo = articulo;
 	}
 
 	@OneToMany(mappedBy="compra",cascade=CascadeType.ALL, orphanRemoval=true)
@@ -79,14 +82,6 @@ public class Compra implements Serializable {
 
 	public void setLineasCompra(Set<LineaCompra> lineasCompra) {
 		this.lineasCompra = lineasCompra;
-	}
-
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
 	}
 
 	public BigDecimal getBaseImponibleTotal() {

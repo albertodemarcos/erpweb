@@ -3,20 +3,25 @@ package com.erpweb.entidades.compras;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.utiles.enumerados.TipoImpuesto;
+
 
 
 @Entity
@@ -25,13 +30,11 @@ public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = -8171324347908674865L;
 	
-	
 	private Long id;
 	private String codigo;
-	private Set<LineaPedido> lineasPedido;
+	private Factura factura;
 	private Date fechaPedido;
-	private String articulo;
-	private BigDecimal cantidad;			
+	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
 	private BigDecimal baseImponibleTotal;	
 	private TipoImpuesto impuesto; 			 
 	private BigDecimal importeTotal;	    
@@ -55,6 +58,15 @@ public class Pedido implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	@OneToOne(fetch = FetchType.EAGER, optional=false)
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+	
 	@OneToMany(mappedBy="pedido",cascade=CascadeType.ALL, orphanRemoval=true)
 	public Set<LineaPedido> getLineasPedido() {
 		return lineasPedido;
@@ -70,22 +82,6 @@ public class Pedido implements Serializable {
 	
 	public void setFechaPedido(Date fechaPedido) {
 		this.fechaPedido = fechaPedido;
-	}
-	
-	public String getArticulo() {
-		return articulo;
-	}
-	
-	public void setArticulo(String articulo) {
-		this.articulo = articulo;
-	}
-
-	public BigDecimal getCantidad() {
-		return cantidad;
-	}
-	
-	public void setCantidad(BigDecimal cantidad) {
-		this.cantidad = cantidad;
 	}
 	
 	public BigDecimal getBaseImponibleTotal() {

@@ -100,7 +100,7 @@ public class AlmacenService {
 	
 	public AccionRespuesta eliminarAlmacen(Almacen almacen) {
 		
-		logger.debug("Entramos en el metodo eliminarAlmacen()" );
+		logger.debug("Entramos en el metodo eliminarAlmacen()");
 		
 		if(almacen == null || almacen.getId() == null) {
 			
@@ -127,7 +127,7 @@ public class AlmacenService {
 	
 	public AccionRespuesta eliminarAlmacenPorId(Long almacenId) {
 		
-		logger.trace("Entramos en el metodo eliminarAlmacenPorId()" );
+		logger.trace("Entramos en el metodo eliminarAlmacenPorId()");
 		
 		if( almacenId == null) {
 			
@@ -159,7 +159,7 @@ public class AlmacenService {
 		
 		Optional<Almacen> almacenOptional = almacenRepository.findById(id);
 		
-		Almacen almacen = almacenOptional.get();
+		Almacen almacen = almacenOptional.orElse(null);
 		
 		if(almacen == null) {
 			return new AlmacenDto();
@@ -194,7 +194,7 @@ public class AlmacenService {
 	
 	public List<AlmacenDto> getListadoAlmacenes() {
 		
-		logger.debug("Entramos en el metodo getListadoAlmacenes()" );
+		logger.debug("Entramos en el metodo getListadoAlmacenes()");
 		
 		try {
 			
@@ -263,7 +263,7 @@ public class AlmacenService {
 			
 		} else {
 			
-			logger.debug("Se va a crear un almacen con usuario={}", user.getId() );
+			logger.debug("Se va a crear un almacen con usuario={}", user.getId());
 			
 			return this.crearAlmacenDesdeAlmacenDto(almacenDto);
 		}
@@ -284,7 +284,7 @@ public class AlmacenService {
 						
 			respuesta.setResultado(Boolean.TRUE);
 			
-			HashMap<String, Object> data= new HashMap<String, Object> ();
+			HashMap<String, Object> data= new HashMap<String, Object>();
 			
 			data.put("almacenDto", almacenDto);
 			
@@ -296,7 +296,7 @@ public class AlmacenService {
 						
 			respuesta.setResultado(Boolean.FALSE);
 			
-			HashMap<String, Object> data= new HashMap<String, Object> ();
+			HashMap<String, Object> data= new HashMap<String, Object>();
 			
 			data.put("almacenDto", almacenDto);
 			
@@ -320,7 +320,7 @@ public class AlmacenService {
 						
 			respuesta.setResultado(Boolean.TRUE);
 			
-			HashMap<String, Object> data= new HashMap<String, Object> ();
+			HashMap<String, Object> data= new HashMap<String, Object>();
 			
 			data.put("almacenDto", almacenDto);
 			
@@ -334,7 +334,7 @@ public class AlmacenService {
 			
 			respuesta.setResultado(Boolean.FALSE);
 			
-			HashMap<String, Object> data= new HashMap<String, Object> ();
+			HashMap<String, Object> data= new HashMap<String, Object>();
 			
 			data.put("almacenDto", almacenDto);
 			

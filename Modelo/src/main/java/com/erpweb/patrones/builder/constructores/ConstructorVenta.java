@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.erpweb.dto.VentaDto;
+import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.patrones.builder.constructores.claseBase.ConstructorEntidad;
 import com.erpweb.patrones.builder.constructores.interfaz.IConstructorVenta;
@@ -26,8 +27,9 @@ public class ConstructorVenta extends ConstructorEntidad implements IConstructor
 		
 		try {
 			
-			// Creamos la venta en dos pasos
+			// Creamos la venta y su factura en los siguientes pasos
 			Venta venta = null;
+			Factura factura = null;
 			
 			//Paso 1: Venta
 			venta = factoriaVenta.crearEntidad(ventaDto);
@@ -41,6 +43,19 @@ public class ConstructorVenta extends ConstructorEntidad implements IConstructor
 			
 			//Paso 2: LineaVenta
 			venta = factoriaVenta.crearLineasEntidad(venta, ventaDto);
+			
+			//Paso 3: Crear factura
+			factura = factoriaVenta.crearFacturaEntidad(venta);
+			
+			if( factura == null ) {
+				
+				logger.error("Error al crear la factura de la entidad de venta");
+				
+				return null;
+			}
+			
+			//Paso 4: Crear lineaFactura
+			factura = factoriaVenta.crearLineasFacturaEntidad(venta, factura);
 			
 			return venta;			
 			

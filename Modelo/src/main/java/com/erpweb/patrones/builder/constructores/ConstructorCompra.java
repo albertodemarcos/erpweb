@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.erpweb.dto.CompraDto;
 import com.erpweb.entidades.compras.Compra;
+import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.patrones.builder.constructores.claseBase.ConstructorEntidad;
 import com.erpweb.patrones.builder.constructores.interfaz.IConstructorCompra;
 import com.erpweb.patrones.builder.factorias.FactoriaCompra;
@@ -16,6 +17,7 @@ public class ConstructorCompra extends ConstructorEntidad implements IConstructo
 	
 	@Autowired
 	private FactoriaCompra factoriaCompra; 
+	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -27,8 +29,9 @@ public class ConstructorCompra extends ConstructorEntidad implements IConstructo
 		
 		try {
 			
-			// Creamos la compra en dos pasos
+			// Creamos la compra y su factura en los siguientes pasos
 			Compra compra = null;
+			Factura factura = null;
 			
 			//Paso 1: Compra
 			compra = factoriaCompra.crearEntidad(compraDto);
@@ -42,6 +45,20 @@ public class ConstructorCompra extends ConstructorEntidad implements IConstructo
 			
 			//Paso 2: LineaCompra
 			compra = factoriaCompra.crearLineasEntidad(compra, compraDto);
+			
+			//Paso 3: Crear factura
+			factura = factoriaCompra.crearFacturaEntidad(compra);
+			
+			if( factura == null ) {
+				
+				logger.error("Error al crear la factura de la entidad de compra");
+				
+				return null;
+			}
+
+			
+			//Paso 4: Crear lineaFactura
+			factura = factoriaCompra.crearLineasFacturaEntidad(compra, factura);			
 			
 			return compra;
 			

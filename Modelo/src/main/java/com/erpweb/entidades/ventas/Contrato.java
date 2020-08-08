@@ -3,6 +3,7 @@ package com.erpweb.entidades.ventas;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ public class Contrato implements Serializable {
 	private Long id;
 	private String codigo;
 	private Factura factura;
-	private Set<LineaContrato> lineasContrato;
+	private Set<LineaContrato> lineasContrato = new HashSet<LineaContrato>();
 	private Date fechaCreacion;  													//Cuando se crea el contrato
 	private Date fechaInicio;    													//Cuando empieza el contrato
 	private Date fechaFin;       													//Cuando finaliza el contrato

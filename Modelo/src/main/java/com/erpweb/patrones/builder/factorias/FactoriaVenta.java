@@ -12,11 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.erpweb.dto.VentaDto;
 import com.erpweb.entidades.inventario.Articulo;
+import com.erpweb.entidades.ventas.Factura;
+import com.erpweb.entidades.ventas.LineaFactura;
 import com.erpweb.entidades.ventas.LineaVenta;
 import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.patrones.builder.factorias.claseBase.FactoriaEntidad;
 import com.erpweb.patrones.builder.factorias.interfaz.IFactoriaVenta;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.repositorios.ventas.FacturaRepository;
+import com.erpweb.repositorios.ventas.LineaFacturaRepository;
 import com.erpweb.repositorios.ventas.LineaVentaRepository;
 import com.erpweb.repositorios.ventas.VentaRepository;
 
@@ -28,6 +32,10 @@ public class FactoriaVenta extends FactoriaEntidad implements IFactoriaVenta {
 	private LineaVentaRepository lineaVentaRepository;
 	@Autowired
 	private ArticuloRepository articuloRepository;
+	@Autowired
+	private FacturaRepository facturaRepository;
+	@Autowired
+	private LineaFacturaRepository lineaFacturaRepository;
 	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -113,6 +121,96 @@ public class FactoriaVenta extends FactoriaEntidad implements IFactoriaVenta {
 			
 			return null;
 		}
+	}
+
+	@Override
+	public Factura crearFacturaEntidad(Venta venta) {
+
+		logger.trace("Entramos en el metodo crearFacturaEntidad()");
+		
+		try {
+			
+			Factura factura = new Factura();
+			
+			factura.setId(null);
+			factura.setCodigo(venta.getCodigo());
+			factura.setFechaCreacion(venta.getFechaCreacion());
+			factura.setFechaInicio(venta.getFechaInicio());
+			factura.setFechaFin(venta.getFechaFin());
+			factura.setBaseImponible(venta.getBaseImponibleTotal());
+			factura.setImporteTotal(venta.getImporteTotal());
+			factura.setDescripcion(venta.getDescripcion());
+			factura.setImpuesto(venta.getImpuesto());
+			
+			Factura facturaSave = facturaRepository.save(factura);
+			
+			return facturaSave;
+			
+		}catch(Exception e) {
+			
+			logger.error("Error al crear la factura para la venta en el metodo crearFacturaEntidad()");
+			
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
+
+	@Override
+	public Factura crearLineasFacturaEntidad(Venta venta, Factura factura) {
+
+		logger.trace("Entramos en el metodo crearLineasFacturaEntidad()");
+		
+		if( factura == null || venta == null || venta.getLineasVenta().isEmpty() ) {
+			
+			logger.error("Error al crear las lineas de la factura para la venta en el metodo crearLineasFacturaEntidad()");
+			
+			return null;
+		}
+		
+		
+		try {
+
+			//Asociamos la factura a la venta
+			venta.setFactura(factura);
+			
+			//Persistimos la factura en la venta
+			ventaRepository.saveAndFlush(venta);
+			
+			Set<LineaFactura> lineasFactura = new HashSet<LineaFactura>();
+			
+			for(LineaVenta lineaVenta : venta.getLineasVenta()) {
+				
+				LineaFactura lineaFactura = new LineaFactura();
+				
+				lineaFactura.setFactura(factura);
+				
+				lineaFactura.setArticulo(lineaVenta.getArticulo());
+				lineaFactura.setCantidad(lineaVenta.getCantidad());
+				lineaFactura.setBaseImponible(lineaVenta.getBaseImponible());
+				lineaFactura.setImporteImpuesto(lineaVenta.getImporteImpuesto());
+				lineaFactura.setImporteTotal(lineaVenta.getImporteTotal());
+				lineaFactura.setDescripcionLinea(lineaVenta.getDescripcionLinea());
+				
+				lineasFactura.add(lineaFactura);
+			}
+			
+			lineaFacturaRepository.saveAll(lineasFactura);
+			
+			factura.getLineasFactura().clear();
+			
+			factura.getLineasFactura().addAll(lineasFactura);
+			
+			facturaRepository.saveAndFlush(factura);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error al crear las lineas de la factura para la venta en el metodo crearLineasFacturaEntidad()");
+			
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }

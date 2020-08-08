@@ -205,8 +205,8 @@ public class CompraService {
 			compraDto.setId(compra.getId());
 			compraDto.setCodigo(compra.getCodigo());
 			compraDto.setFechaCompra(compra.getFechaCompra());
-			compraDto.setArticulo(compra.getArticulo());
-			compraDto.setCantidad(compra.getCantidad());
+			//compraDto.setArticulo(compra.getArticulo());
+			//compraDto.setCantidad(compra.getCantidad());
 			compraDto.setBaseImponibleTotal(compra.getBaseImponibleTotal());
 			compraDto.setImpuesto(compra.getImpuesto());
 			compraDto.setImporteTotal(compra.getImporteTotal());
@@ -384,8 +384,8 @@ public class CompraService {
 				compraDto.setId(compra.getId());
 				compraDto.setCodigo(compra.getCodigo());
 				compraDto.setFechaCompra(compra.getFechaCompra());
-				compraDto.setArticulo(compra.getArticulo());
-				compraDto.setCantidad(compra.getCantidad());
+				//compraDto.setArticulo(compra.getArticulo());
+				//compraDto.setCantidad(compra.getCantidad());
 				compraDto.setBaseImponibleTotal(compra.getBaseImponibleTotal());
 				compraDto.setImpuesto(compra.getImpuesto());
 				compraDto.setImporteTotal(compra.getImporteTotal());
