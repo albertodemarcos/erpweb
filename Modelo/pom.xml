@@ -76,7 +76,7 @@
 			<version>3.0</version>
 		</dependency>
 
-		<!-- Commons-collections4 Apache -->
+		<!-- Commons-collections 4 Apache -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
