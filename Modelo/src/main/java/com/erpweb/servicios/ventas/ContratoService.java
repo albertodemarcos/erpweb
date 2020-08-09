@@ -31,6 +31,11 @@ import com.erpweb.utiles.AccionRespuesta;
 @Service
 public class ContratoService {
 
+	//Services
+	@Autowired 
+	private RegeneraFacturasService regeneraFacturasService;
+		
+	//Repositorys
 	@Autowired
 	private ContratoRepository contratoRepository;
 	@Autowired
@@ -38,6 +43,7 @@ public class ContratoService {
 	@Autowired
 	private ArticuloRepository articuloRepository;
 	
+	//Otros
 	@Autowired
 	private ConstructorContrato constructorContrato;
 	
@@ -123,6 +129,9 @@ public class ContratoService {
 			
 			//Guardamos el contrato en base de datos
 			Contrato contratoSave = contratoRepository.saveAndFlush(contrato);
+			
+			//Actualizamos las lineas de factura
+			this.regeneraFacturasService.actualizarFacturaContrato(contratoSave);
 			
 			return this.devolverDatosActualizadosContratoDto(contratoDto, contratoSave);
 			

@@ -30,6 +30,11 @@ import com.erpweb.utiles.AccionRespuesta;
 @Service
 public class VentaService {
 
+	//Services
+	@Autowired 
+	private RegeneraFacturasService regeneraFacturasService;
+	
+	//Repositorys
 	@Autowired
 	private VentaRepository ventaRepository;
 	@Autowired
@@ -37,7 +42,7 @@ public class VentaService {
 	@Autowired
 	private ArticuloRepository articuloRepository;
 	
-	
+	//Otros
 	@Autowired
 	private ConstructorVenta constructorVenta;
 	
@@ -123,6 +128,9 @@ public class VentaService {
 			
 			//Actualizamos la venta en base de datos
 			Venta ventaSave =  ventaRepository.saveAndFlush(venta);
+			
+			//Actualizamos las lineas de factura
+			this.regeneraFacturasService.actualizarFacturaVenta(ventaSave);
 			
 			return this.devolverDatosActualizadosVentaDto(ventaDto, ventaSave);
 			

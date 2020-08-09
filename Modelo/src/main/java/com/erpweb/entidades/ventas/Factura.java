@@ -58,7 +58,7 @@ public class Factura implements Serializable {
 		this.codigo = codigo;
 	}
 	
-	@OneToMany(mappedBy="factura",cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="factura", cascade=CascadeType.ALL, orphanRemoval=true)
 	public Set<LineaFactura> getLineasFactura() {
 		return lineasFactura;
 	}

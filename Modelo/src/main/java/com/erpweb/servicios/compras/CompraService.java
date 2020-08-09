@@ -24,11 +24,17 @@ import com.erpweb.patrones.builder.constructores.ConstructorCompra;
 import com.erpweb.repositorios.compras.CompraRepository;
 import com.erpweb.repositorios.compras.LineaCompraRepository;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.servicios.ventas.RegeneraFacturasService;
 import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class CompraService {
 
+	//Services
+	@Autowired 
+	private RegeneraFacturasService regeneraFacturasService;
+	
+	//Repositorys	
 	@Autowired 
 	private CompraRepository compraRepository;
 	@Autowired 
@@ -36,6 +42,7 @@ public class CompraService {
 	@Autowired 
 	private ArticuloRepository articuloRepository;
 	
+	//Otros	
 	@Autowired 
 	private ConstructorCompra constructorCompra;
 	
@@ -116,6 +123,9 @@ public class CompraService {
 			
 			//Actualizamos la compra en base de datos
 			Compra compraSave = compraRepository.saveAndFlush(compra);
+			
+			//Actualizamos las lineas de factura
+			this.regeneraFacturasService.actualizarFacturaCompra(compraSave);
 			
 			return this.devolverDatosActualizadosCompraDto(compraDto, compraSave);
 			
@@ -396,5 +406,8 @@ public class CompraService {
 		
 		return comprasDto;
 	}
-
+	
+	
+	
+	
 }

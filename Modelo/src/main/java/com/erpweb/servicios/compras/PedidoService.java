@@ -24,11 +24,17 @@ import com.erpweb.patrones.builder.constructores.ConstructorPedido;
 import com.erpweb.repositorios.compras.LineaPedidoRepository;
 import com.erpweb.repositorios.compras.PedidoRepository;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.servicios.ventas.RegeneraFacturasService;
 import com.erpweb.utiles.AccionRespuesta;
 
 @Service
 public class PedidoService {
+	
+	//Services
+	@Autowired 
+	private RegeneraFacturasService regeneraFacturasService;
 
+	//Repositorys
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	@Autowired
@@ -36,6 +42,7 @@ public class PedidoService {
 	@Autowired
 	private ArticuloRepository articuloRepository;
 	
+	//Otros
 	@Autowired
 	private ConstructorPedido constructorPedido; 
 	
@@ -104,7 +111,7 @@ public class PedidoService {
 				lineaPedido.setArticulo(articulo);
 				lineaPedido.setBaseImponible(articulo.getBaseImponible());
 				lineaPedido.setImporteTotal(articulo.getImporteTotal());
-				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
+				BigDecimal importeImpuesto = new BigDecimal("" + ( articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue() ) );
 				lineaPedido.setImporteImpuesto( importeImpuesto ); 
 				lineaPedido.setDescripcionLinea("");
 				
@@ -119,6 +126,9 @@ public class PedidoService {
 			
 			//Actualizamos el pedido en base de datos
 			Pedido pedioSave = pedidoRepository.saveAndFlush(pedido);
+			
+			//Actualizamos las lineas de factura
+			this.regeneraFacturasService.actualizarFacturaPedido(pedioSave);
 			
 			return this.devolverDatosActualizadosPedidoDto(pedidoDto, pedioSave);
 			
@@ -152,7 +162,7 @@ public class PedidoService {
 			
 		}catch(Exception e) {
 			
-			logger.error("Error en el metodo eliminarPedido() con ID={} ", pedido.getId() );
+			logger.error("Error en el metodo eliminarPedido() con ID={}", pedido.getId() );
 			
 			e.printStackTrace();
 						
@@ -208,8 +218,8 @@ public class PedidoService {
 			pedidoDto.setId(pedido.getId());
 			pedidoDto.setCodigo(pedido.getCodigo());
 			pedidoDto.setFechaPedido(pedido.getFechaPedido());
-			pedidoDto.setArticulo(pedido.getArticulo());
-			pedidoDto.setCantidad(pedido.getCantidad());
+			//pedidoDto.setArticulo(pedido.getArticulo());
+			//pedidoDto.setCantidad(pedido.getCantidad());
 			pedidoDto.setBaseImponibleTotal(pedido.getBaseImponibleTotal());
 			pedidoDto.setImpuesto(pedido.getImpuesto());
 			pedidoDto.setImporteTotal(pedido.getImporteTotal());
@@ -387,8 +397,8 @@ public class PedidoService {
 				pedidoDto.setId(pedido.getId());
 				pedidoDto.setCodigo(pedido.getCodigo());
 				pedidoDto.setFechaPedido(pedido.getFechaPedido());
-				pedidoDto.setArticulo(pedido.getArticulo());
-				pedidoDto.setCantidad(pedido.getCantidad());
+				//pedidoDto.setArticulo(pedido.getArticulo());
+				//pedidoDto.setCantidad(pedido.getCantidad());
 				pedidoDto.setBaseImponibleTotal(pedido.getBaseImponibleTotal());
 				pedidoDto.setImpuesto(pedido.getImpuesto());
 				pedidoDto.setImporteTotal(pedido.getImporteTotal());
