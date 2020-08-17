@@ -36,13 +36,13 @@ export class ContratoService {
   public getContrato(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetContrato + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getContratoEditar(contratoId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarContrato + contratoId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearContrato(contrato: Contrato): Observable<AccionRespuesta>{
@@ -60,12 +60,12 @@ export class ContratoService {
   public eliminarContrato(contratoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarContrato + contratoId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getContratos(): Promise<Contrato[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoContratos;
-    return this.httpClient.get<Contrato[]>(urlPost).pipe(map(response => response as Contrato[])).toPromise();
+    return this.httpClient.get<Contrato[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Contrato[])).toPromise();
   }
 }

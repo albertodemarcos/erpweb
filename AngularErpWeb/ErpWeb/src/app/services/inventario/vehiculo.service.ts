@@ -36,13 +36,13 @@ export class VehiculoService {
   public getVehiculo(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetVehiculo + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getVehiculoEditar(vehiculoId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarVehiculo + vehiculoId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearVehiculo(vehiculo: Vehiculo): Observable<AccionRespuesta>{
@@ -60,13 +60,13 @@ export class VehiculoService {
   public eliminarVehiculo(vehiculoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarVehiculo + vehiculoId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getVehiculos(): Promise<Vehiculo[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoVehiculos;
-    return this.httpClient.get<Vehiculo[]>(urlPost).pipe(map(response => response as Vehiculo[])).toPromise();
+    return this.httpClient.get<Vehiculo[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Vehiculo[])).toPromise();
   }
 
 }

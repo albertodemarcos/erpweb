@@ -38,13 +38,13 @@ export class EventoService {
   public getEvento(id: number): Observable<AccionRespuesta>{
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetEvento + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getEventoEditar(eventoId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarEvento + eventoId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearEvento(evento: Evento): Observable<AccionRespuesta>{
@@ -62,7 +62,7 @@ export class EventoService {
   public eliminarEvento(eventoId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarEvento + eventoId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getEventos(): Promise<Evento[]> {

@@ -38,13 +38,13 @@ export class CompraService {
   public getCompra(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetCompra + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getCompraEditar(compraId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarCompra + compraId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearCompra(compra: Compra): Observable<AccionRespuesta>{
@@ -62,13 +62,13 @@ export class CompraService {
   public eliminarCompra(compraId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarCompra + compraId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getCompras(): Promise<Compra[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoCompras;
-    return this.httpClient.get<Compra[]>(urlPost).pipe(map(response => response as Compra[])).toPromise();
+    return this.httpClient.get<Compra[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Compra[])).toPromise();
   }
 
 }

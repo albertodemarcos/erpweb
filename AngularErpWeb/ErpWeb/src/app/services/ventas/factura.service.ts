@@ -36,13 +36,13 @@ private urlEliminarFactura: string;
   public getFactura(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetFactura + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getFacturaEditar(facturaId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarFactura + facturaId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearFactura(factura: Factura): Observable<AccionRespuesta>{
@@ -60,12 +60,12 @@ private urlEliminarFactura: string;
   public eliminarFactura(facturaId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarFactura + facturaId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getFacturas(): Promise<Factura[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoFacturas;
-    return this.httpClient.get<Factura[]>(urlPost).pipe(map(response => response as Factura[])).toPromise();
+    return this.httpClient.get<Factura[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Factura[])).toPromise();
   }
 }

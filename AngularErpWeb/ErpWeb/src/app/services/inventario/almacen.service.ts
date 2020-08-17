@@ -36,13 +36,13 @@ export class AlmacenService {
   public getAlmacen(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetAlmacen + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getAlmacenEditar(almacenId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarAlmacen + almacenId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
 }
 
   public crearAlmacen(almacen: Almacen): Observable<AccionRespuesta>{
@@ -60,12 +60,12 @@ export class AlmacenService {
   public eliminarAlmacen(almacenId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarAlmacen + almacenId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getAlmacenes(): Promise<Almacen[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoAlmacenes;
-    return this.httpClient.get<Almacen[]>(urlPost).pipe(map(response => response as Almacen[])).toPromise();
+    return this.httpClient.get<Almacen[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Almacen[])).toPromise();
   }
 }

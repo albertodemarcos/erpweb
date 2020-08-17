@@ -36,13 +36,13 @@ export class ArticuloService {
   public getArticulo(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetArticulo + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getArticuloEditar(articuloId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarArticulo + articuloId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearArticulo(articulo: Articulo): Observable<AccionRespuesta>{
@@ -60,13 +60,13 @@ export class ArticuloService {
   public eliminarArticulo(articuloId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarArticulo + articuloId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getArticulos(): Promise<Articulo[]> {
     console.log('METODO listado');
     const urlPost = this.urlGeneral + this.urlListadoArticulos;
-    return this.httpClient.get<Articulo[]>(urlPost).pipe(map(response => response as Articulo[])).toPromise();
+    return this.httpClient.get<Articulo[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Articulo[])).toPromise();
   }
 
 }
