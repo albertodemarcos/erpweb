@@ -4,6 +4,9 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccionRespuesta } from '../../model/utiles/accion-respuesta.model';
 import { Usuario } from 'src/app/model/entitys/usuario.model';
+import { AutenticacionRequest } from 'src/app/model/entitys/autenticacion-request.model';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,7 @@ export class UsuarioLoginService {
     this.urlAutenticaUsuario = '/inicio/login';
    }
 
-  autenticarUsuario(usuario: Usuario): Observable<AccionRespuesta> {
+  autenticarUsuario(usuario: AutenticacionRequest): Observable<AccionRespuesta> {
     console.log('Entramos a autenticar al usuari con nombre: ' + ' y contraseña: ' );
     const urlPost = this.urlGeneral + this.urlAutenticaUsuario;
     return this.httpClient.post<AccionRespuesta>(urlPost, usuario, {headers: this.httpHeaders});

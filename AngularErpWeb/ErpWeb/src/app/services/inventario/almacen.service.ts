@@ -11,7 +11,7 @@ import { Almacen } from 'src/app/model/entitys/almacen.model';
 export class AlmacenService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearAlmacen: string;
   private urlListadoAlmacenes: string;
   private urlGetAlmacen: string;
@@ -25,6 +25,11 @@ export class AlmacenService {
     this.urlGetAlmacen = '/almacenes/almacen/';
     this.urlEditarAlmacen = '/almacenes/editarAlmacen/';
     this.urlEliminarAlmacen = '/almacenes/eliminarAlmacen/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

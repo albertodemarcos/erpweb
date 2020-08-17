@@ -11,7 +11,7 @@ import { Venta } from 'src/app/model/entitys/venta.model';
 export class VentaService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearVenta: string;
   private urlListadoVentas: string;
   private urlGetVenta: string;
@@ -25,6 +25,11 @@ export class VentaService {
     this.urlGetVenta = '/ventas/venta/';
     this.urlEditarVenta = '/ventas/editarVenta/';
     this.urlEliminarVenta = '/ventas/eliminarVenta/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

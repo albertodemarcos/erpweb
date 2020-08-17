@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class EncriptadorService {
 
-  private encriptado: string;
+  private palabraEncriptada: string;
 
   constructor() {
 
-    this.encriptado = 'AngularApp';
+    this.palabraEncriptada = 'AngularApp';
   }
 
-  encriptarTextoParaEnvioHtttp(encriptador: string): string {
+  encriptarTextoParaEnvioHtttp(password: string): string {
 
-    if (encriptador != null && encriptador.trim() !== '')
+    // 1º Comprobamos que la contraseña no viene vacia
+    if (password != null || password.trim() !== '')
     {
-      return btoa( this.encriptado + encriptador );
+      // Encriptamos en base64
+      return btoa(password);
     }
-
     // tslint:disable-next-line: no-string-throw
     throw ('Error, el encriptador viene vacio!');
   }

@@ -11,7 +11,7 @@ import { Factura } from 'src/app/model/entitys/factura.model';
 export class FacturaService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearFactura: string;
   private urlListadoFacturas: string;
   private urlGetFactura: string;
@@ -25,6 +25,11 @@ private urlEliminarFactura: string;
     this.urlGetFactura = '/facturas/factura/';
     this.urlEditarFactura = '/facturas/editarFactura/';
     this.urlEliminarFactura = '/facturas/eliminarFactura/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

@@ -11,7 +11,7 @@ import { Usuario } from 'src/app/model/entitys/usuario.model';
 export class UsuarioService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearUsuario: string;
   private urlListadoUsuarios: string;
   private urlGetUsuario: string;
@@ -25,6 +25,11 @@ export class UsuarioService {
     this.urlGetUsuario = '/usuarios/usuario/';
     this.urlEditarUsuario = '/usuarios/editarUsuario/';
     this.urlEliminarUsuario = '/usuarios/eliminarUsuario/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

@@ -6,6 +6,7 @@ import { Usuario } from '../../model/entitys/usuario.model';
 import swal from 'sweetalert2';
 import { UsuarioLoginService } from 'src/app/services/autenticacion/usuario-login.service';
 import { EncriptadorService } from 'src/app/services/autenticacion/encriptador.service';
+import { AutenticacionRequest } from 'src/app/model/entitys/autenticacion-request.model';
 
 
 @Component({
@@ -18,11 +19,14 @@ export class LoginComponent implements OnInit {
   public titulo: string;
   public invalidLogin: boolean;
   public usuario: Usuario;
-  private usuarioDto: any;
+  private respuesta: any;
+  private token: any;
   private respuestaGetUsuario: AccionRespuesta;
 
 
-  constructor(private usuarioLoginService: UsuarioLoginService, private encriptadorService: EncriptadorService, private router: Router) {
+  constructor(private usuarioLoginService: UsuarioLoginService,
+              private encriptadorService: EncriptadorService,
+              private router: Router) {
     this.titulo = 'Bienvenido';
     this.invalidLogin = false;
     this.usuario = new Usuario();
@@ -39,11 +43,10 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.usuario.password = this.encriptadorService.encriptarTextoParaEnvioHtttp(this.usuario.password);
+    const password = this.encriptadorService.encriptarTextoParaEnvioHtttp(this.usuario.password);
+    const usuario = new AutenticacionRequest(this.usuario.username, password);
 
-    console.log('Codificado: ' + this.usuario.password);
-
-    this.usuarioLoginService.autenticarUsuario(this.usuario).toPromise().then(
+    this.usuarioLoginService.autenticarUsuario(usuario).toPromise().then(
       ( accionRespuesta ) => {
 
         console.log('Obtenemos: ' + JSON.stringify(accionRespuesta));
@@ -57,11 +60,14 @@ export class LoginComponent implements OnInit {
         }
 
         // tslint:disable-next-line: no-string-literal
-        this.usuarioDto = accionRespuesta.data['usuarioDto'];
+        this.respuesta = accionRespuesta.data['autenticacionResponse'];
 
-        sessionStorage.setItem('username', this.usuarioDto.username);
+        // tslint:disable-next-line: no-string-literal
+        this.token = this.respuesta['jwt'].split(['.']['1']);
 
-        // sessionStorage.setItem('password', this.usuarioDto.password);
+        sessionStorage.setItem('username', this.usuario.username);
+
+        sessionStorage.setItem('token', this.token);
 
         this.router.navigate(['inicio']);
 

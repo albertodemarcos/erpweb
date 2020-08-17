@@ -12,7 +12,7 @@ import { Empleado } from 'src/app/model/entitys/empleado.model';
 export class EmpleadoService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearEmpleado: string;
   private urlListadoEmpleados: string;
   private urlGetEmpleado: string;
@@ -26,6 +26,11 @@ export class EmpleadoService {
     this.urlGetEmpleado = '/empleados/empleado/';
     this.urlEditarEmpleado = '/empleados/editarEmpleado/';
     this.urlEliminarEmpleado = '/empleados/eliminarEmpleado/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

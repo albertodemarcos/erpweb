@@ -11,7 +11,7 @@ import { Contrato } from 'src/app/model/entitys/contrato.model';
 export class ContratoService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearContrato: string;
   private urlListadoContratos: string;
   private urlGetContrato: string;
@@ -25,6 +25,11 @@ export class ContratoService {
     this.urlGetContrato = '/contratos/contrato/';
     this.urlEditarContrato = '/contratos/editarContrato/';
     this.urlEliminarContrato = '/contratos/eliminarContrato/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

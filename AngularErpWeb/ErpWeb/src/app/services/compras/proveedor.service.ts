@@ -11,7 +11,7 @@ import { Proveedor } from 'src/app/model/entitys/proveedor.model';
 export class ProveedorService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearProveedor: string;
   private urlListadoProveedores: string;
   private urlGetProveedor: string;
@@ -25,6 +25,11 @@ export class ProveedorService {
     this.urlGetProveedor = '/proveedores/proveedor/';
     this.urlEditarProveedor = '/proveedores/editarProveedor/';
     this.urlEliminarProveedor = '/proveedores/eliminarProveedor/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

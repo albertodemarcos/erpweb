@@ -12,7 +12,7 @@ import { Compra } from 'src/app/model/entitys/compra.model';
 export class CompraService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearCompra: string;
   private urlListadoCompras: string;
   private urlGetCompra: string;
@@ -26,6 +26,11 @@ export class CompraService {
     this.urlGetCompra = '/compras/compra/';
     this.urlEditarCompra = '/compras/editarCompra/';
     this.urlEliminarCompra = '/compras/eliminarCompra/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

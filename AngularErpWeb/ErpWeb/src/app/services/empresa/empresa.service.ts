@@ -12,7 +12,7 @@ import { Empresa } from 'src/app/model/entitys/empresa.model';
 export class EmpresaService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearEmpresa: string;
   private urlGetEmpresa: string;
   private urlEditarEmpresa: string;
@@ -24,6 +24,11 @@ export class EmpresaService {
     this.urlGetEmpresa = '/empresas/empresa/';
     this.urlEditarEmpresa = '/empresas/editarEmpresa/';
     this.urlEliminarEmpresa = '/empresas/eliminarEmpresa/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

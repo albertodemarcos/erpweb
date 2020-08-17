@@ -11,7 +11,7 @@ import { Pedido } from 'src/app/model/entitys/pedido.model';
 export class PedidoService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearPedido: string;
   private urlListadoPedidos: string;
   private urlGetPedido: string;
@@ -25,6 +25,11 @@ export class PedidoService {
     this.urlGetPedido = '/pedidos/pedido/';
     this.urlEditarPedido = '/pedidos/editarPedido/';
     this.urlEliminarPedido = '/pedidos/eliminarPedido/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

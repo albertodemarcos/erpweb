@@ -11,7 +11,7 @@ import { Articulo } from 'src/app/model/entitys/articulo.model';
 export class ArticuloService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearArticulo: string;
   private urlListadoArticulos: string;
   private urlGetArticulo: string;
@@ -25,6 +25,11 @@ export class ArticuloService {
     this.urlGetArticulo = '/articulos/articulo/';
     this.urlEditarArticulo = '/articulos/editarArticulo/';
     this.urlEliminarArticulo = '/articulos/eliminarArticulo/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

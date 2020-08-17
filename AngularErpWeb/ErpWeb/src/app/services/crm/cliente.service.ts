@@ -12,7 +12,7 @@ import { Cliente } from 'src/app/model/entitys/cliente.model';
 export class ClienteService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearCliente: string;
   private urlListadoClientes: string;
   private urlGetCliente: string;
@@ -26,6 +26,11 @@ export class ClienteService {
     this.urlGetCliente = '/clientes/cliente/';
     this.urlEditarCliente = '/clientes/editarCliente/';
     this.urlEliminarCliente = '/clientes/eliminarCliente/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

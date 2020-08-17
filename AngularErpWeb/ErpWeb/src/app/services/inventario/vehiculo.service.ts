@@ -11,7 +11,7 @@ import { Vehiculo } from 'src/app/model/entitys/vehiculo.model';
 export class VehiculoService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearVehiculo: string;
   private urlListadoVehiculos: string;
   private urlGetVehiculo: string;
@@ -25,6 +25,11 @@ export class VehiculoService {
     this.urlGetVehiculo = '/vehiculos/vehiculo/';
     this.urlEditarVehiculo = '/vehiculos/editarVehiculo/';
     this.urlEliminarVehiculo = '/vehiculos/eliminarVehiculo/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
@@ -12,7 +12,7 @@ import { Evento } from 'src/app/model/entitys/evento.model';
 export class EventoService {
 
   private urlGeneral: string;
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  private httpHeaders: HttpHeaders;
   private urlCrearEvento: string;
   private urlListadoEventos: string;
   private urlGetEvento: string;
@@ -26,6 +26,11 @@ export class EventoService {
     this.urlGetEvento = '/eventos/evento/';
     this.urlEditarEvento = '/eventos/editarEvento/';
     this.urlEliminarEvento = '/eventos/eliminarEvento/';
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+       Accept: '*/*',
+    });
   }
 
   // METODOS GENERALES
@@ -62,8 +67,9 @@ export class EventoService {
 
   public getEventos(): Promise<Evento[]> {
     console.log('METODO listado');
-    const urlPost = this.urlGeneral + this.urlListadoEventos;
-    return this.httpClient.get<Evento[]>(urlPost).pipe(map(response => response as Evento[])).toPromise();
+    console.log('Token: '  + sessionStorage.getItem('token'));
+    const urlGet = this.urlGeneral + this.urlListadoEventos;
+    return this.httpClient.get<Evento[]>(urlGet, {headers: this.httpHeaders}).pipe(map(response => response as Evento[])).toPromise();
   }
 
 }
