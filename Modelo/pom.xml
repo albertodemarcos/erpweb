@@ -31,6 +31,27 @@
 		    <version>2.3.1.RELEASE</version>
 		</dependency>	
 		
+		<!-- SPRING SECURITY -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>2.3.2.RELEASE</version>
+		</dependency>
+		
+		<!-- json web token (jjwt) -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt</artifactId>
+		    <version>0.9.1</version>
+		</dependency>
+		
+		<!-- javax.xml.bind (jaxb-api) -->
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.1</version>
+		</dependency>
+		
 		<!-- SPRING SECURUTY CRYPTO -->
 <!-- 		<dependency> -->
 <!-- 		    <groupId>org.springframework.security</groupId> -->
@@ -95,6 +116,13 @@
 			<version>2.3.3</version>
 		</dependency>
 
+		<!-- SPRING SECURITY TEST -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>5.3.4.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

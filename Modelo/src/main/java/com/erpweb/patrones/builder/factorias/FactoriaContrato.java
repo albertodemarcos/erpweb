@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.inventario.Articulo;
@@ -24,6 +25,7 @@ import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.repositorios.ventas.LineaContratoRepository;
 import com.erpweb.repositorios.ventas.LineaFacturaRepository;
 
+@Component
 public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContrato {
 
 	@Autowired
