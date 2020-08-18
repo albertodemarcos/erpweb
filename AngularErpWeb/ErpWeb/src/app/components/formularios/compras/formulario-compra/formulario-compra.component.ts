@@ -165,9 +165,10 @@ export class FormularioCompraComponent implements OnInit {
 
     }else{
       // Error
-      if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
+      if ( accionRespuesta != null && accionRespuesta.data != null )
       {
         this.erroresFormulario = accionRespuesta.data;
+
       }else
       {
         swal('Error', 'Se ha producido un error al guardar los datos de la compra', 'error');

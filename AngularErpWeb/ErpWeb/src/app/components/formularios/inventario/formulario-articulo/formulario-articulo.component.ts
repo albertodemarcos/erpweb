@@ -4,6 +4,7 @@ import { ArticuloService } from 'src/app/services/inventario/articulo.service';
 import { Articulo } from 'src/app/model/entitys/articulo.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+import { AlmacenService } from '../../../../services/inventario/almacen.service';
 
 
 @Component({
@@ -20,13 +21,18 @@ export class FormularioArticuloComponent implements OnInit {
   private respuestaGetArticulo: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
+  public almacenesForm: Map<number, string>;
 
-  constructor(private articuloService: ArticuloService, private router: Router, private activateRouter: ActivatedRoute) {
+  constructor(private articuloService: ArticuloService,
+              private almacenService: AlmacenService,
+              private router: Router,
+              private activateRouter: ActivatedRoute) {
 
     this.articulo = new Articulo();
     this.erroresFormulario = new Map<string, object>();
     this.tiposImpuestos = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
+    this.almacenesForm = new Map<number, string>();
     this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -39,6 +45,9 @@ export class FormularioArticuloComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    // Buscamos los almacenes disponibles para el articulo
+    this.rellenarSelectorAlmacenes();
   }
 
   // Metodos del formulario
@@ -78,7 +87,7 @@ export class FormularioArticuloComponent implements OnInit {
 
   }
 
-  getEditarArticulo() {
+  public getEditarArticulo() {
 
     this.articuloService.getArticulo(this.articuloId).toPromise().then( (accionRespuesta) => {
         try
@@ -106,7 +115,7 @@ export class FormularioArticuloComponent implements OnInit {
     );
   }
 
-  obtenerArticuloDesdeArticuloDto(articuloDto: any): void{
+  private obtenerArticuloDesdeArticuloDto(articuloDto: any): void{
 
     if ( articuloDto != null)
     {
@@ -120,7 +129,7 @@ export class FormularioArticuloComponent implements OnInit {
     }
   }
 
-  respuestaCrearEditarArticulo(accionRespuesta: AccionRespuesta, esEditarArticulo: boolean): void {
+  private respuestaCrearEditarArticulo(accionRespuesta: AccionRespuesta, esEditarArticulo: boolean): void {
 
     console.log('Esta registrado' + accionRespuesta.resultado);
     console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
@@ -152,10 +161,42 @@ export class FormularioArticuloComponent implements OnInit {
 
   }
 
-  rellenaMapaIva(): void{
+  public rellenaMapaIva(): void{
     this.mapaIva.set('IVA_GENERAL', 'GENERAL');
     this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
+
+  public rellenarSelectorAlmacenes(): void{
+    console.log('Entramos');
+    // Realizamos la llamada al servidor para traer los almacenes y llevarlos al formulario
+    this.almacenService.getAlmacenes().then(
+      (almacenes) => {
+        try {
+          // Introducimos los datos
+          almacenes.forEach(almacen => {
+            const almacenId = almacen.id;
+            const codigo = almacen.codigo;
+            const nombre = almacen.nombre;
+            let nombreAlmacen = '' + nombre;
+            if ( codigo != null && codigo !== 'undefined' && codigo.trim() !== '')
+            {
+              nombreAlmacen = codigo + ' - ' + nombre;
+            }
+
+            this.almacenesForm.set(almacenId, nombreAlmacen);
+          });
+
+        } catch (errores){
+          console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+        }
+      }, (errores) => {
+        console.log('Error, no se ha obtenido la informacion');
+      }
+    );
+
+
+  }
+
 
 }

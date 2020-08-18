@@ -6,4 +6,5 @@ export class Articulo {
     baseImponible: number;
     impuesto: string;
     importeTotal: number;
+    almacenesId: number[];
 }

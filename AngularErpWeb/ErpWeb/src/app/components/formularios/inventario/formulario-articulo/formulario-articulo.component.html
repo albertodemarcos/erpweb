@@ -29,11 +29,27 @@
                 </div>
             </div>
 
+            <!-- ALMACEN/ES -->
+            <div class="form-group row">
+                <label for="almacenesId" class="col-form-label col-sm-4 required">Almacén/es</label>
+                <div class="col-sm-7">
+                    <p>
+                        <select name="almacenesId" class="custom-select" multiple title="" [(ngModel)]="articulo.almacenesId">
+                            <option [value]="almacen.key" *ngFor="let almacen of almacenesForm | keyvalue">{{almacen.value}}</option> 
+                        </select>
+                    </p>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['almacenesId']">
+                        <span class="error text-danger">{{erroresFormulario['almacenesId']}}</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- DESCRIPCION -->
             <div class="form-group row">
                 <label for="descripcion" class="col-form-label col-sm-4 required">Descripción</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">
+                    <!--<input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">-->
+                    <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion"></textarea>
                     <div *ngIf="erroresFormulario != null && erroresFormulario['descripcion']">
                         <span class="error text-danger">{{erroresFormulario['descripcion']}}</span>
                     </div>
@@ -56,7 +72,7 @@
                 <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
                 <div class="col-sm-7">
                     <p>
-                        <select name="impuesto" title="" [(ngModel)]="articulo.impuesto">
+                        <select name="impuesto" class="custom-select" title="" [(ngModel)]="articulo.impuesto">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
                             <option [value]="tipo" *ngFor="let tipo of tiposImpuestos">{{mapaIva.get(tipo) | capitalizar}}</option> 
                         </select>
