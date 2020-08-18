@@ -2,6 +2,7 @@ package com.erpweb.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
 
 public class ArticuloDto implements Serializable {
@@ -16,7 +17,7 @@ public class ArticuloDto implements Serializable {
 	private BigDecimal baseImponible;
 	private String impuesto;	
 	private BigDecimal importeTotal;
-	
+	private Set<Long> almacenesId;
 	
 	public Long getId() {
 		return id;
@@ -72,6 +73,14 @@ public class ArticuloDto implements Serializable {
 	
 	public void setImporteTotal(BigDecimal importeTotal) {
 		this.importeTotal = importeTotal;
+	}
+
+	public Set<Long> getAlmacenesId() {
+		return almacenesId;
+	}
+
+	public void setAlmacenesId(Set<Long> almacenesId) {
+		this.almacenesId = almacenesId;
 	}
 	
 }

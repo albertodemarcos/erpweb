@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -12,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.ArticuloDto;
+import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.servicios.generales.GeneralService;
 import com.erpweb.utiles.AccionRespuesta;
 
 
@@ -25,6 +28,8 @@ public class ArticuloService {
 	@Autowired
 	private ArticuloRepository articuloRepository;
 	
+	@Autowired
+	private GeneralService generalService;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -42,8 +47,11 @@ public class ArticuloService {
 		articulo.setImpuesto(articuloDto.getImpuesto());
 		articulo.setImporteTotal(articuloDto.getImporteTotal());
 		
+		Set<Almacen> almacenes = generalService.obtieneAlmacenesParaArticulo(articuloDto.getAlmacenesId());
+		
+		articulo.setAlmacenes(almacenes);
+		
 		try {
-			
 			//Guardamos el articulo en base de datos
 			Articulo articuloSave = articuloRepository.save(articulo);
 			

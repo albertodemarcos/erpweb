@@ -47,12 +47,6 @@ public class AlmacenController {
 		return this.almacenService.getListadoAlmacenes();
 	}
 	
-	@GetMapping( "/crearAlmacen" )
-	public @ResponseBody AccionRespuesta getCrearAlmacen( Model model, Usuario user) throws Exception {
-		
-		return new AccionRespuesta();
-	}
-	
 	@GetMapping( "/editarAlmacen/{almacenId}" )
 	public @ResponseBody AccionRespuesta getEditarAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
 		

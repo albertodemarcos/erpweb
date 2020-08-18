@@ -1,5 +1,6 @@
 package com.erpweb.validadores.inventario;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +72,11 @@ public class ArticuloValidator implements Validator {
 		if( StringUtils.isBlank( articuloDto.getImpuesto() )  ) {
 			
 			errors.rejectValue("impuesto", "", "El campo impuesto no puede estar vacío");
+		}
+		
+		if( CollectionUtils.isEmpty(articuloDto.getAlmacenesId()) ) {
+			
+			errors.rejectValue("almacenesId", "", "Debes seleccionar al menos un almacén");
 		}
 		
 	}

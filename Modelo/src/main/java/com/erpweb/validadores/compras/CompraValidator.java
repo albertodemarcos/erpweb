@@ -37,12 +37,12 @@ public class CompraValidator implements Validator {
 			errors.rejectValue("fechaCompra", "", "El campo fecha no puede estar vacio");
 		} 
 		
-		if( StringUtils.isBlank( compraDto.getArticulo() )  ) {
+		/*if( StringUtils.isBlank( compraDto.getArticulo() )  ) {
 					
 			errors.rejectValue("articulo", "", "El campo codigo no puede estar vacio");
-		}
+		}*/
 		
-		if( compraDto.getCantidad() == null  ) {
+		/*if( compraDto.getCantidad() == null  ) {
 			
 			errors.rejectValue("cantidad", "", "El campo cantidad no puede estar vacío");
 			
@@ -53,14 +53,14 @@ public class CompraValidator implements Validator {
 		}else if( compraDto.getCantidad().intValue() == 0  ) {
 			
 			errors.rejectValue("cantidad", "", "El campo cantidad no puede ser cero");
-		}
+		}*/
 		
-		if( compraDto.getImpuesto() == null  ) {
+		/*if( compraDto.getImpuesto() == null  ) {
 			
 			errors.rejectValue("impuesto", "", "El campo impuesto no puede estar vacio");
-		}
+		}*/
 		
-		if( compraDto.getBaseImponibleTotal() == null  ) {
+		/*if( compraDto.getBaseImponibleTotal() == null  ) {
 			
 			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
 			
@@ -71,9 +71,9 @@ public class CompraValidator implements Validator {
 		}else if( compraDto.getBaseImponibleTotal().intValue() == 0  ) {
 			
 			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
-		}
+		}*/
 		
-		if( compraDto.getImporteTotal() == null  ) {
+		/*if( compraDto.getImporteTotal() == null  ) {
 			
 			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
 			
@@ -84,7 +84,7 @@ public class CompraValidator implements Validator {
 		}else if( compraDto.getImporteTotal().intValue() == 0  ) {
 			
 			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
-		}
+		}*/
 		
 		
 	}
