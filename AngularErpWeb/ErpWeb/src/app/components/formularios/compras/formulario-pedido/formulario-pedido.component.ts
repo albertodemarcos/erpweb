@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+// Pedido
 import { PedidoService } from 'src/app/services/compras/pedido.service';
 import { Pedido } from 'src/app/model/entitys/pedido.model';
+// Articulo
+import { ModalArticuloComponent } from 'src/app/components/modales/inventario/modal-articulo/modal-articulo.component';
+import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
+// Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
-
-
+// jQuery
 declare var jQuery: any;
+
 
 @Component({
   selector: 'app-formulario-pedido',
@@ -16,7 +21,6 @@ declare var jQuery: any;
 export class FormularioPedidoComponent implements OnInit {
 
   public pedido: Pedido;
-  private idDatePicker: string;
   private pedidoId: number;
   private pedidoDto: any;
   public tiposImpuesto: string[];
@@ -24,9 +28,18 @@ export class FormularioPedidoComponent implements OnInit {
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
 
-  constructor(private pedidoService: PedidoService, private router: Router, private activateRouter: ActivatedRoute) {
+  // Modal Articulo
+  @ViewChild('modalArticulo') modalArticulo: ModalArticuloComponent;
+
+  constructor(
+    private pedidoService: PedidoService,
+    private autocompletarService: AutocompletarService,
+    private router: Router,
+    private activateRouter: ActivatedRoute) {
+
     this.pedido = new Pedido();
-    this.idDatePicker = 'fechaPedidoDatePicker';
+    this.pedido.articulosCantidadMap = new Map<number, number>();
+    this.pedido.articulosCantidad = {};
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
@@ -39,29 +52,24 @@ export class FormularioPedidoComponent implements OnInit {
         this.getEditarPedido();
       }
     } );
+    this.autocompletarService.paramatroExterno = 'tablaArticulos';
+    this.modalArticulo = new ModalArticuloComponent(this.autocompletarService);
+    this.modalArticulo.articuloEvento.subscribe( (articulo: any) => {
+      console.log('Articulo: ' + JSON.stringify(articulo));
+    });
    }
 
   ngOnInit(): void {
-
-    /*jQuery('#' + this.idDatePicker).datepicker({
-      dateFormat: 'dd-mm-yy',
-      changeMonth: false,
-      changeYear: false,
-      dayNames: true,
-      duration: 'slow'
-    });
-
-    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
-      console.log('Se carga el español');
-    }).fail(() => {
-      console.error('Error, no se ha podido cargar el idioma');
-    });*/
   }
 
   // Metodos del formulario
-  public crearPedidoFormulario(): void {
+  public crearPedidoFormulario(): void{
 
     console.log('Estamos dentro del metodo crearClienteFormulario()');
+
+    this.rellenarPedidoConTablaLineaArticulos();
+
+    console.log('Pedido: ' + JSON.stringify(this.pedido));
 
     // Si tiene id, llamamos a crear, sino a editar
     if (this.pedido != null && this.pedido.id != null && this.pedido.id !== 0) {
@@ -95,7 +103,7 @@ export class FormularioPedidoComponent implements OnInit {
     }
   }
 
-  getEditarPedido() {
+  public getEditarPedido(): void{
 
     this.pedidoService.getPedido(this.pedidoId).toPromise().then( (accionRespuesta) => {
         try
@@ -124,8 +132,7 @@ export class FormularioPedidoComponent implements OnInit {
 
   }
 
-
-  obtenerPedidoDesdePedidoDto(pedidoDto: any): void{
+  private obtenerPedidoDesdePedidoDto(pedidoDto: any): void{
 
     if ( pedidoDto != null)
     {
@@ -140,7 +147,7 @@ export class FormularioPedidoComponent implements OnInit {
     }
   }
 
-  respuestaCrearEditarPedido(accionRespuesta: AccionRespuesta, esEditarPedido: boolean): void {
+  private respuestaCrearEditarPedido(accionRespuesta: AccionRespuesta, esEditarPedido: boolean): void {
 
     console.log('Esta registrado' + accionRespuesta.resultado);
     console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
@@ -172,7 +179,7 @@ export class FormularioPedidoComponent implements OnInit {
 
   }
 
-  limpiarFecha(fechaStr: string): Date{
+  private limpiarFecha(fechaStr: string): Date{
 
     if (fechaStr != null && fechaStr.trim() !== ''){
       try {
@@ -185,10 +192,48 @@ export class FormularioPedidoComponent implements OnInit {
     return new Date();
   }
 
-  rellenaMapaIva(): void{
+  private rellenaMapaIva(): void{
     this.mapaIva.set('IVA_GENERAL', 'GENERAL');
     this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+  }
+
+  private rellenarPedidoConTablaLineaArticulos(): void{
+    // Recuperamos e introducimoos las lineas en un mapa auxiliar
+    this.recuperarCeldas();
+    // Introducimos el mapa en un objeto para ser enviado
+    this.convierteMapaEnObjecto();
+  }
+
+  private recuperarCeldas(): void{
+    // Primero recuperamos las filas
+    const filas = jQuery('#tablaArticulos').find('tr');
+    // Recorremos las filas
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < filas.length; i++)
+    {
+      // Recuperamos las celdas
+      const celdas = jQuery(filas[i]).find('td');
+      // Obtenemos las celdas de articulo y cantidad
+      const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
+      const celdaCantidad = jQuery(celdas[4]).text(); // Celda 4 es la cantidad..
+      if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
+      {
+        this.pedido.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
+      }
+    }
+  }
+
+  private convierteMapaEnObjecto(): void{
+    // Convertimos el mapa en object
+    this.pedido.articulosCantidadMap.forEach((value, key) => {
+      this.pedido.articulosCantidad[key] = value;
+    });
+  }
+
+  public modalAnadirArticulo(){
+    console.log('Entro');
+    this.modalArticulo.mostrarModalCrearArticulo();
   }
 
 

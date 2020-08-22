@@ -7,9 +7,9 @@
         <!-- FORMULARIO -->
         <form autocomplete="off" (ngSubmit)="crearContratoFormulario()">
 
-            <!-- CODIGO CLIENTE -->
+            <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código contrato</label>
+                <label for="codigo" class="col-form-label col-sm-4 text-center required">Código contrato</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="contrato.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -18,17 +18,9 @@
                 </div>
             </div>
 
-            <!-- FECHA CREACION -->
-            <div class="form-group row">
-                <label for="fechaCreacion" class="col-form-label col-sm-4">Fecha creación</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="contrato.fechaCreacion | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaCreacion = $event" name="fechaCreacion">
-                </div>
-            </div>
-
             <!-- FECHA INICIO -->
             <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-4 required">Fecha inicio</label>
+                <label for="fechaInicio" class="col-form-label col-sm-4 text-center required">Fecha inicio</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="contrato.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaInicio = $event" name="fechaInicio">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
@@ -39,7 +31,7 @@
 
             <!-- FECHA FIN -->
             <div class="form-group row">
-                <label for="fechaFin" class="col-form-label col-sm-4 required">Fecha fín</label>
+                <label for="fechaFin" class="col-form-label col-sm-4 text-center required">Fecha fín</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="contrato.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaFin = $event" name="fechaFin">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['fechaFin']">
@@ -48,15 +40,45 @@
                 </div>
             </div>
 
-            <!-- DESCRIPCION -->
+            <!-- TABLA DE ARTICULOS -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-4">Descripción</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="contrato.descripcion" name="descripcion">
+                <div class="col-12 text-center">
+                    <h4>Artículos</h4>
+                </div>
+                <div class="col-12">
+                    <table id="tablaArticulos" class="table table-striped table-bordered">
+                        <thead class="bg-blue">
+                            <tr>
+                                <th class="ocultar">Id</th>
+                                <th>Codigo</th>
+                                <th>Articulo</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr scope="row" *ngFor="">
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- BOTON AÑADIR -->
+                <div class="col-sm-12 text-right">
+                    <br/>
+                    <p class="btn btn-primary" (click)="modalAnadirArticulo()" role="button">Añadir artículo</p>
                 </div>
             </div>
 
-            <!-- BASE IMPONIBLE -->
+            <!-- DESCRIPCION -->
+            <div class="form-group row">
+                <label for="descripcion" class="col-form-label text-center col-sm-4">Descripción</label>
+                <div class="col-sm-7">
+                    <!--<input type="text" class="form-control" [(ngModel)]="contrato.descripcion" name="descripcion">-->
+                    <textarea class="form-control" name="descripcion" [(ngModel)]="contrato.descripcion" rows="4" cols="50"></textarea>
+                </div>
+            </div>
+
+            <!-- BASE IMPONIBLE 
             <div class="form-group row">
                 <label for="baseImponibleTotal" class="col-form-label col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
@@ -65,9 +87,9 @@
                         <span class="error text-danger">{{erroresFormulario['baseImponibleTotal']}}</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- IMPUESTO -->
+            <!-- IMPUESTO 
             <div class="form-group row">
                 <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
                 <div class="col-sm-7">
@@ -81,9 +103,9 @@
                         <span class="error text-danger">{{erroresFormulario['impuesto']}}</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- IMPORTE TOTAL -->
+            <!-- IMPORTE TOTAL 
             <div class="form-group row">
                 <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
                 <div class="col-sm-7">
@@ -92,7 +114,7 @@
                         <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- BOTON -->
             <div class="form-group row text-center">
@@ -105,3 +127,4 @@
         </form>
     </div>
 </div>
+<app-modal-articulo #modalArticulo></app-modal-articulo>

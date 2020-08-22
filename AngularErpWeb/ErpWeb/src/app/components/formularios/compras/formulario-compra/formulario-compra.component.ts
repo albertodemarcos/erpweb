@@ -1,21 +1,15 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-
-
-
 // Compra
 import { CompraService } from 'src/app/services/compras/compra.service';
 import { Compra } from 'src/app/model/entitys/compra.model';
-
 // Articulo
 import { ModalArticuloComponent } from 'src/app/components/modales/inventario/modal-articulo/modal-articulo.component';
 import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
-
 // Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
-
-
+// jQuery
 declare var jQuery: any;
 
 
@@ -35,8 +29,7 @@ export class FormularioCompraComponent implements OnInit {
   public mapaIva: Map<string, string>;
 
   // Modal Articulo
-  // @Input() modalArticulo: ModalArticuloComponent;
-  @ViewChild('modalArt1') modalArticulo: ModalArticuloComponent;
+  @ViewChild('modalArticulo') modalArticulo: ModalArticuloComponent;
 
   constructor(
     private compraService: CompraService,
@@ -45,6 +38,8 @@ export class FormularioCompraComponent implements OnInit {
     private activateRouter: ActivatedRoute) {
 
     this.compra = new Compra();
+    this.compra.articulosCantidadMap = new Map<number, number>();
+    this.compra.articulosCantidad = {};
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
@@ -59,38 +54,23 @@ export class FormularioCompraComponent implements OnInit {
     } );
     this.autocompletarService.paramatroExterno = 'tablaArticulos';
     this.modalArticulo = new ModalArticuloComponent(this.autocompletarService);
-    this.modalArticulo.articuloEvento.subscribe( articulo => {
+    this.modalArticulo.articuloEvento.subscribe( (articulo: any) => {
       console.log('Articulo: ' + JSON.stringify(articulo));
     });
 
   }
 
   ngOnInit(): void {
-
-    /*jQuery('#' + this.idDatePicker).datepicker({
-      dateFormat: 'dd-mm-yy',
-      changeMonth: false,
-      changeYear: false,
-      dayNames: true,
-      duration: 'slow',
-      onClose: () => {
-        let fechaCompraTexto = jQuery('#' + this.idDatePicker).val();
-        this.compra.fechaCompra = new Date(fechaCompraTexto);
-      }
-    });
-
-    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
-      console.log('Se carga el español');
-    }).fail(() => {
-      console.error('Error, no se ha podido cargar el idioma');
-    });*/
-
   }
 
   // Metodos del formulario
-  public crearCompraFormulario(): void {
+  public crearCompraFormulario(): void{
 
     console.log('Estamos dentro del metodo crearCompraFormulario()');
+
+    this.rellenarCompraConTablaLineaArticulos();
+
+    console.log('Compra: ' + JSON.stringify(this.compra));
 
     // Si tiene id, llamamos a crear, sino a editar
     if (this.compra != null && this.compra.id != null && this.compra.id !== 0) {
@@ -125,7 +105,7 @@ export class FormularioCompraComponent implements OnInit {
 
   }
 
-  getEditarCompra() {
+  public getEditarCompra(): void{
 
     this.compraService.getCompra(this.compraId).toPromise().then( (accionRespuesta) => {
         try
@@ -153,22 +133,22 @@ export class FormularioCompraComponent implements OnInit {
     );
   }
 
-  obtenerCompraDesdeCompraDto(compraDto: any): void{
+  private obtenerCompraDesdeCompraDto(compraDto: any): void{
 
     if ( compraDto != null)
     {
       this.compra.id = compraDto.id;
       this.compra.codigo = compraDto.codigo;
       this.compra.fechaCompra = this.limpiarFecha(compraDto.fechaCompra);
-      this.compra.articulo = compraDto.articulo;
-      this.compra.cantidad = compraDto.cantidad;
-      this.compra.baseImponibleTotal = compraDto.baseImponibleTotal;
-      this.compra.impuesto = compraDto.impuesto;
-      this.compra.importeTotal = compraDto.importeTotal;
+      // this.compra.articulo = compraDto.articulo;
+      // this.compra.cantidad = compraDto.cantidad;
+      // this.compra.baseImponibleTotal = compraDto.baseImponibleTotal;
+      // this.compra.impuesto = compraDto.impuesto;
+      // this.compra.importeTotal = compraDto.importeTotal;
     }
   }
 
-  respuestaCrearEditarCompra(accionRespuesta: AccionRespuesta, esEditarCompra: boolean): void {
+  private respuestaCrearEditarCompra(accionRespuesta: AccionRespuesta, esEditarCompra: boolean): void {
 
     console.log('Esta registrado' + accionRespuesta.resultado);
     console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
@@ -202,7 +182,7 @@ export class FormularioCompraComponent implements OnInit {
 
   }
 
-  limpiarFecha(fechaStr: string): Date{
+  private limpiarFecha(fechaStr: string): Date{
 
     if (fechaStr != null && fechaStr.trim() !== ''){
       try {
@@ -215,16 +195,49 @@ export class FormularioCompraComponent implements OnInit {
     return new Date();
   }
 
-  rellenaMapaIva(): void{
+  private rellenaMapaIva(): void{
     this.mapaIva.set('IVA_GENERAL', 'GENERAL');
     this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
 
-  modalAnadirArticulo(){
+  private rellenarCompraConTablaLineaArticulos(): void{
+    // Recuperamos e introducimoos las lineas en un mapa auxiliar
+    this.recuperarCeldas();
+    // Introducimos el mapa en un objeto para ser enviado
+    this.convierteMapaEnObjecto();
+  }
+
+  private recuperarCeldas(): void{
+    // Primero recuperamos las filas
+    const filas = jQuery('#tablaArticulos').find('tr');
+    // Recorremos las filas
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < filas.length; i++)
+    {
+      // Recuperamos las celdas
+      const celdas = jQuery(filas[i]).find('td');
+      // Obtenemos las celdas de articulo y cantidad
+      const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
+      const celdaCantidad = jQuery(celdas[4]).text(); // Celda 4 es la cantidad..
+      if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
+      {
+        this.compra.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
+      }
+    }
+  }
+
+  private convierteMapaEnObjecto(): void{
+    // Convertimos el mapa en object
+    this.compra.articulosCantidadMap.forEach((value, key) => {
+      this.compra.articulosCantidad[key] = value;
+    });
+  }
+
+  public modalAnadirArticulo(){
     console.log('Entro');
     this.modalArticulo.mostrarModalCrearArticulo();
   }
 
 
-} // compra.fechaCompra = $event
+}

@@ -7,7 +7,7 @@
         <!-- FORMULARIO -->
         <form autocomplete="off" (ngSubmit)="crearVentaFormulario()">
 
-            <!-- CODIGO CLIENTE -->
+            <!-- CODIGO -->
             <div class="form-group row">
                 <label for="codigo" class="col-form-label col-sm-4 required">Código venta</label>
                 <div class="col-sm-7">
@@ -15,14 +15,6 @@
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
                         <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
                     </div>
-                </div>
-            </div>
-
-            <!-- FECHA CREACION -->
-            <div class="form-group row">
-                <label for="fechaCreacion" class="col-form-label col-sm-4">Fecha creación</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="venta.fechaCreacion | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaCreacion = $event" name="fechaCreacion">
                 </div>
             </div>
 
@@ -48,15 +40,45 @@
                 </div>
             </div>
 
+            <!-- TABLA DE ARTICULOS -->
+            <div class="form-group row">
+                <div class="col-12 text-center">
+                    <h4>Artículos</h4>
+                </div>
+                <div class="col-12">
+                    <table id="tablaArticulos" class="table table-striped table-bordered">
+                        <thead class="bg-blue">
+                            <tr>
+                                <th class="ocultar">Id</th>
+                                <th>Codigo</th>
+                                <th>Articulo</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr scope="row" *ngFor="">
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- BOTON AÑADIR -->
+                <div class="col-sm-12 text-right">
+                    <br/>
+                    <p class="btn btn-primary" (click)="modalAnadirArticulo()" role="button">Añadir artículo</p>
+                </div>
+            </div>
+
             <!-- DESCRIPCION -->
             <div class="form-group row">
                 <label for="descripcion" class="col-form-label col-sm-4 required">Descripción</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="venta.descripcion" name="descripcion">
+                    <!--<input type="text" class="form-control" [(ngModel)]="venta.descripcion" name="descripcion">-->
+                    <textarea class="form-control" name="descripcion" [(ngModel)]="venta.descripcion" rows="4" cols="50"></textarea>
                 </div>
             </div>
 
-            <!-- BASE IMPONIBLE -->
+            <!-- BASE IMPONIBLE 
             <div class="form-group row">
                 <label for="baseImponibleTotal" class="col-form-label col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
@@ -65,9 +87,9 @@
                         <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
-            <!-- IMPUESTO -->
+            <!-- IMPUESTO 
             <div class="form-group row">
                 <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
                 <div class="col-sm-7">
@@ -81,9 +103,9 @@
                         <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
-            <!-- IMPORTE TOTAL -->
+            <!-- IMPORTE TOTAL
             <div class="form-group row">
                 <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
                 <div class="col-sm-7">
@@ -92,7 +114,7 @@
                         <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- BOTON -->
             <div class="form-group row text-center">
@@ -105,3 +127,4 @@
         </form>
     </div>
 </div>
+<app-modal-articulo #modalArticulo></app-modal-articulo>

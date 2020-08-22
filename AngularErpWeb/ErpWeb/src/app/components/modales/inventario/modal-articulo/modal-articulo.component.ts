@@ -80,13 +80,27 @@ export class ModalArticuloComponent implements OnInit {
   }
 
   public crearAnadirArticuloFormulario(){
-
     // Comprobamos si tenemos articulos (Solo ventas)
     if (this.idTabla != null)
     {
-      console.log('Añadimos fila');
-      this.rellenarFilaTabla(this.idTabla);
-      this.ocultarModalCrearArticulo();
+      // Comprobamos que no se ha añadido el articulo previamente
+      if (!this.existeArticuloEnTabla(this.articuloInfo.id))
+      {
+        // Introducimos datos
+        this.rellenarFilaTabla(this.idTabla);
+        // Limpiamos datos
+        this.articuloInfo = new Articulo();
+        this.limpiarCuadroTextoArticulo();
+        // this.articulo = null;
+        this.cantidad = null;
+        // Cerramos modal
+        this.ocultarModalCrearArticulo();
+      }
+      else
+      {
+        swal('Error', 'No puedes añadir el mismo articulo!', 'error');
+      }
+      return;
     }
     console.error('Error, no existe la tabla');
   }
@@ -123,13 +137,32 @@ export class ModalArticuloComponent implements OnInit {
 
   private rellenarFilaTabla(idTabla: string): void {
     // Agregamos una fila nueva
-    const filaTabla = '<tr>' +
+    const filaTabla = '<tr data-art-id="' + this.articuloInfo.id + '">' +
+      '<td class="ocultar">' + this.articuloInfo.id + '</td>' +
       '<td>' + this.articuloInfo.codigo + '</td>' +
       '<td>' + this.articuloInfo.nombre + '</td>' +
       '<td>' + this.articuloInfo.importeTotal + '</td>' +
       '<td>' + this.cantidad + '</td>' +
       '</tr>';
     $('#' + idTabla + ' tbody').append(filaTabla);
+  }
+
+  private existeArticuloEnTabla(id: number): boolean{
+
+    const filas = $('#' + this.idTabla).find('tr');
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < filas.length; i++)
+    {
+      // Recuperamos las celdas
+      const celdas = $(filas[i]).find('td');
+      // Obtenemos las celdas de articulo y cantidad
+      const celdaArticuloId = $(celdas[0]).text(); // Celda 0 es articuloId..
+      if ( celdaArticuloId === ('' + id) )
+      {
+        return true; // Si existe finalizamos, sino seguimos
+      }
+    }
+    return false;
   }
 
   /* MODAL */
