@@ -18,7 +18,7 @@ public interface PedidoRepository  extends JpaRepository<Pedido, Long>{
 	
 	List<Pedido> findByIdIn( List<Long> ids);
 	
-	@Query(" select f.id from Pedido p inner join p.factura f where c.id=:pedidoId ")
+	@Query(" select f.id from Pedido p inner join p.factura f where p.id=:pedidoId ")
 	Long obtieneFacturaIdDesdePedidoId(@Param("pedidoId") Long pedidoId);
 	
 }

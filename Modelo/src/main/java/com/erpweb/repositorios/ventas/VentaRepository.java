@@ -18,6 +18,6 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
 	
 	List<Venta> findByIdIn( List<Long> ids);
 	
-	@Query(" select f.id from Venta v inner join v.factura f where c.id=:ventaId ")
+	@Query(" select f.id from Venta v inner join v.factura f where v.id=:ventaId ")
 	Long obtieneFacturaIdDesdeVentaId(@Param("ventaId") Long ventaId);
 }
