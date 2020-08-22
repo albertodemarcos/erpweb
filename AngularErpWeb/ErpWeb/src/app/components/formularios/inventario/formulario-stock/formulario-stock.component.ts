@@ -3,10 +3,10 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { StockService } from 'src/app/services/inventario/stock.service';
 import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
 import { Stock } from 'src/app/model/entitys/stock.model';
-import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
-import swal from 'sweetalert2';
 import { Articulo } from 'src/app/model/entitys/articulo.model';
 import { Almacen } from 'src/app/model/entitys/almacen.model';
+import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-stock',

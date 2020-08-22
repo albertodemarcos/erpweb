@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+
+
+
+// Compra
 import { CompraService } from 'src/app/services/compras/compra.service';
 import { Compra } from 'src/app/model/entitys/compra.model';
+
+// Articulo
+import { ModalArticuloComponent } from 'src/app/components/modales/inventario/modal-articulo/modal-articulo.component';
+import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
+
+// Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
 
@@ -24,7 +34,16 @@ export class FormularioCompraComponent implements OnInit {
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
 
-  constructor(private compraService: CompraService, private router: Router, private activateRouter: ActivatedRoute) {
+  // Modal Articulo
+  // @Input() modalArticulo: ModalArticuloComponent;
+  @ViewChild('modalArt1') modalArticulo: ModalArticuloComponent;
+
+  constructor(
+    private compraService: CompraService,
+    private autocompletarService: AutocompletarService,
+    private router: Router,
+    private activateRouter: ActivatedRoute) {
+
     this.compra = new Compra();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
@@ -38,6 +57,12 @@ export class FormularioCompraComponent implements OnInit {
         this.getEditarCompra();
       }
     } );
+    this.autocompletarService.paramatroExterno = 'tablaArticulos';
+    this.modalArticulo = new ModalArticuloComponent(this.autocompletarService);
+    this.modalArticulo.articuloEvento.subscribe( articulo => {
+      console.log('Articulo: ' + JSON.stringify(articulo));
+    });
+
   }
 
   ngOnInit(): void {
@@ -194,6 +219,11 @@ export class FormularioCompraComponent implements OnInit {
     this.mapaIva.set('IVA_GENERAL', 'GENERAL');
     this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+  }
+
+  modalAnadirArticulo(){
+    console.log('Entro');
+    this.modalArticulo.mostrarModalCrearArticulo();
   }
 
 

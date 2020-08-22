@@ -6,6 +6,10 @@ body {
     width: 100%;
 }
 
+.saltoLinea {
+    white-space: pre;
+}
+
 
 /*.home {
     margin-top: 50px;

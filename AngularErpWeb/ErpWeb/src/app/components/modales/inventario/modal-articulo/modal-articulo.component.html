@@ -1,1 +1,104 @@
-<p>modal-articulo works!</p>
+<!-- MODAL VISUALIZAR ARTICULO -->
+<div id="crearModalArticulo" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <!-- TITULO {{evento.titulo}}-->
+            <div class="modal-header">
+                <h5 class="modal-title bg-blue">Añadir articulo a la lista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- CARD EVENTO -->
+            <div class="modal-body">
+
+                <div class="card">
+                    <div class="card-body">
+                        <!-- FORMULARIO -->
+                        <form autocomplete="off" (ngSubmit)="crearAnadirArticuloFormulario()">
+
+                            <!-- AUTOCOMPLETAR ARTICULO -->
+                            <div class="form-group row">
+                                <label for="articulo" class="col-form-label col-sm-4 required">Articulo</label>
+                                <div class="col-7 ng-autocomplete">
+                                    <ng-autocomplete [data]="dataArticulo" [searchKeyword]="keyword" name="articulo" [(ngModel)]="articulo" (selected)='itemSeleccionado($event)' (inputChanged)='getArticulos($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoArticulo()"
+                                        (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar articulo">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a href="javascript:void(0)">
+                                            <span [innerHTML]="item.codigo"></span> -
+                                            <span [innerHTML]="item.nombre"></span>
+                                        </a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        {{mensajeError}}
+                                    </ng-template>
+                                </div>
+                            </div>
+
+                            <br/>
+                            <br/>
+
+                            <!-- CANTIDAD -->
+                            <div class="form-group row">
+                                <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
+                                <div class="col-sm-7">
+                                    <input type="number" class="form-control" [(ngModel)]="cantidad" name="cantidad">
+                                    <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
+                                        <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br/>
+
+                            <!--INFORMACION ARTICULO-->
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-center" *ngIf="articuloInfo.nombre">Datos articulo seleccionado</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row form-group">
+                                        <!-- ARTICULO -->
+                                        <dl class="col-12" *ngIf="articuloInfo.nombre">
+                                            <dt>Artículo</dt>
+                                            <dd>{{articuloInfo.nombre}}</dd>
+                                        </dl>
+                                        <!-- BASE IMPONIBLE -->
+                                        <dl class="col-4" *ngIf="articuloInfo.baseImponible">
+                                            <dt>Base imp.</dt>
+                                            <dd>{{articuloInfo.baseImponible | currency:'EUR':true}}</dd>
+                                        </dl>
+                                        <!-- IMPUESTO -->
+                                        <dl class="col-4" *ngIf="articuloInfo.impuesto">
+                                            <dt>Impuesto ap.</dt>
+                                            <dd>{{ mapaIva.get(articuloInfo.impuesto) | capitalizar}}</dd>
+                                        </dl>
+                                        <!-- TOTAL -->
+                                        <dl class="col-4" *ngIf="articuloInfo.importeTotal">
+                                            <dt>Importe total</dt>
+                                            <dd>{{articuloInfo.importeTotal | currency:'EUR':true}}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- BOTON -->
+                            <div class="form-group row text-center">
+                                <div class="col-sm-12">
+                                    <br/>
+                                    <button class="btn btn-primary" role="button">Añadir</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

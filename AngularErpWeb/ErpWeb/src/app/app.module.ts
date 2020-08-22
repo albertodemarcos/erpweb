@@ -18,6 +18,7 @@ import localEs from '@angular/common/locales/es'; // localeEs
 
 // Autocompletar
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+let idTable: string;
 
 /* --------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
@@ -28,6 +29,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 /* ------------------------------------------------- VISUALIZACION ENTITYS --------------------------------------------- */
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
@@ -77,18 +79,21 @@ import { FormularioUsuarioComponent } from './components/formularios/usuarios/fo
 import { FormularioStockComponent } from './components/formularios/inventario/formulario-stock/formulario-stock.component';
 
 /* -------------------------------------------------- MODALES ----------------------------------------------------------------------- */
-import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
+/*import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
 import { ModalEmpleadoComponent } from './components/modales/empresa/modal-empleado/modal-empleado.component';
 import { ModalEmpresaComponent } from './components/modales/empresa/modal-empresa/modal-empresa.component';
 import { ModalCompraComponent } from './components/modales/compras/modal-compra/modal-compra.component';
 import { ModalPedidoComponent } from './components/modales/compras/modal-pedido/modal-pedido.component';
 import { ModalProveedorComponent } from './components/modales/compras/modal-proveedor/modal-proveedor.component';
 import { ModalAlmacenComponent } from './components/modales/inventario/modal-almacen/modal-almacen.component';
-import { ModalArticuloComponent } from './components/modales/inventario/modal-articulo/modal-articulo.component';
+
 import { ModalVehiculoComponent } from './components/modales/inventario/modal-vehiculo/modal-vehiculo.component';
 import { ModalContratoComponent } from './components/modales/ventas/modal-contrato/modal-contrato.component';
 import { ModalVentaComponent } from './components/modales/ventas/modal-venta/modal-venta.component';
 import { ModalFacturaComponent } from './components/modales/ventas/modal-factura/modal-factura.component';
+*/
+import { ModalArticuloComponent } from './components/modales/inventario/modal-articulo/modal-articulo.component';
+
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
 /* --------------------------------------------------- SERVICIOS --------------------------------------------------------------------- */
@@ -106,7 +111,6 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
-import { LogoutComponent } from './components/logout/logout.component';
 import { CapitalizarPipe } from './Pipes/capitalizar.pipe';
 
 
@@ -152,18 +156,18 @@ FullCalendarModule.registerPlugins([
     ListadoVehiculosComponent,
     ListadoEmpleadosComponent,
     ListadoStockComponent,
-    ModalClienteComponent,
+    /*ModalClienteComponent,
     ModalEmpleadoComponent,
     ModalEmpresaComponent,
     ModalCompraComponent,
     ModalPedidoComponent,
     ModalProveedorComponent,
     ModalAlmacenComponent,
-    ModalArticuloComponent,
     ModalVehiculoComponent,
     ModalContratoComponent,
     ModalVentaComponent,
-    ModalFacturaComponent,
+    ModalFacturaComponent,*/
+    ModalArticuloComponent,
     PlanificadorComponent,
     ClienteComponent,
     ContratoComponent,

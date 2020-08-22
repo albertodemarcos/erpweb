@@ -11,6 +11,8 @@ import { Articulo } from 'src/app/model/entitys/articulo.model';
 })
 export class AutocompletarService {
 
+  public paramatroExterno: string;
+
   private urlGeneral: string;
   private httpHeaders: HttpHeaders;
   private urlGetAlmacen: string;
@@ -25,6 +27,7 @@ export class AutocompletarService {
        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
        Accept: '*/*',
     });
+    this.paramatroExterno = '';
   }
 
   // Metodos Generales
@@ -41,9 +44,9 @@ export class AutocompletarService {
   /**
    * Nos devuelve una lista de articulos
    */
-  getArticuloAutcompletar(term: string): Promise<Articulo[]>{
+  getArticuloAutcompletar(term: string, completo?: boolean): Promise<Articulo[]>{
     console.log('METODO listado');
-    const urlGet = this.urlGeneral + this.urlGetArticulo + '?term=' + term;
+    const urlGet = this.urlGeneral + this.urlGetArticulo + '?term=' + term + '&&completo=' + completo;
     return this.httpClient.get<Articulo[]>(urlGet, {headers: this.httpHeaders}).pipe(map(response => response as Articulo[])).toPromise();
   }
 

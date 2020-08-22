@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class AutocompletarService {
 	}
 	
 	//Articulos
-	public List<ArticuloDto> getListadoArticulosAutocompletar(String termino) {
+	public List<ArticuloDto> getListadoArticulosAutocompletar(String termino, Boolean completo) {
 
 		logger.debug("Entramos en el metodo getListadoArticulosAutocompletar()" );
 		
@@ -58,7 +59,7 @@ public class AutocompletarService {
 			
 			List<Articulo> articulos = articuloRepository.obtenerTodosLosArticulos("%"+termino.toLowerCase()+"%");
 			
-			return this.obtieneListadoArticuloDtoDelRepository(articulos);
+			return this.obtieneListadoArticuloDtoDelRepository(articulos, completo);
 			
 		}catch(Exception e) {
 			
@@ -91,7 +92,7 @@ public class AutocompletarService {
 		return almacenesDto;
 	}
 	
-	private List<ArticuloDto> obtieneListadoArticuloDtoDelRepository(List<Articulo> articulos){
+	private List<ArticuloDto> obtieneListadoArticuloDtoDelRepository(List<Articulo> articulos, Boolean completo){
 		
 		List<ArticuloDto> articulosDto = new ArrayList<ArticuloDto>();
 		
@@ -104,6 +105,12 @@ public class AutocompletarService {
 				articuloDto.setId(articulo.getId());
 				articuloDto.setCodigo(articulo.getCodigo());
 				articuloDto.setNombre(articulo.getNombre());
+				//Si se necesitan mas datos
+				if( BooleanUtils.isTrue(completo) ) {
+					articuloDto.setBaseImponible(articulo.getBaseImponible());
+					articuloDto.setImpuesto(articulo.getImpuesto());
+					articuloDto.setImporteTotal(articulo.getImporteTotal());
+				}
 				
 				articulosDto.add(articuloDto);				
 			}
