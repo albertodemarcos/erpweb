@@ -1,9 +1,11 @@
 package com.erpweb.servicios.inventario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
-
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.erpweb.dto.AlmacenDto;
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.StockArticuloDto;
 import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.entidades.inventario.Articulo;
@@ -30,14 +34,75 @@ public class StockAlmacenService {
 	@Autowired
 	private StockArticuloRepository stockArticuloRepository;
 	
-	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	
 	/* METODOS Stock General Almacen */
 	
-	public AccionRespuesta crerStockAlmacen(StockArticuloDto stockArticuloDto) {
+	public AccionRespuesta getStockArticulo(Long stockAlmacenId) {
+		
+		logger.debug("Entramos en el metodo getStockArticulo()");
+		
+		if( stockAlmacenId == null) {
+			
+			return new AccionRespuesta(-1L, "Error, existe el stock del almacen", Boolean.FALSE);
+		}
+		
+		StockArticulo stockArticulo = this.obtieneStockArticulo(stockAlmacenId);
+		
+		StockArticuloDto stockArticuloDto = this.obtieneStockArticuloDtoDeStockArticulo(stockArticulo);
+		
+		AccionRespuesta AccionRespuesta = new AccionRespuesta();
+		
+		if( stockArticuloDto != null ) {
+			
+			AccionRespuesta.setId( stockArticuloDto.getId() );
+			
+			AccionRespuesta.setRespuesta("");
+			
+			AccionRespuesta.setResultado(Boolean.TRUE);
+			
+			HashMap<String, Object> mapa = new HashMap<String, Object>();
+			
+			mapa.put("stockArticuloDto", stockArticuloDto);
+			
+			AccionRespuesta.setData(new HashMap<String, Object>(mapa));
+			
+		}else {
+			
+			AccionRespuesta.setId( -1L );
+			
+			AccionRespuesta.setRespuesta("Error, no se ha podido recuperar el stock del almacen");
+			
+			AccionRespuesta.setResultado(Boolean.FALSE);
+		}
+		
+		return AccionRespuesta;
+	}
+	
+	
+	public List<StockArticuloDto> getListadoStockArticulos() {
+		
+		logger.debug("Entramos en el metodo getListadoStockArticulos()" );
+		
+		try {
+			
+			List<StockArticulo> stockArticulos = stockArticuloRepository.findAll();
+			
+			return this.obtieneListadoStockArticuloDtoDelRepository(stockArticulos);
+			
+		}catch(Exception e) {
+			
+			logger.error("Error en el metodo getListadoStockArticulos()" );
+			
+			e.printStackTrace();
+		}
+			
+		return new ArrayList<StockArticuloDto>();
+	}
+	
+	/*public AccionRespuesta crerStockAlmacen(StockArticuloDto stockArticuloDto) {
 		
 		return null;
 	}
@@ -45,7 +110,7 @@ public class StockAlmacenService {
 	public AccionRespuesta actualizarStockAlmacen(StockArticuloDto stockArticuloDto) {
 		
 		return null;
-	}
+	}*/
 	
 	public AccionRespuesta eliminarStockAlmacen(StockArticuloDto stockArticuloDto) {
 		
@@ -206,8 +271,8 @@ public class StockAlmacenService {
 			StockArticulo stockArticuloSave = stockArticuloRepository.save(stockArticulo);
 			
 			stockArticuloDto.setId(stockArticuloSave.getId());
-			stockArticuloDto.setAlmacen(almacen);
-			stockArticuloDto.setArticulo(articulo);
+			stockArticuloDto.setArticuloDto(this.obtieneArticuloDtoDeArticulo(articulo));
+			stockArticuloDto.setAlmacenDto(this.obtieneAlmacenDtoDeAlmacen(almacen));
 			
 			return this.devolverDatosStockArticuloDto(stockArticuloDto, stockArticuloSave);
 			
@@ -228,11 +293,11 @@ public class StockAlmacenService {
 		
 		try {
 			
-			StockArticulo stockArticuloSave = this.getStockArticulo( stockArticuloDto.getId() );
+			StockArticulo stockArticuloSave = this.obtieneStockArticulo( stockArticuloDto.getId() );
 			
 			stockArticuloDto.setId(stockArticuloSave.getId());
-			stockArticuloDto.setAlmacen(almacen);
-			stockArticuloDto.setArticulo(articulo);
+			stockArticuloDto.setArticuloDto(this.obtieneArticuloDtoDeArticulo(articulo));
+			stockArticuloDto.setAlmacenDto(this.obtieneAlmacenDtoDeAlmacen(almacen));
 			
 			return this.devolverDatosStockArticuloDto(stockArticuloDto, stockArticuloSave);
 			
@@ -288,7 +353,7 @@ public class StockAlmacenService {
 	
 	/* METODOS AUXILIARES */
 	
-	private StockArticulo getStockArticulo(Long id ) {
+	private StockArticulo obtieneStockArticulo(Long id ) {
 			
 		Optional<StockArticulo> stockArticulo = stockArticuloRepository.findById( id );
 		
@@ -332,5 +397,79 @@ public class StockAlmacenService {
 		return respuesta;
 	}
 	
+	private List<StockArticuloDto> obtieneListadoStockArticuloDtoDelRepository(List<StockArticulo> stockArticulos){
+		
+		logger.debug("Entramos en el metodo obtieneListadoStockArticuloDtoDelRepository()" );
+		
+		List<StockArticuloDto> stockArticulosDto = new ArrayList<StockArticuloDto>();
+		
+		if(CollectionUtils.isNotEmpty(stockArticulos) ) {
+			
+			for(StockArticulo stockArticulo  : stockArticulos) {
+				
+				StockArticuloDto stockArticuloDto = new StockArticuloDto();
+				
+				stockArticuloDto.setId(stockArticulo.getId());
+				stockArticuloDto.setCodigo(stockArticulo.getCodigo());
+				stockArticuloDto.setArticuloId(stockArticulo.getArticulo().getId());
+				stockArticuloDto.setAlmacenId(stockArticulo.getAlmacen().getId());
+				stockArticuloDto.setArticuloDto(this.obtieneArticuloDtoDeArticulo(stockArticulo.getArticulo()));
+				stockArticuloDto.setAlmacenDto(this.obtieneAlmacenDtoDeAlmacen(stockArticulo.getAlmacen()));
+				stockArticuloDto.setCantidad(stockArticulo.getCantidad());
+				
+				stockArticulosDto.add(stockArticuloDto);				
+			}
+		}
+		
+		return stockArticulosDto;
+	}
+	
+	private StockArticuloDto obtieneStockArticuloDtoDeStockArticulo(StockArticulo stockArticulo) {
+		
+		StockArticuloDto stockArticuloDto = new StockArticuloDto();
+		
+		stockArticuloDto.setId(stockArticulo.getId());
+		stockArticuloDto.setCodigo(stockArticulo.getCodigo());
+		stockArticuloDto.setCantidad(stockArticulo.getCantidad());
+		stockArticuloDto.setAlmacenDto(this.obtieneAlmacenDtoDeAlmacen(stockArticulo.getAlmacen()));
+		stockArticuloDto.setArticuloDto(this.obtieneArticuloDtoDeArticulo(stockArticulo.getArticulo()));		
+		
+		return stockArticuloDto;
+	}
+	
+	private AlmacenDto obtieneAlmacenDtoDeAlmacen(Almacen almacen) {
+		
+		AlmacenDto almacenDto = new AlmacenDto();
+		
+		almacenDto.setId(almacen.getId());
+		almacenDto.setCodigo(almacen.getCodigo());
+		almacenDto.setNombre(almacen.getNombre());
+		almacenDto.setCodigoPostal(almacen.getCodigoPostal());
+		almacenDto.setDireccion(almacen.getDireccion());
+		almacenDto.setEdificio(almacen.getEdificio());
+		almacenDto.setObservaciones(almacen.getObservaciones());
+		almacenDto.setTelefono(almacen.getTelefono());
+		almacenDto.setPoblacion(almacen.getPoblacion());
+		almacenDto.setProvincia(almacen.getProvincia());
+		almacenDto.setRegion(almacen.getRegion());
+		almacenDto.setPais(almacen.getPais());
+		
+		return almacenDto;
+	}
+	
+	private ArticuloDto obtieneArticuloDtoDeArticulo(Articulo articulo) {
+		
+		ArticuloDto articuloDto = new ArticuloDto();
+		
+		articuloDto.setId(articulo.getId());
+		articuloDto.setCodigo(articulo.getCodigo());
+		articuloDto.setNombre(articulo.getNombre());
+		articuloDto.setDescripcion(articulo.getDescripcion());
+		articuloDto.setBaseImponible(articulo.getBaseImponible());
+		articuloDto.setImpuesto(articulo.getImpuesto());
+		articuloDto.setImporteTotal(articulo.getImporteTotal());
+		
+		return articuloDto;
+	}
 	
 }

@@ -14,8 +14,8 @@ public class StockArticuloDto implements Serializable {
 	private String codigo;
 	private Long articuloId;
 	private Long almacenId;
-	private Almacen almacen;
-	private Articulo articulo;
+	private AlmacenDto almacenDto;
+	private ArticuloDto articuloDto;
 	private Long cantidad;
 
 
@@ -51,20 +51,20 @@ public class StockArticuloDto implements Serializable {
 		this.almacenId = almacenId;
 	}
 
-	public Almacen getAlmacen() {
-		return almacen;
+	public AlmacenDto getAlmacenDto() {
+		return almacenDto;
 	}
 
-	public void setAlmacen(Almacen almacen) {
-		this.almacen = almacen;
+	public void setAlmacenDto(AlmacenDto almacenDto) {
+		this.almacenDto = almacenDto;
 	}
 
-	public Articulo getArticulo() {
-		return articulo;
+	public ArticuloDto getArticuloDto() {
+		return articuloDto;
 	}
 
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
+	public void setArticuloDto(ArticuloDto articuloDto) {
+		this.articuloDto = articuloDto;
 	}
 	
 	public Long getCantidad() {
