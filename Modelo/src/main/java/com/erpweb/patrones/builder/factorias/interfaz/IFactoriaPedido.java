@@ -1,5 +1,7 @@
 package com.erpweb.patrones.builder.factorias.interfaz;
 
+import java.math.BigDecimal;
+
 import com.erpweb.dto.PedidoDto;
 import com.erpweb.entidades.compras.Pedido;
 import com.erpweb.entidades.ventas.Factura;
@@ -25,5 +27,17 @@ public interface IFactoriaPedido {
 	 *	Generamos las lineas factura de la entidad principal 
 	 */
 	public Factura crearLineasFacturaEntidad(Pedido pedido, Factura factura);
+	
+	/**
+	 * Pre-Generamos una factura
+	 */
+	public Factura preCrearFacturaEntidad();
+	
+	//Metodo auxiliar
+	
+	/**
+	 * Calcular totales
+	 */
+	public BigDecimal calcularImporte(BigDecimal importe, BigDecimal cantidad);
 	
 }

@@ -24,6 +24,7 @@ import com.erpweb.patrones.builder.constructores.ConstructorPedido;
 import com.erpweb.repositorios.compras.LineaPedidoRepository;
 import com.erpweb.repositorios.compras.PedidoRepository;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.servicios.ventas.RegeneraFacturasService;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -41,6 +42,8 @@ public class PedidoService {
 	private LineaPedidoRepository lineaPedidoRepository;
 	@Autowired
 	private ArticuloRepository articuloRepository;
+	@Autowired 
+	private FacturaRepository facturaRepository;
 	
 	//Otros
 	@Autowired
@@ -56,7 +59,6 @@ public class PedidoService {
 
 		try {
 			
-			//Guardamos el pedido en base de datos
 			Pedido pedioSave = constructorPedido.crearEntidadLineasEntidad(pedidoDto);
 			
 			return this.devolverDatosPedidoDto(pedidoDto, pedioSave);
@@ -182,6 +184,13 @@ public class PedidoService {
 		}
 				
 		try {
+			
+			//Paso previo
+			Long facturaId = pedidoRepository.obtieneFacturaIdDesdePedidoId(pedidoId);
+			
+			if( facturaId != null && facturaId.longValue() > 0) {
+				facturaRepository.deleteById(facturaId);
+			}
 			
 			//Elimnamos el pedido
 			pedidoRepository.deleteById(pedidoId);

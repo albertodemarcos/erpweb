@@ -22,6 +22,7 @@ import com.erpweb.entidades.ventas.LineaVenta;
 import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.patrones.builder.constructores.ConstructorVenta;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.repositorios.ventas.LineaVentaRepository;
 import com.erpweb.repositorios.ventas.VentaRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -41,6 +42,8 @@ public class VentaService {
 	private LineaVentaRepository lineaVentaRepository;
 	@Autowired
 	private ArticuloRepository articuloRepository;
+	@Autowired 
+	private FacturaRepository facturaRepository;
 	
 	//Otros
 	@Autowired
@@ -184,6 +187,13 @@ public class VentaService {
 		}
 		
 		try {
+			
+			//Paso previo
+			Long facturaId = ventaRepository.obtieneFacturaIdDesdeVentaId(ventaId);
+			
+			if( facturaId != null && facturaId.longValue() > 0) {
+				facturaRepository.deleteById(facturaId);
+			}
 			
 			//Elimnamos la venta
 			ventaRepository.deleteById(ventaId);

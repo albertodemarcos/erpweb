@@ -24,6 +24,7 @@ import com.erpweb.patrones.builder.constructores.ConstructorCompra;
 import com.erpweb.repositorios.compras.CompraRepository;
 import com.erpweb.repositorios.compras.LineaCompraRepository;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.servicios.ventas.RegeneraFacturasService;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -41,6 +42,8 @@ public class CompraService {
 	private LineaCompraRepository lineaCompraRepository;
 	@Autowired 
 	private ArticuloRepository articuloRepository;
+	@Autowired 
+	private FacturaRepository facturaRepository;
 	
 	//Otros	
 	@Autowired 
@@ -179,6 +182,13 @@ public class CompraService {
 		}
 				
 		try {
+			
+			//Paso previo
+			Long facturaId = compraRepository.obtieneFacturaIdDesdeCompraId(compraId);
+			
+			if( facturaId != null && facturaId.longValue() > 0) {
+				facturaRepository.deleteById(facturaId);
+			}
 			
 			//Elimnamos el compra
 			compraRepository.deleteById(compraId);

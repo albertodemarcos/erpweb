@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.erpweb.entidades.ventas.Venta;
@@ -16,6 +18,6 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
 	
 	List<Venta> findByIdIn( List<Long> ids);
 	
-	
-	
+	@Query(" select f.id from Venta v inner join v.factura f where c.id=:ventaId ")
+	Long obtieneFacturaIdDesdeVentaId(@Param("ventaId") Long ventaId);
 }

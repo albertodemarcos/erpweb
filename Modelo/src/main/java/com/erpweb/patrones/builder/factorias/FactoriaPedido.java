@@ -51,11 +51,8 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 			
 			pedido.setCodigo(pedidoDto.getCodigo());
 			pedido.setFechaPedido(pedidoDto.getFechaPedido());
-			//compra.setArticulo(compraDto.getArticulo());
-			//compra.setCantidad(compraDto.getCantidad());
-			pedido.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
-			pedido.setImpuesto(pedidoDto.getImpuesto());
-			pedido.setImporteTotal(pedidoDto.getImporteTotal());
+			pedido.setBaseImponibleTotal(new BigDecimal(0));
+			pedido.setImporteTotal(new BigDecimal(0));
 			
 			Pedido pedidoSave = pedidoRepository.save(pedido);
 			
@@ -94,11 +91,21 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 				
 				lineaPedido.setPedido(pedido);
 				lineaPedido.setArticulo(articulo);
-				lineaPedido.setBaseImponible(articulo.getBaseImponible());
-				lineaPedido.setImporteTotal(articulo.getImporteTotal());
-				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
-				lineaPedido.setImporteImpuesto( importeImpuesto ); 
+				
+				//Calculamos los importes
+				BigDecimal cantidad = pedidoDto.getArticulosCantidad().get(articulo.getId());
+				BigDecimal baseImponibleTotal = this.calcularImporte(articulo.getBaseImponible(), cantidad);
+				BigDecimal importeTotal = this.calcularImporte(articulo.getImporteTotal(), cantidad);
+				Double importeImpuesto = articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue();
+				
+				lineaPedido.setBaseImponible(baseImponibleTotal);
+				lineaPedido.setImporteTotal(importeTotal);
+				lineaPedido.setCantidad(cantidad.intValue());
+				lineaPedido.setImporteImpuesto( new BigDecimal(importeImpuesto) ); 
 				lineaPedido.setDescripcionLinea("");
+				
+				pedido.setBaseImponibleTotal(pedido.getBaseImponibleTotal().add(baseImponibleTotal));
+				pedido.setImporteTotal(pedido.getBaseImponibleTotal().add(importeTotal));
 				
 				lineasPedido.add(lineaPedido);
 			}
@@ -140,7 +147,7 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 			factura.setBaseImponible(pedido.getBaseImponibleTotal());
 			factura.setImporteTotal(pedido.getImporteTotal());
 			factura.setDescripcion(null);
-			factura.setImpuesto(pedido.getImpuesto());
+			factura.setImpuesto(null);
 			
 			Factura facturaSave = facturaRepository.save(factura);
 			
@@ -212,6 +219,34 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Factura preCrearFacturaEntidad() {
+
+		logger.trace("Entramos en el metodo preCrearFacturaEntidad()");
+		
+		try {
+			
+			Factura factura = new Factura();
+			
+			Factura facturaSave = facturaRepository.save(factura);
+			
+			return facturaSave;
+			
+		}catch(Exception e) {
+			
+			logger.error("Error al crear la factura para la compra en el metodo crearFacturaEntidad()");
+			
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
+
+	@Override
+	public BigDecimal calcularImporte(BigDecimal importe, BigDecimal cantidad) {
+		return new BigDecimal(importe.doubleValue() * cantidad.doubleValue());
 	}
 
 }

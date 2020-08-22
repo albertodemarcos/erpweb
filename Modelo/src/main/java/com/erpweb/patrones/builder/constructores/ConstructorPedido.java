@@ -31,6 +31,9 @@ public class ConstructorPedido extends ConstructorEntidad implements IConstructo
 			Pedido pedido = null;
 			Factura factura = null;
 			
+			//Paso Previo: Creamos una factura vacia para asociar al pedido previamente
+			factura = factoriaPedido.preCrearFacturaEntidad();
+			
 			//Paso 1: Pedido
 			pedido = factoriaPedido.crearEntidad(pedidoDto);
 			

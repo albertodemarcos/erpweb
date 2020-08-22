@@ -1,6 +1,7 @@
 package com.erpweb.patrones.builder.factorias;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,13 +53,12 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 			
 			contrato.setCodigo(contratoDto.getCodigo());
 			
-			contrato.setFechaCreacion(contratoDto.getFechaCreacion());
+			contrato.setFechaCreacion(new Date());
 			contrato.setFechaInicio(contratoDto.getFechaInicio());
 			contrato.setFechaFin(contratoDto.getFechaFin());
 			
-			contrato.setBaseImponibleTotal(contratoDto.getBaseImponibleTotal());
-			contrato.setImpuesto(contratoDto.getImpuesto());
-			contrato.setImporteTotal(contratoDto.getImporteTotal());
+			contrato.setBaseImponibleTotal(new BigDecimal(0));
+			contrato.setImporteTotal(new BigDecimal(0));
 			
 			Contrato contratoSave = contratoRepository.save(contrato);
 			
@@ -97,11 +97,21 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 				
 				lineaContrato.setContrato(contrato);
 				lineaContrato.setArticulo(articulo);
-				lineaContrato.setBaseImponible(articulo.getBaseImponible());
-				lineaContrato.setImporteTotal(articulo.getImporteTotal());
-				BigDecimal importeImpuesto = new BigDecimal("" + (articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue()) );
-				lineaContrato.setImporteImpuesto( importeImpuesto ); 
+				
+				//Calculamos los importes
+				BigDecimal cantidad = contratoDto.getArticulosCantidad().get(articulo.getId());
+				BigDecimal baseImponibleTotal = this.calcularImporte(articulo.getBaseImponible(), cantidad);
+				BigDecimal importeTotal = this.calcularImporte(articulo.getImporteTotal(), cantidad);
+				Double importeImpuesto = articulo.getImporteTotal().doubleValue() - articulo.getBaseImponible().doubleValue();
+				
+				lineaContrato.setBaseImponible(baseImponibleTotal);
+				lineaContrato.setImporteTotal(importeTotal);
+				lineaContrato.setCantidad(cantidad.intValue());
+				lineaContrato.setImporteImpuesto( new BigDecimal(importeImpuesto) ); 
 				lineaContrato.setDescripcionLinea("");
+				
+				contrato.setBaseImponibleTotal(contrato.getBaseImponibleTotal().add(baseImponibleTotal));
+				contrato.setImporteTotal(contrato.getBaseImponibleTotal().add(importeTotal));
 				
 				lineasContrato.add(lineaContrato);
 			}
@@ -137,13 +147,13 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 			
 			factura.setId(null);
 			factura.setCodigo(contrato.getCodigo());
-			factura.setFechaCreacion(contrato.getFechaCreacion());
+			factura.setFechaCreacion(new Date());
 			factura.setFechaInicio(contrato.getFechaInicio());
 			factura.setFechaFin(contrato.getFechaFin());
 			factura.setBaseImponible(contrato.getBaseImponibleTotal());
 			factura.setImporteTotal(contrato.getImporteTotal());
 			factura.setDescripcion(contrato.getDescripcion());
-			factura.setImpuesto(contrato.getImpuesto());
+			factura.setImpuesto(null);
 			
 			Factura facturaSave = facturaRepository.save(factura);
 			
@@ -214,6 +224,34 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Factura preCrearFacturaEntidad() {
+
+		logger.trace("Entramos en el metodo preCrearFacturaEntidad()");
+		
+		try {
+			
+			Factura factura = new Factura();
+			
+			Factura facturaSave = facturaRepository.save(factura);
+			
+			return facturaSave;
+			
+		}catch(Exception e) {
+			
+			logger.error("Error al crear la factura para la compra en el metodo crearFacturaEntidad()");
+			
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
+
+	@Override
+	public BigDecimal calcularImporte(BigDecimal importe, BigDecimal cantidad) {
+		return new BigDecimal(importe.doubleValue() * cantidad.doubleValue());
 	}
 
 }

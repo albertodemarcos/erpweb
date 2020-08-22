@@ -31,6 +31,9 @@ public class ConstructorVenta extends ConstructorEntidad implements IConstructor
 			Venta venta = null;
 			Factura factura = null;
 			
+			//Paso Previo: Creamos una factura vacia para asociar a la compra previamente
+			factura = factoriaVenta.preCrearFacturaEntidad();
+			
 			//Paso 1: Venta
 			venta = factoriaVenta.crearEntidad(ventaDto);
 			

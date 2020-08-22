@@ -24,6 +24,7 @@ import com.erpweb.entidades.ventas.LineaContrato;
 import com.erpweb.patrones.builder.constructores.ConstructorContrato;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.repositorios.ventas.ContratoRepository;
+import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.repositorios.ventas.LineaContratoRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -42,6 +43,8 @@ public class ContratoService {
 	private LineaContratoRepository lineaContratoRepository;
 	@Autowired
 	private ArticuloRepository articuloRepository;
+	@Autowired 
+	private FacturaRepository facturaRepository;
 	
 	//Otros
 	@Autowired
@@ -185,6 +188,13 @@ public class ContratoService {
 		}
 		
 		try {
+			
+			//Paso previo
+			Long facturaId = contratoRepository.obtieneFacturaIdDesdeContratoId(contratoId);
+			
+			if( facturaId != null && facturaId.longValue() > 0) {
+				facturaRepository.deleteById(facturaId);
+			}
 			
 			//Elimnamos el contrato
 			contratoRepository.deleteById(contratoId);
