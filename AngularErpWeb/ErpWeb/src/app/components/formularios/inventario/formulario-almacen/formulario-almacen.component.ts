@@ -85,7 +85,7 @@ export class FormularioAlmacenComponent implements OnInit {
     }
   }
 
-  getEditarAlmacen() {
+  public getEditarAlmacen() {
 
     this.almacenService.getAlmacen(this.almacenId).toPromise().then( (accionRespuesta) => {
         try
@@ -132,7 +132,7 @@ export class FormularioAlmacenComponent implements OnInit {
     }
   }
 
-  respuestaCrearEditarAlmacen(accionRespuesta: AccionRespuesta, esEditarAlmacen: boolean): void {
+  public respuestaCrearEditarAlmacen(accionRespuesta: AccionRespuesta, esEditarAlmacen: boolean): void {
 
     console.log('Esta registrado' + accionRespuesta.resultado);
     console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));

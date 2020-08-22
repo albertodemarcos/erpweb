@@ -16,6 +16,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { registerLocaleData } from '@angular/common';
 import localEs from '@angular/common/locales/es'; // localeEs
 
+// Autocompletar
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 /* --------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 
 /* --------------------------------------------------- PRINCIPALES ------------------------------------------------------ */
@@ -40,6 +43,7 @@ import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehicu
 import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
 import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
+import { StockComponent } from './components/cards/inventario/stock/stock.component';
 
 /* ------------------------------------------------------ LISTADOS ------------------------------------------------------ */
 import { ListadoClientesComponent } from './components/listados/crm/listado-clientes/listado-clientes.component';
@@ -51,6 +55,7 @@ import { ListadoPedidosComponent } from './components/listados/compras/listado-p
 import { ListadoProveedoresComponent } from './components/listados/compras/listado-proveedores/listado-proveedores.component';
 import { ListadoArticulosComponent } from './components/listados/inventario/listado-articulos/listado-articulos.component';
 import { ListadoAlmacenComponent } from './components/listados/inventario/listado-almacen/listado-almacen.component';
+import { ListadoStockComponent } from './components/listados/inventario/listado-stock/listado-stock.component';
 import { ListadoVehiculosComponent } from './components/listados/inventario/listado-vehiculos/listado-vehiculos.component';
 import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
 import { ListadoUsuariosComponent } from './components/listados/usuarios/listado-usuarios/listado-usuarios.component';
@@ -69,6 +74,7 @@ import { FormularioAlmacenComponent } from './components/formularios/inventario/
 import { FormularioArticuloComponent } from './components/formularios/inventario/formulario-articulo/formulario-articulo.component';
 import { FormularioVehiculoComponent } from './components/formularios/inventario/formulario-vehiculo/formulario-vehiculo.component';
 import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
+import { FormularioStockComponent } from './components/formularios/inventario/formulario-stock/formulario-stock.component';
 
 /* -------------------------------------------------- MODALES ----------------------------------------------------------------------- */
 import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
@@ -102,6 +108,7 @@ import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CapitalizarPipe } from './Pipes/capitalizar.pipe';
+
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -144,6 +151,7 @@ FullCalendarModule.registerPlugins([
     ListadoAlmacenComponent,
     ListadoVehiculosComponent,
     ListadoEmpleadosComponent,
+    ListadoStockComponent,
     ModalClienteComponent,
     ModalEmpleadoComponent,
     ModalEmpresaComponent,
@@ -175,14 +183,18 @@ FullCalendarModule.registerPlugins([
     LoginComponent,
     LogoutComponent,
     CapitalizarPipe,
-    Jqgrid5Component
+    Jqgrid5Component,
+    ListadoStockComponent,
+    StockComponent,
+    FormularioStockComponent
   ], // Modulos
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    AutocompleteLibModule
   ],
   providers: [ // Servicios
     CompraService,

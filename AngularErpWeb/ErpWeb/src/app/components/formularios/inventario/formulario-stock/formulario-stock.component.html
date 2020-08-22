@@ -1,0 +1,92 @@
+<div class="card formluario">
+
+    <div class="card-header cabecera text-center">Nuevo stock almacén</div>
+
+    <div class="card-body bg-light">
+
+        <!-- FORMULARIO -->
+        <form autocomplete="off" (ngSubmit)="crearStockAlmacenFormulario()">
+
+            <!-- CODIGO -->
+            <div class="form-group row">
+                <label for="codigo" class="col-form-label col-sm-4 required">Código</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" [(ngModel)]="stockAlmacen.codigo" name="codigo">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <!-- AUTOCOMPLETAR ARTICULO -->
+            <div class="form-group row">
+                <label for="articulo" class="col-form-label col-sm-4 required">Articulo</label>
+                <div class="col-7 ng-autocomplete">
+                    <ng-autocomplete [data]="dataArticulo" [searchKeyword]="keyword" name="articulo" [(ngModel)]="articulo" (selected)='itemSeleccionado($event)' (inputChanged)='getArticulos($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoArticulo()"
+                        (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar articulo">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                        <a href="javascript:void(0)">
+                            <span [innerHTML]="item.codigo"></span> -
+                            <span [innerHTML]="item.nombre"></span>
+                        </a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <!--<div [innerHTML]="notFound"></div>-->
+                        {{mensajeError}}
+                    </ng-template>
+                </div>
+            </div>
+
+            <br/>
+
+            <!-- AUTOCOMPLETAR ALMACEN -->
+            <div class="form-group row">
+                <label for="articulo" class="col-form-label col-sm-4 required">Almacén</label>
+                <div class="col-7 ng-autocomplete">
+                    <ng-autocomplete [data]="dataAlmacen" name="almacen" [(ngModel)]="almacen" [searchKeyword]="keyword" (selected)='itemSeleccionado($event)' (inputChanged)='getAlmacenes($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoAlmacen()"
+                        (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar almacen">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                        <a href="javascript:void(0)">
+                            <span [innerHTML]="item.codigo"></span> -
+                            <span [innerHTML]="item.nombre"></span>
+                        </a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <!--<div [innerHTML]="notFound"></div>-->
+                        {{mensajeError}}
+                    </ng-template>
+                </div>
+            </div>
+
+            <br/>
+
+            <!-- CANTIDAD -->
+            <div class="form-group row">
+                <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
+                <div class="col-sm-7">
+                    <input type="number" class="form-control" [(ngModel)]="stockAlmacen.cantidad" name="cantidad">
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
+                        <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTON -->
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
+                    <button class="btn btn-primary" role="button">Crear stock almacén</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

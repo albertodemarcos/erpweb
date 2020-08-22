@@ -135,6 +135,12 @@
                             <li><a class="dropdown-item" [routerLink]="['almacenes']">Listado</a></li>
                             <li><a class="dropdown-item" [routerLink]="['almacenes','nuevo-almacen']">Nuevo almacén</a></li>
                             <!--<li><a class="dropdown-item" [routerLink]="['almacenes','buscar-almacen']">Buscar almacén</a></li>-->
+                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle">Stock Almacén</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" [routerLink]="['stock']">Movimientos almacén</a></li>
+                                    <li><a class="dropdown-item" [routerLink]="['stock','nuevo-stock']">Crear stock almacén</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <!--VEHICULOS-->

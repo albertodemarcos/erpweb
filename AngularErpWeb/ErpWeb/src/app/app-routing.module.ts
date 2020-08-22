@@ -27,6 +27,7 @@ import { ListadoAlmacenComponent } from './components/listados/inventario/listad
 import { ListadoVehiculosComponent } from './components/listados/inventario/listado-vehiculos/listado-vehiculos.component';
 import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
 import { ListadoUsuariosComponent } from './components/listados/usuarios/listado-usuarios/listado-usuarios.component';
+import { ListadoStockComponent } from './components/listados/inventario/listado-stock/listado-stock.component';
 
 // FORMULARIOS
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
@@ -42,6 +43,7 @@ import { FormularioContratoComponent } from './components/formularios/ventas/for
 import { FormularioFacturaComponent } from './components/formularios/ventas/formulario-factura/formulario-factura.component';
 import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
 import { FormularioEmpresaComponent } from './components/formularios/empresa/formulario-empresa/formulario-empresa.component';
+import { FormularioStockComponent } from './components/formularios/inventario/formulario-stock/formulario-stock.component';
 
 // CARDS
 import { ClienteComponent } from './components/cards/crm/cliente/cliente.component';
@@ -57,8 +59,9 @@ import { VehiculoComponent } from './components/cards/inventario/vehiculo/vehicu
 import { EmpleadoComponent } from './components/cards/empresas/empleado/empleado.component';
 import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.component';
 import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
-import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
+import { StockComponent } from './components/cards/inventario/stock/stock.component';
 
+import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
 // canActiva -> meter en los sitios que se hacen peticiones
 
 const routes: Routes = [
@@ -109,6 +112,12 @@ const routes: Routes = [
   { path: 'almacenes/nuevo-almacen', component: FormularioAlmacenComponent, canActivate: [AutenticacionService] },
   { path: 'almacenes/editar-almacen/:id', component: FormularioAlmacenComponent, canActivate: [AutenticacionService] },
   { path: 'almacenes/almacen/:id', component: AlmacenComponent, data: {almacen: 'almacen'}, canActivate: [AutenticacionService] },
+// New
+  { path: 'stock', component: ListadoStockComponent, canActivate: [AutenticacionService] },
+  { path: 'stock/nuevo-stock', component: FormularioStockComponent, canActivate: [AutenticacionService] },
+  { path: 'stock/editar-stock/:id', component: FormularioStockComponent, canActivate: [AutenticacionService] },
+  { path: 'stock/almacen/:id', component: StockComponent, data: {stock: 'stock'}, canActivate: [AutenticacionService] },
+// Fin new
   { path: 'vehiculos', component: ListadoVehiculosComponent, canActivate: [AutenticacionService] },
   { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent, canActivate: [AutenticacionService] },
   { path: 'vehiculos/editar-vehiculo/:id', component: FormularioVehiculoComponent, canActivate: [AutenticacionService] },
