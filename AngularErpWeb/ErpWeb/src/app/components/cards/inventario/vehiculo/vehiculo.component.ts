@@ -104,7 +104,7 @@ export class VehiculoComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Vehiculo');
-        swal('Vehiculo elimninado', 'Se ha eliminado el Vehiculo correctamente', 'success').then(() => {
+        swal('Vehiculo eliminado', 'Se ha eliminado el Vehiculo correctamente', 'success').then(() => {
           this.router.navigate( ['vehiculos'] );
         });
 

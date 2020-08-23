@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 // Venta
 import { VentaService } from 'src/app/services/ventas/venta.service';
 import { Venta } from 'src/app/model/entitys/venta.model';
+import { LineaVenta } from 'src/app/model/entitys/linea-venta.model';
 // Articulo
 import { ModalArticuloComponent } from 'src/app/components/modales/inventario/modal-articulo/modal-articulo.component';
 import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
 // Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+
 // jQuery
 declare var jQuery: any;
 
@@ -18,7 +20,7 @@ declare var jQuery: any;
   templateUrl: './formulario-venta.component.html',
   styleUrls: ['./formulario-venta.component.css']
 })
-export class FormularioVentaComponent implements OnInit {
+export class FormularioVentaComponent implements OnInit, AfterViewInit {
 
   public venta: Venta;
   private ventaId: number;
@@ -39,6 +41,7 @@ export class FormularioVentaComponent implements OnInit {
     this.venta = new Venta();
     this.venta.articulosCantidadMap = new Map<number, number>();
     this.venta.articulosCantidad = {};
+    this.venta.lineaVenta = new Array<LineaVenta>();
     this.erroresFormulario = new Map<string, object>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
@@ -55,6 +58,14 @@ export class FormularioVentaComponent implements OnInit {
     this.modalArticulo = new ModalArticuloComponent(this.autocompletarService);
     this.modalArticulo.articuloEvento.subscribe( (articulo: any) => {
       console.log('Articulo: ' + JSON.stringify(articulo));
+    });
+  }
+
+  ngAfterViewInit(): void {
+    jQuery.getScript('assets/js/otros/funcionesJS.js').done(() => {
+      console.log('Se carga el archivo');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el archivo');
     });
   }
 
@@ -143,13 +154,24 @@ export class FormularioVentaComponent implements OnInit {
       this.venta.baseImponibleTotal = ventaDto.baseImponibleTotal;
       this.venta.impuesto = ventaDto.impuesto;
       this.venta.importeTotal = ventaDto.importeTotal;
+      // Limpiamos la venta previamente
+      this.venta.lineaVenta.pop();
+      // Inyectamos el array
+      if (ventaDto.lineasVentaDto !== 'undefined')
+      {
+        // tslint:disable-next-line: prefer-const forin prefer-const
+        for (let i in ventaDto.lineasVentaDto)
+        {
+          this.venta.lineaVenta.push(ventaDto.lineasVentaDto[i]);
+        }
+      }
     }
   }
 
   private respuestaCrearEditarVenta(accionRespuesta: AccionRespuesta, esEditarVenta: boolean): void {
 
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // console.log('Esta registrado' + accionRespuesta.resultado);
+    // console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
@@ -191,9 +213,9 @@ export class FormularioVentaComponent implements OnInit {
   }
 
   private rellenaMapaIva(): void{
-    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
-    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
-    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   private rellenarVentaConTablaLineaArticulos(): void{
@@ -214,7 +236,7 @@ export class FormularioVentaComponent implements OnInit {
       const celdas = jQuery(filas[i]).find('td');
       // Obtenemos las celdas de articulo y cantidad
       const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
-      const celdaCantidad = jQuery(celdas[4]).text(); // Celda 4 es la cantidad..
+      const celdaCantidad = jQuery(celdas[6]).text(); // Celda 6 es la cantidad..
       if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
       {
         this.venta.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
@@ -232,6 +254,18 @@ export class FormularioVentaComponent implements OnInit {
   public modalAnadirArticulo(){
     console.log('Entro');
     this.modalArticulo.mostrarModalCrearArticulo();
+  }
+
+  public destruirLineaArticulo(id: any){
+    if (id != null && id !== 'undefined')
+    {
+      const lineaArticuloId = 'linea_art_id_' + id;
+      jQuery('#' + lineaArticuloId).remove();
+    }
+    else
+    {
+      swal('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
+    }
   }
 
 

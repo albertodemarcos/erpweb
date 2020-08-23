@@ -110,7 +110,7 @@ export class ClienteComponent implements OnInit {
               // Si se ha eliminado correctamente
               if ( accionRespuesta.resultado ) {
                 console.log('Se ha eliminado correctamente el cliente');
-                swal('Cliente elimninado', 'Se ha eliminado el cliente correctamente', 'success').then(() =>{
+                swal('Cliente eliminado', 'Se ha eliminado el cliente correctamente', 'success').then(() =>{
                   this.router.navigate( ['clientes'] );
                 });
 

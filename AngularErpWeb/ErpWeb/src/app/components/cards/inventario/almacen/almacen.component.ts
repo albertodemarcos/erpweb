@@ -108,7 +108,7 @@ export class AlmacenComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Almacen');
-        swal('Almacen elimninado', 'Se ha eliminado el Almacen correctamente', 'success').then(() => {
+        swal('Almacen eliminado', 'Se ha eliminado el Almacen correctamente', 'success').then(() => {
           this.router.navigate( ['Almacens'] );
         });
 

@@ -188,12 +188,12 @@ public class CompraService {
 			//Paso previo
 			Long facturaId = compraRepository.obtieneFacturaIdDesdeCompraId(compraId);
 			
+			//Elimnamos el compra
+			compraRepository.deleteById(compraId);
+			
 			if( facturaId != null && facturaId.longValue() > 0) {
 				facturaRepository.deleteById(facturaId);
 			}
-			
-			//Elimnamos el compra
-			compraRepository.deleteById(compraId);
 			
 			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			

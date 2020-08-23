@@ -193,12 +193,12 @@ public class VentaService {
 			//Paso previo
 			Long facturaId = ventaRepository.obtieneFacturaIdDesdeVentaId(ventaId);
 			
+			//Elimnamos la venta
+			ventaRepository.deleteById(ventaId);
+			
 			if( facturaId != null && facturaId.longValue() > 0) {
 				facturaRepository.deleteById(facturaId);
 			}
-			
-			//Elimnamos la venta
-			ventaRepository.deleteById(ventaId);
 			
 			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			

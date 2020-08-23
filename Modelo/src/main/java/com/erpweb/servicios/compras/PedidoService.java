@@ -190,12 +190,12 @@ public class PedidoService {
 			//Paso previo
 			Long facturaId = pedidoRepository.obtieneFacturaIdDesdePedidoId(pedidoId);
 			
+			//Elimnamos el pedido
+			pedidoRepository.deleteById(pedidoId);
+			
 			if( facturaId != null && facturaId.longValue() > 0) {
 				facturaRepository.deleteById(facturaId);
 			}
-			
-			//Elimnamos el pedido
-			pedidoRepository.deleteById(pedidoId);
 			
 			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			

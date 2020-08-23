@@ -194,12 +194,12 @@ public class ContratoService {
 			//Paso previo
 			Long facturaId = contratoRepository.obtieneFacturaIdDesdeContratoId(contratoId);
 			
+			//Elimnamos el contrato
+			contratoRepository.deleteById(contratoId);
+			
 			if( facturaId != null && facturaId.longValue() > 0) {
 				facturaRepository.deleteById(facturaId);
 			}
-			
-			//Elimnamos el contrato
-			contratoRepository.deleteById(contratoId);
 			
 			return new AccionRespuesta(-2L, "OK", Boolean.TRUE);
 			

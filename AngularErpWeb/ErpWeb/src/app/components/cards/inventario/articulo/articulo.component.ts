@@ -102,18 +102,18 @@ export class ArticuloComponent implements OnInit {
 
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
-        console.log('Se ha eliminado correctamente el Articulo');
-        swal('Articulo elimninado', 'Se ha eliminado el Articulo correctamente', 'success').then(() => {
+        console.log('Se ha eliminado correctamente el Artículo');
+        swal('Artículo eliminado', 'Se ha eliminado el Artículo correctamente', 'success').then(() => {
           this.router.navigate( ['catalago/articulos'] );
         });
 
         } else {
-        console.log('Se ha producido un error al eliminar el Articulo');
-        swal('Error', 'El Articulo no ha podido ser eliminado', 'error');
+        console.log('Se ha producido un error al eliminar el Artículo');
+        swal('Error', 'El Artículo no ha podido ser eliminado', 'error');
         }
 
       }, (errores) => {
-        console.log('Se ha producido un error al eliminar el Articulo');
+        console.log('Se ha producido un error al eliminar el Artículo');
         swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
       } );
     } );

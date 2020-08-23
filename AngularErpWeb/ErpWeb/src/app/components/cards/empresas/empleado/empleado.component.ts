@@ -111,7 +111,7 @@ export class EmpleadoComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Empleado');
-        swal('Empleado elimninado', 'Se ha eliminado el Empleado correctamente', 'success').then(() =>{
+        swal('Empleado eliminado', 'Se ha eliminado el Empleado correctamente', 'success').then(() =>{
           this.router.navigate( ['empleados'] );
         });
 

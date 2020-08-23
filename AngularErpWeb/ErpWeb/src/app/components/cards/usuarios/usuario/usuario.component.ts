@@ -103,7 +103,7 @@ export class UsuarioComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Usuario');
-        swal('Usuario elimninado', 'Se ha eliminado el Usuario correctamente', 'success').then(() =>{
+        swal('Usuario eliminado', 'Se ha eliminado el Usuario correctamente', 'success').then(() =>{
           this.router.navigate( ['usuarios'] );
         });
 

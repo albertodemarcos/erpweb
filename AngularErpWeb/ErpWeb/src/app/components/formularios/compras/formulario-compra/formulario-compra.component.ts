@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 // Compra
 import { CompraService } from 'src/app/services/compras/compra.service';
 import { Compra } from 'src/app/model/entitys/compra.model';
+import { LineaCompra } from 'src/app/model/entitys/linea-compra.model';
 // Articulo
 import { ModalArticuloComponent } from 'src/app/components/modales/inventario/modal-articulo/modal-articulo.component';
 import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
 // Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+
 // jQuery
 declare var jQuery: any;
 
@@ -18,7 +20,7 @@ declare var jQuery: any;
   templateUrl: './formulario-compra.component.html',
   styleUrls: ['./formulario-compra.component.css']
 })
-export class FormularioCompraComponent implements OnInit {
+export class FormularioCompraComponent implements OnInit, AfterViewInit {
 
   public compra: Compra;
   private compraId: number;
@@ -40,6 +42,7 @@ export class FormularioCompraComponent implements OnInit {
     this.compra = new Compra();
     this.compra.articulosCantidadMap = new Map<number, number>();
     this.compra.articulosCantidad = {};
+    this.compra.lineaCompra = new Array<LineaCompra>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
@@ -59,8 +62,16 @@ export class FormularioCompraComponent implements OnInit {
     });
 
   }
+  ngAfterViewInit(): void {
+    jQuery.getScript('assets/js/otros/funcionesJS.js').done(() => {
+      console.log('Se carga el archivo');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el archivo');
+    });
+  }
 
   ngOnInit(): void {
+
   }
 
   // Metodos del formulario
@@ -140,18 +151,27 @@ export class FormularioCompraComponent implements OnInit {
       this.compra.id = compraDto.id;
       this.compra.codigo = compraDto.codigo;
       this.compra.fechaCompra = this.limpiarFecha(compraDto.fechaCompra);
-      // this.compra.articulo = compraDto.articulo;
-      // this.compra.cantidad = compraDto.cantidad;
-      // this.compra.baseImponibleTotal = compraDto.baseImponibleTotal;
-      // this.compra.impuesto = compraDto.impuesto;
-      // this.compra.importeTotal = compraDto.importeTotal;
+      this.compra.baseImponibleTotal = compraDto.baseImponibleTotal;
+      this.compra.impuesto = compraDto.impuesto;
+      this.compra.importeTotal = compraDto.importeTotal;
+      // Limpiamos la compra previamente
+      this.compra.lineaCompra.pop();
+      // Inyectamos el array
+      if (compraDto.lineasCompraDto !== 'undefined')
+      {
+        // tslint:disable-next-line: prefer-const forin prefer-const
+        for (let i in compraDto.lineasCompraDto)
+        {
+          this.compra.lineaCompra.push(compraDto.lineasCompraDto[i]);
+        }
+      }
     }
   }
 
   private respuestaCrearEditarCompra(accionRespuesta: AccionRespuesta, esEditarCompra: boolean): void {
 
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // console.log('Esta registrado' + accionRespuesta.resultado);
+    // console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
@@ -196,9 +216,9 @@ export class FormularioCompraComponent implements OnInit {
   }
 
   private rellenaMapaIva(): void{
-    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
-    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
-    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   private rellenarCompraConTablaLineaArticulos(): void{
@@ -219,7 +239,7 @@ export class FormularioCompraComponent implements OnInit {
       const celdas = jQuery(filas[i]).find('td');
       // Obtenemos las celdas de articulo y cantidad
       const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
-      const celdaCantidad = jQuery(celdas[4]).text(); // Celda 4 es la cantidad..
+      const celdaCantidad = jQuery(celdas[6]).text(); // Celda 6 es la cantidad..
       if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
       {
         this.compra.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
@@ -239,9 +259,8 @@ export class FormularioCompraComponent implements OnInit {
     this.modalArticulo.mostrarModalCrearArticulo();
   }
 
-  public destruirLineaArticulo(id: string){
-    console.log('Enmtramos a destruir2');
-    if (id != null && id !== 'undefined' && id.trim() !== '')
+  public destruirLineaArticulo(id: any){
+    if (id != null && id !== 'undefined')
     {
       const lineaArticuloId = 'linea_art_id_' + id;
       jQuery('#' + lineaArticuloId).remove();
@@ -251,6 +270,5 @@ export class FormularioCompraComponent implements OnInit {
       swal('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
     }
   }
-
 
 }

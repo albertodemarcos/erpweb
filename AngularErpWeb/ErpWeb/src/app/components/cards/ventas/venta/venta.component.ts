@@ -105,7 +105,7 @@ export class VentaComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Venta');
-        swal('Venta elimninado', 'Se ha eliminado el Venta correctamente', 'success').then(() => {
+        swal('Venta eliminada', 'Se ha eliminado el Venta correctamente', 'success').then(() => {
           this.router.navigate( ['ventas'] );
         });
 

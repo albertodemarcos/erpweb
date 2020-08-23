@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 // Pedido
 import { PedidoService } from 'src/app/services/compras/pedido.service';
 import { Pedido } from 'src/app/model/entitys/pedido.model';
+import { LineaPedido } from 'src/app/model/entitys/linea-pedido.model';
 // Articulo
 import { ModalArticuloComponent } from 'src/app/components/modales/inventario/modal-articulo/modal-articulo.component';
 import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
 // Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+
 // jQuery
 declare var jQuery: any;
 
@@ -18,7 +20,7 @@ declare var jQuery: any;
   templateUrl: './formulario-pedido.component.html',
   styleUrls: ['./formulario-pedido.component.css']
 })
-export class FormularioPedidoComponent implements OnInit {
+export class FormularioPedidoComponent implements OnInit, AfterViewInit {
 
   public pedido: Pedido;
   private pedidoId: number;
@@ -40,6 +42,7 @@ export class FormularioPedidoComponent implements OnInit {
     this.pedido = new Pedido();
     this.pedido.articulosCantidadMap = new Map<number, number>();
     this.pedido.articulosCantidad = {};
+    this.pedido.lineaPedido = new Array<LineaPedido>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
@@ -57,7 +60,15 @@ export class FormularioPedidoComponent implements OnInit {
     this.modalArticulo.articuloEvento.subscribe( (articulo: any) => {
       console.log('Articulo: ' + JSON.stringify(articulo));
     });
-   }
+  }
+
+  ngAfterViewInit(): void {
+    jQuery.getScript('assets/js/otros/funcionesJS.js').done(() => {
+      console.log('Se carga el archivo');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el archivo');
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -139,18 +150,27 @@ export class FormularioPedidoComponent implements OnInit {
       this.pedido.id = pedidoDto.id;
       this.pedido.codigo = pedidoDto.codigo;
       this.pedido.fechaPedido = this.limpiarFecha(pedidoDto.fechaPedido);
-      this.pedido.articulo = pedidoDto.articulo;
-      this.pedido.cantidad = pedidoDto.cantidad;
       this.pedido.baseImponibleTotal = pedidoDto.baseImponibleTotal;
       this.pedido.impuesto = pedidoDto.impuesto;
       this.pedido.importeTotal = pedidoDto.importeTotal;
+      // Limpiamos el pedido previamente
+      this.pedido.lineaPedido.pop();
+      // Inyectamos el array
+      if (pedidoDto.lineasPedidoDto !== 'undefined')
+      {
+        // tslint:disable-next-line: prefer-const forin prefer-const
+        for (let i in pedidoDto.lineasPedidoDto)
+        {
+          this.pedido.lineaPedido.push(pedidoDto.lineasPedidoDto[i]);
+        }
+      }
     }
   }
 
   private respuestaCrearEditarPedido(accionRespuesta: AccionRespuesta, esEditarPedido: boolean): void {
 
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // console.log('Esta registrado' + accionRespuesta.resultado);
+    // console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
@@ -193,9 +213,9 @@ export class FormularioPedidoComponent implements OnInit {
   }
 
   private rellenaMapaIva(): void{
-    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
-    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
-    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   private rellenarPedidoConTablaLineaArticulos(): void{
@@ -216,7 +236,7 @@ export class FormularioPedidoComponent implements OnInit {
       const celdas = jQuery(filas[i]).find('td');
       // Obtenemos las celdas de articulo y cantidad
       const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
-      const celdaCantidad = jQuery(celdas[4]).text(); // Celda 4 es la cantidad..
+      const celdaCantidad = jQuery(celdas[6]).text(); // Celda 6 es la cantidad..
       if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
       {
         this.pedido.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
@@ -236,5 +256,16 @@ export class FormularioPedidoComponent implements OnInit {
     this.modalArticulo.mostrarModalCrearArticulo();
   }
 
+  public destruirLineaArticulo(id: any){
+    if (id != null && id !== 'undefined')
+    {
+      const lineaArticuloId = 'linea_art_id_' + id;
+      jQuery('#' + lineaArticuloId).remove();
+    }
+    else
+    {
+      swal('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
+    }
+  }
 
 }

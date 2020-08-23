@@ -8,7 +8,7 @@ export class Pedido {
     fechaPedidoTexto: string;
     articulosCantidadMap: Map<number, number>; // (key-> articuloId, value -> cantidad) Evitamos duplicados
     articulosCantidad: {};
-    lineaPedido: LineaPedido[]; // ¿¿??
+    lineaPedido: Array<LineaPedido>; // ¿¿??
     articulo: string; // NO se utiliza
     cantidad: number; // NO se utiliza
     baseImponibleTotal: number; // NO se utiliza

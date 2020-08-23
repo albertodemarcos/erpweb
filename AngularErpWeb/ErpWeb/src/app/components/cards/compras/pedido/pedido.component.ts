@@ -104,7 +104,7 @@ export class PedidoComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Pedido');
-        swal('Pedido elimninado', 'Se ha eliminado el Pedido correctamente', 'success').then(() => {
+        swal('Pedido eliminado', 'Se ha eliminado el Pedido correctamente', 'success').then(() => {
           this.router.navigate( ['pedidos'] );
         });
 

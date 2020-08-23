@@ -104,7 +104,7 @@ export class ContratoComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Contrato');
-        swal('Contrato elimninado', 'Se ha eliminado el Contrato correctamente', 'success').then(() =>{
+        swal('Contrato eliminado', 'Se ha eliminado el Contrato correctamente', 'success').then(() =>{
           this.router.navigate( ['contratos'] );
         });
 

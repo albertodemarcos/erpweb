@@ -101,7 +101,7 @@ export class EmpresaComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Empresa');
-        swal('Empresa elimninado', 'Se ha eliminado el Empresa correctamente', 'success').then(() =>{
+        swal('Empresa eliminada', 'Se ha eliminado el Empresa correctamente', 'success').then(() =>{
           this.router.navigate( ['empresas'] );
         });
 

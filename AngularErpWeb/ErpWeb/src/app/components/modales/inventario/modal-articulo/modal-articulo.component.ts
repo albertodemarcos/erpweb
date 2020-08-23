@@ -132,23 +132,29 @@ export class ModalArticuloComponent implements OnInit {
   /* METODOS AUXLIARES */
 
   private rellenaMapaIva(): void{
-    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
-    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
-    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   private rellenarFilaTabla(idTabla: string): void {
-    const id = this.articuloInfo.id;
+    const id = '' + this.articuloInfo.id;
+    const funcion = 'onclick="destruirLineaArticulo(' + id + ')"';
     // Agregamos una fila nueva
     const filaTabla =
     '<tr id="linea_art_id_' + id + '" data-art-id="' + id + '">' +
       '<td class="ocultar">' + id + '</td>' +
       '<td>' + this.articuloInfo.codigo + '</td>' +
       '<td>' + this.articuloInfo.nombre + '</td>' +
-      '<td>' + this.articuloInfo.importeTotal + '</td>' +
+      '<td>' + this.articuloInfo.baseImponible + '€' + '</td>' +
+      '<td>' + this.mapaIva.get(this.articuloInfo.impuesto) + '</td>' +
+      '<td>' + this.articuloInfo.importeTotal + '€' + '</td>' +
       '<td>' + this.cantidad + '</td>' +
+      '<td>' + (this.articuloInfo.importeTotal * this.cantidad) + '€' + '</td>' +
       '<td class="text-center">' +
-        '<i class="fa fa-trash" (click)="destruirLineaArticulo("' + id + '")" aria-hidden="true"></i>' +
+        '<button type="button" class="btn btn-danger" ' + funcion + ' >' +
+          '<i class="fa fa-trash" aria-hidden="true"></i>' +
+        '</button>' +
       '</td>' +
     '</tr>';
     $('#' + idTabla + ' tbody').append(filaTabla);

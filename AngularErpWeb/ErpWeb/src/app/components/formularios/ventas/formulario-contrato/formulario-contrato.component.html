@@ -53,11 +53,27 @@
                                 <th>Codigo</th>
                                 <th>Articulo</th>
                                 <th>Precio</th>
+                                <th>Impuesto</th>
+                                <th>Importe (Con Imp.)</th>
                                 <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr scope="row" *ngFor="">
+                        <tbody *ngIf="contrato != null && contrato.lineaContrato != null">
+                            <tr scope="row" id="linea_art_id_{{linea.id}}" *ngFor="let linea of contrato.lineaContrato; let i = index">
+                                <td>{{linea.articuloDto.codigo}}</td>
+                                <td>{{linea.articuloDto.nombre}}</td>
+                                <td>{{linea.articuloDto.baseImponible | currency:'EUR':true }}</td>
+                                <td>{{this.mapaIva.get(linea.articuloDto.impuesto)}}</td>
+                                <td>{{linea.articuloDto.importeTotal | currency:'EUR':true}}</td>
+                                <td>{{linea.cantidad}}</td>
+                                <td>{{linea.importeTotal | currency:'EUR':true}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger" (click)="destruirLineaArticulo(linea.id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

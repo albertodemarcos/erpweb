@@ -11,7 +11,7 @@ export class Venta {
     fechaFinTexto: string;
     articulosCantidadMap: Map<number, number>; // (key-> articuloId, value -> cantidad) Evitamos duplicados
     articulosCantidad: {};
-    lineaVenta: LineaVenta[]; // ¿¿??
+    lineaVenta: Array<LineaVenta>; // ¿¿??
     articulo: string; // NO se utiliza
     cantidad: number; // NO se utiliza
     baseImponibleTotal: number; // NO se utiliza

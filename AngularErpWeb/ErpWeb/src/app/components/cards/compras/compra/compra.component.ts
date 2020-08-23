@@ -102,7 +102,7 @@ export class CompraComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Compra');
-        swal('Compra elimninado', 'Se ha eliminado el Compra correctamente', 'success').then(() => {
+        swal('Compra eliminada', 'Se ha eliminado el Compra correctamente', 'success').then(() => {
           this.router.navigate( ['compras'] );
         });
 

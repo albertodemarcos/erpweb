@@ -101,7 +101,7 @@ export class ProveedorComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Proveedor');
-        swal('Proveedor elimninado', 'Se ha eliminado el Proveedor correctamente', 'success').then(() =>{
+        swal('Proveedor eliminado', 'Se ha eliminado el Proveedor correctamente', 'success').then(() =>{
           this.router.navigate( ['proveedores'] );
         });
 

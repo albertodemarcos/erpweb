@@ -18,7 +18,6 @@ import localEs from '@angular/common/locales/es'; // localeEs
 
 // Autocompletar
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-let idTable: string;
 
 /* --------------------------------------------------- COMPONENTES ------------------------------------------------------- */
 

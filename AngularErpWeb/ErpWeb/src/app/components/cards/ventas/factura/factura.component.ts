@@ -104,7 +104,7 @@ export class FacturaComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Factura');
-        swal('Factura elimninado', 'Se ha eliminado el Factura correctamente', 'success').then(() => {
+        swal('Factura eliminada', 'Se ha eliminado el Factura correctamente', 'success').then(() => {
           this.router.navigate( ['facturas'] );
         });
 
