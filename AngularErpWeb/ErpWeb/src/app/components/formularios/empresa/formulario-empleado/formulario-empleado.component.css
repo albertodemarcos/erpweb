@@ -1,7 +1,7 @@
 .formluario {
-    width: 800px;
-    margin-left: 15%;
-    margin-right: 15%;
+    /*width: 1050px;*/
+    margin-left: 10%;
+    margin-right: 10%;
     margin-bottom: 5%;
 }
 
@@ -9,4 +9,8 @@
     background-color: #3198FF;
     font-size: larger;
     font-weight: bold;
+}
+
+.table {
+    overflow-y: scroll;
 }

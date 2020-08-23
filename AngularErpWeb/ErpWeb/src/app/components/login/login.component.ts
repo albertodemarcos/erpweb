@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AutenticacionService } from 'src/app/services/autenticacion/autenticacion.service';
-import { AccionRespuesta } from '../../model/utiles/accion-respuesta.model';
-import { Usuario } from '../../model/entitys/usuario.model';
-import swal from 'sweetalert2';
+import { Router } from '@angular/router';
+// Autenticacion
 import { UsuarioLoginService } from 'src/app/services/autenticacion/usuario-login.service';
 import { EncriptadorService } from 'src/app/services/autenticacion/encriptador.service';
 import { AutenticacionRequest } from 'src/app/model/entitys/autenticacion-request.model';
+// Otros
+import { Usuario } from '../../model/entitys/usuario.model';
+import swal from 'sweetalert2';
 
+
+declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -21,8 +23,6 @@ export class LoginComponent implements OnInit {
   public usuario: Usuario;
   private respuesta: any;
   private token: any;
-  private respuestaGetUsuario: AccionRespuesta;
-
 
   constructor(private usuarioLoginService: UsuarioLoginService,
               private encriptadorService: EncriptadorService,
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.usuario = new Usuario();
   }
 
-  getLoginUsuario(): void {
+  public getLoginUsuario(): void {
 
     console.log('Entramos a validar el usuario: ' + JSON.stringify(this.usuario) );
 
@@ -73,6 +73,20 @@ export class LoginComponent implements OnInit {
 
         this.invalidLogin = false;
 
+        // Usuario logado o no
+        if (!this.invalidLogin)
+        {
+          console.log('Mostramos el navbar');
+          $('#perfilLogado').show();
+          $('#perfilNoLogado').hide();
+        }
+        else
+        {
+          console.log('Ocultamos el navbar');
+          $('#perfilLogado').hide();
+          $('#perfilNoLogado').show();
+        }
+
       }, (errores) => {
 
         this.invalidLogin = true;
@@ -86,7 +100,7 @@ export class LoginComponent implements OnInit {
 
   /* METODOS AUXILIARES*/
 
-  comprobarLoginCorrecto(): boolean {
+  private comprobarLoginCorrecto(): boolean {
 
     // Error el nombre de usuario no se ha introducido correctamente
     if ( (this.usuario.username == null || this.usuario.username.trim() === '')
@@ -111,9 +125,6 @@ export class LoginComponent implements OnInit {
 
     return true;
   }
-
-
-
 
   ngOnInit(): void {
   }

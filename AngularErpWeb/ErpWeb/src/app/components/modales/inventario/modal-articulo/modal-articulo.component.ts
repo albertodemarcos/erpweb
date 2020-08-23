@@ -31,11 +31,13 @@ export class ModalArticuloComponent implements OnInit {
   public dataArticulo: Articulo[];
   public mensajeError: string;
   public estaCargando: boolean;
+  private buttonTrash: string;
 
   @Output() articuloEvento: EventEmitter<Articulo> = new EventEmitter<Articulo>();
 
   constructor(private autocompletarService: AutocompletarService) {
     this.idTabla = autocompletarService.paramatroExterno;
+    this.buttonTrash = '<i class="fa fa-trash" onclick="" aria-hidden="true"></i>';
     this.dataArticulo = new Array<Articulo>();
     this.articuloInfo = new Articulo();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
@@ -136,14 +138,19 @@ export class ModalArticuloComponent implements OnInit {
   }
 
   private rellenarFilaTabla(idTabla: string): void {
+    const id = this.articuloInfo.id;
     // Agregamos una fila nueva
-    const filaTabla = '<tr data-art-id="' + this.articuloInfo.id + '">' +
-      '<td class="ocultar">' + this.articuloInfo.id + '</td>' +
+    const filaTabla =
+    '<tr id="linea_art_id_' + id + '" data-art-id="' + id + '">' +
+      '<td class="ocultar">' + id + '</td>' +
       '<td>' + this.articuloInfo.codigo + '</td>' +
       '<td>' + this.articuloInfo.nombre + '</td>' +
       '<td>' + this.articuloInfo.importeTotal + '</td>' +
       '<td>' + this.cantidad + '</td>' +
-      '</tr>';
+      '<td class="text-center">' +
+        '<i class="fa fa-trash" (click)="destruirLineaArticulo("' + id + '")" aria-hidden="true"></i>' +
+      '</td>' +
+    '</tr>';
     $('#' + idTabla + ' tbody').append(filaTabla);
   }
 
@@ -164,6 +171,20 @@ export class ModalArticuloComponent implements OnInit {
     }
     return false;
   }
+
+  /*public destruirLineaArticulo(id: string){
+    console.log('Enmtramos a destruir');
+    if (id != null && id !== 'undefined' && id.trim() !== '')
+    {
+      console.log('Enmtramos a destruir');
+      const lineaArticuloId = 'linea_art_id_' + id;
+      $('#' + lineaArticuloId).remove();
+    }
+    else
+    {
+      swal('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
+    }
+  }*/
 
   /* MODAL */
 

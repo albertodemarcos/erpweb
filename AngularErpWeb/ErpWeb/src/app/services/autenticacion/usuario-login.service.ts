@@ -23,36 +23,21 @@ export class UsuarioLoginService {
     this.urlAutenticaUsuario = '/inicio/login';
    }
 
-  autenticarUsuario(usuario: AutenticacionRequest): Observable<AccionRespuesta> {
+  public autenticarUsuario(usuario: AutenticacionRequest): Observable<AccionRespuesta> {
     console.log('Entramos a autenticar al usuari con nombre: ' + ' y contraseña: ' );
     const urlPost = this.urlGeneral + this.urlAutenticaUsuario;
     return this.httpClient.post<AccionRespuesta>(urlPost, usuario, {headers: this.httpHeaders});
   }
 
-  esUsuarioLogado() {
+  public esUsuarioLogado() {
     const user = sessionStorage.getItem('username');
     console.log(!(user === null));
     return !(user === null);
   }
 
+  public esAdministrador(): boolean{
 
-  observarUsuarioLogado(): Observable<boolean>{
-
-    console.log('Bucle');
-
-    // Buscamos el usuario
-    const user = sessionStorage.getItem('username');
-
-    // Respondemos Logado (True/False)
-    if ( !user === null)
-    {
-      this.usuarioLogado.next(true);
-    }
-    else
-    {
-      this.usuarioLogado.next(false);
-    }
-    return this.usuarioLogado.asObservable();
+    return false;
   }
 
   salirApp(): string {

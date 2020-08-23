@@ -239,5 +239,18 @@ export class FormularioCompraComponent implements OnInit {
     this.modalArticulo.mostrarModalCrearArticulo();
   }
 
+  public destruirLineaArticulo(id: string){
+    console.log('Enmtramos a destruir2');
+    if (id != null && id !== 'undefined' && id.trim() !== '')
+    {
+      const lineaArticuloId = 'linea_art_id_' + id;
+      jQuery('#' + lineaArticuloId).remove();
+    }
+    else
+    {
+      swal('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
+    }
+  }
+
 
 }

@@ -36,13 +36,13 @@ export class UsuarioService {
   public getUsuario(id: number): Observable<AccionRespuesta> {
     console.log('METODO obtener');
     const urlGet = this.urlGeneral + this.urlGetUsuario + id;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getUsuarioEditar(usuarioId: number): Observable<AccionRespuesta>{
     console.log('METODO actualizar');
     const urlGet = this.urlGeneral + this.urlEditarUsuario + usuarioId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public crearUsuario(usuario: Usuario){
@@ -60,12 +60,12 @@ export class UsuarioService {
   public eliminarUsuario(usuarioId: number): Observable<AccionRespuesta>{
     console.log('METODO GET');
     const urlGet = this.urlGeneral + this.urlEliminarUsuario + usuarioId;
-    return this.httpClient.get<AccionRespuesta>(urlGet);
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public getUsuarios(): Promise<Usuario[]> {
     console.log('METODO listado');
-    const urlPost = this.urlGeneral + this.urlListadoUsuarios;
-    return this.httpClient.get<Usuario[]>(urlPost).pipe(map(response => response as Usuario[])).toPromise();
+    const urlGet = this.urlGeneral + this.urlListadoUsuarios;
+    return this.httpClient.get<Usuario[]>(urlGet, {headers: this.httpHeaders}).pipe(map(response => response as Usuario[])).toPromise();
   }
 }

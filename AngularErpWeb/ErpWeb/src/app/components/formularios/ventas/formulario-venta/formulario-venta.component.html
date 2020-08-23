@@ -9,7 +9,7 @@
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código venta</label>
+                <label for="codigo" class="col-form-label col-sm-4 text-center required">Código venta</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="venta.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -20,7 +20,7 @@
 
             <!-- FECHA INICIO -->
             <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-4 required">Fecha inicio</label>
+                <label for="fechaInicio" class="col-form-label col-sm-4 text-center required">Fecha inicio</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="venta.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaInicio = $event" name="fechaInicio">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -31,7 +31,7 @@
 
             <!-- FECHA FIN -->
             <div class="form-group row">
-                <label for="fechaFin" class="col-form-label col-sm-4 required">Fecha fín</label>
+                <label for="fechaFin" class="col-form-label col-sm-4 text-center required">Fecha fín</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="venta.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaFin = $event" name="fechaFin">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -71,7 +71,7 @@
 
             <!-- DESCRIPCION -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-4 required">Descripción</label>
+                <label for="descripcion" class="col-form-label col-sm-4 text-center required">Descripción</label>
                 <div class="col-sm-7">
                     <!--<input type="text" class="form-control" [(ngModel)]="venta.descripcion" name="descripcion">-->
                     <textarea class="form-control" name="descripcion" [(ngModel)]="venta.descripcion" rows="4" cols="50"></textarea>
