@@ -79,7 +79,7 @@ public class FacturaController {
 		
 		if( result.hasErrors() ) {
 			
-			return this.facturaService.getFactura(facturaDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.facturaService.getCrearEditarFactura(facturaDto, user);

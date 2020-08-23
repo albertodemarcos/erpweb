@@ -83,7 +83,7 @@ public class ContratoController {
 		
 		if( result.hasErrors() ) {
 			
-			return this.contratoService.getContrato(contratoDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.contratoService.getCrearEditarContrato(contratoDto, user);

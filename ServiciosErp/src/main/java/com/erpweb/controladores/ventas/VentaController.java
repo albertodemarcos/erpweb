@@ -76,7 +76,7 @@ public class VentaController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.ventaService.getVenta(ventaDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.ventaService.getCrearEditarVenta(ventaDto, user);

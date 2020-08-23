@@ -76,7 +76,7 @@ public class VehiculoController {
 		
 		if( result.hasErrors() ) {
 			
-			return this.vehiculoService.getVehiculo(vehiculoDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);

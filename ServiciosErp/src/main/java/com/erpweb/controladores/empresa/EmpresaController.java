@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.erpweb.dto.EmpresaDto;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.empresa.EmpresaService;
+import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.empresa.EmpresaValidator;
 
@@ -28,6 +29,11 @@ public class EmpresaController {
 
 	@Autowired
 	private EmpresaService empresaService;
+	
+	@Autowired
+	private ErroresService erroresService;
+	
+	
 	
 	@GetMapping("/empresa/{empresaId}")
 	public @ResponseBody AccionRespuesta getEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
@@ -50,7 +56,7 @@ public class EmpresaController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.empresaService.getEmpresa(empresaDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.empresaService.getCrearEditarEmpresa(empresaDto, user);

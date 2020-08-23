@@ -78,7 +78,7 @@ public class UsuarioController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.usuarioService.getUsuario(usuarioDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);

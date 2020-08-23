@@ -77,7 +77,7 @@ public class ClienteController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.clienteService.getCliente(clienteDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.clienteService.getCrearEditarCliente(clienteDto, user);

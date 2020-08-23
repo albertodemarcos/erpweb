@@ -76,7 +76,7 @@ public class EventoController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.eventoService.getEvento(eventoDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.eventoService.getCrearEditarEvento(eventoDto, user);

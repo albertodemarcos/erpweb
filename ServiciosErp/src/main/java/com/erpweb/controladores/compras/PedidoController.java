@@ -76,7 +76,7 @@ public class PedidoController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.pedidoService.getPedido(pedidoDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.pedidoService.getCrearEditarPedido(pedidoDto, user);

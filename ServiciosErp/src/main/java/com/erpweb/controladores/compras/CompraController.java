@@ -76,7 +76,7 @@ public class CompraController {
 		
 		if(	result.hasErrors() ) {
 			
-			return this.compraService.getCompra(compraDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
 		return this.compraService.getCrearEditarCompra(compraDto, user);

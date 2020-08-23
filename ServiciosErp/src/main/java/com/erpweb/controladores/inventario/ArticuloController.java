@@ -76,7 +76,7 @@ public class ArticuloController {
 		
 		if( result.hasErrors() ) {
 			
-			return this.articuloService.getArticulo(articuloDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result));
 		}
 		
 		return this.articuloService.getCrearEditarArticulo(articuloDto, user);

@@ -76,7 +76,7 @@ public class AlmacenController {
 		
 		if( result.hasErrors() ) {
 			
-			return this.almacenService.getAlmacen(almacenDto.getId(), user);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result));
 		}
 		
 		return this.almacenService.getCrearEditarAlmacen(almacenDto, user);
