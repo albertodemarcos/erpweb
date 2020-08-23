@@ -2,8 +2,6 @@ package com.erpweb.dto;
 
 import java.io.Serializable;
 
-import com.erpweb.entidades.inventario.Almacen;
-import com.erpweb.entidades.inventario.Articulo;
 
 
 public class StockArticuloDto implements Serializable {

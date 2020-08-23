@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.ContratoDto;
+import com.erpweb.dto.LineaContratoDto;
 import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Contrato;
@@ -34,7 +36,7 @@ public class ContratoService {
 
 	//Services
 	@Autowired 
-	private RegeneraFacturasService regeneraFacturasService;
+ 	private RegeneraFacturasService regeneraFacturasService;
 		
 	//Repositorys
 	@Autowired
@@ -237,6 +239,10 @@ public class ContratoService {
 			contratoDto.setImpuesto(contrato.getImpuesto());
 			contratoDto.setImporteTotal(contrato.getImporteTotal());
 			
+			//Rellenamos la lineas
+			Set<LineaContratoDto> lineasContratoDto = this.obtieneLineasContratoDtoDeContrato(contrato);
+			contratoDto.getLineasContratoDto().addAll(lineasContratoDto);
+			
 		} catch(Exception e) {
 			
 			logger.error("Error en el metodo obtenerContratoDtoDesdeContrato() con ID={}", id );
@@ -424,6 +430,49 @@ public class ContratoService {
 		}
 		
 		return contratosDto;
+	}
+	
+	private Set<LineaContratoDto> obtieneLineasContratoDtoDeContrato(Contrato contrato) {
+		
+		Set<LineaContratoDto> lineasContratoDto = new HashSet<LineaContratoDto>();
+		
+		if( contrato != null && CollectionUtils.isNotEmpty(contrato.getLineasContrato()) ) {
+		
+			for(LineaContrato lineaContrato : contrato.getLineasContrato()) {
+				
+				LineaContratoDto lineaContratoDto = new LineaContratoDto();
+				
+				//Primero: seteamos los objetos simples
+				lineaContratoDto.setId(lineaContrato.getId());
+				lineaContratoDto.setCantidad(lineaContrato.getCantidad());
+				lineaContratoDto.setBaseImponible(lineaContrato.getBaseImponible());
+				lineaContratoDto.setImporteImpuesto(lineaContrato.getImporteImpuesto());
+				lineaContratoDto.setImporteTotal(lineaContrato.getImporteTotal());
+				
+				//Segundo: seteamos el contrato
+				lineaContratoDto.setContratoId(contrato.getId());
+				
+				//Tercero: seteamos el articulo de la linea
+				ArticuloDto articuloDto = new ArticuloDto();
+				
+				if( lineaContrato.getArticulo() != null) {
+					
+					articuloDto.setId(lineaContrato.getArticulo().getId());
+					articuloDto.setCodigo(lineaContrato.getArticulo().getCodigo());
+					articuloDto.setNombre(lineaContrato.getArticulo().getNombre());
+					articuloDto.setBaseImponible(lineaContrato.getArticulo().getBaseImponible());
+					articuloDto.setImpuesto(lineaContrato.getArticulo().getImpuesto());
+					articuloDto.setImporteTotal(lineaContrato.getArticulo().getImporteTotal());
+				}
+				
+				lineaContratoDto.setArticuloDto(articuloDto);
+				
+				//Ultimo: introducimos la linea en las lineas de contrato
+				lineasContratoDto.add(lineaContratoDto);
+			}
+		}
+		
+		return lineasContratoDto;
 	}
 	
 }

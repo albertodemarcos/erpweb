@@ -4,27 +4,30 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.erpweb.utiles.enumerados.TipoImpuesto;
 
 public class PedidoDto implements Serializable {
 
 	private static final long serialVersionUID = -733488310357756721L;
-	
-	
+
 	private Long id;
 	private String codigo;
 	private Date fechaPedido;
-	private String articulo; 								//Articulo
-	private BigDecimal cantidad;							//Cantidad de articulos del mismo tipo y precio
-	private BigDecimal baseImponibleTotal;					//Importe de la linea correspondiente al importe de los articulos sin impuestos
-	private TipoImpuesto impuesto; 							//Impuesto 
-	private BigDecimal importeTotal;	    				//Importe de la linea correspondiente al importe de los articuloscon impuestos
-	private HashMap<Long, BigDecimal> articulosCantidad; 	//Mapa articuloId, Cantidad de articulos
+	@Deprecated private String articulo; // Articulo
+	@Deprecated private BigDecimal cantidad; // Cantidad de articulos del mismo tipo y precio
+	private BigDecimal baseImponibleTotal; // Importe de la linea correspondiente al importe de los articulos sin impuestos
+	private TipoImpuesto impuesto; // Impuesto
+	private BigDecimal importeTotal; // Importe de la linea correspondiente al importe de los articuloscon impuestos
+	private HashMap<Long, BigDecimal> articulosCantidad; // Mapa articuloId, Cantidad de articulos
+	private Set<LineaPedidoDto> lineasPedidoDto = new HashSet<LineaPedidoDto>();
+	
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -45,18 +48,22 @@ public class PedidoDto implements Serializable {
 		this.fechaPedido = fechaPedido;
 	}
 
+	@Deprecated
 	public String getArticulo() {
 		return articulo;
 	}
 
+	@Deprecated
 	public void setArticulo(String articulo) {
 		this.articulo = articulo;
 	}
 
+	@Deprecated
 	public BigDecimal getCantidad() {
 		return cantidad;
 	}
 
+	@Deprecated
 	public void setCantidad(BigDecimal cantidad) {
 		this.cantidad = cantidad;
 	}
@@ -92,8 +99,13 @@ public class PedidoDto implements Serializable {
 	public void setArticulosCantidad(HashMap<Long, BigDecimal> articulosCantidad) {
 		this.articulosCantidad = articulosCantidad;
 	}
-	
-	
-	
-	
+
+	public Set<LineaPedidoDto> getLineasPedidoDto() {
+		return lineasPedidoDto;
+	}
+
+	public void setLineasPedidoDto(Set<LineaPedidoDto> lineasPedidoDto) {
+		this.lineasPedidoDto = lineasPedidoDto;
+	}
+
 }

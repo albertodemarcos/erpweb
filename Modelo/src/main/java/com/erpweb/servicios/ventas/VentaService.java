@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ArticuloDto;
+import com.erpweb.dto.LineaVentaDto;
 import com.erpweb.dto.VentaDto;
 import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
@@ -236,6 +238,10 @@ public class VentaService {
 			ventaDto.setImpuesto(venta.getImpuesto());
 			ventaDto.setImporteTotal(venta.getImporteTotal());
 			
+			//Rellenamos la lineas
+			Set<LineaVentaDto> lineasVentaDto = this.obtieneLineasVentaDtoDeVenta(venta);
+			ventaDto.getLineasVentaDto().addAll(lineasVentaDto);
+			
 		} catch(Exception e) {
 			
 			logger.error("Error en el metodo obtenerVentaDtoDesdeVenta() con con ID={}", id );
@@ -423,6 +429,49 @@ public class VentaService {
 		}
 		
 		return ventasDto;
+	}
+	
+	private Set<LineaVentaDto> obtieneLineasVentaDtoDeVenta(Venta venta) {
+		
+		Set<LineaVentaDto> lineasVentaDto = new HashSet<LineaVentaDto>();
+		
+		if( venta != null && CollectionUtils.isNotEmpty(venta.getLineasVenta()) ) {
+		
+			for(LineaVenta lineaVenta : venta.getLineasVenta()) {
+				
+				LineaVentaDto lineaVentaDto = new LineaVentaDto();
+				
+				//Primero: seteamos los objetos simples
+				lineaVentaDto.setId(lineaVenta.getId());
+				lineaVentaDto.setCantidad(lineaVenta.getCantidad());
+				lineaVentaDto.setBaseImponible(lineaVenta.getBaseImponible());
+				lineaVentaDto.setImporteImpuesto(lineaVenta.getImporteImpuesto());
+				lineaVentaDto.setImporteTotal(lineaVenta.getImporteTotal());
+				
+				//Segundo: seteamos la compra
+				lineaVentaDto.setVentaId(venta.getId());
+				
+				//Tercero: seteamos el articulo de la linea
+				ArticuloDto articuloDto = new ArticuloDto();
+				
+				if( lineaVenta.getArticulo() != null) {
+					
+					articuloDto.setId(lineaVenta.getArticulo().getId());
+					articuloDto.setCodigo(lineaVenta.getArticulo().getCodigo());
+					articuloDto.setNombre(lineaVenta.getArticulo().getNombre());
+					articuloDto.setBaseImponible(lineaVenta.getArticulo().getBaseImponible());
+					articuloDto.setImpuesto(lineaVenta.getArticulo().getImpuesto());
+					articuloDto.setImporteTotal(lineaVenta.getArticulo().getImporteTotal());
+				}
+				
+				lineaVentaDto.setArticuloDto(articuloDto);
+				
+				//Ultimo: introducimos la linea en las lineas de compra
+				lineasVentaDto.add(lineaVentaDto);
+			}
+		}
+		
+		return lineasVentaDto;
 	}
 	
 }

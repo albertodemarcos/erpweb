@@ -69,9 +69,9 @@ public class ConversorPedidoCompraService {
 		
 		//1º Objetos simples
 		
-		compraDto.setArticulo(pedidoDto.getArticulo());
+		//compraDto.setArticulo(pedidoDto.getArticulo());
 		compraDto.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
-		compraDto.setCantidad(pedidoDto.getCantidad());
+		//compraDto.setCantidad(pedidoDto.getCantidad());
 		compraDto.setCodigo(pedidoDto.getCodigo());
 		compraDto.setFechaCompra(pedidoDto.getFechaPedido());
 		compraDto.setImporteTotal(pedidoDto.getImporteTotal());

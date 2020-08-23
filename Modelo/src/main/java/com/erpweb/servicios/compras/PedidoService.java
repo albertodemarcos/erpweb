@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ArticuloDto;
+import com.erpweb.dto.LineaPedidoDto;
 import com.erpweb.dto.PedidoDto;
 import com.erpweb.entidades.compras.LineaPedido;
 import com.erpweb.entidades.compras.Pedido;
@@ -227,11 +229,13 @@ public class PedidoService {
 			pedidoDto.setId(pedido.getId());
 			pedidoDto.setCodigo(pedido.getCodigo());
 			pedidoDto.setFechaPedido(pedido.getFechaPedido());
-			//pedidoDto.setArticulo(pedido.getArticulo());
-			//pedidoDto.setCantidad(pedido.getCantidad());
 			pedidoDto.setBaseImponibleTotal(pedido.getBaseImponibleTotal());
 			pedidoDto.setImpuesto(pedido.getImpuesto());
 			pedidoDto.setImporteTotal(pedido.getImporteTotal());
+			
+			//Rellenamos la lineas
+			Set<LineaPedidoDto> lineasPedidoDto = this.obtieneLineasPedidoDtoDePedido(pedido);
+			pedidoDto.getLineasPedidoDto().addAll(lineasPedidoDto);
 			
 		} catch(Exception e) {
 			
@@ -419,5 +423,47 @@ public class PedidoService {
 		return pedidosDto;
 	}
 	
+	private Set<LineaPedidoDto> obtieneLineasPedidoDtoDePedido(Pedido pedido) {
+		
+		Set<LineaPedidoDto> lineasPedidoDto = new HashSet<LineaPedidoDto>();
+		
+		if( pedido != null && CollectionUtils.isNotEmpty(pedido.getLineasPedido()) ) {
+		
+			for(LineaPedido lineaPedido : pedido.getLineasPedido()) {
+				
+				LineaPedidoDto lineaPedidoDto = new LineaPedidoDto();
+				
+				//Primero: seteamos los objetos simples
+				lineaPedidoDto.setId(lineaPedido.getId());
+				lineaPedidoDto.setCantidad(lineaPedido.getCantidad());
+				lineaPedidoDto.setBaseImponible(lineaPedido.getBaseImponible());
+				lineaPedidoDto.setImporteImpuesto(lineaPedido.getImporteImpuesto());
+				lineaPedidoDto.setImporteTotal(lineaPedido.getImporteTotal());
+				
+				//Segundo: seteamos la compra
+				lineaPedidoDto.setPedidoId(pedido.getId());
+				
+				//Tercero: seteamos el articulo de la linea
+				ArticuloDto articuloDto = new ArticuloDto();
+				
+				if( lineaPedido.getArticulo() != null) {
+					
+					articuloDto.setId(lineaPedido.getArticulo().getId());
+					articuloDto.setCodigo(lineaPedido.getArticulo().getCodigo());
+					articuloDto.setNombre(lineaPedido.getArticulo().getNombre());
+					articuloDto.setBaseImponible(lineaPedido.getArticulo().getBaseImponible());
+					articuloDto.setImpuesto(lineaPedido.getArticulo().getImpuesto());
+					articuloDto.setImporteTotal(lineaPedido.getArticulo().getImporteTotal());
+				}
+				
+				lineaPedidoDto.setArticuloDto(articuloDto);
+				
+				//Ultimo: introducimos la linea en las lineas de compra
+				lineasPedidoDto.add(lineaPedidoDto);
+			}
+		}
+		
+		return lineasPedidoDto;
+	}
 	
 }

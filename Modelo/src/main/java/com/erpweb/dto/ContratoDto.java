@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.erpweb.utiles.enumerados.TipoImpuesto;
 
@@ -22,6 +24,8 @@ public class ContratoDto implements Serializable {
 	private TipoImpuesto impuesto;
 	private BigDecimal importeTotal;	    										//Importe total del contro con impuestos
 	private HashMap<Long, BigDecimal> articulosCantidad; 							//Mapa articuloId, Cantidad de articulos
+	private Set<LineaContratoDto> lineasContratoDto = new HashSet<LineaContratoDto>();
+	
 	
 	public Long getId() {
 		return id;
@@ -101,6 +105,14 @@ public class ContratoDto implements Serializable {
 
 	public void setArticulosCantidad(HashMap<Long, BigDecimal> articulosCantidad) {
 		this.articulosCantidad = articulosCantidad;
+	}
+
+	public Set<LineaContratoDto> getLineasContratoDto() {
+		return lineasContratoDto;
+	}
+
+	public void setLineasContratoDto(Set<LineaContratoDto> lineasContratoDto) {
+		this.lineasContratoDto = lineasContratoDto;
 	}
 
 	

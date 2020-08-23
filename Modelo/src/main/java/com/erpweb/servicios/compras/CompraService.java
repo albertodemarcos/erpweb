@@ -15,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.CompraDto;
+import com.erpweb.dto.LineaCompraDto;
 import com.erpweb.entidades.compras.Compra;
 import com.erpweb.entidades.compras.LineaCompra;
 import com.erpweb.entidades.inventario.Articulo;
@@ -225,11 +227,13 @@ public class CompraService {
 			compraDto.setId(compra.getId());
 			compraDto.setCodigo(compra.getCodigo());
 			compraDto.setFechaCompra(compra.getFechaCompra());
-			//compraDto.setArticulo(compra.getArticulo());
-			//compraDto.setCantidad(compra.getCantidad());
 			compraDto.setBaseImponibleTotal(compra.getBaseImponibleTotal());
 			compraDto.setImpuesto(compra.getImpuesto());
 			compraDto.setImporteTotal(compra.getImporteTotal());
+			
+			//Rellenamos la lineas
+			Set<LineaCompraDto> lineasCompraDto = this.obtieneLineasCompraDtoDeCompra(compra);
+			compraDto.getLineasCompraDto().addAll(lineasCompraDto);
 			
 		} catch(Exception e) {
 			
@@ -417,7 +421,48 @@ public class CompraService {
 		return comprasDto;
 	}
 	
-	
+	private Set<LineaCompraDto> obtieneLineasCompraDtoDeCompra(Compra compra) {
+		
+		Set<LineaCompraDto> lineasCompraDto = new HashSet<LineaCompraDto>();
+		
+		if( compra != null && CollectionUtils.isNotEmpty(compra.getLineasCompra()) ) {
+		
+			for(LineaCompra lineaCompra : compra.getLineasCompra()) {
+				
+				LineaCompraDto lineaCompraDto = new LineaCompraDto();
+				
+				//Primero: seteamos los objetos simples
+				lineaCompraDto.setId(lineaCompra.getId());
+				lineaCompraDto.setCantidad(lineaCompra.getCantidad());
+				lineaCompraDto.setBaseImponible(lineaCompra.getBaseImponible());
+				lineaCompraDto.setImporteImpuesto(lineaCompra.getImporteImpuesto());
+				lineaCompraDto.setImporteTotal(lineaCompra.getImporteTotal());
+				
+				//Segundo: seteamos la compra
+				lineaCompraDto.setCompraId(compra.getId());
+				
+				//Tercero: seteamos el articulo de la linea
+				ArticuloDto articuloDto = new ArticuloDto();
+				
+				if( lineaCompra.getArticulo() != null) {
+					
+					articuloDto.setId(lineaCompra.getArticulo().getId());
+					articuloDto.setCodigo(lineaCompra.getArticulo().getCodigo());
+					articuloDto.setNombre(lineaCompra.getArticulo().getNombre());
+					articuloDto.setBaseImponible(lineaCompra.getArticulo().getBaseImponible());
+					articuloDto.setImpuesto(lineaCompra.getArticulo().getImpuesto());
+					articuloDto.setImporteTotal(lineaCompra.getArticulo().getImporteTotal());
+				}
+				
+				lineaCompraDto.setArticuloDto(articuloDto);
+				
+				//Ultimo: introducimos la linea en las lineas de compra
+				lineasCompraDto.add(lineaCompraDto);
+			}
+		}
+		
+		return lineasCompraDto;
+	}
 	
 	
 }
