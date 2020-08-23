@@ -16,13 +16,17 @@ export class ArticuloComponent implements OnInit {
   public articulo: Articulo;
   private articuloDto: any;
   private articuloId: number;
+  public tiposImpuestos: string[];
   private respuestaGetArticulo: AccionRespuesta;
+  public mapaIva: Map<string, string>;
 
   constructor(private articuloService: ArticuloService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.articuloId = 0;
     this.articulo = new Articulo();
-
+    this.tiposImpuestos = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -72,6 +76,12 @@ export class ArticuloComponent implements OnInit {
       this.articulo.impuesto = articuloDto.impuesto;
       this.articulo.importeTotal = articuloDto.importeTotal;
     }
+  }
+
+  public rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
 
   editarArticulo(articuloId: number): void{

@@ -51,6 +51,6 @@ public class GeneralService {
 		}
 	}
 	
-	
+	public void compruebaSiHayCantidadSuficienteDelArticuloParaContratoOVenta() {}
 	
 }

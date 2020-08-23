@@ -35,7 +35,7 @@
             <!-- IMPUESTO -->
             <dl class="col-3" *ngIf="articulo.impuesto">
                 <dt>Impuesto</dt>
-                <dd>{{articulo.impuesto}}</dd>
+                <dd>{{mapaIva.get(articulo.impuesto) | capitalizar}}</dd>
             </dl>
             <!-- IMPORTE TOTAL -->
             <dl class="col-6" *ngIf="articulo.importeTotal">

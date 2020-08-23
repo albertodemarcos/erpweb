@@ -98,8 +98,8 @@ export class FormularioArticuloComponent implements OnInit {
 
           if ( this.respuestaGetArticulo.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetArticulo.data) );
-            console.log('ES: ' + typeof(this.respuestaGetArticulo.data));
+            // console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetArticulo.data) );
+            // console.log('ES: ' + typeof(this.respuestaGetArticulo.data));
             // tslint:disable-next-line: no-string-literal
             this.articuloDto = this.respuestaGetArticulo.data['articuloDto'];
             this.obtenerArticuloDesdeArticuloDto(this.articuloDto);
@@ -131,8 +131,8 @@ export class FormularioArticuloComponent implements OnInit {
 
   private respuestaCrearEditarArticulo(accionRespuesta: AccionRespuesta, esEditarArticulo: boolean): void {
 
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
+    // console.log('Esta registrado' + accionRespuesta.resultado);
+    // console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
@@ -162,9 +162,9 @@ export class FormularioArticuloComponent implements OnInit {
   }
 
   public rellenaMapaIva(): void{
-    this.mapaIva.set('IVA_GENERAL', 'GENERAL');
-    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
-    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   public rellenarSelectorAlmacenes(): void{
