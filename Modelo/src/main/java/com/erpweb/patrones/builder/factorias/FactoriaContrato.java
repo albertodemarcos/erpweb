@@ -45,20 +45,19 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 	
 	
 	@Override
-	public Contrato crearEntidad(ContratoDto contratoDto) {
+	public Contrato crearEntidad(ContratoDto contratoDto, Factura factura) {
 
 		Contrato contrato = new Contrato();
 		
 		try {
 			
 			contrato.setCodigo(contratoDto.getCodigo());
-			
 			contrato.setFechaCreacion(new Date());
 			contrato.setFechaInicio(contratoDto.getFechaInicio());
 			contrato.setFechaFin(contratoDto.getFechaFin());
-			
 			contrato.setBaseImponibleTotal(new BigDecimal(0));
 			contrato.setImporteTotal(new BigDecimal(0));
+			contrato.setFactura(factura);			
 			
 			Contrato contratoSave = contratoRepository.save(contrato);
 			

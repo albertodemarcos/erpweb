@@ -30,7 +30,7 @@ public class Factura implements Serializable {
 	
 	private Long id;
 	private String codigo;
-	private Set<LineaFactura> lineasFactura = new HashSet<LineaFactura>();
+	private Set<LineaFactura> lineasFactura = new HashSet<LineaFactura>(1);
 	private Date fechaCreacion;  													//Cuando se crea la factura
 	private Date fechaInicio;    													//Cuando empieza la factura
 	private Date fechaFin;       													//Cuando finaliza la factura

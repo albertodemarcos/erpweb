@@ -32,10 +32,10 @@ public class ContratoValidator implements Validator {
 			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
-		if( contratoDto.getFechaCreacion() == null ) {
+		/*if( contratoDto.getFechaCreacion() == null ) {
 			
 			errors.rejectValue("fechaCreacion", "", "El campo fecha de creacion no puede estar vacío");
-		}
+		}*/
 		
 		if( contratoDto.getFechaInicio() == null  ) {
 			
@@ -57,7 +57,7 @@ public class ContratoValidator implements Validator {
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
 		}
 		
-		if( contratoDto.getImpuesto() == null  ) {
+		/*if( contratoDto.getImpuesto() == null  ) {
 			
 			errors.rejectValue("impuesto", "", "El selector de impuestos no puede estar vacío");
 		}
@@ -87,7 +87,7 @@ public class ContratoValidator implements Validator {
 			
 			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
-		
+		*/
 	}
 
 }

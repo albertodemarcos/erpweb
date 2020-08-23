@@ -44,19 +44,19 @@ public class FactoriaVenta extends FactoriaEntidad implements IFactoriaVenta {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	public Venta crearEntidad(VentaDto ventaDto) {
+	public Venta crearEntidad(VentaDto ventaDto, Factura factura) {
 
 		Venta venta = new Venta();
 		
 		try {
 			
 			venta.setCodigo(ventaDto.getCodigo());
-			
 			venta.setFechaCreacion(new Date());
 			venta.setFechaInicio(ventaDto.getFechaInicio());
 			venta.setFechaFin(ventaDto.getFechaFin());
 			venta.setBaseImponibleTotal(new BigDecimal(0));
 			venta.setImporteTotal(new BigDecimal(0));
+			venta.setFactura(factura);
 			
 			Venta ventaSave = ventaRepository.save(venta);
 			

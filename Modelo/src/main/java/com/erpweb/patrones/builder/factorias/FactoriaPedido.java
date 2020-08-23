@@ -43,7 +43,7 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	public Pedido crearEntidad(PedidoDto pedidoDto) {
+	public Pedido crearEntidad(PedidoDto pedidoDto, Factura factura) {
 
 		Pedido pedido = new Pedido();
 		
@@ -53,6 +53,7 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 			pedido.setFechaPedido(pedidoDto.getFechaPedido());
 			pedido.setBaseImponibleTotal(new BigDecimal(0));
 			pedido.setImporteTotal(new BigDecimal(0));
+			pedido.setFactura(factura);
 			
 			Pedido pedidoSave = pedidoRepository.save(pedido);
 			

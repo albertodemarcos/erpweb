@@ -11,7 +11,7 @@ public interface IFactoriaContrato {
 	/**
 	 * Generamos la entidad principal
 	 */
-	public Contrato crearEntidad(ContratoDto contratoDto);
+	public Contrato crearEntidad(ContratoDto contratoDto, Factura factura);
 	
 	/**
 	 * Generamos las lineas de la entidad principal

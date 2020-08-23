@@ -35,7 +35,7 @@ public class ConstructorContrato extends ConstructorEntidad implements IConstruc
 			factura = factoriaContrato.preCrearFacturaEntidad();
 			
 			//Paso 1: Contrato
-			contrato = factoriaContrato.crearEntidad(contratoDto);
+			contrato = factoriaContrato.crearEntidad(contratoDto, factura);
 			
 			if( contrato == null ) {
 				

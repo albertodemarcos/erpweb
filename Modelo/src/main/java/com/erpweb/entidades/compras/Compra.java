@@ -33,7 +33,7 @@ public class Compra implements Serializable {
 	private String codigo;
 	private Factura factura;
 	private Date fechaCompra;
-	private Set<LineaCompra> lineasCompra = new HashSet<LineaCompra>();
+	private Set<LineaCompra> lineasCompra = new HashSet<LineaCompra>(1);
 	private BigDecimal baseImponibleTotal;	
 	private TipoImpuesto impuesto; 			
 	private BigDecimal importeTotal;	    

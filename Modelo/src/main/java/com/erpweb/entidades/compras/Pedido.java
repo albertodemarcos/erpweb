@@ -34,7 +34,7 @@ public class Pedido implements Serializable {
 	private String codigo;
 	private Factura factura;
 	private Date fechaPedido;
-	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>();
+	private Set<LineaPedido> lineasPedido = new HashSet<LineaPedido>(1);
 	private BigDecimal baseImponibleTotal;	
 	private TipoImpuesto impuesto; 			 
 	private BigDecimal importeTotal;	    

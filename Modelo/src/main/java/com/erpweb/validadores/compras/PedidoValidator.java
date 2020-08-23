@@ -37,7 +37,7 @@ public class PedidoValidator implements Validator {
 			errors.rejectValue("fechaPedido", "", "El campo fecha no puede estar vacio");
 		} 
 		
-		if( StringUtils.isBlank( pedidoDto.getArticulo() )  ) {
+		/*if( StringUtils.isBlank( pedidoDto.getArticulo() )  ) {
 					
 			errors.rejectValue("articulo", "", "El campo codigo no puede estar vacio");
 		}
@@ -85,7 +85,7 @@ public class PedidoValidator implements Validator {
 			
 			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
 		}
-		
+		*/
 	}
 
 }
