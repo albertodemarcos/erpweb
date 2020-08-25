@@ -1,1 +1,42 @@
-<p>stock works!</p>
+<div class="card text-center">
+    <div class="card-header">
+        <h5 class="card-title">Stock</h5>
+    </div>
+    <div class="card-body">
+
+        <!-- Fila 1-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
+        <div class="form-group row text-left">
+            <!-- CODIGO -->
+            <dl class="col-3" *ngIf="stock.codigo">
+                <dt>Código</dt>
+                <dd>{{stock.codigo}}</dd>
+            </dl>
+            <!-- NOMBRE ARTICULO -->
+            <dl class="col-3" *ngIf="stock.articulo != null && stock.articulo.nombre != null">
+                <dt>Nombre articulo</dt>
+                <dd>{{stock.articulo.nombre}}</dd>
+            </dl>
+            <!-- NOMBRE ALMACEN -->
+            <dl class="col-3" *ngIf="stock.articulo != null && stock.almacen.nombre != null">
+                <dt>Nombre almacén</dt>
+                <dd>{{stock.almacen.nombre}}</dd>
+            </dl>
+            <!-- CANTIDAD -->
+            <dl class="col-6" *ngIf="stock.cantidad">
+                <dt>Cantidad</dt>
+                <dd>{{stock.cantidad}}</dd>
+            </dl>
+        </div>
+
+    </div>
+
+    <div class="card-footer text-muted">
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarStockArticulo(stock.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarStockArticulo(stock.id)">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>

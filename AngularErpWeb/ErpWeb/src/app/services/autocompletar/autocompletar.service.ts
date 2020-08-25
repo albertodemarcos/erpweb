@@ -45,7 +45,11 @@ export class AutocompletarService {
    * Nos devuelve una lista de articulos
    */
   getArticuloAutcompletar(term: string, completo?: boolean): Promise<Articulo[]>{
-    console.log('METODO listado');
+    console.log('Autocompletar');
+    if (completo == null)
+    {
+      completo = false;
+    }
     const urlGet = this.urlGeneral + this.urlGetArticulo + '?term=' + term + '&&completo=' + completo;
     return this.httpClient.get<Articulo[]>(urlGet, {headers: this.httpHeaders}).pipe(map(response => response as Articulo[])).toPromise();
   }

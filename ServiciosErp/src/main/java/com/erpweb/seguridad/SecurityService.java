@@ -7,7 +7,9 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,8 @@ import com.erpweb.utiles.AccionRespuesta;
 @Service
 public class SecurityService {
 
-	/*@Autowired
-	private AuthenticationManager authenticationManager;*/
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
 	@Autowired
 	private UsuarioDetailsService usuarioDetailsService;
@@ -38,6 +40,11 @@ public class SecurityService {
 			String username = autenticacion.getUsername();
 			
 			String password = new String( Base64.getDecoder().decode( autenticacion.getPassword() ) );
+			
+			
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+			
+			authenticationManager.authenticate(authenticationToken);
 			
 			//Recuperamos el usuario
 			final UserDetails userDetails = usuarioDetailsService.loadUserByUsername( username );
@@ -60,6 +67,8 @@ public class SecurityService {
 				
 				return new AccionRespuesta(1L, "OK", Boolean.TRUE, data);
 			}
+			
+			
 			
 			logger.error("Error, el usuario no existe");
 			

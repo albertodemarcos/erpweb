@@ -265,6 +265,7 @@ public class StockAlmacenService {
 			//Rellenamos
 			stockArticulo.setAlmacen( almacen );
 			stockArticulo.setArticulo( articulo );
+			stockArticulo.setCodigo( stockArticuloDto.getCodigo() );
 			stockArticulo.setCantidad( stockArticuloDto.getCantidad() );
 			
 			//Persistimos el stock
@@ -296,8 +297,10 @@ public class StockAlmacenService {
 			StockArticulo stockArticuloSave = this.obtieneStockArticulo( stockArticuloDto.getId() );
 			
 			stockArticuloDto.setId(stockArticuloSave.getId());
+			stockArticuloDto.setCodigo(stockArticuloSave.getCodigo());
 			stockArticuloDto.setArticuloDto(this.obtieneArticuloDtoDeArticulo(articulo));
 			stockArticuloDto.setAlmacenDto(this.obtieneAlmacenDtoDeAlmacen(almacen));
+			stockArticuloDto.setCantidad(stockArticuloSave.getCantidad());
 			
 			return this.devolverDatosStockArticuloDto(stockArticuloDto, stockArticuloSave);
 			

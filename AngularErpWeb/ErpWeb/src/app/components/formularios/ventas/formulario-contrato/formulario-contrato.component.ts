@@ -80,7 +80,11 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
 
     this.rellenarContratoConTablaLineaArticulos();
 
-    console.log('Contrato: ' + JSON.stringify(this.contrato));
+    /*if (!this.compruebaCantidadArticulosEnStock())
+    {
+      swal('Error', 'No puedes realizar el contrato. Comprueba el stock de los articulos primero.', 'error');
+      return;
+    }*/
 
     // Si tiene id, llamamos a crear, sino a editar
     if (this.contrato != null && this.contrato.id != null && this.contrato.id !== 0) {
@@ -217,6 +221,26 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
     this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
+
+  /*private compruebaCantidadArticulosEnStock(): boolean{
+
+    if (this.contrato.articulosCantidad == null || this.contrato.id)
+    {
+      return false;
+    }
+    this.contratoService.comprobarCantidadArticulos(this.contrato.id, this.contrato.articulosCantidad).then(
+      (respuesta) => {
+          if (respuesta == null || !respuesta.resultado)
+          {
+            swal('Error', 'Error, no se puede realizar el contrato, intentalo más tarde', 'error');
+            return false;
+          }
+          return true;
+    }, (error) => {
+      console.log('Error, el servidor no esta disponible en este momento, intentalo mas tarde');
+      return false;
+    });
+  }*/
 
   private rellenarContratoConTablaLineaArticulos(): void{
     // Recuperamos e introducimoos las lineas en un mapa auxiliar

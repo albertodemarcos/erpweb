@@ -112,12 +112,10 @@ const routes: Routes = [
   { path: 'almacenes/nuevo-almacen', component: FormularioAlmacenComponent, canActivate: [AutenticacionService] },
   { path: 'almacenes/editar-almacen/:id', component: FormularioAlmacenComponent, canActivate: [AutenticacionService] },
   { path: 'almacenes/almacen/:id', component: AlmacenComponent, data: {almacen: 'almacen'}, canActivate: [AutenticacionService] },
-// New
   { path: 'stock', component: ListadoStockComponent, canActivate: [AutenticacionService] },
   { path: 'stock/nuevo-stock', component: FormularioStockComponent, canActivate: [AutenticacionService] },
   { path: 'stock/editar-stock/:id', component: FormularioStockComponent, canActivate: [AutenticacionService] },
   { path: 'stock/almacen/:id', component: StockComponent, data: {stock: 'stock'}, canActivate: [AutenticacionService] },
-// Fin new
   { path: 'vehiculos', component: ListadoVehiculosComponent, canActivate: [AutenticacionService] },
   { path: 'vehiculos/nuevo-vehiculo', component: FormularioVehiculoComponent, canActivate: [AutenticacionService] },
   { path: 'vehiculos/editar-vehiculo/:id', component: FormularioVehiculoComponent, canActivate: [AutenticacionService] },

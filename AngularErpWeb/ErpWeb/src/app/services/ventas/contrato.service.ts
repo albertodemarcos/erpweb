@@ -17,6 +17,7 @@ export class ContratoService {
   private urlGetContrato: string;
   private urlEditarContrato: string;
   private urlEliminarContrato: string;
+  private urlCantidadArticuloContrato: string;
 
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
@@ -25,6 +26,7 @@ export class ContratoService {
     this.urlGetContrato = '/contratos/contrato/';
     this.urlEditarContrato = '/contratos/editarContrato/';
     this.urlEliminarContrato = '/contratos/eliminarContrato/';
+    this.urlCantidadArticuloContrato = '/contratos/cantidadArticulos';
     this.httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
@@ -68,4 +70,14 @@ export class ContratoService {
     const urlPost = this.urlGeneral + this.urlListadoContratos;
     return this.httpClient.get<Contrato[]>(urlPost, {headers: this.httpHeaders}).pipe(map(response => response as Contrato[])).toPromise();
   }
+
+  /*public comprobarCantidadArticulos(id: number, articulosCantidad: {}): Promise<AccionRespuesta> {
+    console.log('METODO GET artiuclo');
+    // tslint:disable-next-line: prefer-const
+    let contrato: Contrato = new Contrato();
+    contrato.articulosCantidad = articulosCantidad;
+    contrato.id = id;
+    const urlPost = this.urlGeneral + this.urlCantidadArticuloContrato ;
+    return this.httpClient.post<AccionRespuesta>(urlPost, contrato, {headers: this.httpHeaders}).pipe(map(response => response as AccionRespuesta)).toPromise();
+  }*/
 }

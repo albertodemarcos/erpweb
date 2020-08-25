@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+// Stock, Artitulo y Almcen
 import { StockService } from 'src/app/services/inventario/stock.service';
-import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
 import { Stock } from 'src/app/model/entitys/stock.model';
 import { Articulo } from 'src/app/model/entitys/articulo.model';
 import { Almacen } from 'src/app/model/entitys/almacen.model';
+// Autocompletar
+import { AutocompletarService } from 'src/app/services/autocompletar/autocompletar.service';
+// Otros
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-formulario-stock',
