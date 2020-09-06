@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.erpweb.dto.UsuarioDto;
 import com.erpweb.entidades.usuarios.Usuario;
 
 @Repository
@@ -19,9 +20,17 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	Usuario findByUsername(String usuario);	
 	
+	@Query("select distinct u.id from Usuario u where u.username=:username ")
+	Long obtieneIdDeUsername(@Param("username") String username);
+	
 	@Query("select ( count( distinct u.id ) > 0 ) from Usuario u where u.username=:paramRequest ")
 	Boolean compruebaSiExiteElUsuarioConUsername(@Param("paramRequest") String paramRequest);
 	
+	@Query(" select u.username from Usuario u where u.username=:tokenUsername ")
+	String obtieneUsernameDeToken(@Param("tokenUsername") String tokenUsername);
 	
+	
+	@Query(" select new com.erpweb.dto.UsuarioDto(u.username, u.password, u.role) from Usuario u where u.username=:tokenUsername ")
+	UsuarioDto obtieneUsuarioToken(@Param("tokenUsername") String tokenUsername);
 	
 }

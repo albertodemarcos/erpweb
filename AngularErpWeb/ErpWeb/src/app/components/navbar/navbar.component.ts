@@ -12,13 +12,15 @@ declare var $: any;
 export class NavbarComponent implements OnInit, OnChanges {
 
   public visible: boolean;
+  public usuarioId: number;
   private subcriptor = new Observable<boolean>();
 
   constructor(private usuarioLoginService: UsuarioLoginService) {
 
+    this.usuarioId = Number.parseInt( sessionStorage.getItem('userId'), 0);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
+    this.usuarioId = Number.parseInt( sessionStorage.getItem('userId'), 0);
   }
 
   ngOnInit(): void {
@@ -43,24 +45,9 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   public recargarNavBar(): void {
     console.log('Entramos a recargar el navbar');
-    const estaLogado = this.usuarioLoginService.esUsuarioLogado();
-
-    // Usuario logado o no
-    if (estaLogado)
-    {
-      console.log('Mostramos el navbar');
-      $('#perfilLogado').show();
-      $('#perfilNoLogado').hide();
-    }
-    else
-    {
-      console.log('Ocultamos el navbar');
-      $('#perfilLogado').hide();
-      $('#perfilNoLogado').show();
-    }
+    this.usuarioLoginService.mostrarCuentaUsuarioLogin();
+    this.usuarioLoginService.mostrarPanelAdministrador();
+    this.usuarioId = Number.parseInt( sessionStorage.getItem('userId'), 0);
   }
-
-
-
 
 }

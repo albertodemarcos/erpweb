@@ -47,7 +47,7 @@ public class VentaValidator implements Validator {
 			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
 		}
 		
-		if( ventaDto.getFechaFin() == null ) {
+		/*if( ventaDto.getFechaFin() == null ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
@@ -55,12 +55,12 @@ public class VentaValidator implements Validator {
 				&& ventaDto.getFechaFin().before( ventaDto.getFechaInicio() )  ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
-		}
+		}*/
 		
-		if( StringUtils.isBlank( ventaDto.getDescripcion() )  ) {
+		/*/if( StringUtils.isBlank( ventaDto.getDescripcion() )  ) {
 			
 			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
-		}
+		}*/
 		
 		/*if( ventaDto.getBaseImponibleTotal() == null  ) {
 			

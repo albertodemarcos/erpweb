@@ -7,22 +7,22 @@
         <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
         <div class="form-group row text-left">
             <!-- CODIGO CLIENTE -->
-            <dl class="col" *ngIf="cliente.codigo">
+            <dl class="col-3" *ngIf="cliente.codigo">
                 <dt>Código cliente</dt>
                 <dd>{{cliente.codigo}}</dd>
             </dl>
             <!-- NOMBRE -->
-            <dl class="col" *ngIf="cliente.nombre">
+            <dl class="col-3" *ngIf="cliente.nombre">
                 <dt>Nombre</dt>
                 <dd>{{cliente.nombre}}</dd>
             </dl>
             <!-- PRIMER APELLIDO -->
-            <dl class="col" *ngIf="cliente.apellidoPrimero">
+            <dl class="col-3" *ngIf="cliente.apellidoPrimero">
                 <dt>Primer apellido</dt>
                 <dd>{{cliente.apellidoPrimero}}</dd>
             </dl>
             <!-- SEGUNDO APELLIDO -->
-            <dl class="col" *ngIf="cliente.apellidoSegundo">
+            <dl class="col-3" *ngIf="cliente.apellidoSegundo">
                 <dt>Segundo apellido</dt>
                 <dd>{{cliente.apellidoSegundo}}</dd>
             </dl>

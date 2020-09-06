@@ -48,7 +48,7 @@ public class ConstructorVenta extends ConstructorEntidad implements IConstructor
 			venta = factoriaVenta.crearLineasEntidad(venta, ventaDto);
 			
 			//Paso 3: Crear factura
-			factura = factoriaVenta.crearFacturaEntidad(venta);
+			factura = factoriaVenta.crearFacturaEntidad(venta, factura);
 			
 			if( factura == null ) {
 				

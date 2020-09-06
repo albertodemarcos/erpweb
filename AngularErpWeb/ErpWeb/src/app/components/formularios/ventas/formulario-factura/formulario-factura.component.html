@@ -18,32 +18,13 @@
                 </div>
             </div>
 
-            <!-- FECHA CREACION -->
+            <!-- FECHA FACTURA -->
             <div class="form-group row">
-                <label for="fechaCreacion" class="col-form-label col-sm-4">Fecha creación</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="factura.fechaCreacion | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaCreacion = $event" name="fechaCreacion">
-                </div>
-            </div>
-
-            <!-- FECHA INICIO -->
-            <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-4 required">Fecha inicio</label>
+                <label for="fechaInicio" class="col-form-label col-sm-4 required">Fecha factura</label>
                 <div class="col-sm-7">
                     <input type="date" class="form-control" [ngModel]="factura.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaInicio = $event" name="fechaInicio">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
                         <span class="error text-danger">{{erroresFormulario['fechaInicio']}}</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FECHA FIN -->
-            <div class="form-group row">
-                <label for="fechaFin" class="col-form-label col-sm-4 required">Fecha fín</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="factura.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaFin = $event" name="fechaFin">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaFin']">
-                        <span class="error text-danger">{{erroresFormulario['fechaFin']}}</span>
                     </div>
                 </div>
             </div>

@@ -32,22 +32,17 @@ public class FacturaValidator implements Validator {
 			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
-		if( facturaDto.getFechaCreacion() == null ) {
+		/*if( facturaDto.getFechaCreacion() == null ) {
 			
 			errors.rejectValue("fechaCreacion", "", "El campo fecha de creacion no puede estar vacío");
-		}
+		}*/
 		
 		if( facturaDto.getFechaInicio() == null  ) {
 			
 			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede estar vacío");
-			
-		} else if( (facturaDto.getFechaInicio() != null && facturaDto.getFechaFin() != null ) 
-						&& facturaDto.getFechaInicio().after( facturaDto.getFechaFin() )  ) {
-			
-			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
 		}
 		
-		if( facturaDto.getFechaFin() == null ) {
+		/*if( facturaDto.getFechaFin() == null ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
 			
@@ -55,7 +50,7 @@ public class FacturaValidator implements Validator {
 				&& facturaDto.getFechaFin().before( facturaDto.getFechaInicio() )  ) {
 			
 			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
-		}
+		}*/
 		
 		if( facturaDto.getImpuesto() == null  ) {
 			
@@ -64,15 +59,15 @@ public class FacturaValidator implements Validator {
 		
 		if( facturaDto.getBaseImponible() == null  ) {
 			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
+			errors.rejectValue("baseImponible", "", "El campo base imponible no puede estar vacío");
 			
 		}else if( facturaDto.getBaseImponible().intValue() < 0  ) {
 			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
+			errors.rejectValue("baseImponible", "", "El campo base imponible no puede ser negativo");
 			
 		}else if( facturaDto.getBaseImponible().intValue() == 0  ) {
 			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
+			errors.rejectValue("baseImponible", "", "El campo base imponible no puede ser cero");
 		}
 		
 		if( facturaDto.getImpuesto() == null  ) {

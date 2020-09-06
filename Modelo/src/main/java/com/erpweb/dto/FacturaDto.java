@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.erpweb.utiles.enumerados.TipoImpuesto;
 
@@ -22,6 +24,8 @@ public class FacturaDto implements Serializable {
 	private TipoImpuesto impuesto;   												//Valor del impuesto sobre el producto
 	private BigDecimal importeTotal;      											//Base imponible mas cuota tributaria 
 	private HashMap<Long, BigDecimal> articulosCantidad; 							//Mapa articuloId, Cantidad de articulos
+	private Set<LineaFacturaDto> lineasFacturaDto = new HashSet<LineaFacturaDto>();
+	
 	
 	public Long getId() {
 		return id;
@@ -101,6 +105,14 @@ public class FacturaDto implements Serializable {
 
 	public void setArticulosCantidad(HashMap<Long, BigDecimal> articulosCantidad) {
 		this.articulosCantidad = articulosCantidad;
+	}
+
+	public Set<LineaFacturaDto> getLineasFacturaDto() {
+		return lineasFacturaDto;
+	}
+
+	public void setLineasFacturaDto(Set<LineaFacturaDto> lineasFacturaDto) {
+		this.lineasFacturaDto = lineasFacturaDto;
 	}
 
 	

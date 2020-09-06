@@ -240,8 +240,10 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
       // Obtenemos las celdas de articulo y cantidad
       const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
       const celdaCantidad = jQuery(celdas[6]).text(); // Celda 6 es la cantidad..
+      const celdaAlmacenId = jQuery(celdas[8]).text(); // Celda 8 es la almacenId..
       if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
       {
+        this.compra.almacenId = celdaAlmacenId;
         this.compra.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
       }
     }

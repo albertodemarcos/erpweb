@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
-import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
+// import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
 
 // FullCalendar
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -25,7 +25,6 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { PlanificadorComponent } from './components/calendario/planificador/planificador.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -130,7 +129,6 @@ FullCalendarModule.registerPlugins([
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    FooterComponent,
     FormularioClienteComponent,
     FormularioEmpleadoComponent,
     FormularioEmpresaComponent,
@@ -155,17 +153,6 @@ FullCalendarModule.registerPlugins([
     ListadoVehiculosComponent,
     ListadoEmpleadosComponent,
     ListadoStockComponent,
-    /*ModalClienteComponent,
-    ModalEmpleadoComponent,
-    ModalEmpresaComponent,
-    ModalCompraComponent,
-    ModalPedidoComponent,
-    ModalProveedorComponent,
-    ModalAlmacenComponent,
-    ModalVehiculoComponent,
-    ModalContratoComponent,
-    ModalVentaComponent,
-    ModalFacturaComponent,*/
     ModalArticuloComponent,
     PlanificadorComponent,
     ClienteComponent,
@@ -186,12 +173,11 @@ FullCalendarModule.registerPlugins([
     LoginComponent,
     LogoutComponent,
     CapitalizarPipe,
-    Jqgrid5Component,
     ListadoStockComponent,
     StockComponent,
     FormularioStockComponent
-  ], // Modulos
-  imports: [
+  ],
+  imports: [  // Modulos
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

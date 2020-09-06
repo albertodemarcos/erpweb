@@ -16,7 +16,6 @@ import swal from 'sweetalert2';
 export class LogoutComponent implements OnInit {
 
   public titulo: string;
-  public invalidLogin: boolean;
   public usuario: Usuario;
   private respuesta: any;
   private token: any;
@@ -31,11 +30,15 @@ export class LogoutComponent implements OnInit {
   public salirApp(): void{
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('rol');
+    sessionStorage.removeItem('userId');
   }
 
   ngOnInit(): void {
 
     this.salirApp();
+    this.usuarioLoginService.mostrarCuentaUsuarioLogin();
+    this.usuarioLoginService.mostrarPanelAdministrador();
     this.router.navigate(['inicio']);
   }
 

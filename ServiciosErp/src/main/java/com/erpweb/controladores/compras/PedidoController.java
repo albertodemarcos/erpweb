@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.PedidoDto;
 import com.erpweb.entidades.usuarios.Usuario;
+import com.erpweb.servicios.compras.ConversorPedidoCompraService;
 import com.erpweb.servicios.compras.PedidoService;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -33,12 +34,21 @@ public class PedidoController {
 	private PedidoService pedidoService;
 	
 	@Autowired
+	private ConversorPedidoCompraService conversorPedidoCompraService;
+	
+	@Autowired
 	private ErroresService erroresService;
 
 	@GetMapping("/pedido/{pedidoId}")
 	public @ResponseBody AccionRespuesta getPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
 		
 		return this.pedidoService.getPedido(pedidoId, user);
+	}
+	
+	@GetMapping("/convertirCompraPedido/{pedidoId}")
+	public @ResponseBody AccionRespuesta getConvetirPedidoEnCompra( @PathVariable Long pedidoId ) throws Exception {
+		
+		return this.conversorPedidoCompraService.convetirPedidoEnCompra(pedidoId);
 	}
 	
 	@GetMapping("/listado.json")

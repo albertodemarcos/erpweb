@@ -40,7 +40,7 @@ public class ConstructorFactura extends ConstructorEntidad implements IConstruct
 			}
 			
 			//Paso 2: LineaFactura
-			factura = factoriaFactura.crearLineasEntidad(factura, facturaDto);
+			//factura = factoriaFactura.crearLineasEntidad(factura, facturaDto);
 			
 			return factura;
 			

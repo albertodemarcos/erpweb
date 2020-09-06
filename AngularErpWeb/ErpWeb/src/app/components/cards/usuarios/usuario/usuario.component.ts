@@ -19,16 +19,18 @@ export class UsuarioComponent implements OnInit {
   private respuestaGetUsuario: AccionRespuesta;
 
   constructor(private usuarioService: UsuarioService, private router: Router, private activateRouter: ActivatedRoute) {
-
-    this.usuarioId = 0;
+    console.log('Entro al constructor');
+    let entero = Number.parseInt( sessionStorage.getItem('userId').valueOf(), 0);
+    this.usuarioId = entero;
     this.usuario = new Usuario();
-
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.usuarioId = params['id'];
       this.getUsuario();
     });
+
+
   }
 
   getUsuario(): void{

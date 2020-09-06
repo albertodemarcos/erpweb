@@ -93,8 +93,7 @@ public class VentaService {
 			
 			venta.setCodigo(ventaDto.getCodigo());
 			venta.setFechaCreacion(ventaDto.getFechaCreacion());
-			venta.setFechaInicio(ventaDto.getFechaInicio());
-			venta.setFechaFin(ventaDto.getFechaFin());
+			venta.setFechaVenta(ventaDto.getFechaInicio());			
 			venta.setDescripcion(ventaDto.getDescripcion());
 			venta.setBaseImponibleTotal(ventaDto.getBaseImponibleTotal());
 			venta.setImpuesto(ventaDto.getImpuesto());
@@ -231,8 +230,7 @@ public class VentaService {
 			ventaDto.setId(venta.getId());
 			ventaDto.setCodigo(venta.getCodigo());
 			ventaDto.setFechaCreacion(venta.getFechaCreacion());
-			ventaDto.setFechaInicio(venta.getFechaInicio());
-			ventaDto.setFechaFin(venta.getFechaFin());
+			ventaDto.setFechaInicio(venta.getFechaVenta());			
 			ventaDto.setDescripcion(venta.getDescripcion());
 			ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
 			ventaDto.setImpuesto(venta.getImpuesto());
@@ -311,19 +309,19 @@ public class VentaService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarVenta(VentaDto ventaDto, Usuario user) {
+	public AccionRespuesta getCrearEditarVenta(VentaDto ventaDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarVenta() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarVenta()");
 		
 		if( ventaDto.getId() != null && ventaDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion de la Venta con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion de la Venta");
 			
 			return this.actualizarVentaDesdeVentaDto(ventaDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear una Venta con usuario={}", user.getId() );
+			logger.debug("Se va a crear una Venta");
 			
 			return this.crearVentaDesdeVentaDto(ventaDto);
 		}
@@ -417,8 +415,7 @@ public class VentaService {
 				ventaDto.setId(venta.getId());
 				ventaDto.setCodigo(venta.getCodigo());
 				ventaDto.setFechaCreacion(venta.getFechaCreacion());
-				ventaDto.setFechaInicio(venta.getFechaInicio());
-				ventaDto.setFechaFin(venta.getFechaFin());
+				ventaDto.setFechaInicio(venta.getFechaVenta());				
 				ventaDto.setDescripcion(venta.getDescripcion());
 				ventaDto.setBaseImponibleTotal(venta.getBaseImponibleTotal());
 				ventaDto.setImpuesto(venta.getImpuesto());

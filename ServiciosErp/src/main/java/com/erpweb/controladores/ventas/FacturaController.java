@@ -60,7 +60,7 @@ public class FacturaController {
 	}
 	
 	@PostMapping( "/crearFactura" )
-	public @ResponseBody AccionRespuesta postCrearFactura( @RequestBody FacturaDto facturaDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearFactura( @RequestBody FacturaDto facturaDto, BindingResult result ) {
 		
 		this.facturaValidator.validate(facturaDto, result);
 		
@@ -69,11 +69,11 @@ public class FacturaController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.facturaService.getCrearEditarFactura(facturaDto, user);
+		return this.facturaService.getCrearEditarFactura(facturaDto);
 	}
 	
 	@PostMapping( "/editarFactura" )
-	public @ResponseBody AccionRespuesta postEditarFactura( @RequestBody FacturaDto facturaDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarFactura( @RequestBody FacturaDto facturaDto, BindingResult result ) {
 		
 		this.facturaValidator.validate(facturaDto, result);
 		
@@ -82,7 +82,7 @@ public class FacturaController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.facturaService.getCrearEditarFactura(facturaDto, user);
+		return this.facturaService.getCrearEditarFactura(facturaDto);
 	}
 	
 	@GetMapping("/eliminarFactura/{facturaId}")

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card formluario">
 
     <div class="card-header cabecera text-center">Nuevo usuario</div>
 
@@ -9,8 +9,8 @@
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-2 required">Código usuario</label>
-                <div class="col-sm-6">
+                <label for="codigo" class="col-form-label text-center col-sm-4 required">Código usuario</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
                         <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
@@ -20,8 +20,8 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombreCompleto" class="col-form-label col-sm-2 required">Nombre</label>
-                <div class="col-sm-6">
+                <label for="nombreCompleto" class="col-form-label text-center col-sm-4 required">Nombre</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombreCompleto']">
                         <span class="error text-danger">{{erroresFormulario['nombreCompleto']}}</span>
@@ -31,8 +31,8 @@
 
             <!-- EMAIL -->
             <div class="form-group row">
-                <label for="email" class="col-form-label col-sm-2 required">Email</label>
-                <div class="col-sm-6">
+                <label for="email" class="col-form-label col-sm-4 text-center required">Email</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['email']">
                         <span class="error text-danger">{{erroresFormulario['email']}}</span>
@@ -42,8 +42,8 @@
 
             <!-- USERNAME -->
             <div class="form-group row">
-                <label for="username" class="col-form-label col-sm-2 required">Usuario</label>
-                <div class="col-sm-6">
+                <label for="username" class="col-form-label text-center col-sm-4 required">Usuario</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['username']">
                         <span class="error text-danger">{{erroresFormulario['username']}}</span>
@@ -53,8 +53,8 @@
 
             <!-- PASSWORD -->
             <div class="form-group row">
-                <label for="password" class="col-form-label col-sm-2 required">Contraseña</label>
-                <div class="col-sm-6">
+                <label for="password" class="col-form-label col-sm-4 text-center required">Contraseña</label>
+                <div class="col-sm-7">
                     <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['password']">
                         <span class="error text-danger">{{erroresFormulario['password']}}</span>
@@ -63,8 +63,9 @@
             </div>
 
             <!-- BOTON -->
-            <div class="form-group row">
-                <div class="col-sm-6">
+            <div class="form-group row text-center">
+                <div class="col-sm-12">
+                    <br/>
                     <button class="btn btn-primary" role="button">Crear usuario</button>
                 </div>
             </div>

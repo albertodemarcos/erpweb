@@ -50,7 +50,7 @@ public class ConstructorCompra extends ConstructorEntidad implements IConstructo
 			compra = factoriaCompra.crearLineasEntidad(compra, compraDto);
 			
 			//Paso 3: Crear factura
-			factura = factoriaCompra.crearFacturaEntidad(compra);
+			factura = factoriaCompra.crearFacturaEntidad(compra, factura);
 			
 			if( factura == null ) {
 				
@@ -58,7 +58,6 @@ public class ConstructorCompra extends ConstructorEntidad implements IConstructo
 				
 				return null;
 			}
-
 			
 			//Paso 4: Crear lineaFactura
 			factura = factoriaCompra.crearLineasFacturaEntidad(compra, factura);			

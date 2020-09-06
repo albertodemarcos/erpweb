@@ -32,8 +32,7 @@ public class Factura implements Serializable {
 	private String codigo;
 	private Set<LineaFactura> lineasFactura = new HashSet<LineaFactura>(1);
 	private Date fechaCreacion;  													//Cuando se crea la factura
-	private Date fechaInicio;    													//Cuando empieza la factura
-	private Date fechaFin;       													//Cuando finaliza la factura
+	private Date fechaFactura;    													//Fecha que pone el usuario
 	private String descripcion;      												//Descripcion de la factura
 	private BigDecimal baseImponible;     											//Precio sin impuesto
 	private TipoImpuesto impuesto;   												//Valor del impuesto sobre el producto
@@ -76,20 +75,12 @@ public class Factura implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public Date getFechaInicio() {
-		return fechaInicio;
+	public Date getFechaFactura() {
+		return fechaFactura;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
+	public void setFechaFactura(Date fechaFactura) {
+		this.fechaFactura = fechaFactura;
 	}
 
 	public String getDescripcion() {

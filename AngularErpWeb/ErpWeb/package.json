@@ -39,6 +39,7 @@
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "js-xlsx-core": "^1.0.3",
+    "jwt-decode": "^2.2.0",
     "perfect-scrollbar": "^1.5.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",

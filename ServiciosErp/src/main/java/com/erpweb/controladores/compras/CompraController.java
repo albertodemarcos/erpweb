@@ -55,8 +55,6 @@ public class CompraController {
 	@PostMapping( "/crearCompra" )
 	public @ResponseBody AccionRespuesta postCrearCompra(@RequestBody CompraDto compraDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.compraValidator.validate(compraDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -64,13 +62,11 @@ public class CompraController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.compraService.getCrearEditarCompra(compraDto, user);
+		return this.compraService.getCrearEditarCompra(compraDto);
 	}
 	
 	@PostMapping( "/editarCompra" )
 	public @ResponseBody AccionRespuesta postEditarCompra(@RequestBody CompraDto compraDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.compraValidator.validate(compraDto, result);
 		
@@ -79,7 +75,7 @@ public class CompraController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.compraService.getCrearEditarCompra(compraDto, user);
+		return this.compraService.getCrearEditarCompra(compraDto);
 	}
 	
 	@GetMapping("/eliminarCompra/{compraId}")

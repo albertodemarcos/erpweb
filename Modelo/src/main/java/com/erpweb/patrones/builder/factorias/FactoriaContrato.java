@@ -136,25 +136,21 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 	}
 
 	@Override
-	public Factura crearFacturaEntidad(Contrato contrato) {
+	public Factura crearFacturaEntidad(Contrato contrato, Factura facturaPre) {
 
 		logger.trace("Entramos en el metodo crearFacturaEntidad()");
 		
 		try {
 			
-			Factura factura = new Factura();
+			facturaPre.setCodigo(contrato.getCodigo());
+			facturaPre.setFechaCreacion(new Date());
+			facturaPre.setFechaFactura(contrato.getFechaInicio());			
+			facturaPre.setBaseImponible(contrato.getBaseImponibleTotal());
+			facturaPre.setImporteTotal(contrato.getImporteTotal());
+			facturaPre.setDescripcion(contrato.getDescripcion());
+			facturaPre.setImpuesto(contrato.getImpuesto());
 			
-			factura.setId(null);
-			factura.setCodigo(contrato.getCodigo());
-			factura.setFechaCreacion(new Date());
-			factura.setFechaInicio(contrato.getFechaInicio());
-			factura.setFechaFin(contrato.getFechaFin());
-			factura.setBaseImponible(contrato.getBaseImponibleTotal());
-			factura.setImporteTotal(contrato.getImporteTotal());
-			factura.setDescripcion(contrato.getDescripcion());
-			factura.setImpuesto(null);
-			
-			Factura facturaSave = facturaRepository.save(factura);
+			Factura facturaSave = facturaRepository.save(facturaPre);
 			
 			return facturaSave;
 			

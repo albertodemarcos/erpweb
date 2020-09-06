@@ -52,9 +52,8 @@ public class FactoriaVenta extends FactoriaEntidad implements IFactoriaVenta {
 			
 			venta.setCodigo(ventaDto.getCodigo());
 			venta.setFechaCreacion(new Date());
-			venta.setFechaInicio(ventaDto.getFechaInicio());
-			venta.setFechaFin(ventaDto.getFechaFin());
-			venta.setBaseImponibleTotal(new BigDecimal(0));
+			venta.setFechaVenta(ventaDto.getFechaInicio());			
+			venta.setBaseImponibleTotal(new BigDecimal(0));			
 			venta.setImporteTotal(new BigDecimal(0));
 			venta.setFactura(factura);
 			
@@ -106,7 +105,7 @@ public class FactoriaVenta extends FactoriaEntidad implements IFactoriaVenta {
 				lineaVenta.setImporteTotal(importeTotal);
 				lineaVenta.setCantidad(cantidad.intValue());
 				lineaVenta.setImporteImpuesto( new BigDecimal(importeImpuesto) ); 
-				lineaVenta.setDescripcionLinea("");
+				lineaVenta.setDescripcionLinea(ventaDto.getDescripcion());
 				
 				venta.setBaseImponibleTotal(venta.getBaseImponibleTotal().add(baseImponibleTotal));
 				venta.setImporteTotal(venta.getBaseImponibleTotal().add(importeTotal));
@@ -135,25 +134,21 @@ public class FactoriaVenta extends FactoriaEntidad implements IFactoriaVenta {
 	}
 
 	@Override
-	public Factura crearFacturaEntidad(Venta venta) {
+	public Factura crearFacturaEntidad(Venta venta, Factura facturaPre) {
 
 		logger.trace("Entramos en el metodo crearFacturaEntidad()");
 		
 		try {
 			
-			Factura factura = new Factura();
+			facturaPre.setCodigo(venta.getCodigo());
+			facturaPre.setFechaCreacion(new Date());
+			facturaPre.setFechaFactura(venta.getFechaVenta());			
+			facturaPre.setBaseImponible(venta.getBaseImponibleTotal());
+			facturaPre.setImporteTotal(venta.getImporteTotal());
+			facturaPre.setDescripcion(venta.getDescripcion());
+			facturaPre.setImpuesto(venta.getImpuesto());
 			
-			factura.setId(null);
-			factura.setCodigo(venta.getCodigo());
-			factura.setFechaCreacion(new Date());
-			factura.setFechaInicio(venta.getFechaInicio());
-			factura.setFechaFin(venta.getFechaFin());
-			factura.setBaseImponible(venta.getBaseImponibleTotal());
-			factura.setImporteTotal(venta.getImporteTotal());
-			factura.setDescripcion(null);
-			factura.setImpuesto(null);
-			
-			Factura facturaSave = facturaRepository.save(factura);
+			Factura facturaSave = facturaRepository.save(facturaPre);
 			
 			return facturaSave;
 			

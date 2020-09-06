@@ -180,7 +180,7 @@
             </li>
         </ul>
         <!--PANEL ADMINISTRADOR (SOLO VISIBLE POR ADMINISTRADORES)-->
-        <ul class="navbar-nav mt-auto">
+        <ul class="navbar-nav mt-auto" id="cuentaAdministrador">
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="assets/img/navbar/adminstracion.png" width="20" height="20" alt=""> Administración
@@ -207,7 +207,7 @@
                 </a>
                 <!--PERFIL-->
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" [routerLink]="['perfil']">Mi cuenta</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['perfil', usuarioId]">Mi cuenta</a></li>
                     <li><a class="dropdown-item" [routerLink]="['salir']">Salir</a></li>
                 </ul>
             </li>

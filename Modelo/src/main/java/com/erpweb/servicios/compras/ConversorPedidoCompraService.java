@@ -1,13 +1,16 @@
 package com.erpweb.servicios.compras;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.CompraDto;
+import com.erpweb.dto.LineaPedidoDto;
 import com.erpweb.dto.PedidoDto;
 import com.erpweb.entidades.compras.Compra;
 import com.erpweb.patrones.builder.constructores.ConstructorCompra;
@@ -47,11 +50,16 @@ public class ConversorPedidoCompraService {
 			//3º Crear la compra
 			Compra compraSave = constructorCompra.crearEntidadLineasEntidad(compraDto);
 			
-			//4º Eliminar el pedido
-			this.pedidoService.eliminarPedidoPorId(pedidoId);
+			if(compraSave != null) {
+				
+				//4º Eliminar el pedido
+				this.pedidoService.eliminarPedidoPorId(pedidoId);
+				
+				//5º Devolvemos el dto de Compra
+				return this.getCompraDto(compraDto, compraSave);
+			}
 			
-			//5º Devolvemos el dto de Compra
-			return this.getCompraDto(compraDto, compraSave);
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE);
 			
 		}catch(Exception e) {
 			
@@ -68,19 +76,20 @@ public class ConversorPedidoCompraService {
 		CompraDto compraDto = new CompraDto();
 		
 		//1º Objetos simples
-		
-		//compraDto.setArticulo(pedidoDto.getArticulo());
-		compraDto.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
-		//compraDto.setCantidad(pedidoDto.getCantidad());
 		compraDto.setCodigo(pedidoDto.getCodigo());
 		compraDto.setFechaCompra(pedidoDto.getFechaPedido());
-		compraDto.setImporteTotal(pedidoDto.getImporteTotal());
+		compraDto.setBaseImponibleTotal(pedidoDto.getBaseImponibleTotal());
 		compraDto.setImpuesto(pedidoDto.getImpuesto());		
+		compraDto.setImporteTotal(pedidoDto.getImporteTotal());
 		
 		try {
 			
-			//2º Colecciones
-			compraDto.getArticulosCantidad().putAll(pedidoDto.getArticulosCantidad());
+			//2º Creamos el mapa de articulos y las cantidades
+			HashMap<Long, BigDecimal> pedidoDtoArticulosCantidad = this.crearMapaArticulosCantidad(pedidoDto);
+			pedidoDto.setArticulosCantidad(pedidoDtoArticulosCantidad);
+			
+			//3º Colecciones
+			compraDto.setArticulosCantidad( pedidoDto.getArticulosCantidad() );
 			
 		}catch(Exception e) {
 			
@@ -129,6 +138,25 @@ public class ConversorPedidoCompraService {
 		return respuesta;
 	}
 	
+	
+	private HashMap<Long, BigDecimal> crearMapaArticulosCantidad(PedidoDto pedidoDto) {
+		
+		HashMap<Long, BigDecimal> articulosCantidad = new HashMap<Long, BigDecimal>();
+		
+		if(pedidoDto != null && CollectionUtils.isNotEmpty(pedidoDto.getLineasPedidoDto() ) ) {
+			
+			for( LineaPedidoDto lineaPedidoDto : pedidoDto.getLineasPedidoDto()) {
+				
+				Long articuloId = lineaPedidoDto.getArticuloDto().getId();
+				
+				BigDecimal cantidad = new BigDecimal( lineaPedidoDto.getCantidad() );
+				
+				articulosCantidad.put(articuloId, cantidad );
+			}
+		}
+		
+		return articulosCantidad;
+	}
 	
 	
 }

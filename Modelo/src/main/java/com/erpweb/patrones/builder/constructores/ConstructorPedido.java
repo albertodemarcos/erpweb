@@ -48,7 +48,7 @@ public class ConstructorPedido extends ConstructorEntidad implements IConstructo
 			pedido = factoriaPedido.crearLineasEntidad(pedido, pedidoDto);
 			
 			//Paso 3: Crear factura
-			factura = factoriaPedido.crearFacturaEntidad(pedido);
+			factura = factoriaPedido.crearFacturaEntidad(pedido, factura);
 			
 			if( factura == null ) {
 				

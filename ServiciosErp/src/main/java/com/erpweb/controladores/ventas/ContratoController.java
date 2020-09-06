@@ -21,7 +21,7 @@ import com.erpweb.servicios.ventas.ContratoService;
 import com.erpweb.utiles.AccionRespuesta;
 import com.erpweb.validadores.ventas.ContratoValidator;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") //Conexion con angular 
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true") 
 @RestController
 @RequestMapping("/contratos")
 public class ContratoController {
@@ -60,9 +60,7 @@ public class ContratoController {
 	}
 	
 	@PostMapping( "/crearContrato" )
-	public @ResponseBody AccionRespuesta postCrearContrato( @RequestBody ContratoDto contratoDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
+	public @ResponseBody AccionRespuesta postCrearContrato( @RequestBody ContratoDto contratoDto, Usuario user, BindingResult result ) {
 		
 		this.contratoValidator.validate(contratoDto, result);
 		
@@ -90,7 +88,7 @@ public class ContratoController {
 	}
 	
 	@GetMapping("/eliminarContrato/{contratoId}")
-	public @ResponseBody AccionRespuesta getEliminarContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarContrato( @PathVariable Long contratoId) throws Exception {
 		
 		if(contratoId == null || contratoId.longValue() < 1L ) {
 			

@@ -55,8 +55,6 @@ public class VentaController {
 	@PostMapping( "/crearVenta" )
 	public @ResponseBody AccionRespuesta postCrearVenta( @RequestBody VentaDto ventaDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.ventaValidator.validate(ventaDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -64,14 +62,12 @@ public class VentaController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.ventaService.getCrearEditarVenta(ventaDto, user);
+		return this.ventaService.getCrearEditarVenta(ventaDto);
 	}
 	
 	@PostMapping( "/editarVenta" )
 	public @ResponseBody AccionRespuesta postEditarVenta( @RequestBody VentaDto ventaDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.ventaValidator.validate(ventaDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -79,7 +75,7 @@ public class VentaController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.ventaService.getCrearEditarVenta(ventaDto, user);
+		return this.ventaService.getCrearEditarVenta(ventaDto);
 	}
 	
 	@GetMapping("/eliminarVenta/{ventaId}")

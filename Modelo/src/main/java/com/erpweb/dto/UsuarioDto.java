@@ -16,7 +16,19 @@ public class UsuarioDto implements Serializable {
 	private String username;
 	private String password;
 	private String role;
+	
+	
+	public UsuarioDto() {
+		super();
+	}
     
+	public UsuarioDto(String username, String password,	String role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+
 	public Long getId() {
 		return id;
 	}

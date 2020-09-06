@@ -19,12 +19,36 @@
                         <!-- FORMULARIO -->
                         <form autocomplete="off" (ngSubmit)="crearAnadirArticuloFormulario()">
 
+                            <!-- AUTOCOMPLETAR ALMACEN -->
+                            <div class="form-group row">
+                                <label for="almacen" class="col-form-label col-sm-4 required">Almacén</label>
+                                <div class="col-7 ng-autocomplete">
+                                    <ng-autocomplete [data]="dataAlmacen" [searchKeyword]="keyword" name="almacen" [(ngModel)]="almacen" (selected)='itemAlmacenSeleccionado($event)' (inputChanged)='getAlmacenes($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoAlmacen()"
+                                        (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargandoAlmacen" [minQueryLength]="1" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar almacen">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a href="javascript:void(0)">
+                                            <span [innerHTML]="item.codigo"></span> -
+                                            <span [innerHTML]="item.nombre"></span>
+                                        </a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        {{mensajeError}}
+                                    </ng-template>
+                                </div>
+                            </div>
+
+                            <br/>
+                            <br/>
+
                             <!-- AUTOCOMPLETAR ARTICULO -->
                             <div class="form-group row">
                                 <label for="articulo" class="col-form-label col-sm-4 required">Articulo</label>
                                 <div class="col-7 ng-autocomplete">
                                     <ng-autocomplete [data]="dataArticulo" [searchKeyword]="keyword" name="articulo" [(ngModel)]="articulo" (selected)='itemSeleccionado($event)' (inputChanged)='getArticulos($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoArticulo()"
-                                        (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar articulo">
+                                        (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargandoArticulo" [minQueryLength]="1" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar articulo">
                                     </ng-autocomplete>
 
                                     <ng-template #itemTemplate let-item>

@@ -40,7 +40,8 @@ public class AutocompletarController {
 	}
 	
 	@GetMapping("/almacenes/listado.json")
-	public @ResponseBody List<AlmacenDto> getAlmacenes(@RequestParam(value = "term", required = true) String term ) {
+	public @ResponseBody List<AlmacenDto> getAlmacenes(
+			@RequestParam(value = "term", required = true) String term ) {
 		
 		logger.info("Entramos en el controlador del listado del Stock");
 		

@@ -76,7 +76,7 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: true,
+      autowidth: false,
       shrinkToFit: true,
       loadonce: false,
       searching: {

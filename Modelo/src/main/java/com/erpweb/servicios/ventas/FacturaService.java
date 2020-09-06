@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.FacturaDto;
+import com.erpweb.dto.LineaFacturaDto;
 import com.erpweb.entidades.inventario.Articulo;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Factura;
@@ -82,9 +84,8 @@ public class FacturaService {
 			}
 			
 			factura.setCodigo(facturaDto.getCodigo());
-			factura.setFechaCreacion(facturaDto.getFechaCreacion());
-			factura.setFechaInicio(facturaDto.getFechaInicio());
-			factura.setFechaFin(facturaDto.getFechaFin());
+			//factura.setFechaCreacion(facturaDto.getFechaCreacion());
+			factura.setFechaFactura(facturaDto.getFechaInicio());
 			factura.setDescripcion(facturaDto.getDescripcion());
 			factura.setBaseImponible(facturaDto.getBaseImponible());
 			factura.setImpuesto(facturaDto.getImpuesto());
@@ -213,12 +214,15 @@ public class FacturaService {
 			facturaDto.setId(factura.getId());
 			facturaDto.setCodigo(factura.getCodigo());
 			facturaDto.setFechaCreacion(factura.getFechaCreacion());
-			facturaDto.setFechaInicio(factura.getFechaInicio());
-			facturaDto.setFechaFin(factura.getFechaFin());
+			facturaDto.setFechaInicio(factura.getFechaFactura());
 			facturaDto.setDescripcion(factura.getDescripcion());
 			facturaDto.setBaseImponible(factura.getBaseImponible());
 			facturaDto.setImpuesto(factura.getImpuesto());
 			facturaDto.setImporteTotal(factura.getImporteTotal());
+			
+			//Rellenamos la lineas
+			Set<LineaFacturaDto> lineasFacturaDto = this.obtieneLineasFacturaDtoDeFactura(factura);
+			facturaDto.getLineasFacturaDto().addAll(lineasFacturaDto);
 			
 		} catch(Exception e) {
 			
@@ -289,19 +293,19 @@ public class FacturaService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarFactura(FacturaDto facturaDto, Usuario user) {
+	public AccionRespuesta getCrearEditarFactura(FacturaDto facturaDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarFactura() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarFactura()" );
 		
 		if( facturaDto.getId() != null && facturaDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion de la Factura con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion de la Factura" );
 			
 			return this.actualizarFacturaDesdeFacturaDto(facturaDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear una Factura con usuario={}", user.getId() );
+			logger.debug("Se va a crear una Factura con usuario={}");
 			
 			return this.crearFacturaDesdeFacturaDto(facturaDto);
 		}
@@ -395,8 +399,7 @@ public class FacturaService {
 				facturaDto.setId(factura.getId());
 				facturaDto.setCodigo(factura.getCodigo());
 				facturaDto.setFechaCreacion(factura.getFechaCreacion());
-				facturaDto.setFechaInicio(factura.getFechaInicio());
-				facturaDto.setFechaFin(factura.getFechaFin());
+				facturaDto.setFechaInicio(factura.getFechaFactura());
 				facturaDto.setDescripcion(factura.getDescripcion());
 				facturaDto.setBaseImponible(factura.getBaseImponible());
 				facturaDto.setImpuesto(factura.getImpuesto());
@@ -407,6 +410,49 @@ public class FacturaService {
 		}
 		
 		return facturasDto;
+	}
+	
+	private Set<LineaFacturaDto> obtieneLineasFacturaDtoDeFactura(Factura factura) {
+		
+		Set<LineaFacturaDto> lineasFacturaDto = new HashSet<LineaFacturaDto>();
+		
+		if( factura != null && CollectionUtils.isNotEmpty(factura.getLineasFactura()) ) {
+		
+			for(LineaFactura lineaFactura : factura.getLineasFactura()) {
+				
+				LineaFacturaDto lineaFacturaDto = new LineaFacturaDto();
+				
+				//Primero: seteamos los objetos simples
+				lineaFacturaDto.setId(lineaFactura.getId());
+				lineaFacturaDto.setCantidad(lineaFactura.getCantidad());
+				lineaFacturaDto.setBaseImponible(lineaFactura.getBaseImponible());
+				lineaFacturaDto.setImporteImpuesto(lineaFactura.getImporteImpuesto());
+				lineaFacturaDto.setImporteTotal(lineaFactura.getImporteTotal());
+				
+				//Segundo: seteamos el contrato
+				lineaFacturaDto.setFacturaId(factura.getId());
+				
+				//Tercero: seteamos el articulo de la linea
+				ArticuloDto articuloDto = new ArticuloDto();
+				
+				if( lineaFactura.getArticulo() != null) {
+					
+					articuloDto.setId(lineaFactura.getArticulo().getId());
+					articuloDto.setCodigo(lineaFactura.getArticulo().getCodigo());
+					articuloDto.setNombre(lineaFactura.getArticulo().getNombre());
+					articuloDto.setBaseImponible(lineaFactura.getArticulo().getBaseImponible());
+					articuloDto.setImpuesto(lineaFactura.getArticulo().getImpuesto());
+					articuloDto.setImporteTotal(lineaFactura.getArticulo().getImporteTotal());
+				}
+				
+				lineaFacturaDto.setArticuloDto(articuloDto);
+				
+				//Ultimo: introducimos la linea en las lineas de contrato
+				lineasFacturaDto.add(lineaFacturaDto);
+			}
+		}
+		
+		return lineasFacturaDto;
 	}
 	
 }

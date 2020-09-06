@@ -61,7 +61,7 @@ import { EmpresaComponent } from './components/cards/empresas/empresa/empresa.co
 import { UsuarioComponent } from './components/cards/usuarios/usuario/usuario.component';
 import { StockComponent } from './components/cards/inventario/stock/stock.component';
 
-import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
+// import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
 // canActiva -> meter en los sitios que se hacen peticiones
 
 const routes: Routes = [
@@ -76,7 +76,6 @@ const routes: Routes = [
   { path: 'clientes/cliente/:id', component: ClienteComponent, data: {cliente: 'cliente'}, canActivate: [AutenticacionService] },
   // RUTAS PLANIFICADOR
   { path: 'planificador/calendario', component: PlanificadorComponent, canActivate: [AutenticacionService] },
-  { path: 'planificador/jqgrid5', component: Jqgrid5Component },
   // RUTAS VENTAS
   { path: 'contratos', component: ListadoContratosComponent, canActivate: [AutenticacionService] },
   { path: 'contratos/nuevo-contrato', component: FormularioContratoComponent, canActivate: [AutenticacionService] },
@@ -131,9 +130,9 @@ const routes: Routes = [
   { path: 'usuarios', component: ListadoUsuariosComponent, canActivate: [AutenticacionService] },
   { path: 'usuarios/nuevo-usuario', component: FormularioUsuarioComponent, canActivate: [AutenticacionService] },
   { path: 'usuarios/editar-usuario/:id', component: FormularioUsuarioComponent, canActivate: [AutenticacionService] },
-  { path: 'usuarios/usuario/:id', component: UsuarioComponent, data: {empleado: 'empleado'}, canActivate: [AutenticacionService] },
+  { path: 'usuarios/usuario/:id', component: UsuarioComponent, data: {usuario: 'usuario'}, canActivate: [AutenticacionService] },
   // RUTAS PERFIL
-  { path: 'perfil', component: UsuarioComponent, canActivate: [AutenticacionService] },
+  { path: 'perfil/:id', component: UsuarioComponent, canActivate: [AutenticacionService] },
   { path: 'salir', component: LogoutComponent, canActivate: [AutenticacionService] },
   // RUTA GENERAL
   { path: '**', redirectTo: 'inicio', pathMatch: 'full'},
@@ -162,3 +161,4 @@ export class AppRoutingModule { }
 // { path: 'almacenes/buscar-almacen', component: FormularioClienteComponent }, // CAMBIAR
 // { path: 'vehiculos/buscar-vehiculo', component: FormularioClienteComponent }, // CAMBIAR
 // { path: 'rrhh/buscar-empleado', component: FormularioClienteComponent }, // CAMBIAR
+// { path: 'planificador/jqgrid5', component: Jqgrid5Component },

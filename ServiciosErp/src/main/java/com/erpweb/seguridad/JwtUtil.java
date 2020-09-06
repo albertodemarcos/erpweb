@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,7 @@ public class JwtUtil {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+    
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
@@ -38,7 +40,9 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();//Se pueden meter parametros para luego obtenerlos del token
+    	//Se pueden meter parametros para luego obtenerlos del token
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("rol", userDetails.getAuthorities().iterator().next().getAuthority());
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -52,5 +56,10 @@ public class JwtUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+    
+    public Boolean validateUsernameToken(String token, String usernameToken) {
+    	final String username = extractUsername(token);
+    	return (StringUtils.isNotBlank(usernameToken) && !isTokenExpired(token) && username.equals(usernameToken));
     }
 }

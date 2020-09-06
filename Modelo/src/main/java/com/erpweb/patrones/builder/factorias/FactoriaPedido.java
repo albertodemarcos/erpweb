@@ -132,25 +132,21 @@ public class FactoriaPedido extends FactoriaEntidad implements IFactoriaPedido {
 	}
 
 	@Override
-	public Factura crearFacturaEntidad(Pedido pedido) {
+	public Factura crearFacturaEntidad(Pedido pedido, Factura facturaPre) {
 
 		logger.trace("Entramos en el metodo crearFacturaEntidad()");
 		
 		try {
 			
-			Factura factura = new Factura();
+			facturaPre.setCodigo(pedido.getCodigo());
+			facturaPre.setFechaCreacion(new Date());
+			facturaPre.setFechaFactura(pedido.getFechaPedido());			
+			facturaPre.setBaseImponible(pedido.getBaseImponibleTotal());
+			facturaPre.setImporteTotal(pedido.getImporteTotal());
+			facturaPre.setDescripcion(null);
+			facturaPre.setImpuesto(pedido.getImpuesto());
 			
-			factura.setId(null);
-			factura.setCodigo(null);
-			factura.setFechaCreacion(new Date());
-			factura.setFechaInicio(pedido.getFechaPedido());
-			factura.setFechaFin(pedido.getFechaPedido());
-			factura.setBaseImponible(pedido.getBaseImponibleTotal());
-			factura.setImporteTotal(pedido.getImporteTotal());
-			factura.setDescripcion(null);
-			factura.setImpuesto(null);
-			
-			Factura facturaSave = facturaRepository.save(factura);
+			Factura facturaSave = facturaRepository.save(facturaPre);
 			
 			return facturaSave;
 			

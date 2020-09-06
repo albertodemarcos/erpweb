@@ -33,9 +33,8 @@ public class Venta implements Serializable {
 	private String codigo;
 	private Factura factura;
 	private Set<LineaVenta> lineasVenta = new HashSet<LineaVenta>(1);
-	private Date fechaCreacion;  														//Cuando se crea la factura
-	private Date fechaInicio;    														//Cuando empieza la factura
-	private Date fechaFin;       														//Cuando finaliza la factura
+	private Date fechaCreacion;  														//Cuando se crea
+	private Date fechaVenta;    														//Fecha que pone el usuario
 	private String descripcion;															//Descripcion del contrato			
 	private BigDecimal baseImponibleTotal;												//Importe total de la venta sin impuestos
 	private TipoImpuesto impuesto;
@@ -86,20 +85,12 @@ public class Venta implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 	}
 	
-	public Date getFechaInicio() {
-		return fechaInicio;
+	public Date getFechaVenta() {
+		return fechaVenta;
 	}
 	
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-	
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-	
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
+	public void setFechaVenta(Date fechaVenta) {
+		this.fechaVenta = fechaVenta;
 	}
 	
 	public String getDescripcion() {

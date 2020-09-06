@@ -174,7 +174,7 @@ public class CompraService {
 	
 	public AccionRespuesta eliminarCompraPorId(Long compraId) {
 		
-		logger.error("Entramos en el metodo eliminarCompraPorId()" );
+		logger.debug("Entramos en el metodo eliminarCompraPorId()" );
 		
 		if( compraId == null) {
 			
@@ -304,19 +304,19 @@ public class CompraService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarCompra(CompraDto compraDto, Usuario user) {
+	public AccionRespuesta getCrearEditarCompra(CompraDto compraDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarCompra() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarCompra()" );
 		
 		if( compraDto.getId() != null && compraDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion de la Compra con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion de la Compra" );
 			
 			return this.actualizarCompraDesdeCompraDto(compraDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear una Compra con usuario={}", user.getId() );
+			logger.debug("Se va a crear una Compra");
 			
 			return this.crearCompraDesdeCompraDto(compraDto);
 		}
@@ -408,8 +408,6 @@ public class CompraService {
 				compraDto.setId(compra.getId());
 				compraDto.setCodigo(compra.getCodigo());
 				compraDto.setFechaCompra(compra.getFechaCompra());
-				//compraDto.setArticulo(compra.getArticulo());
-				//compraDto.setCantidad(compra.getCantidad());
 				compraDto.setBaseImponibleTotal(compra.getBaseImponibleTotal());
 				compraDto.setImpuesto(compra.getImpuesto());
 				compraDto.setImporteTotal(compra.getImporteTotal());

@@ -410,8 +410,6 @@ public class PedidoService {
 				pedidoDto.setId(pedido.getId());
 				pedidoDto.setCodigo(pedido.getCodigo());
 				pedidoDto.setFechaPedido(pedido.getFechaPedido());
-				//pedidoDto.setArticulo(pedido.getArticulo());
-				//pedidoDto.setCantidad(pedido.getCantidad());
 				pedidoDto.setBaseImponibleTotal(pedido.getBaseImponibleTotal());
 				pedidoDto.setImpuesto(pedido.getImpuesto());
 				pedidoDto.setImporteTotal(pedido.getImporteTotal());

@@ -6,7 +6,7 @@ import { AccionRespuesta } from '../../model/utiles/accion-respuesta.model';
 import { Usuario } from 'src/app/model/entitys/usuario.model';
 import { AutenticacionRequest } from 'src/app/model/entitys/autenticacion-request.model';
 
-
+declare var $: any;
 
 @Injectable({
   providedIn: 'root'
@@ -29,19 +29,56 @@ export class UsuarioLoginService {
     return this.httpClient.post<AccionRespuesta>(urlPost, usuario, {headers: this.httpHeaders});
   }
 
+  public mostrarCuentaUsuarioLogin(): void{
+
+    const estaLogado = this.esUsuarioLogado();
+    
+
+    // Usuario logado o no
+    if (estaLogado)
+    {
+      $('#perfilLogado').show();
+      $('#perfilNoLogado').hide();
+    }
+    else
+    {
+      $('#perfilLogado').hide();
+      $('#perfilNoLogado').show();
+    }
+  }
+
+  public mostrarPanelAdministrador(): void{
+    // Usuario administrador
+    if (this.esAdministrador())
+    {
+      $('#cuentaAdministrador').show();
+    }
+    else
+    {
+      $('#cuentaAdministrador').hide();
+    }
+  }
+
   public esUsuarioLogado() {
     const user = sessionStorage.getItem('username');
-    console.log(!(user === null));
+    // console.log(!(user === null));
     return !(user === null);
   }
 
   public esAdministrador(): boolean{
-
+    const rol = sessionStorage.getItem('rol');
+    console.log('Rol admin: ' + !(rol === null));
+    if ( rol !== null && rol === 'ADMIN' )
+    {
+      return true;
+    }
     return false;
   }
 
-  salirApp(): string {
+  public salirApp(): string {
     sessionStorage.removeItem('username');
+    sessionStorage.removeItem('rol');
+    sessionStorage.removeItem('token');
     return '';
   }
 

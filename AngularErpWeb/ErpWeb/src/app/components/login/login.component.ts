@@ -8,6 +8,7 @@ import { AutenticacionRequest } from 'src/app/model/entitys/autenticacion-reques
 import { Usuario } from '../../model/entitys/usuario.model';
 import swal from 'sweetalert2';
 
+import * as jwt_decode from 'jwt-decode';
 
 declare var $: any;
 
@@ -19,7 +20,6 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   public titulo: string;
-  public invalidLogin: boolean;
   public usuario: Usuario;
   private respuesta: any;
   private token: any;
@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
               private encriptadorService: EncriptadorService,
               private router: Router) {
     this.titulo = 'Bienvenido';
-    this.invalidLogin = false;
     this.usuario = new Usuario();
   }
 
@@ -62,37 +61,28 @@ export class LoginComponent implements OnInit {
         // tslint:disable-next-line: no-string-literal
         this.respuesta = accionRespuesta.data['autenticacionResponse'];
 
+        // tslint:disable-next-line: no-string-literal prefer-const
+        let usuarioId = accionRespuesta.data['id'];
+
         // tslint:disable-next-line: no-string-literal
         this.token = this.respuesta['jwt'].split(['.']['1']);
 
-        sessionStorage.setItem('username', this.usuario.username);
+        // tslint:disable-next-line: no-string-literal prefer-const
+        let tokenDecode = jwt_decode(this.respuesta['jwt']);
 
+        sessionStorage.setItem('username', this.usuario.username);
+        sessionStorage.setItem('rol', tokenDecode.rol);
         sessionStorage.setItem('token', this.token);
+        sessionStorage.setItem('userId', usuarioId);
 
         this.router.navigate(['inicio']);
 
-        this.invalidLogin = false;
-
-        // Usuario logado o no
-        if (!this.invalidLogin)
-        {
-          console.log('Mostramos el navbar');
-          $('#perfilLogado').show();
-          $('#perfilNoLogado').hide();
-        }
-        else
-        {
-          console.log('Ocultamos el navbar');
-          $('#perfilLogado').hide();
-          $('#perfilNoLogado').show();
-        }
+        this.usuarioLoginService.mostrarCuentaUsuarioLogin();
+        this.usuarioLoginService.mostrarPanelAdministrador();
 
       }, (errores) => {
 
-        this.invalidLogin = true;
-
         swal('Error', 'Usuario no esta registrado. Comprueba si el nombre de usuario y contraseña son correctos', 'error');
-
       }
     );
 

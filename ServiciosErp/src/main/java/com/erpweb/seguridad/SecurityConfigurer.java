@@ -30,9 +30,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// TODO Auto-generated method stub
-		//super.configure(auth);
-		
 		auth.userDetailsService(usuarioDetailsService);
 	}
 	
@@ -41,7 +38,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    CorsConfiguration config = new CorsConfiguration();
-	    config.setAllowCredentials(false); //updated to false
+	    config.setAllowCredentials(false);
 	    config.addAllowedOrigin("*");
 	    config.addAllowedHeader("*");
 	    config.addAllowedMethod("GET");
@@ -53,8 +50,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		//super.configure(http);
+		
+		http.formLogin().disable();
 		
 		http.csrf().disable()
 			.authorizeRequests()
@@ -70,14 +67,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		// TODO Auto-generated method stub
 		return super.authenticationManagerBean();
 	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance(); //Anterior
-//		return new BCryptPasswordEncoder();
+		return NoOpPasswordEncoder.getInstance();
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.erpweb.patrones.builder.factorias;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,10 +44,8 @@ public class FactoriaFactura extends FactoriaEntidad implements IFactoriaFactura
 			
 			factura.setCodigo(facturaDto.getCodigo());
 			
-			factura.setFechaCreacion(facturaDto.getFechaCreacion());
-			factura.setFechaInicio(facturaDto.getFechaInicio());
-			factura.setFechaFin(facturaDto.getFechaFin());
-			
+			factura.setFechaCreacion(new Date());
+			factura.setFechaFactura(facturaDto.getFechaInicio());			
 			factura.setBaseImponible(facturaDto.getBaseImponible());
 			factura.setImpuesto(facturaDto.getImpuesto());
 			factura.setImporteTotal(facturaDto.getImporteTotal());

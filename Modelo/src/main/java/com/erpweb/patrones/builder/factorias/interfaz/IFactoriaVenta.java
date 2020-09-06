@@ -21,7 +21,7 @@ public interface IFactoriaVenta {
 	/**
 	 * Generamos las facturas de la entidad principal
 	 * */
-	public Factura crearFacturaEntidad(Venta Venta);
+	public Factura crearFacturaEntidad(Venta Venta, Factura facturaPre);
 	
 	/**
 	 *	Generamos las lineas factura de la entidad principal 
