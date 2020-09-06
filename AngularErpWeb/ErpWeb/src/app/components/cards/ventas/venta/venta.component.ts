@@ -4,6 +4,8 @@ import { VentaService } from 'src/app/services/ventas/venta.service';
 import { Venta } from 'src/app/model/entitys/venta.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+import { Articulo } from 'src/app/model/entitys/articulo.model';
+import { LineaVenta } from 'src/app/model/entitys/linea-venta.model';
 
 
 @Component({
@@ -16,13 +18,18 @@ export class VentaComponent implements OnInit {
   public venta: Venta;
   private ventaDto: any;
   private ventaId: number;
+  public tiposImpuesto: string[];
+  public mapaIva: Map<string, string>;
   private respuestaGetVenta: AccionRespuesta;
 
   constructor(private ventaService: VentaService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.ventaId = 0;
     this.venta = new Venta();
-
+    this.venta.lineaVenta = new Array<LineaVenta>();
+    this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -31,7 +38,7 @@ export class VentaComponent implements OnInit {
     } );
   }
 
-  getVenta(): void{
+  public getVenta(): void{
 
     this.ventaService.getVenta(this.ventaId).toPromise().then( (ventaDto) => {
       try
@@ -59,8 +66,7 @@ export class VentaComponent implements OnInit {
     );
   }
 
-
-  obtenerVentaDesdeVentaDto(ventaDto: any): void{
+  private obtenerVentaDesdeVentaDto(ventaDto: any): void{
 
     if ( ventaDto != null)
     {
@@ -73,15 +79,46 @@ export class VentaComponent implements OnInit {
       this.venta.baseImponibleTotal = ventaDto.baseImponibleTotal;
       this.venta.impuesto = ventaDto.impuesto;
       this.venta.importeTotal = ventaDto.importeTotal;
+      // Lineas de venta
+      this.rellenarLineasVenta(ventaDto.lineasVentaDto);
     }
   }
 
-  editarVenta(ventaId: number): void{
+  private rellenarLineasVenta(lineasCompraDto: any) {
+
+    if (lineasCompraDto != null)
+    {
+      // tslint:disable-next-line: prefer-const
+      for (let lineaDto of lineasCompraDto )
+      {
+        // tslint:disable-next-line: prefer-const
+        let lineaVenta = new LineaVenta();
+        // Linea de compra
+        lineaVenta.id = lineaDto.id;
+        lineaVenta.compraId = lineaDto.compraId;
+        lineaVenta.baseImponible = lineaDto.baseImponible;
+        lineaVenta.importeTotal = lineaDto.importeTotal;
+        lineaVenta.cantidad = lineaDto.cantidad;
+        // Articulo
+        lineaVenta.articuloDto = new Articulo();
+        lineaVenta.articuloDto.id = lineaDto.articuloDto.id;
+        lineaVenta.articuloDto.codigo = lineaDto.articuloDto.codigo;
+        lineaVenta.articuloDto.nombre = lineaDto.articuloDto.nombre;
+        lineaVenta.articuloDto.baseImponible = lineaDto.articuloDto.baseImponible;
+        lineaVenta.articuloDto.impuesto = lineaDto.articuloDto.impuesto;
+        lineaVenta.articuloDto.importeTotal = lineaDto.articuloDto.importeTotal;
+        // Añadir la linea de compra
+        this.venta.lineaVenta.push(lineaVenta);
+      }
+    }
+  }
+
+  public editarVenta(ventaId: number): void{
     console.log('Venta CON ID: ' + ventaId);
     this.router.navigate(['ventas', 'editar-venta', ventaId]);
   }
 
-  borrarVenta(ventaId: number): void{
+  public borrarVenta(ventaId: number): void{
 
     console.log('Venta CON ID: ' + ventaId);
 
@@ -119,8 +156,15 @@ export class VentaComponent implements OnInit {
         swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
       } );
     } );
-
   }
+
+  private rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
+  }
+
+
 
   ngOnInit(): void {
   }

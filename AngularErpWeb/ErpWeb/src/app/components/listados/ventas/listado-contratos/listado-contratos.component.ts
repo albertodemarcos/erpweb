@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { ContratoService } from 'src/app/services/ventas/contrato.service';
 import { Contrato } from 'src/app/model/entitys/contrato.model';
 
@@ -35,8 +36,18 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
         }
       },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaInicio', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaFin', index: '', width: '', search: true, sortable: true },
+      { name: 'fechaInicio', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (fechaInicio: any) => {
+          const datePipe: DatePipe = new DatePipe('es-ES');
+          return datePipe.transform(fechaInicio, 'dd/MM/yyyy');
+        }
+      },
+      { name: 'fechaFin', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (fechaFin: any) => {
+          const datePipe: DatePipe = new DatePipe('es-ES');
+          return datePipe.transform(fechaFin, 'dd/MM/yyyy');
+        }
+      },
       { name: 'baseImponibleTotal', index: '', width: '', search: true, sortable: true },
       { name: 'importeTotal', index: '', width: '', search: true, sortable: true }
     ];

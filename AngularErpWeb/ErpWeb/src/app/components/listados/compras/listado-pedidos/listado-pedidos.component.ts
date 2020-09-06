@@ -1,5 +1,6 @@
 import { Component, OnInit , AfterViewInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { PedidoService } from 'src/app/services/compras/pedido.service';
 import { Pedido } from 'src/app/model/entitys/pedido.model';
 
@@ -25,7 +26,7 @@ export class ListadoPedidosComponent implements OnInit, AfterViewInit {
     this.tituloListado = 'Listado de pedidos';
     this.jqGridId = 'pedidos-grid';
     this.jqGridPagerId = 'pedidos-pager';
-    this.jqGridColNames = ['ID', 'Ver', 'Código', 'Fecha Pedido', 'Artículo', 'Cantidad', 'Base Impl.', 'Impuesto', 'Importe total'];
+    this.jqGridColNames = ['ID', 'Ver', 'Código', 'Fecha Pedido', 'Base Impl.', 'Importe total'];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
       { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
@@ -34,13 +35,25 @@ export class ListadoPedidosComponent implements OnInit, AfterViewInit {
           '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
         }
       },
-      { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaPedido', index: '', width: '', search: true, sortable: true },
-      { name: 'articulo', index: '', width: '', search: true, sortable: true },
-      { name: 'cantidad', index: '', width: '', search: true, sortable: true },
-      { name: 'baseImponibleTotal', index: '', width: '', search: true, sortable: true },
-      { name: 'impuesto', index: '', width: '', search: true, sortable: true},
-      { name: 'importeTotal', index: '', width: '', search: true, sortable: true}
+      { name: 'codigo', index: '', width: '', align: 'center', search: true, sortable: true },
+      { name: 'fechaPedido', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (fechaPedido: any) => {
+          const datePipe: DatePipe = new DatePipe('es-ES');
+          return datePipe.transform(fechaPedido, 'dd/MM/yyyy');
+        }
+      },
+      { name: 'baseImponibleTotal', index: '', width: '', align: 'right', search: true, sortable: true, formatter:
+        (baseImponibleTotal: any) =>
+        {
+          return baseImponibleTotal + ' €';
+        }
+      },
+      { name: 'importeTotal', index: '', width: '', align: 'right', search: true, sortable: true, formatter:
+        (importeTotal: any) =>
+        {
+          return importeTotal + ' €';
+        }
+      }
     ];
     this.jqGridData = new Array<Pedido>();
   }

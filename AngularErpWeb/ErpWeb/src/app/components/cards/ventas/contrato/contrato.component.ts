@@ -4,6 +4,8 @@ import { ContratoService } from 'src/app/services/ventas/contrato.service';
 import { Contrato } from 'src/app/model/entitys/contrato.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+import { LineaContrato } from '../../../../model/entitys/linea-contrato.model';
+import { Articulo } from 'src/app/model/entitys/articulo.model';
 
 
 @Component({
@@ -16,13 +18,18 @@ export class ContratoComponent implements OnInit {
   public contrato: Contrato;
   private contratoDto: any;
   private contratoId: number;
+  public tiposImpuesto: string[];
+  public mapaIva: Map<string, string>;
   private respuestaGetContrato: AccionRespuesta;
 
   constructor(private contratoService: ContratoService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.contratoId = 0;
     this.contrato = new Contrato();
-
+    this.contrato.lineaContrato = new Array<LineaContrato>();
+    this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -31,7 +38,7 @@ export class ContratoComponent implements OnInit {
     } );
   }
 
-  getContrato(): void{
+  public getContrato(): void{
 
     this.contratoService.getContrato(this.contratoId).toPromise().then( (contratoDto) => {
       try
@@ -59,7 +66,7 @@ export class ContratoComponent implements OnInit {
     );
   }
 
-  obtenerContratoDesdeContratoDto(contratoDto: any): void{
+  private obtenerContratoDesdeContratoDto(contratoDto: any): void{
 
     if ( contratoDto != null)
     {
@@ -72,15 +79,46 @@ export class ContratoComponent implements OnInit {
       this.contrato.baseImponibleTotal = contratoDto.baseImponibleTotal;
       this.contrato.impuesto = contratoDto.impuesto;
       this.contrato.importeTotal = contratoDto.importeTotal;
+      // Lineas de contrato
+      this.rellenarLineasContrato(contratoDto.lineasContratoDto);
     }
   }
 
-  editarContrato(contratoId: number): void{
+  private rellenarLineasContrato(LineaContratoDto: any) {
+
+    if (LineaContratoDto != null)
+    {
+      // tslint:disable-next-line: prefer-const
+      for (let lineaDto of LineaContratoDto )
+      {
+        // tslint:disable-next-line: prefer-const
+        let lineaContrato = new LineaContrato();
+        // Linea de compra
+        lineaContrato.id = lineaDto.id;
+        lineaContrato.compraId = lineaDto.compraId;
+        lineaContrato.baseImponible = lineaDto.baseImponible;
+        lineaContrato.importeTotal = lineaDto.importeTotal;
+        lineaContrato.cantidad = lineaDto.cantidad;
+        // Articulo
+        lineaContrato.articuloDto = new Articulo();
+        lineaContrato.articuloDto.id = lineaDto.articuloDto.id;
+        lineaContrato.articuloDto.codigo = lineaDto.articuloDto.codigo;
+        lineaContrato.articuloDto.nombre = lineaDto.articuloDto.nombre;
+        lineaContrato.articuloDto.baseImponible = lineaDto.articuloDto.baseImponible;
+        lineaContrato.articuloDto.impuesto = lineaDto.articuloDto.impuesto;
+        lineaContrato.articuloDto.importeTotal = lineaDto.articuloDto.importeTotal;
+        // Añadir la linea de compra
+        this.contrato.lineaContrato.push(lineaContrato);
+      }
+    }
+  }
+
+  public editarContrato(contratoId: number): void{
     console.log('Contrato CON ID: ' + contratoId);
     this.router.navigate(['contratos', 'editar-contrato', contratoId]);
   }
 
-  borrarContrato(contratoId: number): void{
+  public borrarContrato(contratoId: number): void{
 
     console.log('Contrato CON ID: ' + contratoId);
 
@@ -104,7 +142,7 @@ export class ContratoComponent implements OnInit {
         // Si se ha eliminado correctamente
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Contrato');
-        swal('Contrato eliminado', 'Se ha eliminado el Contrato correctamente', 'success').then(() =>{
+        swal('Contrato eliminado', 'Se ha eliminado el Contrato correctamente', 'success').then(() => {
           this.router.navigate( ['contratos'] );
         });
 
@@ -119,6 +157,12 @@ export class ContratoComponent implements OnInit {
       } );
     } );
 
+  }
+
+  private rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   ngOnInit(): void {

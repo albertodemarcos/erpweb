@@ -13,9 +13,9 @@
                 <dd>{{contrato.codigo}}</dd>
             </dl>
             <!-- FECHA INICIO -->
-            <dl class="col-3" *ngIf="contrato.fechaFin">
-                <dt>Fecha fín</dt>
-                <dd>{{contrato.fechaFin | date}}</dd>
+            <dl class="col-3" *ngIf="contrato.fechaInicio">
+                <dt>Fecha incio</dt>
+                <dd>{{contrato.fechaInicio | date}}</dd>
             </dl>
             <!-- FECHA FIN -->
             <dl class="col-3" *ngIf="contrato.fechaFin">
@@ -30,24 +30,51 @@
         </div>
 
         <!-- Fila 2-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Artículos</h6>
+        <div class="form-group row text-left">
+            <div class="col-12 table-responsive">
+                <table id="tablaArticulos" class="table table-striped table-bordered">
+                    <thead class="bg-blue">
+                        <tr>
+                            <th class="ocultar">Id</th>
+                            <th>Codigo</th>
+                            <th>Artículo</th>
+                            <th>Precio</th>
+                            <th>Impuesto</th>
+                            <th>Importe (Con Imp.)</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="contrato != null && contrato.lineaContrato != null">
+                        <tr scope="row" id="linea_art_id_{{linea.id}}" *ngFor="let linea of contrato.lineaContrato; let i = index">
+                            <td>{{linea.articuloDto.codigo}}</td>
+                            <td>{{linea.articuloDto.nombre}}</td>
+                            <td>{{linea.articuloDto.baseImponible | currency:'EUR':true }}</td>
+                            <td>{{this.mapaIva.get(linea.articuloDto.impuesto)}}</td>
+                            <td>{{linea.articuloDto.importeTotal | currency:'EUR':true}}</td>
+                            <td>{{linea.cantidad}}</td>
+                            <td>{{linea.importeTotal | currency:'EUR':true}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Fila 3-->
         <div class="form-group row text-left">
             <!-- BASE IMPONIBLE -->
-            <dl class="col" *ngIf="contrato.baseImponibleTotal">
+            <dl class="col-3" *ngIf="contrato.baseImponibleTotal">
                 <dt>Base imponible</dt>
-                <dd>{{contrato.baseImponibleTotal}}</dd>
-            </dl>
-            <!-- IMPUESTO-->
-            <dl class="col" *ngIf="contrato.impuesto">
-                <dt>Impuesto</dt>
-                <dd>{{contrato.impuesto}}</dd>
+                <dd>{{contrato.baseImponibleTotal | currency:'EUR':true}}</dd>
             </dl>
             <!-- IMPORTE TOTAL -->
-            <dl class="col" *ngIf="contrato.importeTotal">
+            <dl class="col-3" *ngIf="contrato.importeTotal">
                 <dt>Importe total</dt>
-                <dd>{{contrato.importeTotal}}</dd>
+                <dd>{{contrato.importeTotal | currency:'EUR':true}}</dd>
             </dl>
             <!-- DESCRIPCION -->
-            <dl class="col" *ngIf="contrato.descripcion">
+            <dl class="col-6" *ngIf="contrato.descripcion">
                 <dt>Descripción</dt>
                 <dd>{{contrato.descripcion}}</dd>
             </dl>

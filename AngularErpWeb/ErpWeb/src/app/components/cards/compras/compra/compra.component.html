@@ -17,35 +17,52 @@
                 <dt>Fecha compra</dt>
                 <dd>{{compra.fechaCompra | date: 'd/MM/yyyy'}}</dd>
             </dl>
-            <!-- ARTICULO -->
-            <dl class="col-3" *ngIf="compra.articulo">
-                <dt>Artículo</dt>
-                <dd>{{compra.articulo}}</dd>
-            </dl>
-            <!-- CANTIDAD -->
-            <dl class="col-9" *ngIf="compra.cantidad">
-                <dt>Cantidad</dt>
-                <dd>{{compra.cantidad}}</dd>
-            </dl>
         </div>
 
         <!-- Fila 2-->
+        <h6 class="card-subtitle mb-2 text-muted text-left">Artículos</h6>
+        <div class="form-group row text-left">
+            <div class="col-12 table-responsive">
+                <table id="tablaArticulos" class="table table-striped table-bordered">
+                    <thead class="bg-blue">
+                        <tr>
+                            <th class="ocultar">Id</th>
+                            <th>Codigo</th>
+                            <th>Artículo</th>
+                            <th>Precio</th>
+                            <th>Impuesto</th>
+                            <th>Importe (Con Imp.)</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="compra != null && compra.lineaCompra != null">
+                        <tr scope="row" id="linea_art_id_{{linea.id}}" *ngFor="let linea of compra.lineaCompra; let i = index">
+                            <td>{{linea.articuloDto.codigo}}</td>
+                            <td>{{linea.articuloDto.nombre}}</td>
+                            <td>{{linea.articuloDto.baseImponible | currency:'EUR':true }}</td>
+                            <td>{{this.mapaIva.get(linea.articuloDto.impuesto)}}</td>
+                            <td>{{linea.articuloDto.importeTotal | currency:'EUR':true}}</td>
+                            <td>{{linea.cantidad}}</td>
+                            <td>{{linea.importeTotal | currency:'EUR':true}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Fila 3-->
         <h6 class="card-subtitle mb-2 text-muted text-left">Costes</h6>
         <div class="form-group row text-left">
             <!-- BASE IMPONIBLE -->
             <dl class="col-3" *ngIf="compra.baseImponibleTotal">
                 <dt>Base imponible</dt>
-                <dd>{{compra.baseImponibleTotal}}</dd>
-            </dl>
-            <!-- IMPUESTO -->
-            <dl class="col-3" *ngIf="compra.impuesto">
-                <dt>Impuesto</dt>
-                <dd>{{compra.impuesto}}</dd>
+                <dd>{{compra.baseImponibleTotal | currency:'EUR':true}}</dd>
             </dl>
             <!-- IMPORTE TOTAL -->
-            <dl class="col-6" *ngIf="compra.importeTotal">
+            <dl class="col-9" *ngIf="compra.importeTotal">
                 <dt>Importe total</dt>
-                <dd>{{compra.importeTotal}}</dd>
+                <dd>{{compra.importeTotal | currency:'EUR':true}}</dd>
             </dl>
         </div>
 

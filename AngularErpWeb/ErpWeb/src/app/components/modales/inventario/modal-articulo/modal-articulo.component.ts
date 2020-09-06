@@ -124,6 +124,7 @@ export class ModalArticuloComponent implements OnInit {
       // Comprobamos que no se ha añadido el articulo previamente
       if (!this.existeArticuloEnTabla(this.articuloInfo.id))
       {
+        console.log('Entramos a añadir articulo');
         // Introducimos datos
         this.rellenarFilaTabla(this.idTabla);
         // Limpiamos datos almacen

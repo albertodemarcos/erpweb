@@ -13,6 +13,7 @@ export class PedidoService {
   private urlGeneral: string;
   private httpHeaders: HttpHeaders;
   private urlCrearPedido: string;
+  private urlCrearCompraDePedido: string;
   private urlListadoPedidos: string;
   private urlGetPedido: string;
   private urlEditarPedido: string;
@@ -21,6 +22,7 @@ export class PedidoService {
   constructor(private httpClient: HttpClient) {
     this.urlGeneral = 'http://localhost:8080';
     this.urlCrearPedido = '/pedidos/crearPedido';
+    this.urlCrearCompraDePedido = '/pedidos/convertirCompraPedido/';
     this.urlListadoPedidos = '/pedidos/listado.json';
     this.urlGetPedido = '/pedidos/pedido/';
     this.urlEditarPedido = '/pedidos/editarPedido/';
@@ -49,6 +51,12 @@ export class PedidoService {
     console.log('METODO crear');
     const urlPost = this.urlGeneral + this.urlCrearPedido;
     return this.httpClient.post<AccionRespuesta>(urlPost, pedido, {headers: this.httpHeaders});
+  }
+
+  public crearCompraDePedido(pedidoId: number): Observable<AccionRespuesta> {
+    console.log('METODO convetir');
+    const urlGet = this.urlGeneral + this.urlCrearCompraDePedido + pedidoId;
+    return this.httpClient.get<AccionRespuesta>(urlGet, {headers: this.httpHeaders});
   }
 
   public actualizarPedido(pedido: Pedido): Observable<AccionRespuesta>{

@@ -30,24 +30,58 @@
         </div>
 
         <!-- Fila 2-->
+        <h6 class="card-subtitle mb-2 text-muted text-left" *ngIf="factura != null && factura.lineaFactura != null && factura.lineaFactura.length > 0">
+            Artículos
+        </h6>
+        <div class="form-group row text-left" *ngIf="factura != null && factura.lineaFactura != null && factura.lineaFactura.length > 0">
+            <div class="col-12 table-responsive">
+                <table id="tablaArticulos" class="table table-striped table-bordered">
+                    <thead class="bg-blue">
+                        <tr>
+                            <th class="ocultar">Id</th>
+                            <th>Codigo</th>
+                            <th>Artículo</th>
+                            <th>Precio</th>
+                            <th>Impuesto</th>
+                            <th>Importe (Con Imp.)</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="factura != null && factura.lineaFactura != null">
+                        <tr scope="row" id="linea_art_id_{{linea.id}}" *ngFor="let linea of factura.lineaFactura; let i = index">
+                            <td>{{linea.articuloDto.codigo}}</td>
+                            <td>{{linea.articuloDto.nombre}}</td>
+                            <td>{{linea.articuloDto.baseImponible | currency:'EUR':true }}</td>
+                            <td>{{this.mapaIva.get(linea.articuloDto.impuesto)}}</td>
+                            <td>{{linea.articuloDto.importeTotal | currency:'EUR':true}}</td>
+                            <td>{{linea.cantidad}}</td>
+                            <td>{{linea.importeTotal | currency:'EUR':true}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Fila 3-->
         <div class="form-group row text-left">
             <!-- BASE IMPONIBLE -->
-            <dl class="col" *ngIf="factura.baseImponible">
+            <dl class="col-3" *ngIf="factura.baseImponible">
                 <dt>Base imponible</dt>
-                <dd>{{factura.baseImponible}}</dd>
+                <dd>{{factura.baseImponible | currency:'EUR':true}}</dd>
             </dl>
             <!-- IMPUESTO-->
-            <dl class="col" *ngIf="factura.impuesto">
+            <dl class="col-3" *ngIf="factura.impuesto">
                 <dt>Impuesto</dt>
                 <dd>{{factura.impuesto}}</dd>
             </dl>
             <!-- IMPORTE TOTAL -->
-            <dl class="col" *ngIf="factura.importeTotal">
+            <dl class="col-3" *ngIf="factura.importeTotal">
                 <dt>Importe total</dt>
-                <dd>{{factura.importeTotal}}</dd>
+                <dd>{{factura.importeTotal | currency:'EUR':true}}</dd>
             </dl>
             <!-- DESCRIPCION -->
-            <dl class="col" *ngIf="factura.descripcion">
+            <dl class="col-3" *ngIf="factura.descripcion">
                 <dt>Descripción</dt>
                 <dd>{{factura.descripcion}}</dd>
             </dl>

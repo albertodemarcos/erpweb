@@ -71,7 +71,7 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    /// jQuery('#fechaCompraInp').datepicker();
   }
 
   // Metodos del formulario

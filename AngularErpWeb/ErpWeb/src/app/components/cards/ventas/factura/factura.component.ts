@@ -4,6 +4,8 @@ import { FacturaService } from 'src/app/services/ventas/factura.service';
 import { Factura } from 'src/app/model/entitys/factura.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+import { LineaFactura } from '../../../../model/entitys/linea-factura.model';
+import { Articulo } from 'src/app/model/entitys/articulo.model';
 
 
 @Component({
@@ -16,13 +18,22 @@ export class FacturaComponent implements OnInit {
   public factura: Factura;
   private facturaDto: any;
   private facturaId: number;
+  public tiposImpuesto: string[];
+  public mapaIva: Map<string, string>;
   private respuestaGetFactura: AccionRespuesta;
 
-  constructor(private facturaService: FacturaService, private router: Router, private activateRouter: ActivatedRoute) {
+  constructor(
+    private facturaService: FacturaService,
+    private router: Router,
+    private activateRouter: ActivatedRoute
+    ) {
 
     this.facturaId = 0;
     this.factura = new Factura();
-
+    this.factura.lineaFactura = new Array<LineaFactura>();
+    this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -31,7 +42,7 @@ export class FacturaComponent implements OnInit {
     } );
   }
 
-  getFactura(): void{
+  public getFactura(): void{
 
     this.facturaService.getFactura(this.facturaId).toPromise().then( (facturaDto) => {
       try
@@ -59,7 +70,7 @@ export class FacturaComponent implements OnInit {
     );
   }
 
-  obtenerFacturaDesdeFacturaDto(facturaDto: any): void{
+  private obtenerFacturaDesdeFacturaDto(facturaDto: any): void{
 
     if ( facturaDto != null)
     {
@@ -72,15 +83,46 @@ export class FacturaComponent implements OnInit {
       this.factura.baseImponible = facturaDto.baseImponible;
       this.factura.impuesto = facturaDto.impuesto;
       this.factura.importeTotal = facturaDto.importeTotal;
+      // Lineas de factura
+      this.rellenarLineasCompra(facturaDto.lineasFacturaDto);
     }
   }
 
-  editarFactura(facturaId: number): void{
+  private rellenarLineasCompra(lineasFacturaDto: any) {
+
+    if (lineasFacturaDto != null)
+    {
+      // tslint:disable-next-line: prefer-const
+      for (let lineaDto of lineasFacturaDto )
+      {
+        // tslint:disable-next-line: prefer-const
+        let lineaFactura = new LineaFactura();
+        // Linea de compra
+        lineaFactura.id = lineaDto.id;
+        lineaFactura.compraId = lineaDto.compraId;
+        lineaFactura.baseImponible = lineaDto.baseImponible;
+        lineaFactura.importeTotal = lineaDto.importeTotal;
+        lineaFactura.cantidad = lineaDto.cantidad;
+        // Articulo
+        lineaFactura.articuloDto = new Articulo();
+        lineaFactura.articuloDto.id = lineaDto.articuloDto.id;
+        lineaFactura.articuloDto.codigo = lineaDto.articuloDto.codigo;
+        lineaFactura.articuloDto.nombre = lineaDto.articuloDto.nombre;
+        lineaFactura.articuloDto.baseImponible = lineaDto.articuloDto.baseImponible;
+        lineaFactura.articuloDto.impuesto = lineaDto.articuloDto.impuesto;
+        lineaFactura.articuloDto.importeTotal = lineaDto.articuloDto.importeTotal;
+        // Añadir la linea de compra
+        this.factura.lineaFactura.push(lineaFactura);
+      }
+    }
+  }
+
+  public editarFactura(facturaId: number): void{
     console.log('Factura CON ID: ' + facturaId);
     this.router.navigate(['facturas', 'editar-factura', facturaId]);
   }
 
-  borrarFactura(facturaId: number): void{
+  public borrarFactura(facturaId: number): void{
 
     console.log('Factura CON ID: ' + facturaId);
 
@@ -118,7 +160,12 @@ export class FacturaComponent implements OnInit {
         swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
       } );
     } );
+  }
 
+  private rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   ngOnInit(): void {

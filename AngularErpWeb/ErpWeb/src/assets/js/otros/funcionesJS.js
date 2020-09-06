@@ -7,3 +7,10 @@ function destruirLineaArticulo(id) {
         alert('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
     }
 }
+
+function formatearFecha(cellvalue, options, rowObject) {
+
+
+
+
+}

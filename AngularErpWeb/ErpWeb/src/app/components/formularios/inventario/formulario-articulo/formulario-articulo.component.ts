@@ -167,6 +167,35 @@ export class FormularioArticuloComponent implements OnInit {
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
+  public calcularImporteTotal(): void{
+    // calculamos el importe total en base a los impuestos
+    if (this.articulo.baseImponible != null && this.comprobarImpuesto() )
+    {
+      switch (this.articulo.impuesto){
+
+        case 'IVA_GENERAL':
+          this.articulo.importeTotal = parseFloat((this.articulo.baseImponible * 1.21).toFixed(3));
+          break;
+
+        case 'IVA_REDUCIDO':
+          this.articulo.importeTotal = parseFloat((this.articulo.baseImponible * 1.1).toFixed(3));
+          break;
+
+        case 'IVA_SUPER_REDUCIDO':
+          this.articulo.importeTotal = parseFloat((this.articulo.baseImponible * 1.04).toFixed(3));
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
+  private comprobarImpuesto(): boolean{
+    // Si el impuesto no esta vacio ni nulo
+    return (this.articulo.impuesto != null && this.articulo.impuesto !== 'undefined' && this.articulo.impuesto.trim() !== '');
+  }
+
   public rellenarSelectorAlmacenes(): void{
     console.log('Entramos');
     // Realizamos la llamada al servidor para traer los almacenes y llevarlos al formulario

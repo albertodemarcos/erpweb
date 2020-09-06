@@ -2,8 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CompraService } from 'src/app/services/compras/compra.service';
 import { Compra } from 'src/app/model/entitys/compra.model';
+import { LineaCompra } from 'src/app/model/entitys/linea-compra.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
+import { Articulo } from 'src/app/model/entitys/articulo.model';
+
 
 @Component({
   selector: 'app-compra',
@@ -15,13 +18,18 @@ export class CompraComponent implements OnInit {
   public compra: Compra;
   private compraDto: any;
   private compraId: number;
+  public tiposImpuesto: string[];
+  public mapaIva: Map<string, string>;
   private respuestaGetCompra: AccionRespuesta;
 
   constructor(private compraService: CompraService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.compraId = 0;
     this.compra = new Compra();
-
+    this.compra.lineaCompra = new Array<LineaCompra>();
+    this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+    this.mapaIva = new Map<string, string>();
+    this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -41,11 +49,11 @@ export class CompraComponent implements OnInit {
 
         if ( this.respuestaGetCompra.resultado )
         {
-        console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetCompra.data) );
-        console.log('ES: ' + typeof(this.respuestaGetCompra.data));
-        // tslint:disable-next-line: no-string-literal
-        this.compraDto = this.respuestaGetCompra.data['compraDto'];
-        this.obtenerCompraDesdeCompraDto(this.compraDto);
+          console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetCompra.data) );
+          console.log('ES: ' + typeof(this.respuestaGetCompra.data));
+          // tslint:disable-next-line: no-string-literal
+          this.compraDto = this.respuestaGetCompra.data['compraDto'];
+          this.obtenerCompraDesdeCompraDto(this.compraDto);
         }
 
       }catch (errores){
@@ -58,27 +66,55 @@ export class CompraComponent implements OnInit {
     );
   }
 
-  obtenerCompraDesdeCompraDto(compraDto: any): void{
+  private obtenerCompraDesdeCompraDto(compraDto: any): void{
 
     if ( compraDto != null)
     {
       this.compra.id = compraDto.id;
       this.compra.codigo = compraDto.codigo;
       this.compra.fechaCompra = compraDto.fechaCompra;
-      this.compra.articulo = compraDto.articulo;
-      this.compra.cantidad = compraDto.cantidad;
       this.compra.baseImponibleTotal = compraDto.baseImponibleTotal;
-      this.compra.impuesto = compraDto.impuesto;
       this.compra.importeTotal = compraDto.importeTotal;
+      // Lineas de compra
+      this.rellenarLineasCompra(compraDto.lineasCompraDto);
     }
   }
 
-  editarCompra(compraId: number): void{
+  private rellenarLineasCompra(lineasCompraDto: any) {
+
+    if (lineasCompraDto != null)
+    {
+      // tslint:disable-next-line: prefer-const
+      for (let lineaDto of lineasCompraDto )
+      {
+        // tslint:disable-next-line: prefer-const
+        let lineaCompra = new LineaCompra();
+        // Linea de compra
+        lineaCompra.id = lineaDto.id;
+        lineaCompra.compraId = lineaDto.compraId;
+        lineaCompra.baseImponible = lineaDto.baseImponible;
+        lineaCompra.importeTotal = lineaDto.importeTotal;
+        lineaCompra.cantidad = lineaDto.cantidad;
+        // Articulo
+        lineaCompra.articuloDto = new Articulo();
+        lineaCompra.articuloDto.id = lineaDto.articuloDto.id;
+        lineaCompra.articuloDto.codigo = lineaDto.articuloDto.codigo;
+        lineaCompra.articuloDto.nombre = lineaDto.articuloDto.nombre;
+        lineaCompra.articuloDto.baseImponible = lineaDto.articuloDto.baseImponible;
+        lineaCompra.articuloDto.impuesto = lineaDto.articuloDto.impuesto;
+        lineaCompra.articuloDto.importeTotal = lineaDto.articuloDto.importeTotal;
+        // Añadir la linea de compra
+        this.compra.lineaCompra.push(lineaCompra);
+      }
+    }
+  }
+
+  public editarCompra(compraId: number): void{
     console.log('Compra CON ID: ' + compraId);
     this.router.navigate(['compras', 'editar-compra', compraId]);
   }
 
-  borrarCompra(compraId: number): void{
+  public borrarCompra(compraId: number): void{
 
     console.log('Compra CON ID: ' + compraId);
 
@@ -117,6 +153,12 @@ export class CompraComponent implements OnInit {
       } );
     } );
 
+  }
+
+  private rellenaMapaIva(): void{
+    this.mapaIva.set('IVA_GENERAL', 'GENERAL (21%)');
+    this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO (10%)');
+    this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO (4%)');
   }
 
   ngOnInit(): void {

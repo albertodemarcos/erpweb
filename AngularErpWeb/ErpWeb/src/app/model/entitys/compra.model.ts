@@ -10,8 +10,8 @@ export class Compra {
     articulosCantidad: {};
     almacenId: number; // almacen de la compra
     lineaCompra: Array<LineaCompra>; // ¿¿??
-    articulo: string; // NO se utiliza
-    cantidad: number; // NO se utiliza
+    // articulo: string; // NO se utiliza
+    // cantidad: number; // NO se utiliza
     baseImponibleTotal: number; // NO se utiliza
     impuesto: string; // NO se utiliza
     importeTotal: number; // NO se utiliza

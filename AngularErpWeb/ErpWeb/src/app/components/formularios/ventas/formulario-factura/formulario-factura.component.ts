@@ -80,7 +80,7 @@ export class FormularioFacturaComponent implements OnInit {
 
   }
 
-  getEditarFactura() {
+  public getEditarFactura() {
 
     this.facturaService.getFactura(this.facturaId).toPromise().then( (accionRespuesta) => {
         try
@@ -114,9 +114,9 @@ export class FormularioFacturaComponent implements OnInit {
     {
       this.factura.id = facturaDto.id;
       this.factura.codigo = facturaDto.codigo;
-      this.factura.fechaCreacion = this.limpiarFecha(facturaDto.fechaCreacion);
+      // this.factura.fechaCreacion = this.limpiarFecha(facturaDto.fechaCreacion);
       this.factura.fechaInicio = this.limpiarFecha(facturaDto.fechaInicio);
-      this.factura.fechaFin = this.limpiarFecha(facturaDto.fechaFin);
+      // this.factura.fechaFin = this.limpiarFecha(facturaDto.fechaFin);
       this.factura.descripcion = facturaDto.descripcion;
       this.factura.baseImponible = facturaDto.baseImponible;
       this.factura.impuesto = facturaDto.impuesto;
@@ -124,7 +124,7 @@ export class FormularioFacturaComponent implements OnInit {
     }
   }
 
-  respuestaCrearEditarFactura(accionRespuesta: AccionRespuesta, esEditarFactura: boolean): void {
+  public respuestaCrearEditarFactura(accionRespuesta: AccionRespuesta, esEditarFactura: boolean): void {
 
     console.log('Esta registrado' + accionRespuesta.resultado);
     console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
@@ -173,5 +173,38 @@ export class FormularioFacturaComponent implements OnInit {
     this.mapaIva.set('IVA_REDUCIDO', 'REDUCIDO');
     this.mapaIva.set('IVA_SUPER_REDUCIDO', 'SUPER REDUCIDO');
   }
+
+  public calcularImporteTotal() {
+    // calculamos el importe total en base a los impuestos
+    if (this.factura.baseImponible != null && this.comprobarImpuesto() )
+    {
+      switch (this.factura.impuesto){
+
+        case 'IVA_GENERAL':
+          this.factura.importeTotal = parseFloat((this.factura.baseImponible * 1.21).toFixed(3));
+          break;
+
+        case 'IVA_REDUCIDO':
+          this.factura.importeTotal = parseFloat((this.factura.baseImponible * 1.1).toFixed(3));
+          break;
+
+        case 'IVA_SUPER_REDUCIDO':
+          this.factura.importeTotal = parseFloat((this.factura.baseImponible * 1.04).toFixed(3));
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
+  private comprobarImpuesto(): boolean{
+    // Si el impuesto no esta vacio ni nulo
+    return (this.factura.impuesto != null && this.factura.impuesto !== 'undefined' && this.factura.impuesto.trim() !== '');
+  }
+
+
+
+
 
 }

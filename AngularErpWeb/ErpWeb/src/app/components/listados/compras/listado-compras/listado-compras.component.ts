@@ -1,7 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { CompraService } from 'src/app/services/compras/compra.service';
 import { Compra } from 'src/app/model/entitys/compra.model';
+
 
 declare var jQuery: any;
 declare var TableExport: any;
@@ -25,7 +27,7 @@ export class ListadoComprasComponent implements OnInit, AfterViewInit {
     this.tituloListado = 'Listado de compras';
     this.jqGridId = 'compras-grid';
     this.jqGridPagerId = 'compras-pager';
-    this.jqGridColNames = ['ID', 'Ver', 'Código', 'Fecha Compra', 'Artículo', 'Cantidad', 'Base Impl.', 'Impuesto', 'Importe total'];
+    this.jqGridColNames = ['ID', 'Ver', 'Código', 'Fecha Compra', 'Base Impl.', 'Importe total'];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
       { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
@@ -34,18 +36,30 @@ export class ListadoComprasComponent implements OnInit, AfterViewInit {
             '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
         }
       },
-      { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaPedido', index: '', width: '', search: true, sortable: true },
-      { name: 'articulo', index: '', width: '', search: true, sortable: true },
-      { name: 'cantidad', index: '', width: '', search: true, sortable: true },
-      { name: 'baseImponibleTotal', index: '', width: '', search: true, sortable: true },
-      { name: 'impuesto', index: '', width: '', search: true, sortable: true},
-      { name: 'importeTotal', index: '', width: '', search: true, sortable: true}
+      { name: 'codigo', index: '', width: '', align: 'center', search: true, sortable: true },
+      { name: 'fechaCompra', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (fechaCompra: any) => {
+          const datePipe: DatePipe = new DatePipe('es-ES');
+          return datePipe.transform(fechaCompra, 'dd/MM/yyyy');
+        }
+      },
+      { name: 'baseImponibleTotal', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (baseImponibleTotal: any) =>
+        {
+          return baseImponibleTotal + ' €';
+        }
+      },
+      { name: 'importeTotal', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (importeTotal: any) =>
+        {
+          return importeTotal + ' €';
+        }
+      }
     ];
     this.jqGridData = new Array<Compra>();
   }
 
-  getListadoCompras(): void{
+  public getListadoCompras(): void{
 
     console.log('Entramos en el metodo getListadoCompras()');
 
@@ -145,9 +159,6 @@ export class ListadoComprasComponent implements OnInit, AfterViewInit {
       );
     });
   }
-
-  
-
 
   ngOnInit(): void {
     this.getListadoCompras();

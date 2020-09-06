@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { FacturaService } from 'src/app/services/ventas/factura.service';
 import { Factura } from 'src/app/model/entitys/factura.model';
 
@@ -25,7 +26,7 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
     this.tituloListado = 'Listado de Facturas';
     this.jqGridId = 'facturas-grid';
     this.jqGridPagerId = 'facturas-pager';
-    this.jqGridColNames = ['ID', 'Ver', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
+    this.jqGridColNames = ['ID', 'Ver', 'Código', 'F. Inicio', 'Base Impl.', 'Importe Total' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
       { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
@@ -35,9 +36,13 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
         }
       },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaInicio', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaFin', index: '', width: '', search: true, sortable: true },
-      { name: 'baseImponibleTotal', index: '', width: '', search: true, sortable: true },
+      { name: 'fechaInicio', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
+        (fechaInicio: any) => {
+          const datePipe: DatePipe = new DatePipe('es-ES');
+          return datePipe.transform(fechaInicio, 'dd/MM/yyyy');
+        }
+      },
+      { name: 'baseImponible', index: '', width: '', search: true, sortable: true },
       { name: 'importeTotal', index: '', width: '', search: true, sortable: true }
     ];
     this.jqGridData = new Array<Factura>();

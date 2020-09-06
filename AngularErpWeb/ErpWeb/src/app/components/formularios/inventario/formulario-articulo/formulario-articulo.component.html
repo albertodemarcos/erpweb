@@ -60,7 +60,7 @@
             <div class="form-group row">
                 <label for="baseImponible" class="col-form-label col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="articulo.baseImponible" name="baseImponible">
+                    <input type="number" class="form-control" [(ngModel)]="articulo.baseImponible" step="0.01" (change)="calcularImporteTotal()" name="baseImponible">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponible']">
                         <span class="error text-danger">{{erroresFormulario['baseImponible']}}</span>
                     </div>
@@ -72,7 +72,7 @@
                 <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
                 <div class="col-sm-7">
                     <p>
-                        <select name="impuesto" class="custom-select" title="" [(ngModel)]="articulo.impuesto">
+                        <select name="impuesto" class="custom-select" title="" [(ngModel)]="articulo.impuesto" (change)="calcularImporteTotal()">
                             <option disabled="true"  selected >Selecciona tipo impuesto</option> 
                             <option [value]="tipo" *ngFor="let tipo of tiposImpuestos">{{mapaIva.get(tipo) | capitalizar}}</option> 
                         </select>
@@ -87,10 +87,10 @@
             <div class="form-group row">
                 <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="articulo.importeTotal" name="importeTotal">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
+                    <input type="number" class="form-control" [(ngModel)]="articulo.importeTotal" name="importeTotal" readonly="true" step="0.01">
+                    <!--<div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
                         <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
