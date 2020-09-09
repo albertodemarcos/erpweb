@@ -35,7 +35,7 @@
                                 <label for="descripcion" class="col-form-label col-sm-2">Fecha Inicio</label>
                             </div>
                             <div class="col-sm-6 text-left">
-                                <input type="datetime-local" class="form-control" [ngModel]="evento.fechaInicio | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="evento.fechaInicio = $event" name="fechaInicio">
+                                <input type="datetime-local" class="form-control" [ngModel]="evento.fechaInicio | date:'yyyy-MM-dd hh:mm'" (ngModelChange)="evento.fechaInicio = $event" name="fechaInicio">
                             </div>
                         </div>
                         <!-- FECHA FIN -->
@@ -44,7 +44,7 @@
                                 <label for="descripcion" class="col-form-label col-sm-2">Fecha Fín</label>
                             </div>
                             <div class="col-sm-6 text-left">
-                                <input type="datetime-local" class="form-control" [ngModel]="evento.fechaFin | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="evento.fechaFin = $event" name="fechaFin">
+                                <input type="datetime-local" class="form-control" [ngModel]="evento.fechaFin | date:'yyyy-MM-dd hh:mm'" (ngModelChange)="evento.fechaFin = $event" name="fechaFin">
                             </div>
                         </div>
                         <!-- DESCRIPCION -->

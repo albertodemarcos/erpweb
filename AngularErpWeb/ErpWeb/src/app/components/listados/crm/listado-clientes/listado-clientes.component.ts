@@ -20,20 +20,17 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Cliente[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de clientes';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'clientes-grid';
     this.jqGridPagerId = 'clientes-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Nombre', '1º Ap.', '2º Ap.', 'CIF/NIF', 'Teléfono', 'Tipo cliente'];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-            '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
       { name: 'codigo', index: '', width: '', search: true, sortable: false },
       { name: 'nombre', index: '', width: '', search: true, sortable: true },
       { name: 'apellidoPrimero', index: '', width: '', search: true, sortable: true },
@@ -65,7 +62,6 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
     // JqGrid
     ( jQuery ( '#' + this.jqGridId ) ).jqGrid({
       colNames: this.jqGridColNames,
@@ -76,7 +72,7 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
       rowList: [10, 20],
       viewrecords: true,
       gridview: true,
-      autowidth: false,
+      autowidth: true,
       shrinkToFit: true,
       loadonce: false,
       searching: {
@@ -138,8 +134,6 @@ export class ListadoClientesComponent implements OnInit, AfterViewInit {
     });
 
   }
-
-
 
   ngOnInit(): void {
     this.getListadoClientes();

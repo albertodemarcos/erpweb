@@ -48,7 +48,7 @@
             <div class="form-group row">
                 <label for="articulo" class="col-form-label col-sm-4 text-center required">Almacén</label>
                 <div class="col-7 ng-autocomplete">
-                    <ng-autocomplete [data]="dataAlmacen" name="almacen" [(ngModel)]="almacen" [searchKeyword]="keyword" (selected)='itemSeleccionado($event)' (inputChanged)='getAlmacenes($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoAlmacen()"
+                    <ng-autocomplete [data]="dataAlmacen" [searchKeyword]="keyword" name="valorInicialAlmacen" [(ngModel)]="almacen" (selected)='itemSeleccionado($event)' (inputChanged)='getAlmacenes($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoAlmacen()"
                         (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar almacen">
                     </ng-autocomplete>
 

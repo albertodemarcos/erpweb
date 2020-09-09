@@ -21,35 +21,22 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Contrato[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private contratoService: ContratoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de Contratos';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'contratos-grid';
     this.jqGridPagerId = 'contratos-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'F. Inicio', 'F. Fín', 'Base Impl.', 'Importe Total' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
-      { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaInicio', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
-        (fechaInicio: any) => {
-          const datePipe: DatePipe = new DatePipe('es-ES');
-          return datePipe.transform(fechaInicio, 'dd/MM/yyyy');
-        }
-      },
-      { name: 'fechaFin', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
-        (fechaFin: any) => {
-          const datePipe: DatePipe = new DatePipe('es-ES');
-          return datePipe.transform(fechaFin, 'dd/MM/yyyy');
-        }
-      },
-      { name: 'baseImponibleTotal', index: '', width: '', search: true, sortable: true },
-      { name: 'importeTotal', index: '', width: '', search: true, sortable: true }
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
+      { name: 'codigo', index: '', width: '', align: 'center', search: true, sortable: true },
+      { name: 'fechaInicio', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (fechaInicio: any) => this.formatearFecha(fechaInicio) },
+      { name: 'fechaFin', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (fechaFin: any) => this.formatearFecha(fechaFin) },
+      { name: 'baseImponibleTotal', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (baseImponibleTotal: any) => baseImponibleTotal + ' €' },
+      { name: 'importeTotal', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (importeTotal: any) => importeTotal + ' €' }
     ];
     this.jqGridData = new Array<Contrato>();
   }
@@ -73,8 +60,16 @@ export class ListadoContratosComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
+  private formatearFecha(fecha: any){
+    const datePipe: DatePipe = new DatePipe('es-ES');
+    if (fecha != null)
+    {
+      return datePipe.transform(fecha, 'dd/MM/yyyy');
+    }
+    return '';
+  }
 
+  ngAfterViewInit(): void {
     // JqGrid
     ( jQuery ('#' + this.jqGridId ) ).jqGrid({
       colNames: this.jqGridColNames,

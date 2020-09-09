@@ -112,7 +112,7 @@ obtenerEmpresaDesdeEmpresaDto(empresaDto: any): void{
     this.empresa.id = empresaDto.id;
     this.empresa.codigo = empresaDto.codigo;
     this.empresa.nombre = empresaDto.nombre;
-    this.empresa.tipoSociedadJuridica = empresaDto.apellidoPrimero;
+    this.empresa.tipoSociedadJuridica = empresaDto.tipoSociedadJuridica;
     this.empresa.cif = empresaDto.cif;
   }
 }

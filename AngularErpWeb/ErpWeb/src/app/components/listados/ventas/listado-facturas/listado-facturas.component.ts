@@ -21,29 +21,21 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Factura[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private facturaService: FacturaService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de Facturas';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'facturas-grid';
     this.jqGridPagerId = 'facturas-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'F. Inicio', 'Base Impl.', 'Importe Total' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
-      { name: 'codigo', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaInicio', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
-        (fechaInicio: any) => {
-          const datePipe: DatePipe = new DatePipe('es-ES');
-          return datePipe.transform(fechaInicio, 'dd/MM/yyyy');
-        }
-      },
-      { name: 'baseImponible', index: '', width: '', search: true, sortable: true },
-      { name: 'importeTotal', index: '', width: '', search: true, sortable: true }
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
+      { name: 'codigo', index: '', width: '', align: 'center', search: true, sortable: true },
+      { name: 'fechaInicio', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (fechaInicio: any) => this.formatearFecha(fechaInicio) },
+      { name: 'baseImponible', index: '', width: '', search: true, align: 'center', sortable: true, formatter: (baseImponibleTotal: any) => baseImponibleTotal + ' €' },
+      { name: 'importeTotal', index: '', width: '', search: true, align: 'center', sortable: true, formatter: (importeTotal: any) => importeTotal + ' €' }
     ];
     this.jqGridData = new Array<Factura>();
   }
@@ -65,6 +57,15 @@ export class ListadoFacturasComponent implements OnInit, AfterViewInit {
         console.log('Error, no se ha obtenido la informacion');
       }
     );
+  }
+
+  private formatearFecha(fecha: any){
+    const datePipe: DatePipe = new DatePipe('es-ES');
+    if (fecha != null)
+    {
+      return datePipe.transform(fecha, 'dd/MM/yyyy');
+    }
+    return '';
   }
 
   ngAfterViewInit(): void {

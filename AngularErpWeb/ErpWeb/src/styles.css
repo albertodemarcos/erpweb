@@ -99,7 +99,7 @@ footer {
 /* Cabecera */
 
 .ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-hdiv {
-    background-color: #ffcc80 !important;
+    background-color: #ffe09e !important;
 }
 
 
@@ -107,7 +107,7 @@ footer {
 
 .ui-jqgrid-bootstrap.ui-jqgrid .ui-jqgrid-toppager,
 .ui-jqgrid-bootstrap.ui-jqgrid .ui-jqgrid-pager {
-    background-color: #ffcc80 !important;
+    background-color: #ffe09e !important;
 }
 
 
@@ -128,7 +128,7 @@ footer {
 
 .ui-jqgrid-btable tr.jqgrow.success,
 .ui-jqgrid-btable tr.jqgrow.success>td {
-    background-color: #eebb14 !important;
+    background-color: #ffe09e !important;
 }
 
 
@@ -139,5 +139,5 @@ footer {
 .ui-jqgrid-btable.table-hover>tbody>tr.jqgrow.active:hover>td,
 .ui-jqgrid-btable.table-hover>tbody>tr.jqgrow:hover>.active,
 .ui-jqgrid-btable.table-hover>tbody>tr.jqgrow.active:hover>th {
-    background-color: #ffcc80 !important;
+    background-color: #ffe09e !important;
 }

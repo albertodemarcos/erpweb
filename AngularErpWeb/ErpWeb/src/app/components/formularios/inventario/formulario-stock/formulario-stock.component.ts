@@ -113,11 +113,13 @@ export class FormularioStockComponent implements OnInit {
 
           if ( this.respuestaGetStock.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetStock.data) );
-            console.log('ES: ' + typeof(this.respuestaGetStock.data));
+            this.dataAlmacen = new Array<Almacen>();
+            this.dataArticulo = new Array<Articulo>();
             // tslint:disable-next-line: no-string-literal
             this.stockAlmacenDto = this.respuestaGetStock.data['stockArticuloDto'];
             this.obtenerStockAlmacenDesdeStockAlmacenDto(this.stockAlmacenDto);
+            this.dataArticulo.push( this.stockAlmacen.articulo );
+            this.dataAlmacen.push( this.stockAlmacen.almacen );
           }
         }
         catch (errores)
@@ -135,18 +137,12 @@ export class FormularioStockComponent implements OnInit {
     if ( stockAlmacenDto != null)
     {
       this.stockAlmacen.id = stockAlmacenDto.id;
-      /*this.almacen.codigo = almacenDto.codigo;
-      this.almacen.nombre = almacenDto.nombre;
-      this.almacen.codigoPostal = almacenDto.codigoPostal;
-      this.almacen.direccion = almacenDto.direccion;
-      this.almacen.edificio = almacenDto.edificio;
-      this.almacen.observaciones = almacenDto.observaciones;
-      this.almacen.telefono = almacenDto.telefono;
-      this.almacen.poblacion = almacenDto.poblacion;
-      this.almacen.region = almacenDto.region;
-      this.almacen.provincia = almacenDto.provincia;
-      this.almacen.pais = almacenDto.pais;
-      */
+      this.stockAlmacen.codigo = stockAlmacenDto.codigo;
+      this.stockAlmacen.cantidad = stockAlmacenDto.cantidad;
+      this.stockAlmacen.almacen = new Almacen();
+      this.rellenarAlmacenDeAlmacenDto(stockAlmacenDto.almacenDto);
+      this.stockAlmacen.articulo = new Articulo();
+      this.rellenarArticuloDeArticuloDto(stockAlmacenDto.articuloDto);
     }
   }
 
@@ -271,6 +267,40 @@ export class FormularioStockComponent implements OnInit {
   public limpiarCuadroTextoArticulo(){
     console.log('Limpiamos ');
     this.dataArticulo = new Array<Articulo>();
+  }
+
+  private rellenarAlmacenDeAlmacenDto(almacenDto: any){
+
+    if (almacenDto != null)
+    {
+      this.stockAlmacen.almacen.id = almacenDto.id;
+      this.stockAlmacen.almacen.codigo = almacenDto.codigo;
+      this.stockAlmacen.almacen.nombre = almacenDto.nombre;
+      this.stockAlmacen.almacen.codigoPostal = almacenDto;
+      this.stockAlmacen.almacen.direccion = almacenDto.codigoPostal;
+      this.stockAlmacen.almacen.edificio = almacenDto.edificio;
+      this.stockAlmacen.almacen.observaciones = almacenDto.observaciones;
+      this.stockAlmacen.almacen.telefono = almacenDto.telefono;
+      this.stockAlmacen.almacen.poblacion = almacenDto.poblacion;
+      this.stockAlmacen.almacen.region = almacenDto.region;
+      this.stockAlmacen.almacen.provincia = almacenDto.provincia;
+      this.stockAlmacen.almacen.pais = almacenDto.pais;
+    }
+  }
+
+  private rellenarArticuloDeArticuloDto(articuloDto: any){
+
+    if (articuloDto != null)
+    {
+      this.stockAlmacen.articulo.id = articuloDto.id;
+      this.stockAlmacen.articulo.codigo = articuloDto.codigo;
+      this.stockAlmacen.articulo.nombre = articuloDto.nombre;
+      this.stockAlmacen.articulo.descripcion = articuloDto.descripcion;
+      this.stockAlmacen.articulo.baseImponible = articuloDto.baseImponible;
+      this.stockAlmacen.articulo.impuesto = articuloDto.impuesto;
+      this.stockAlmacen.articulo.importeTotal = articuloDto.importeTotal;
+      this.stockAlmacen.articulo.almacenesId = articuloDto.almacenesId;
+    }
   }
 
 }

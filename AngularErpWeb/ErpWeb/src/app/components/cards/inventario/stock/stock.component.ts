@@ -47,11 +47,11 @@ export class StockComponent implements OnInit {
 
         if ( this.respuestaGetArticulo.resultado )
         {
-        console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetArticulo.data) );
-        console.log('ES: ' + typeof(this.respuestaGetArticulo.data));
-        // tslint:disable-next-line: no-string-literal
-        this.stockDto = this.respuestaGetArticulo.data['stockArticuloDto'];
-        this.obtenerStockArticuloDesdeArticuloDto(this.stockDto);
+          // console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetArticulo.data) );
+          // console.log('ES: ' + typeof(this.respuestaGetArticulo.data));
+          // tslint:disable-next-line: no-string-literal
+          this.stockDto = this.respuestaGetArticulo.data['stockArticuloDto'];
+          this.obtenerStockArticuloDesdeArticuloDto(this.stockDto);
         }
 
       }catch (errores){

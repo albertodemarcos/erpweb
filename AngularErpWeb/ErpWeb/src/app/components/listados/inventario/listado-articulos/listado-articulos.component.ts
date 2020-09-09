@@ -20,25 +20,22 @@ export class ListadoArticulosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Articulo[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private articuloService: ArticuloService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de Articulos';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'articulos-grid';
     this.jqGridPagerId = 'articulos-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Nombre', 'Base Imp.', 'Impuesto', 'Importe total' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
-      { name: 'codigo', index: '', width: '', search: true, sortable: true },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
+      { name: 'codigo', index: '', width: '', align: 'center', search: true, sortable: true },
       { name: 'nombre', index: '', width: '', search: true, sortable: true },
-      { name: 'baseImponible', index: '', width: '', search: true, sortable: true },
-      { name: 'impuesto', index: '', width: '', search: true, sortable: true },
-      { name: 'importeTotal', index: '', width: '', search: true, sortable: true }
+      { name: 'baseImponible', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (baseImponible: any) => baseImponible + ' €' },
+      { name: 'impuesto', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (impuesto: any) => this.formatearImpuesto(impuesto) },
+      { name: 'importeTotal', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (importeTotal: any) => importeTotal + ' €'  }
     ];
     this.jqGridData = new Array<Articulo>();
   }
@@ -60,6 +57,27 @@ export class ListadoArticulosComponent implements OnInit, AfterViewInit {
         console.log('Error, no se ha obtenido la informacion');
       }
     );
+  }
+
+  formatearImpuesto(impuesto: string): string {
+    if (impuesto != null && impuesto !== 'undefined' && impuesto.trim() !== '')
+    {
+      switch (impuesto)
+      {
+        case 'IVA_GENERAL':
+          return 'IVA GENERAL (21%)';
+
+        case 'IVA_REDUCIDO':
+          return 'IVA REDUCIDO (10%)';
+
+        case 'IVA_SUPER_REDUCIDO':
+          return 'IVA SUPER REDUCIDO (4%)';
+
+        default:
+          return '';
+      }
+    }
+    return '';
   }
 
   ngAfterViewInit(): void {

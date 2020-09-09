@@ -74,7 +74,7 @@ export class EmpresaComponent implements OnInit {
 
   editarEmpresa(empresaId: number): void{
     console.log('Empresa CON ID: ' + empresaId);
-    this.router.navigate(['empresas', 'editar-empresa', empresaId]);
+    this.router.navigate(['empresa', 'editar-empresa', empresaId]);
   }
 
   borrarEmpresa(empresaId: number): void{

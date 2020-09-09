@@ -128,8 +128,6 @@ export class PlanificadorComponent implements OnInit  {
   // Crear evento
   crearEventoPlanificador(): void {
 
-    console.log('Paso');
-
     if ( !this.comprobarFormularioCrearEvento())
     {
       return;
@@ -378,6 +376,7 @@ export class PlanificadorComponent implements OnInit  {
 
     } else if ( this.evento.fechaFin.valueOf() < this.evento.fechaInicio.valueOf() )
     {
+      console.log('Fin: ' + this.evento.fechaFin.valueOf() + ' Inicio: ' + this.evento.fechaInicio.valueOf() + ' Esto: ' + (this.evento.fechaFin.valueOf() < this.evento.fechaInicio.valueOf()));
       swal('Error', 'La fecha de inicio es posterior de la fecha fín', 'error');
       return false;
     }

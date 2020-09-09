@@ -118,7 +118,7 @@ export class ModalArticuloComponent implements OnInit {
   }
 
   public crearAnadirArticuloFormulario(){
-    // Comprobamos si tenemos articulos (Solo ventas)
+    // Comprobamos si tenemos articulos
     if (this.idTabla != null)
     {
       // Comprobamos que no se ha añadido el articulo previamente
