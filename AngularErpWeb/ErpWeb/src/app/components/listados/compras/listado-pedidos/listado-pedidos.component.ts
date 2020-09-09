@@ -21,39 +21,21 @@ export class ListadoPedidosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Pedido[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private pedidoService: PedidoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de pedidos';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'pedidos-grid';
     this.jqGridPagerId = 'pedidos-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Fecha Pedido', 'Base Impl.', 'Importe total'];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => { /*onclick="verClienteDto.call(this, event)"*/
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
       { name: 'codigo', index: '', width: '', align: 'center', search: true, sortable: true },
-      { name: 'fechaPedido', index: '', width: '', align: 'center', search: true, sortable: true, formatter:
-        (fechaPedido: any) => {
-          const datePipe: DatePipe = new DatePipe('es-ES');
-          return datePipe.transform(fechaPedido, 'dd/MM/yyyy');
-        }
-      },
-      { name: 'baseImponibleTotal', index: '', width: '', align: 'right', search: true, sortable: true, formatter:
-        (baseImponibleTotal: any) =>
-        {
-          return baseImponibleTotal + ' €';
-        }
-      },
-      { name: 'importeTotal', index: '', width: '', align: 'right', search: true, sortable: true, formatter:
-        (importeTotal: any) =>
-        {
-          return importeTotal + ' €';
-        }
-      }
+      { name: 'fechaPedido', index: '', width: '', align: 'center', search: true, sortable: true, formatter: (fechaPedido: any) => this.formatearFecha(fechaPedido) },
+      { name: 'baseImponibleTotal', index: '', width: '', align: 'right', search: true, sortable: true, formatter: (baseImponibleTotal: any) => baseImponibleTotal + ' €' },
+      { name: 'importeTotal', index: '', width: '', align: 'right', search: true, sortable: true, formatter: (importeTotal: any) => importeTotal + ' €' }
     ];
     this.jqGridData = new Array<Pedido>();
   }
@@ -75,6 +57,15 @@ export class ListadoPedidosComponent implements OnInit, AfterViewInit {
         console.log('Error, no se ha obtenido la informacion');
       }
     );
+  }
+
+  private formatearFecha(fechaPedido: any){
+    const datePipe: DatePipe = new DatePipe('es-ES');
+    if (fechaPedido != null)
+    {
+      return datePipe.transform(fechaPedido, 'dd/MM/yyyy');
+    }
+    return '';
   }
 
   ngAfterViewInit(): void {

@@ -20,20 +20,17 @@ export class ListadoUsuariosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Usuario[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private usuarioService: UsuarioService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de Usuarios';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'usuarios-grid';
     this.jqGridPagerId = 'usuarios-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Nombre', 'Usuario', 'Contraseña', '' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'nombreCompleto', index: '', width: '', search: true, sortable: true },
       { name: 'usuario', index: '', width: '', search: true, sortable: true },

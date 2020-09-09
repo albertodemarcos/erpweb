@@ -20,20 +20,17 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Almacen[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private almacenService: AlmacenService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de almcenes';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'almcenes-grid';
     this.jqGridPagerId = 'almcenes-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Nombre', 'Dirección', 'Población', 'Región' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'nombre', index: '', width: '', search: true, sortable: true },
       { name: 'direccion', index: '', width: '', search: true, sortable: true },

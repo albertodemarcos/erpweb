@@ -21,20 +21,17 @@ export class ListadoStockComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Stock[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private stockService: StockService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de stock de almacenes';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'stock-grid';
     this.jqGridPagerId = 'stock-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Articulo', 'Cantidad', 'Almacen' ];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'articuloDto.nombre', index: '', width: '', search: true, sortable: true },
       { name: 'cantidad', index: '', align: 'center', width: '', search: true, sortable: true, formatter: this.cantidadFomatter  },
@@ -43,7 +40,7 @@ export class ListadoStockComponent implements OnInit, AfterViewInit {
     this.jqGridData = new Array<Stock>();
   }
 
-  cantidadFomatter(cellvalue: any, options: any, rowObject: any)
+  private cantidadFomatter(cellvalue: any, options: any, rowObject: any)
   {
     if (cellvalue != null && cellvalue !== 'undefined' && cellvalue.trim !== '')
     {
@@ -52,7 +49,7 @@ export class ListadoStockComponent implements OnInit, AfterViewInit {
     return '';
   }
 
-  getListadoStock(): void{
+  public getListadoStock(): void{
 
     console.log('Entramos en el metodo getListadoStock()');
 

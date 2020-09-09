@@ -20,20 +20,17 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
   private jqGridColModel: {};
   private jqGridData: Vehiculo[];
   private tableExport: any;
+  private botonRetorno: string;
 
   constructor(private vhiculoService: VehiculoService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de vehículos';
+    this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
     this.jqGridId = 'vehiculos-grid';
     this.jqGridPagerId = 'vehiculos-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Marca', 'Modelo', 'Matricula', 'Tipo', 'Tipo Combustible', 'F. matriculación'];
     this.jqGridColModel = [
       { name: 'id', index: '', hidden: true},
-      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter:
-        () => {
-          return '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px">' +
-          '<i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-        }
-      },
+      { name: '', index: '', width: '60', height: '50', align: 'center', search: false, sortable: false, formatter: () => this.botonRetorno },
       { name: 'codigo', index: '', width: '', search: true, sortable: true },
       { name: 'marca', index: '', width: '', search: true, sortable: true },
       { name: 'modelo', index: '', width: '', search: true, sortable: true },
