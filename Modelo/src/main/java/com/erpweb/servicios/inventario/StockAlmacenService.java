@@ -293,15 +293,13 @@ public class StockAlmacenService {
 		logger.trace("Actualizamos el stock del articulo con su almacen correspondiente");
 		
 		try {
+			//Recuperamos el stock
+			StockArticulo stockArticulo = this.obtieneStockArticulo( stockArticuloDto.getId() );
 			
-			StockArticulo stockArticuloSave = this.obtieneStockArticulo( stockArticuloDto.getId() );
+			//Actualizamos el stock
+			StockArticulo stockArticuloSave = actualizarStockArticulo(stockArticuloDto, stockArticulo, almacen, articulo);
 			
-			stockArticuloDto.setId(stockArticuloSave.getId());
-			stockArticuloDto.setCodigo(stockArticuloSave.getCodigo());
-			stockArticuloDto.setArticuloDto(this.obtieneArticuloDtoDeArticulo(articulo));
-			stockArticuloDto.setAlmacenDto(this.obtieneAlmacenDtoDeAlmacen(almacen));
-			stockArticuloDto.setCantidad(stockArticuloSave.getCantidad());
-			
+			//Devolvemos la actualizacion
 			return this.devolverDatosStockArticuloDto(stockArticuloDto, stockArticuloSave);
 			
 		} catch(Exception e) {
@@ -473,6 +471,30 @@ public class StockAlmacenService {
 		articuloDto.setImporteTotal(articulo.getImporteTotal());
 		
 		return articuloDto;
+	}
+	
+	private StockArticulo actualizarStockArticulo(StockArticuloDto stockArticuloDto, StockArticulo stockArticulo, Almacen almacen, Articulo articulo) {
+		
+		try {
+			
+			stockArticulo.setId(stockArticuloDto.getId());
+			stockArticulo.setCodigo(stockArticuloDto.getCodigo());
+			stockArticulo.setAlmacen(almacen);
+			stockArticulo.setArticulo(articulo);
+			stockArticulo.setCantidad(stockArticuloDto.getCantidad());
+			
+			StockArticulo stockArticuloSave = stockArticuloRepository.save(stockArticulo);
+			
+			return stockArticuloSave;
+			
+		} catch(Exception e) {
+			
+			logger.error("Error al actualizar el stock del articulo");
+			
+			e.printStackTrace();
+			
+			return null;
+		}
 	}
 	
 }
