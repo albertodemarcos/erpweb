@@ -65,13 +65,14 @@
                 <dd>{{compra.importeTotal | currency:'EUR':true}}</dd>
             </dl>
         </div>
+    </div>
 
-        <div class="card-footer text-muted">
-            <div class="row">
-                <div class="col-6 text-left">
-                    <button type="button" class="btn btn-primary" (click)="editarCompra(compra.id)">Editar</button> &nbsp;
-                    <button type="button" class="btn btn-danger" (click)="borrarCompra(compra.id)">Borrar</button>
-                </div>
+    <div class="card-footer text-muted">
+        <div class="row">
+            <div class="col-6 text-left">
+                <button type="button" class="btn btn-primary" (click)="editarCompra(compra.id)">Editar</button> &nbsp;
+                <button type="button" class="btn btn-danger" (click)="borrarCompra(compra.id)">Borrar</button>
             </div>
         </div>
     </div>
+</div>
