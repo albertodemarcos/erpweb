@@ -32,11 +32,6 @@ public class VentaValidator implements Validator {
 			errors.rejectValue("codigo", "", "El campo codigo no puede estar vacío");
 		}
 		
-		/*if( ventaDto.getFechaCreacion() == null ) {
-			
-			errors.rejectValue("fechaCreacion", "", "El campo fecha de creacion no puede estar vacío");
-		}*/
-		
 		if( ventaDto.getFechaInicio() == null  ) {
 			
 			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede estar vacío");
@@ -46,48 +41,6 @@ public class VentaValidator implements Validator {
 			
 			errors.rejectValue("fechaInicio", "", "El campo fecha de inicio no puede ser superior al campo fecha de fin");
 		}
-		
-		/*if( ventaDto.getFechaFin() == null ) {
-			
-			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede estar vacío");
-			
-		}else if( (ventaDto.getFechaInicio() != null && ventaDto.getFechaFin() != null ) 
-				&& ventaDto.getFechaFin().before( ventaDto.getFechaInicio() )  ) {
-			
-			errors.rejectValue("fechaFin", "", "El campo fecha de fin no puede ser inferior al campo fecha de inicio");
-		}*/
-		
-		/*/if( StringUtils.isBlank( ventaDto.getDescripcion() )  ) {
-			
-			errors.rejectValue("descripcion", "", "El campo descripcion no puede estar vacío");
-		}*/
-		
-		/*if( ventaDto.getBaseImponibleTotal() == null  ) {
-			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
-			
-		}else if( ventaDto.getBaseImponibleTotal().intValue() < 0  ) {
-			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
-			
-		}else if( ventaDto.getBaseImponibleTotal().intValue() == 0  ) {
-			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
-		}
-		
-		if( ventaDto.getImporteTotal() == null  ) {
-			
-			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
-			
-		}else if( ventaDto.getImporteTotal().intValue() < 0  ) {
-			
-			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
-			
-		}else if( ventaDto.getImporteTotal().intValue() == 0  ) {
-			
-			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
-		}
-		*/
 			
 	}
 

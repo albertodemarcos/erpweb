@@ -11,7 +11,7 @@ body {
 }
 
 .saltoLinea {
-    white-space: pre;
+    Word-spacing: 100vw;
 }
 
 .ocultar {
@@ -99,7 +99,7 @@ footer {
 /* Cabecera */
 
 .ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-hdiv {
-    background-color: #ffe09e !important;
+    background-color: #e4e4e4 !important;
 }
 
 
@@ -107,7 +107,7 @@ footer {
 
 .ui-jqgrid-bootstrap.ui-jqgrid .ui-jqgrid-toppager,
 .ui-jqgrid-bootstrap.ui-jqgrid .ui-jqgrid-pager {
-    background-color: #ffe09e !important;
+    background-color: #e4e4e4 !important;
 }
 
 
@@ -118,7 +118,7 @@ footer {
 .table>thead>tr>th.active,
 .ui-pg-table .ui-pg-button.active,
 .ui-jqgrid-actions .ui-pg-div.active {
-    background-color: #c0f2ff !important;
+    background-color: #e4e4e4 !important;
 }
 
 .ui-pg-table .ui-pg-button.active,
@@ -128,7 +128,7 @@ footer {
 
 .ui-jqgrid-btable tr.jqgrow.success,
 .ui-jqgrid-btable tr.jqgrow.success>td {
-    background-color: #ffe09e !important;
+    background-color: #e4e4e4 !important;
 }
 
 
@@ -139,5 +139,23 @@ footer {
 .ui-jqgrid-btable.table-hover>tbody>tr.jqgrow.active:hover>td,
 .ui-jqgrid-btable.table-hover>tbody>tr.jqgrow:hover>.active,
 .ui-jqgrid-btable.table-hover>tbody>tr.jqgrow.active:hover>th {
-    background-color: #ffe09e !important;
+    background-color: #ffda9e !important;
 }
+
+
+/* CARDS*/
+
+.card-header {
+    background-color: #099dff !important;
+}
+
+.card-footer {
+    background-color: #e4e4e4 !important;
+}
+
+.barra-navegacion {
+    background-color: #099dff !important;
+}
+
+
+/** #37afff */

@@ -1,8 +1,10 @@
 package com.erpweb.patrones.builder.factorias.interfaz;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import com.erpweb.dto.ContratoDto;
+import com.erpweb.entidades.inventario.StockArticulo;
 import com.erpweb.entidades.ventas.Contrato;
 import com.erpweb.entidades.ventas.Factura;
 
@@ -39,4 +41,21 @@ public interface IFactoriaContrato {
 	 * Calcular totales
 	 */
 	public BigDecimal calcularImporte(BigDecimal importe, BigDecimal cantidad);
+	
+	/**
+	 * Recuperar stock articulos
+	 * @param articulosId
+	 * @param almacenesId
+	 * @return
+	 */
+	public Set<StockArticulo> recuperarStockAlmacenes(Set<Long> articulosId, Set<Long> almacenesId);
+	
+	/**
+	 * Restamos al stock del almacen
+	 * @param stockAlmacen
+	 * @param almacenId
+	 * @param articuloId
+	 * @param cantidad
+	 */
+	public void restarCantidadStockAlmacenes(Set<StockArticulo> stockAlmacen, Long almacenId, Long articuloId, BigDecimal cantidad);
 }

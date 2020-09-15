@@ -59,7 +59,7 @@ public class VentaController {
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnVentaDto(ventaDto, result) );
 		}
 		
 		return this.ventaService.getCrearEditarVenta(ventaDto);
@@ -72,7 +72,7 @@ public class VentaController {
 		
 		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnVentaDto(ventaDto, result) );
 		}
 		
 		return this.ventaService.getCrearEditarVenta(ventaDto);

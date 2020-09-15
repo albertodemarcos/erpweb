@@ -15,6 +15,7 @@ public class LineaContratoDto implements Serializable {
 	private BigDecimal importeTotal; // Precio con impuesto
 	private BigDecimal importeImpuesto; // Diferencia entre precio sin impuesto y con impuesto
 	private Integer cantidad; // Cantidad del articulo
+	private String errorProducido; //Error producido
 
 	public Long getId() {
 		return id;
@@ -70,6 +71,14 @@ public class LineaContratoDto implements Serializable {
 
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public String getErrorProducido() {
+		return errorProducido;
+	}
+
+	public void setErrorProducido(String errorProducido) {
+		this.errorProducido = errorProducido;
 	}
 
 }

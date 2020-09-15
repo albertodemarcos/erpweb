@@ -23,7 +23,7 @@ public class Cliente extends Persona implements Serializable {
 	
 	//Atributos Cliente
 	private Long id;
-    private String codigo;
+    
     private TipoCliente tipoCliente;
 	
 	@Id
@@ -35,14 +35,6 @@ public class Cliente extends Persona implements Serializable {
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	public String getCodigo() {
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 	
 	@Enumerated(EnumType.STRING)

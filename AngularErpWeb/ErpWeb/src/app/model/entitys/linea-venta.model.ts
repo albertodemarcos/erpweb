@@ -10,4 +10,5 @@ export class LineaVenta {
     importeImpuesto: number;
     importeTotal: number;
     cantidad: number;
+    almacenId: number;
 }

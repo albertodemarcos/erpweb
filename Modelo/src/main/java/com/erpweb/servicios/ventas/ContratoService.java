@@ -20,7 +20,6 @@ import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.ContratoDto;
 import com.erpweb.dto.LineaContratoDto;
 import com.erpweb.entidades.inventario.Articulo;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Contrato;
 import com.erpweb.entidades.ventas.LineaContrato;
 import com.erpweb.patrones.builder.constructores.ConstructorContrato;
@@ -48,6 +47,7 @@ public class ContratoService {
 	@Autowired 
 	private FacturaRepository facturaRepository;
 	
+	
 	//Otros
 	@Autowired
 	private ConstructorContrato constructorContrato;
@@ -58,7 +58,7 @@ public class ContratoService {
 	
 	public AccionRespuesta crearContratoDesdeContratoDto(ContratoDto contratoDto) {
 		
-		logger.debug("Entramos en el metodo crearContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
+		logger.trace("Entramos en el metodo crearContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
 		
 		try {
 			
@@ -79,7 +79,7 @@ public class ContratoService {
 	
 	public AccionRespuesta actualizarContratoDesdeContratoDto(ContratoDto contratoDto) {
 		
-		logger.debug("Entramos en el metodo actualizarContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
+		logger.trace("Entramos en el metodo actualizarContratoDesdeContratoDto() con ID={}", contratoDto.getId() );
 
 		try {
 			
@@ -152,7 +152,7 @@ public class ContratoService {
 	
 	public AccionRespuesta eliminarContrato(Contrato contrato) {
 		
-		logger.debug("Entramos en el metodo eliminarContrato()" );
+		logger.trace("Entramos en el metodo eliminarContrato()" );
 		
 		if(contrato == null || contrato.getId() == null) {
 			
@@ -180,7 +180,7 @@ public class ContratoService {
 	
 	public AccionRespuesta eliminarContratoPorId(Long contratoId) {
 		
-		logger.error("Entramos en el metodo eliminarContratoPorId()" );
+		logger.trace("Entramos en el metodo eliminarContratoPorId()" );
 		
 		if( contratoId == null) {
 			
@@ -215,7 +215,7 @@ public class ContratoService {
 	
 	public ContratoDto obtenerContratoDtoDesdeContrato(Long id ) {
 		
-		logger.debug("Entramos en el metodo obtenerContratoDtoDesdeContrato() con ID={}", id );
+		logger.trace("Entramos en el metodo obtenerContratoDtoDesdeContrato() con ID={}", id );
 		
 		Optional<Contrato> contratoOptional = contratoRepository.findById(id);
 		
@@ -255,7 +255,7 @@ public class ContratoService {
 	
 	public List<ContratoDto> getListadoContratos() {
 		
-		logger.debug("Entramos en el metodo getListadoContratos()" );
+		logger.trace("Entramos en el metodo getListadoContratos()" );
 		
 		try {
 			
@@ -273,9 +273,9 @@ public class ContratoService {
 		return new ArrayList<ContratoDto>();
 	}
 
-	public AccionRespuesta getContrato(Long contratoId, Usuario user) {
+	public AccionRespuesta getContrato(Long contratoId) {
 		
-		logger.debug("Entramos en el metodo getContrato()");
+		logger.trace("Entramos en el metodo getContrato()");
 		
 		if( contratoId == null) {
 			
@@ -312,19 +312,19 @@ public class ContratoService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarContrato(ContratoDto contratoDto, Usuario user) {
+	public AccionRespuesta getCrearEditarContrato(ContratoDto contratoDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarContrato() con usuario={}", user.getId() );
+		logger.trace("Entramos en el metodo getCrearEditarContrato()");
 		
 		if( contratoDto.getId() != null && contratoDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Contrato con usuario={}", user.getId() );
+			logger.trace("Se va a realizar una actualizacion del Contrato" );
 			
 			return this.actualizarContratoDesdeContratoDto(contratoDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Contrato con usuario={}", user.getId() );
+			logger.trace("Se va a crear un Contrato" );
 			
 			return this.crearContratoDesdeContratoDto(contratoDto);
 		}

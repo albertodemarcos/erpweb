@@ -24,8 +24,9 @@ public class VentaDto implements Serializable {
 	private TipoImpuesto impuesto;
 	private BigDecimal importeTotal;	    											//Importe total de la venta con impuestos														
 	private HashMap<Long, BigDecimal> articulosCantidad; 								//Mapa articuloId, Cantidad de articulos
+	private HashMap<Long, Long> articulosAlmacen;										//Mapa articuloId, almacenes
 	private Set<LineaVentaDto> lineasVentaDto = new HashSet<LineaVentaDto>(1);
-	
+	private HashMap<String, String> lineasVentaDtoError;
 	
 	public Long getId() {
 		return id;
@@ -113,6 +114,22 @@ public class VentaDto implements Serializable {
 
 	public void setLineasVentaDto(Set<LineaVentaDto> lineasVentaDto) {
 		this.lineasVentaDto = lineasVentaDto;
+	}
+
+	public HashMap<Long, Long> getArticulosAlmacen() {
+		return articulosAlmacen;
+	}
+
+	public void setArticulosAlmacen(HashMap<Long, Long> articulosAlmacen) {
+		this.articulosAlmacen = articulosAlmacen;
+	}
+
+	public HashMap<String, String> getLineasVentaDtoError() {
+		return lineasVentaDtoError;
+	}
+
+	public void setLineasVentaDtoError(HashMap<String, String> lineasVentaDtoError) {
+		this.lineasVentaDtoError = lineasVentaDtoError;
 	}	
 	
 }

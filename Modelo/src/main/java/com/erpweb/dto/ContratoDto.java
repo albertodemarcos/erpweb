@@ -24,8 +24,9 @@ public class ContratoDto implements Serializable {
 	private TipoImpuesto impuesto;
 	private BigDecimal importeTotal;	    										//Importe total del contro con impuestos
 	private HashMap<Long, BigDecimal> articulosCantidad; 							//Mapa articuloId, Cantidad de articulos
+	private HashMap<Long, Long> articulosAlmacen;									//Mapa articuloId, almacenes
 	private Set<LineaContratoDto> lineasContratoDto = new HashSet<LineaContratoDto>();
-	
+	private HashMap<String, String> lineasContratoDtoError;
 	
 	public Long getId() {
 		return id;
@@ -114,6 +115,25 @@ public class ContratoDto implements Serializable {
 	public void setLineasContratoDto(Set<LineaContratoDto> lineasContratoDto) {
 		this.lineasContratoDto = lineasContratoDto;
 	}
+
+	public HashMap<Long, Long> getArticulosAlmacen() {
+		return articulosAlmacen;
+	}
+
+	public void setArticulosAlmacen(HashMap<Long, Long> articulosAlmacen) {
+		this.articulosAlmacen = articulosAlmacen;
+	}
+
+	public HashMap<String, String> getLineasContratoDtoError() {
+		return lineasContratoDtoError;
+	}
+
+	public void setLineasContratoDtoError(HashMap<String, String> lineasContratoDtoError) {
+		this.lineasContratoDtoError = lineasContratoDtoError;
+	}
+
+
+
 
 	
 }

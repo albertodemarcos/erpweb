@@ -10,4 +10,5 @@ export class LineaContrato {
     importeImpuesto: number;
     importeTotal: number;
     cantidad: number;
+    almacenId: number;
 }

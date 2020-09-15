@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.EmpleadoDto;
+import com.erpweb.entidades.embebidos.DireccionPostal;
+import com.erpweb.entidades.embebidos.OrigenPersona;
 import com.erpweb.entidades.empresa.Empleado;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpleadoRepository;
@@ -40,16 +42,24 @@ public class EmpleadoService {
 		empleado.setApellidoPrimero(empleadoDto.getApellidoPrimero());
 		empleado.setApellidoSegundo(empleadoDto.getApellidoSegundo());
 		empleado.setNif(empleadoDto.getNif());
-		empleado.setCodigoPostal(empleadoDto.getCodigoPostal());
-		empleado.setDireccion(empleadoDto.getDireccion());
-		empleado.setEdificio(empleadoDto.getEdificio());
-		empleado.setObservaciones(empleadoDto.getObservaciones());
-		empleado.setTelefono(empleadoDto.getTelefono());
-		empleado.setProvincia(empleadoDto.getProvincia());
-		empleado.setPoblacion(empleadoDto.getPoblacion());
-		empleado.setRegion(empleadoDto.getRegion());
-		empleado.setPais(empleadoDto.getPais());
 		empleado.setTipoEmpleado(empleadoDto.getTipoEmpleado());
+		
+		//Direccion Postal
+		empleado.setDireccionPostal( new DireccionPostal() );
+		
+		empleado.getDireccionPostal().setCodigoPostal(empleadoDto.getCodigoPostal());
+		empleado.getDireccionPostal().setDireccion(empleadoDto.getDireccion());
+		empleado.getDireccionPostal().setEdificio(empleadoDto.getEdificio());
+		empleado.getDireccionPostal().setObservaciones(empleadoDto.getObservaciones());
+		empleado.getDireccionPostal().setTelefono(empleadoDto.getTelefono());
+		
+		//Origen Empleado
+		empleado.setOrigenPersona( new OrigenPersona() );
+		
+		empleado.getOrigenPersona().setProvincia(empleadoDto.getProvincia());
+		empleado.getOrigenPersona().setPoblacion(empleadoDto.getPoblacion());
+		empleado.getOrigenPersona().setRegion(empleadoDto.getRegion());
+		empleado.getOrigenPersona().setPais(empleadoDto.getPais());
 	
 		try {
 			
@@ -74,23 +84,30 @@ public class EmpleadoService {
 		
 		Empleado empleado = new Empleado();
 		
-		
 		empleado.setId(empleadoDto.getId());
 		empleado.setCodigo(empleadoDto.getCodigo());
 		empleado.setNombre(empleadoDto.getNombre());
 		empleado.setApellidoPrimero(empleadoDto.getApellidoPrimero());
 		empleado.setApellidoSegundo(empleadoDto.getApellidoSegundo());
 		empleado.setNif(empleadoDto.getNif());
-		empleado.setCodigoPostal(empleadoDto.getCodigoPostal());
-		empleado.setDireccion(empleadoDto.getDireccion());
-		empleado.setEdificio(empleadoDto.getEdificio());
-		empleado.setObservaciones(empleadoDto.getObservaciones());
-		empleado.setTelefono(empleadoDto.getTelefono());
-		empleado.setProvincia(empleadoDto.getProvincia());
-		empleado.setPoblacion(empleadoDto.getPoblacion());
-		empleado.setRegion(empleadoDto.getRegion());
-		empleado.setPais(empleadoDto.getPais());
 		empleado.setTipoEmpleado(empleadoDto.getTipoEmpleado());
+		
+		//Direccion Postal
+		empleado.setDireccionPostal( new DireccionPostal() );
+		
+		empleado.getDireccionPostal().setCodigoPostal(empleadoDto.getCodigoPostal());
+		empleado.getDireccionPostal().setDireccion(empleadoDto.getDireccion());
+		empleado.getDireccionPostal().setEdificio(empleadoDto.getEdificio());
+		empleado.getDireccionPostal().setObservaciones(empleadoDto.getObservaciones());
+		empleado.getDireccionPostal().setTelefono(empleadoDto.getTelefono());
+		
+		//Origen Empleado
+		empleado.setOrigenPersona( new OrigenPersona() );
+		
+		empleado.getOrigenPersona().setProvincia(empleadoDto.getProvincia());
+		empleado.getOrigenPersona().setPoblacion(empleadoDto.getPoblacion());
+		empleado.getOrigenPersona().setRegion(empleadoDto.getRegion());
+		empleado.getOrigenPersona().setPais(empleadoDto.getPais());
 	
 		try {
 			
@@ -188,15 +205,15 @@ public class EmpleadoService {
 			empleadoDto.setApellidoPrimero(empleado.getApellidoPrimero());
 			empleadoDto.setApellidoSegundo(empleado.getApellidoSegundo());
 			empleadoDto.setNif(empleado.getNif());
-			empleadoDto.setCodigoPostal(empleado.getCodigoPostal());
-			empleadoDto.setDireccion(empleado.getDireccion());
-			empleadoDto.setEdificio(empleado.getEdificio());
-			empleadoDto.setObservaciones(empleado.getObservaciones());
-			empleadoDto.setTelefono(empleado.getTelefono());
-			empleadoDto.setProvincia(empleado.getProvincia());
-			empleadoDto.setPoblacion(empleado.getPoblacion());
-			empleadoDto.setRegion(empleado.getRegion());
-			empleadoDto.setPais(empleado.getPais());
+			empleadoDto.setCodigoPostal(empleado.getDireccionPostal().getCodigoPostal());
+			empleadoDto.setDireccion(empleado.getDireccionPostal().getDireccion());
+			empleadoDto.setEdificio(empleado.getDireccionPostal().getEdificio());
+			empleadoDto.setObservaciones(empleado.getDireccionPostal().getObservaciones());
+			empleadoDto.setTelefono(empleado.getDireccionPostal().getTelefono());
+			empleadoDto.setProvincia(empleado.getOrigenPersona().getProvincia());
+			empleadoDto.setPoblacion(empleado.getOrigenPersona().getPoblacion());
+			empleadoDto.setRegion(empleado.getOrigenPersona().getRegion());
+			empleadoDto.setPais(empleado.getOrigenPersona().getPais());
 			empleadoDto.setTipoEmpleado(empleado.getTipoEmpleado());
 			
 		} catch(Exception e) {
@@ -375,15 +392,15 @@ public class EmpleadoService {
 				empleadoDto.setApellidoPrimero(empleado.getApellidoPrimero());
 				empleadoDto.setApellidoSegundo(empleado.getApellidoSegundo());
 				empleadoDto.setNif(empleado.getNif());
-				empleadoDto.setCodigoPostal(empleado.getCodigoPostal());
-				empleadoDto.setDireccion(empleado.getDireccion());
-				empleadoDto.setEdificio(empleado.getEdificio());
-				empleadoDto.setObservaciones(empleado.getObservaciones());
-				empleadoDto.setTelefono(empleado.getTelefono());
-				empleadoDto.setProvincia(empleado.getProvincia());
-				empleadoDto.setPoblacion(empleado.getPoblacion());
-				empleadoDto.setRegion(empleado.getRegion());
-				empleadoDto.setPais(empleado.getPais());
+				empleadoDto.setCodigoPostal(empleado.getDireccionPostal().getCodigoPostal());
+				empleadoDto.setDireccion(empleado.getDireccionPostal().getDireccion());
+				empleadoDto.setEdificio(empleado.getDireccionPostal().getEdificio());
+				empleadoDto.setObservaciones(empleado.getDireccionPostal().getObservaciones());
+				empleadoDto.setTelefono(empleado.getDireccionPostal().getTelefono());
+				empleadoDto.setProvincia(empleado.getOrigenPersona().getProvincia());
+				empleadoDto.setPoblacion(empleado.getOrigenPersona().getPoblacion());
+				empleadoDto.setRegion(empleado.getOrigenPersona().getRegion());
+				empleadoDto.setPais(empleado.getOrigenPersona().getPais());
 				empleadoDto.setTipoEmpleado(empleado.getTipoEmpleado());
 				
 				empleadosDto.add(empleadoDto);				

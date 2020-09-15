@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.ClienteDto;
 import com.erpweb.entidades.crm.Cliente;
+import com.erpweb.entidades.embebidos.DireccionPostal;
+import com.erpweb.entidades.embebidos.OrigenPersona;
 import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.crm.ClienteRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -40,16 +42,24 @@ public class ClienteService {
 		cliente.setApellidoPrimero(clienteDto.getApellidoPrimero());
 		cliente.setApellidoSegundo(clienteDto.getApellidoSegundo());
 		cliente.setNif(clienteDto.getNif());
-		cliente.setCodigoPostal(clienteDto.getCodigoPostal());
-		cliente.setDireccion(clienteDto.getDireccion());
-		cliente.setEdificio(clienteDto.getEdificio());
-		cliente.setObservaciones(clienteDto.getObservaciones());
-		cliente.setTelefono(clienteDto.getTelefono());
-		cliente.setProvincia(clienteDto.getProvincia());
-		cliente.setPoblacion(clienteDto.getPoblacion());
-		cliente.setRegion(clienteDto.getRegion());
-		cliente.setPais(clienteDto.getPais());
 		cliente.setTipoCliente(clienteDto.getTipoCliente());
+		
+		//Direccion Postal
+		cliente.setDireccionPostal(new DireccionPostal() );
+		
+		cliente.getDireccionPostal().setCodigoPostal(clienteDto.getCodigoPostal());
+		cliente.getDireccionPostal().setDireccion(clienteDto.getDireccion());
+		cliente.getDireccionPostal().setEdificio(clienteDto.getEdificio());
+		cliente.getDireccionPostal().setObservaciones(clienteDto.getObservaciones());
+		cliente.getDireccionPostal().setTelefono(clienteDto.getTelefono());
+		
+		//Origen Cliente
+		cliente.setOrigenPersona(new OrigenPersona() );
+		
+		cliente.getOrigenPersona().setProvincia(clienteDto.getProvincia());
+		cliente.getOrigenPersona().setPoblacion(clienteDto.getPoblacion());
+		cliente.getOrigenPersona().setRegion(clienteDto.getRegion());
+		cliente.getOrigenPersona().setPais(clienteDto.getPais());
 	
 		try {
 			//Guardamos el cliente
@@ -79,16 +89,24 @@ public class ClienteService {
 		cliente.setApellidoPrimero(clienteDto.getApellidoPrimero());
 		cliente.setApellidoSegundo(clienteDto.getApellidoSegundo());
 		cliente.setNif(clienteDto.getNif());
-		cliente.setCodigoPostal(clienteDto.getCodigoPostal());
-		cliente.setDireccion(clienteDto.getDireccion());
-		cliente.setEdificio(clienteDto.getEdificio());
-		cliente.setObservaciones(clienteDto.getObservaciones());
-		cliente.setTelefono(clienteDto.getTelefono());
-		cliente.setProvincia(clienteDto.getProvincia());
-		cliente.setPoblacion(clienteDto.getPoblacion());
-		cliente.setRegion(clienteDto.getRegion());
-		cliente.setPais(clienteDto.getPais());
 		cliente.setTipoCliente(clienteDto.getTipoCliente());
+		
+		//Direccion Postal
+		cliente.setDireccionPostal(new DireccionPostal() );
+		
+		cliente.getDireccionPostal().setCodigoPostal(clienteDto.getCodigoPostal());
+		cliente.getDireccionPostal().setDireccion(clienteDto.getDireccion());
+		cliente.getDireccionPostal().setEdificio(clienteDto.getEdificio());
+		cliente.getDireccionPostal().setObservaciones(clienteDto.getObservaciones());
+		cliente.getDireccionPostal().setTelefono(clienteDto.getTelefono());
+		
+		//Origen Cliente
+		cliente.setOrigenPersona(new OrigenPersona() );
+		
+		cliente.getOrigenPersona().setProvincia(clienteDto.getProvincia());
+		cliente.getOrigenPersona().setPoblacion(clienteDto.getPoblacion());
+		cliente.getOrigenPersona().setRegion(clienteDto.getRegion());
+		cliente.getOrigenPersona().setPais(clienteDto.getPais());
 	
 		try {
 			//Guardamos el cliente
@@ -184,15 +202,15 @@ public class ClienteService {
 			clienteDto.setApellidoPrimero(cliente.getApellidoPrimero());
 			clienteDto.setApellidoSegundo(cliente.getApellidoSegundo());
 			clienteDto.setNif(cliente.getNif());
-			clienteDto.setCodigoPostal(cliente.getCodigoPostal());
-			clienteDto.setDireccion(cliente.getDireccion());
-			clienteDto.setEdificio(cliente.getEdificio());
-			clienteDto.setTelefono(cliente.getTelefono());
-			clienteDto.setObservaciones(cliente.getObservaciones());
-			clienteDto.setProvincia(cliente.getProvincia());
-			clienteDto.setPoblacion(cliente.getPoblacion());
-			clienteDto.setRegion(cliente.getRegion());
-			clienteDto.setPais(cliente.getPais());
+			clienteDto.setCodigoPostal(cliente.getDireccionPostal().getCodigoPostal());
+			clienteDto.setDireccion(cliente.getDireccionPostal().getDireccion());
+			clienteDto.setEdificio(cliente.getDireccionPostal().getEdificio());
+			clienteDto.setTelefono(cliente.getDireccionPostal().getTelefono());
+			clienteDto.setObservaciones(cliente.getDireccionPostal().getObservaciones());
+			clienteDto.setProvincia(cliente.getOrigenPersona().getProvincia());
+			clienteDto.setPoblacion(cliente.getOrigenPersona().getPoblacion());
+			clienteDto.setRegion(cliente.getOrigenPersona().getRegion());
+			clienteDto.setPais(cliente.getOrigenPersona().getPais());
 			clienteDto.setTipoCliente(cliente.getTipoCliente());
 			
 		} catch(Exception e) {
@@ -371,15 +389,15 @@ public class ClienteService {
 				clienteDto.setApellidoPrimero(cliente.getApellidoPrimero());
 				clienteDto.setApellidoSegundo(cliente.getApellidoSegundo());
 				clienteDto.setNif(cliente.getNif());
-				clienteDto.setCodigoPostal(cliente.getCodigoPostal());
-				clienteDto.setDireccion(cliente.getDireccion());
-				clienteDto.setEdificio(cliente.getEdificio());
-				clienteDto.setTelefono(cliente.getTelefono());
-				clienteDto.setObservaciones(cliente.getObservaciones());
-				clienteDto.setProvincia(cliente.getProvincia());
-				clienteDto.setPoblacion(cliente.getPoblacion());
-				clienteDto.setRegion(cliente.getRegion());
-				clienteDto.setPais(cliente.getPais());
+				clienteDto.setCodigoPostal(cliente.getDireccionPostal().getCodigoPostal());
+				clienteDto.setDireccion(cliente.getDireccionPostal().getDireccion());
+				clienteDto.setEdificio(cliente.getDireccionPostal().getEdificio());
+				clienteDto.setTelefono(cliente.getDireccionPostal().getTelefono());
+				clienteDto.setObservaciones(cliente.getDireccionPostal().getObservaciones());
+				clienteDto.setProvincia(cliente.getOrigenPersona().getProvincia());
+				clienteDto.setPoblacion(cliente.getOrigenPersona().getPoblacion());
+				clienteDto.setRegion(cliente.getOrigenPersona().getRegion());
+				clienteDto.setPais(cliente.getOrigenPersona().getPais());
 				clienteDto.setTipoCliente(cliente.getTipoCliente());
 				
 				clientesDto.add(clienteDto);				

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.erpweb.dto.ContratoDto;
 import com.erpweb.entidades.inventario.Articulo;
+import com.erpweb.entidades.inventario.StockArticulo;
 import com.erpweb.entidades.ventas.Contrato;
 import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.entidades.ventas.LineaContrato;
@@ -21,6 +24,7 @@ import com.erpweb.entidades.ventas.LineaFactura;
 import com.erpweb.patrones.builder.factorias.claseBase.FactoriaEntidad;
 import com.erpweb.patrones.builder.factorias.interfaz.IFactoriaContrato;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
+import com.erpweb.repositorios.inventario.StockArticuloRepository;
 import com.erpweb.repositorios.ventas.ContratoRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.repositorios.ventas.LineaContratoRepository;
@@ -39,6 +43,8 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 	private FacturaRepository facturaRepository;
 	@Autowired
 	private LineaFacturaRepository lineaFacturaRepository;
+	@Autowired
+	private StockArticuloRepository stockArticuloRepository;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -85,9 +91,14 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 			
 			Set<Long> articuloIds = contratoDto.getArticulosCantidad().entrySet().stream().map(art -> art.getKey() ).collect(Collectors.toSet());
 			
+			Set<Long> almacenesId = contratoDto.getArticulosAlmacen().entrySet().stream().map(al -> al.getValue() ).collect(Collectors.toSet());
+			
 			List<Articulo> articulos = articuloRepository.findByIdIn( articuloIds );
 
 			Set<LineaContrato> lineasContrato = new HashSet<LineaContrato>();
+			
+			//Restar unidades
+			Set<StockArticulo> stockAlmacen = this.recuperarStockAlmacenes(articuloIds, almacenesId);
 			
 			//Por cada articulo, se crea una linea de contrato
 			for(Articulo articulo : articulos) {
@@ -113,6 +124,11 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 				contrato.setImporteTotal(contrato.getBaseImponibleTotal().add(importeTotal));
 				
 				lineasContrato.add(lineaContrato);
+				
+				Long almacenId = contratoDto.getArticulosAlmacen().get(articulo.getId());
+				
+				//Restar unidades
+				this.restarCantidadStockAlmacenes(stockAlmacen, almacenId, articulo.getId(), cantidad);
 			}
 			
 			lineaContratoRepository.saveAll(lineasContrato);
@@ -249,4 +265,42 @@ public class FactoriaContrato extends FactoriaEntidad implements IFactoriaContra
 		return new BigDecimal(importe.doubleValue() * cantidad.doubleValue());
 	}
 
+	public Set<StockArticulo> recuperarStockAlmacenes(Set<Long> articulosId, Set<Long> almacenesId) {
+		
+		try {
+			
+			Set<StockArticulo> stock = stockArticuloRepository.obtieneStockArticuloAlmacen(almacenesId, articulosId);
+			
+			return stock;
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
+	
+	@Transactional
+	public void restarCantidadStockAlmacenes(Set<StockArticulo> stockAlmacen, Long almacenId, Long articuloId, BigDecimal cantidad) {
+		
+		StockArticulo stock = stockAlmacen.stream().filter(s -> {
+			return s.getArticulo().getId().equals(articuloId) && s.getAlmacen().getId().equals(almacenId);
+		}).findFirst().orElse(null);
+		
+		Long cantidadFinal = stock.getCantidad().longValue() - cantidad.longValue();
+		
+		stock.setCantidad(cantidadFinal);
+		
+		try {
+			
+			this.stockArticuloRepository.save(stock);
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

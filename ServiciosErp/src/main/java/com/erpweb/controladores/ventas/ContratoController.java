@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ContratoDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.ventas.ContratoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -36,9 +35,9 @@ public class ContratoController {
 	private ErroresService erroresService;
 
 	@GetMapping("/contrato/{contratoId}")
-	public @ResponseBody AccionRespuesta getContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getContrato( @PathVariable Long contratoId) throws Exception {
 
-		return this.contratoService.getContrato(contratoId, user);
+		return this.contratoService.getContrato(contratoId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -48,43 +47,41 @@ public class ContratoController {
 	}
 	
 	@GetMapping( "/crearContrato" )
-	public @ResponseBody AccionRespuesta getCrearContrato( Model model, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getCrearContrato( Model model) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
 	@GetMapping( "/editarContrato/{contratoId}" )
-	public @ResponseBody AccionRespuesta getEditarContrato( @PathVariable Long contratoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarContrato( @PathVariable Long contratoId) throws Exception {
 		
-		return this.contratoService.getContrato(contratoId, user);
+		return this.contratoService.getContrato(contratoId);
 	}
 	
 	@PostMapping( "/crearContrato" )
-	public @ResponseBody AccionRespuesta postCrearContrato( @RequestBody ContratoDto contratoDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postCrearContrato( @RequestBody ContratoDto contratoDto, BindingResult result ) {
 		
 		this.contratoValidator.validate(contratoDto, result);
 		
-		if( result.hasErrors() ) {
+		if(	result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnContratoDto(contratoDto, result) );
 		}
 		
-		return this.contratoService.getCrearEditarContrato(contratoDto, user);
+		return this.contratoService.getCrearEditarContrato(contratoDto);
 	}
 	
-	@PostMapping( "/editarContrato"  )
+	@PostMapping( "/editarContrato" )
 	public @ResponseBody AccionRespuesta postEditarContrato( @RequestBody ContratoDto contratoDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.contratoValidator.validate(contratoDto, result);
 		
 		if( result.hasErrors() ) {
 			
-			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
+			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnContratoDto(contratoDto, result) );
 		}
 		
-		return this.contratoService.getCrearEditarContrato(contratoDto, user);
+		return this.contratoService.getCrearEditarContrato(contratoDto);
 	}
 	
 	@GetMapping("/eliminarContrato/{contratoId}")

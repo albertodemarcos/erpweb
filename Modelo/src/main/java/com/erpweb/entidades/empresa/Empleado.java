@@ -20,10 +20,7 @@ public class Empleado extends Persona implements Serializable {
 
 	private static final long serialVersionUID = -1432951231505559165L;
 	
-	
-	//Atributos Cliente
 	private Long id;
-    private String codigo;
 	private TipoEmpleado tipoEmpleado;
 	
 	
@@ -36,14 +33,6 @@ public class Empleado extends Persona implements Serializable {
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	public String getCodigo() {
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	@Enumerated(EnumType.STRING)

@@ -132,7 +132,7 @@ export class ModalArticuloComponent implements OnInit {
         // Limpiamos datos articulo
         this.articuloInfo = new Articulo();
         this.limpiarCuadroTextoArticuloAlmacen();
-        // this.articulo = null;
+        $('input-container input').val('');
         this.cantidad = null;
         // Cerramos modal
         this.ocultarModalCrearArticulo();
@@ -180,7 +180,6 @@ export class ModalArticuloComponent implements OnInit {
   }
 
   public limpiarCuadroTextoArticuloAlmacen(){
-    console.log('Limpiamos ');
     this.dataArticulo = new Array<Articulo>();
     this.dataAlmacen = new Array<Almacen>();
   }

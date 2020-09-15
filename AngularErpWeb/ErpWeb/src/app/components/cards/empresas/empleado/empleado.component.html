@@ -1,55 +1,57 @@
 <div class="card text-center">
+
     <div class="card-header text-center">
         <h5 class="card-title">Empleado</h5>
     </div>
+
     <div class="card-body">
 
         <!-- Fila 1-->
         <h6 class="card-subtitle mb-2 text-muted text-left">Datos comunes</h6>
         <div class="form-group row text-left">
             <!-- CODIGO empleado -->
-            <dl class="col" *ngIf="empleado.codigo">
+            <dl class="col-3">
                 <dt>Código empleado</dt>
-                <dd>{{empleado.codigo}}</dd>
+                <dd *ngIf="empleado.codigo">{{empleado.codigo}}</dd>
             </dl>
             <!-- NOMBRE -->
-            <dl class="col" *ngIf="empleado.nombre">
+            <dl class="col-3">
                 <dt>Nombre</dt>
-                <dd>{{empleado.nombre}}</dd>
+                <dd *ngIf="empleado.nombre">{{empleado.nombre}}</dd>
             </dl>
             <!-- PRIMER APELLIDO -->
-            <dl class="col" *ngIf="empleado.apellidoPrimero">
+            <dl class="col-3">
                 <dt>Primer apellido</dt>
-                <dd>{{empleado.apellidoPrimero}}</dd>
+                <dd *ngIf="empleado.apellidoPrimero">{{empleado.apellidoPrimero}}</dd>
             </dl>
             <!-- SEGUNDO APELLIDO -->
-            <dl class="col" *ngIf="empleado.apellidoSegundo">
+            <dl class="col-3">
                 <dt>Segundo apellido</dt>
-                <dd>{{empleado.apellidoSegundo}}</dd>
+                <dd *ngIf="empleado.apellidoSegundo">{{empleado.apellidoSegundo}}</dd>
             </dl>
         </div>
 
         <!-- Fila 2-->
         <div class="form-group row text-left">
             <!-- NIF -->
-            <dl class="col" *ngIf="empleado.nif">
+            <dl class="col-3" *ngIf="empleado.nif">
                 <dt>NIF/DNI</dt>
                 <dd>{{empleado.nif}}</dd>
             </dl>
             <!-- TIPO empleado -->
-            <dl class="col" *ngIf="empleado.tipoEmpleado">
+            <dl class="col-3" *ngIf="empleado.tipoEmpleado">
                 <dt>Tipo de empleado</dt>
                 <dd>{{empleado.tipoEmpleado}}</dd>
             </dl>
             <!-- TELEFONO -->
-            <dl class="col" *ngIf="empleado.telefono">
+            <dl class="col-3" *ngIf="empleado.telefono">
                 <dt>Teléfono</dt>
                 <dd>{{empleado.telefono}}</dd>
             </dl>
             <!-- OBSERVACIONES -->
-            <dl class="col" *ngIf="empleado.observaciones">
+            <dl class="col-12">
                 <dt>Observaciones</dt>
-                <dd>{{empleado.observaciones}}</dd>
+                <dd *ngIf="empleado.observaciones">{{empleado.observaciones}}</dd>
             </dl>
         </div>
 
@@ -57,19 +59,19 @@
         <h6 class="card-subtitle mb-2 text-muted text-left">Dirección Postal</h6>
         <div class="form-group row text-left">
             <!-- DIRECCION -->
-            <dl class="col-3" *ngIf="empleado.direccion">
+            <dl class="col-3">
                 <dt>Código postal</dt>
-                <dd>{{empleado.direccion}}</dd>
+                <dd *ngIf="empleado.direccion">{{empleado.direccion}}</dd>
             </dl>
             <!-- CODIGO POSTAL -->
-            <dl class="col-3" *ngIf="empleado.codigoPostal">
+            <dl class="col-3">
                 <dt>Dirección</dt>
-                <dd>{{empleado.codigoPostal}}</dd>
+                <dd *ngIf="empleado.codigoPostal">{{empleado.codigoPostal}}</dd>
             </dl>
             <!-- EDIFICIO -->
-            <dl class="col-3" *ngIf="empleado.edificio">
+            <dl class="col-3">
                 <dt>Edificio</dt>
-                <dd>{{empleado.edificio}}</dd>
+                <dd *ngIf="empleado.edificio">{{empleado.edificio}}</dd>
             </dl>
         </div>
 
@@ -77,24 +79,24 @@
         <h6 class="card-subtitle mb-2 text-muted text-left">Procedencia</h6>
         <div class="form-group row text-left">
             <!-- PAIS -->
-            <dl class="col" *ngIf="empleado.pais">
+            <dl class="col-3">
                 <dt>País</dt>
-                <dd>{{empleado.pais}}</dd>
+                <dd *ngIf="empleado.pais">{{empleado.pais}}</dd>
             </dl>
             <!-- REGION -->
-            <dl class="col" *ngIf="empleado.region">
+            <dl class="col-3">
                 <dt>Región</dt>
-                <dd>{{empleado.region}}</dd>
+                <dd *ngIf="empleado.region">{{empleado.region}}</dd>
             </dl>
             <!-- PROVINCIA -->
-            <dl class="col" *ngIf="empleado.provincia">
+            <dl class="col-3">
                 <dt>Provincia</dt>
-                <dd>{{empleado.provincia}}</dd>
+                <dd *ngIf="empleado.provincia">{{empleado.provincia}}</dd>
             </dl>
             <!-- POBLACION -->
-            <dl class="col" *ngIf="empleado.poblacion">
+            <dl class="col-3">
                 <dt>Población</dt>
-                <dd>{{empleado.poblacion}}</dd>
+                <dd *ngIf="empleado.poblacion">{{empleado.poblacion}}</dd>
             </dl>
         </div>
     </div>

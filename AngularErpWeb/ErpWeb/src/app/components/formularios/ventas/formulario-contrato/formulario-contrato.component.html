@@ -7,47 +7,53 @@
         <!-- FORMULARIO -->
         <form autocomplete="off" (ngSubmit)="crearContratoFormulario()">
 
-            <!-- CODIGO -->
-            <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 text-center required">Código contrato</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="contrato.codigo" name="codigo">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
-                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+            <div class="row">
+                <!-- CODIGO -->
+                <div class="col-4">
+                    <label for="codigo" class="col-form-label font-weight-bold col-12 text-left required">Código contrato</label>
+                    <div class="col-12">
+                        <input type="text" class="form-control" [(ngModel)]="contrato.codigo" name="codigo">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                            <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                        </div>
                     </div>
                 </div>
+
+                <!-- FECHA INICIO -->
+                <div class="col-4 form-group">
+                    <label for="fechaInicio" class="col-form-label font-weight-bold col-12 text-left required">Fecha inicio</label>
+                    <div class="col-12">
+                        <input type="date" class="form-control" [ngModel]="contrato.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaInicio = $event" name="fechaInicio">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
+                            <span class="error text-danger">{{erroresFormulario['fechaInicio']}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FECHA FIN -->
+                <div class="col-4 form-group">
+                    <label for="fechaFin" class="col-form-label font-weight-bold col-12 text-left required">Fecha fín</label>
+                    <div class="col-12">
+                        <input type="date" class="form-control" [ngModel]="contrato.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaFin = $event" name="fechaFin">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['fechaFin']">
+                            <span class="error text-danger">{{erroresFormulario['fechaFin']}}</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- FECHA INICIO -->
-            <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-4 text-center required">Fecha inicio</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="contrato.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaInicio = $event" name="fechaInicio">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
-                        <span class="error text-danger">{{erroresFormulario['fechaInicio']}}</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FECHA FIN -->
-            <div class="form-group row">
-                <label for="fechaFin" class="col-form-label col-sm-4 text-center required">Fecha fín</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="contrato.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaFin = $event" name="fechaFin">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaFin']">
-                        <span class="error text-danger">{{erroresFormulario['fechaFin']}}</span>
-                    </div>
-                </div>
-            </div>
+            <br/>
 
             <!-- TABLA DE ARTICULOS -->
             <div class="form-group row">
-                <div class="col-12 text-center">
-                    <h4>Artículos</h4>
+                <div class="col-12 text-left">
+                    <h4>Lista de artículos</h4>
                 </div>
                 <div class="col-12">
                     <table id="tablaArticulos" class="table table-striped table-bordered">
-                        <thead class="bg-blue">
+
+                        <thead class="thead-light">
                             <tr>
                                 <th class="ocultar">Id</th>
                                 <th>Codigo</th>
@@ -57,6 +63,7 @@
                                 <th>Importe (Con Imp.)</th>
                                 <th>Cantidad</th>
                                 <th>Total</th>
+                                <th class="ocultar">AlmacenId</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -69,6 +76,7 @@
                                 <td>{{linea.articuloDto.importeTotal | currency:'EUR':true}}</td>
                                 <td>{{linea.cantidad}}</td>
                                 <td>{{linea.importeTotal | currency:'EUR':true}}</td>
+                                <td class="ocultar">{{linea.almacenId}}</td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-danger" (click)="destruirLineaArticulo(linea.id)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -77,6 +85,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <span class="ocultar error text-danger" id="linea"></span>
                 </div>
                 <!-- BOTON AÑADIR -->
                 <div class="col-sm-12 text-right">
@@ -86,51 +95,12 @@
             </div>
 
             <!-- DESCRIPCION -->
-            <div class="form-group row">
-                <label for="descripcion" class="col-form-label text-center col-sm-4">Descripción</label>
-                <div class="col-sm-7">
-                    <!--<input type="text" class="form-control" [(ngModel)]="contrato.descripcion" name="descripcion">-->
-                    <textarea class="form-control" name="descripcion" [(ngModel)]="contrato.descripcion" rows="4" cols="50"></textarea>
+            <div class="row">
+                <label for="descripcion" class="col-form-label font-weight-bold text-lfet col-12">Descripción</label>
+                <div class="col-12">
+                    <textarea class="form-control" name="descripcion" maxlength="255" [(ngModel)]="contrato.descripcion" rows="4" cols="50"></textarea>
                 </div>
             </div>
-
-            <!-- BASE IMPONIBLE 
-            <div class="form-group row">
-                <label for="baseImponibleTotal" class="col-form-label col-sm-4 required">Base imponible</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="contrato.baseImponibleTotal" name="baseImponibleTotal">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponibleTotal']">
-                        <span class="error text-danger">{{erroresFormulario['baseImponibleTotal']}}</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- IMPUESTO 
-            <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
-                <div class="col-sm-7">
-                    <p>
-                        <select name="impuesto" title="" [(ngModel)]="contrato.impuesto">
-                            <option disabled="true"  selected >Selecciona tipo impuesto</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{mapaIva.get(tipo) | capitalizar}}</option> 
-                        </select>
-                    </p>
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['impuesto']">
-                        <span class="error text-danger">{{erroresFormulario['impuesto']}}</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- IMPORTE TOTAL 
-            <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="contrato.importeTotal" name="importeTotal">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
-                        <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
-                    </div>
-                </div>
-            </div> -->
 
             <!-- BOTON -->
             <div class="form-group row text-center">

@@ -7,27 +7,32 @@
         <!-- FORMULARIO -->
         <form autocomplete="off" (ngSubmit)="crearCompraFormulario()">
 
-            <!-- CODIGO -->
-            <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 text-center required">Código compra</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="compra.codigo" name="codigo">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
-                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+            <div class="row">
+                <!-- CODIGO -->
+                <div class="col-5">
+                    <label for="codigo" class="col-form-label font-weight-bold col-12 text-left required">Código compra</label>
+                    <div class="col-12">
+                        <input type="text" class="form-control" [(ngModel)]="compra.codigo" name="codigo">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                            <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                        </div>
                     </div>
+                </div>
+
+                <!-- FECHA COMPRA -->
+                <div class="col-5">
+                    <label for="fechaCompra" class="col-form-label font-weight-bold col-12 text-left required">Fecha compra</label>
+                    <div class="col-12">
+                        <input type="date" class="form-control" [ngModel]="compra.fechaCompra | date:'yyyy-MM-dd'" (ngModelChange)="compra.fechaCompra = $event" name="fechaCompra">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['fechaCompra']">
+                            <span class="error text-danger">{{erroresFormulario['fechaCompra']}}</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- FECHA COMPRA -->
-            <div class="form-group row">
-                <label for="fechaCompra" class="col-form-label col-sm-4 text-center required">Fecha compra</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="compra.fechaCompra | date:'yyyy-MM-dd'" (ngModelChange)="compra.fechaCompra = $event" name="fechaCompra">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaCompra']">
-                        <span class="error text-danger">{{erroresFormulario['fechaCompra']}}</span>
-                    </div>
-                </div>
-            </div>
+            <br/>
 
             <!-- TABLA DE ARTICULOS -->
             <div class="form-group row">
@@ -46,6 +51,7 @@
                                 <th>Importe (Con Imp.)</th>
                                 <th>Cantidad</th>
                                 <th>Total</th>
+                                <th class="ocultar">AlmacenId</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -58,6 +64,7 @@
                                 <td>{{linea.articuloDto.importeTotal | currency:'EUR':true}}</td>
                                 <td>{{linea.cantidad}}</td>
                                 <td>{{linea.importeTotal | currency:'EUR':true}}</td>
+                                <td class="ocultar">{{linea.almacenId}}</td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-danger" (click)="destruirLineaArticulo(linea.id)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>

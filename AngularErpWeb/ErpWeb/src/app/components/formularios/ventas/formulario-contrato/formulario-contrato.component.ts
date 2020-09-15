@@ -28,6 +28,7 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
   public tiposImpuesto: string[];
   private respuestaGetContrato: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
+  public lineasContratoError: LineaContrato[];
   public mapaIva: Map<string, string>;
 
   // Modal Articulo
@@ -41,12 +42,17 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
 
     this.contrato = new Contrato();
     this.contrato.articulosCantidadMap = new Map<number, number>();
+    this.contrato.articulosAlmacenMap = new Map<number, number>();
     this.contrato.articulosCantidad = {};
+    this.contrato.articulosAlmacen = {};
     this.contrato.lineaContrato = new Array<LineaContrato>();
     this.erroresFormulario = new Map<string, object>();
+    this.lineasContratoError = new Array<LineaContrato>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
+
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
+
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -57,9 +63,9 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
     });
     this.autocompletarService.paramatroExterno = 'tablaArticulos';
     this.modalArticulo = new ModalArticuloComponent(this.autocompletarService);
-    this.modalArticulo.articuloEvento.subscribe( (articulo: any) => {
-      console.log('Articulo: ' + JSON.stringify(articulo));
-    });
+    /*this.modalArticulo.articuloEvento.subscribe( (articulo: any) => {
+      console.log('Articulo dsadadsad: ' + JSON.stringify(articulo));
+    });*/
   }
 
   ngAfterViewInit(): void {
@@ -195,7 +201,16 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
       // Error
       if ( accionRespuesta != null && accionRespuesta.data != null && accionRespuesta.data !=  null )
       {
+        console.log('Empezamos');
         this.erroresFormulario = accionRespuesta.data;
+        // tslint:disable-next-line: no-string-literal
+        if (this.erroresFormulario['lineasContratoDtoError'] != null)
+        {
+          // tslint:disable-next-line: no-string-literal
+          this.lineasContratoError = this.erroresFormulario['lineasContratoDtoError'];
+          console.log('antes de la funcion');
+          this.recorrerTablaParaMostrarErrores();
+        }
       }else
       {
         swal('Error', 'Se ha producido un error al guardar los datos del contrato', 'error');
@@ -261,22 +276,27 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
       // Obtenemos las celdas de articulo y cantidad
       const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
       const celdaCantidad = jQuery(celdas[6]).text(); // Celda 6 es la cantidad..
+      const celdaAlmacenId = jQuery(celdas[8]).text(); // Celda 8 es el almacenId..
       if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
       {
         this.contrato.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
+        this.contrato.articulosAlmacenMap.set(celdaArticuloId, celdaAlmacenId);
       }
     }
   }
 
   private convierteMapaEnObjecto(): void{
-    // Convertimos el mapa en object
+    // Convertimos el mapa articulosCantidad en objecto
     this.contrato.articulosCantidadMap.forEach((value, key) => {
       this.contrato.articulosCantidad[key] = value;
+    });
+    // Convertimos el mapa articulosAlmacen en objecto
+    this.contrato.articulosAlmacenMap.forEach((value, key) => {
+      this.contrato.articulosAlmacen[key] = value;
     });
   }
 
   public modalAnadirArticulo(){
-    console.log('Entro');
     this.modalArticulo.mostrarModalCrearArticulo();
   }
 
@@ -290,6 +310,36 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
     {
       swal('Error', 'Error, no se puede eliiminar la fila, inténtalo mas tarde', 'error');
     }
+  }
+
+  public recorrerTablaParaMostrarErrores()
+  {
+    console.log('Entramos');
+    // Primero recuperamos las filas
+    const filas = jQuery('#tablaArticulos').find('tr');
+    // Recorremos las filas
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < filas.length; i++)
+    {
+      // Recuperamos las celdas
+      const celdas = jQuery(filas[i]).find('td');
+      // Obtenemos las celdas de articulo y cantidad
+      const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
+      const celdaAlmacenId = jQuery(celdas[8]).text(); // Celda 8 es el almacenId..
+      if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
+      {
+        const keyMap = '' + celdaArticuloId + '-' + celdaAlmacenId;
+
+        if (this.lineasContratoError[keyMap] != null)
+        {
+          const errorStr = this.lineasContratoError[keyMap];
+          jQuery('#linea_art_id_' + celdaArticuloId).addClass('table-danger');
+          jQuery('#linea').append(errorStr);
+          jQuery('#linea').append('<br/>');
+          jQuery('#linea').removeClass('ocultar');
+        }
+      }
+     }
   }
 
 }

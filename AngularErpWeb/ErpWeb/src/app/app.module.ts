@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
-// import { Jqgrid5Component } from './components/jqgrid5/jqgrid5.component';
-
 // FullCalendar
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -60,6 +58,8 @@ import { ListadoVehiculosComponent } from './components/listados/inventario/list
 import { ListadoEmpleadosComponent } from './components/listados/empresa/listado-empleados/listado-empleados.component';
 import { ListadoUsuariosComponent } from './components/listados/usuarios/listado-usuarios/listado-usuarios.component';
 
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
+
 /* ---------------------------------------------------- FORMULARIOS ----------------------------------------------------------- */
 import { FormularioClienteComponent } from './components/formularios/cllientes/formulario-cliente/formulario-cliente.component';
 import { FormularioEmpleadoComponent } from './components/formularios/empresa/formulario-empleado/formulario-empleado.component';
@@ -76,20 +76,10 @@ import { FormularioVehiculoComponent } from './components/formularios/inventario
 import { FormularioUsuarioComponent } from './components/formularios/usuarios/formulario-usuario/formulario-usuario.component';
 import { FormularioStockComponent } from './components/formularios/inventario/formulario-stock/formulario-stock.component';
 
-/* -------------------------------------------------- MODALES ----------------------------------------------------------------------- */
-/*import { ModalClienteComponent } from './components/modales/crm/modal-cliente/modal-cliente.component';
-import { ModalEmpleadoComponent } from './components/modales/empresa/modal-empleado/modal-empleado.component';
-import { ModalEmpresaComponent } from './components/modales/empresa/modal-empresa/modal-empresa.component';
-import { ModalCompraComponent } from './components/modales/compras/modal-compra/modal-compra.component';
-import { ModalPedidoComponent } from './components/modales/compras/modal-pedido/modal-pedido.component';
-import { ModalProveedorComponent } from './components/modales/compras/modal-proveedor/modal-proveedor.component';
-import { ModalAlmacenComponent } from './components/modales/inventario/modal-almacen/modal-almacen.component';
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
 
-import { ModalVehiculoComponent } from './components/modales/inventario/modal-vehiculo/modal-vehiculo.component';
-import { ModalContratoComponent } from './components/modales/ventas/modal-contrato/modal-contrato.component';
-import { ModalVentaComponent } from './components/modales/ventas/modal-venta/modal-venta.component';
-import { ModalFacturaComponent } from './components/modales/ventas/modal-factura/modal-factura.component';
-*/
+/* -------------------------------------------------- MODALES ----------------------------------------------------------------------- */
+
 import { ModalArticuloComponent } from './components/modales/inventario/modal-articulo/modal-articulo.component';
 
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
@@ -109,8 +99,11 @@ import { UsuarioService } from './services/usuarios/usuario.service';
 import { ContratoService } from './services/ventas/contrato.service';
 import { FacturaService } from './services/ventas/factura.service';
 import { VentaService } from './services/ventas/venta.service';
-import { CapitalizarPipe } from './Pipes/capitalizar.pipe';
+/* --------------------------------------------------------------------------------------------------------------------------- */
 
+/* --------------------------------------------------- PIPES ----------------------------------------------------------------- */
+
+import { CapitalizarPipe } from './Pipes/capitalizar.pipe';
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 

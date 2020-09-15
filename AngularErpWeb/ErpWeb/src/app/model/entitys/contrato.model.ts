@@ -1,5 +1,5 @@
 
-import { LineaContrato } from 'src/app/model/entitys/linea-contrato.model';
+import { LineaContrato } from './linea-contrato.model';
 
 export class Contrato {
     id: number;
@@ -10,7 +10,9 @@ export class Contrato {
     fechaInicioTexto: string;
     fechaFinTexto: string;
     articulosCantidadMap: Map<number, number>; // (key-> articuloId, value -> cantidad) Evitamos duplicados
+    articulosAlmacenMap: Map<number, number>; // (key-> articuloId, value -> almacenId) Evitamos duplicados
     articulosCantidad: {};
+    articulosAlmacen: {};
     lineaContrato: Array<LineaContrato>; // ¿¿??
     articulo: string; // NO se utiliza
     cantidad: number; // NO se utiliza

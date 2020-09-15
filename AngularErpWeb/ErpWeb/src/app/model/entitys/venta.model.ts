@@ -1,5 +1,5 @@
 
-import { LineaVenta } from 'src/app/model/entitys/linea-venta.model';
+import { LineaVenta } from './linea-venta.model';
 
 export class Venta {
     id: number;

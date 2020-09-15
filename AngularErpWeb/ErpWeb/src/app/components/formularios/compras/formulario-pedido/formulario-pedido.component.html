@@ -7,31 +7,34 @@
         <!-- FORMULARIO -->
         <form autocomplete="off" (ngSubmit)="crearPedidoFormulario()">
 
-            <!-- CODIGO -->
-            <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 text-center required">Código pedido</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="pedido.codigo" name="codigo">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
-                        <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+            <div class="row">
+                <!-- CODIGO -->
+                <div class="col-5">
+                    <label for="codigo" class="col-form-label font-weight-bold col-12 text-left required">Código pedido</label>
+                    <div class="col-12">
+                        <input type="text" class="form-control" [(ngModel)]="pedido.codigo" name="codigo">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
+                            <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FECHA PEDIDO -->
+                <div class="col-5">
+                    <label for="fechaPedido" class="col-form-label font-weight-bold col-12 text-left required">Fecha pedido</label>
+                    <div class="col-12">
+                        <input type="date" class="form-control" [ngModel]="pedido.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedido.fechaPedido = $event" name="fechaPedido">
+                        <div *ngIf="erroresFormulario != null && erroresFormulario['fechaPedido']">
+                            <span class="error text-danger">{{erroresFormulario['fechaPedido']}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- FECHA pedido -->
-            <div class="form-group row">
-                <label for="fechaPedido" class="col-form-label col-sm-4 text-center required">Fecha pedido</label>
-                <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="pedido.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedido.fechaPedido = $event" name="fechaPedido">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['fechaPedido']">
-                        <span class="error text-danger">{{erroresFormulario['fechaPedido']}}</span>
-                    </div>
-                </div>
-            </div>
+            <br/>
 
             <!-- TABLA DE ARTICULOS -->
             <div class="form-group row">
-                <div class="col-12 text-center">
+                <div class="col-12 text-left">
                     <h4>Artículos</h4>
                 </div>
                 <div class="col-12">
@@ -73,66 +76,6 @@
                     <p class="btn btn-primary" (click)="modalAnadirArticulo()" role="button">Añadir artículo</p>
                 </div>
             </div>
-
-            <!-- ARTICULO 
-            <div class="form-group row">
-                <label for="articulo" class="col-form-label col-sm-4 required">Artículo</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="pedido.articulo" name="articulo">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['articulo']">
-                        <span class="error text-danger">{{erroresFormulario['articulo']}}</span>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- CANTIDAD 
-            <div class="form-group row">
-                <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
-                <div class="col-sm-7">
-                    <input type="number" class="form-control" [(ngModel)]="pedido.cantidad" name="cantidad">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
-                        <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- BASE IMPONIBLE 
-            <div class="form-group row">
-                <label for="baseImponibleTotal" class="col-form-label col-sm-4 required">Base imponible</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="pedido.baseImponibleTotal" name="baseImponibleTotal">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponibleTotal']">
-                        <span class="error text-danger">{{erroresFormulario['baseImponibleTotal']}}</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- IMPUESTO 
-            <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
-                <div class="col-sm-7">
-                    <p>
-                        <select name="impuesto" title="" [(ngModel)]="pedido.impuesto">
-                            <option disabled="true"  selected >Selecciona tipo impuesto</option> 
-                            <option [value]="tipo" *ngFor="let tipo of tiposImpuesto">{{mapaIva.get(tipo) | capitalizar }}</option> 
-                        </select>
-                    </p>
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['impuesto']">
-                        <span class="error text-danger">{{erroresFormulario['impuesto']}}</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- IMPORTE TOTAL 
-            <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="pedido.importeTotal" name="importeTotal">
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">
-                        <span class="error text-danger">{{erroresFormulario['importeTotal']}}</span>
-                    </div>
-                </div>
-            </div> -->
 
             <!-- BOTON -->
             <div class="form-group row text-center">
