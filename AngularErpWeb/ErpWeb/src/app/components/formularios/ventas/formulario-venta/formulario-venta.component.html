@@ -20,7 +20,8 @@
                 <div class="col-5">
                     <label for="fechaInicio" class="col-form-label font-weight-bold col-12 text-left required">Fecha venta</label>
                     <div class="col-12">
-                        <input type="date" class="form-control" [ngModel]="venta.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaInicio = $event" name="fechaInicio">
+                        <!--<input type="date" class="form-control" [ngModel]="venta.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="venta.fechaInicio = $event" name="fechaInicio">-->
+                        <input type="text" id="fechaVentaDatePicker" class="form-control" name="fechaInicio" [ngModel]="venta.fechaInicio | date:'dd-MM-yyyy'" />
                         <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
                             <span class="error text-danger">{{erroresFormulario['codigo']}}</span>
                         </div>

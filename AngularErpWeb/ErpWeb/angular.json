@@ -28,7 +28,10 @@
                             "node_modules/font-awesome/css/font-awesome.min.css",
                             "node_modules/free-jqgrid/dist/css/ui.jqgrid.min.css",
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "node_modules/jquery-ui/themes/base/all.css"
+                            "node_modules/jquery-ui/themes/base/all.css",
+                            "src/assets/css/flick/theme.css",
+                            "node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css"
+
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
@@ -39,7 +42,14 @@
                             "node_modules/xlsx/dist/xlsx.full.min.js",
                             "node_modules/file-saver/dist/FileSaver.min.js",
                             "node_modules/tableexport/dist/js/tableexport.min.js",
-                            "node_modules/jquery-ui/ui/widgets/datepicker.js"
+                            "src/assets/js/jquery-ui/jquery-ui.min.js",
+                            "node_modules/jquery-ui/ui/widgets/datepicker.js",
+                            "node_modules/jquery-ui/ui/i18n/datepicker-es.js",
+                            "node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-sliderAccess.js",
+                            "node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js",
+                            "node_modules/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-es.js",
+                            "node_modules/jquery-ui/ui/widgets/autocomplete.js"
+
                         ]
                     },
                     "configurations": {

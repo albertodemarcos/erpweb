@@ -9,7 +9,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4 required">Nombre</label>
+                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.nombre" name="nombre">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
@@ -20,7 +20,7 @@
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código articulo</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-4 required">Código articulo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="articulo.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -31,7 +31,7 @@
 
             <!-- ALMACEN/ES -->
             <div class="form-group row">
-                <label for="almacenesId" class="col-form-label col-sm-4 required">Almacén/es</label>
+                <label for="almacenesId" class="col-form-label font-weight-bold col-4 required">Almacén/es</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="almacenesId" class="custom-select" multiple title="" [(ngModel)]="articulo.almacenesId">
@@ -46,7 +46,7 @@
 
             <!-- DESCRIPCION -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-4 required">Descripción</label>
+                <label for="descripcion" class="col-form-label font-weight-bold col-4 required">Descripción</label>
                 <div class="col-sm-7">
                     <!--<input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">-->
                     <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion"></textarea>
@@ -58,7 +58,7 @@
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-4 required">Base imponible</label>
+                <label for="baseImponible" class="col-form-label font-weight-bold col-4 required">Base imponible</label>
                 <div class="col-sm-7">
                     <input type="number" class="form-control" [(ngModel)]="articulo.baseImponible" step="0.01" (change)="calcularImporteTotal()" name="baseImponible">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponible']">
@@ -69,7 +69,7 @@
 
             <!-- IMPUESTO -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4 required">Impuesto</label>
+                <label for="impuesto" class="col-form-label font-weight-bold col-4 required">Impuesto</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="impuesto" class="custom-select" title="" [(ngModel)]="articulo.impuesto" (change)="calcularImporteTotal()">
@@ -85,7 +85,7 @@
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4 required">Importe total</label>
+                <label for="importeTotal" class="col-form-label font-weight-bold col-4 required">Importe total</label>
                 <div class="col-sm-7">
                     <input type="number" class="form-control" [(ngModel)]="articulo.importeTotal" name="importeTotal" readonly="true" step="0.01">
                     <!--<div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">

@@ -9,7 +9,7 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código factura</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-sm-4 required">Código factura</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -20,9 +20,10 @@
 
             <!-- FECHA FACTURA -->
             <div class="form-group row">
-                <label for="fechaInicio" class="col-form-label col-sm-4 required">Fecha factura</label>
+                <label for="fechaInicio" class="col-form-label font-weight-bold col-sm-4 required">Fecha factura</label>
                 <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="factura.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaInicio = $event" name="fechaInicio">
+                    <!--<input type="date" class="form-control" [ngModel]="factura.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="factura.fechaInicio = $event" name="fechaInicio">-->
+                    <input type="text" id="fechaFacturaDatePicker" class="form-control" name="fechaInicio" [ngModel]="factura.fechaInicio | date:'dd-MM-yyyy'" />
                     <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
                         <span class="error text-danger">{{erroresFormulario['fechaInicio']}}</span>
                     </div>
@@ -31,7 +32,7 @@
 
             <!-- DESCRIPCION -->
             <div class="form-group row">
-                <label for="descripcion" class="col-form-label col-sm-4">Descripción</label>
+                <label for="descripcion" class="col-form-label font-weight-bold col-sm-4">Descripción</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.descripcion" name="descripcion">
                 </div>
@@ -39,7 +40,7 @@
 
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
-                <label for="baseImponible" class="col-form-label col-sm-4 required">Base imponible</label>
+                <label for="baseImponible" class="col-form-label font-weight-bold col-sm-4 required">Base imponible</label>
                 <div class="col-sm-7">
                     <input type="number" class="form-control" [(ngModel)]="factura.baseImponible" (change)="calcularImporteTotal()" name="baseImponible">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['baseImponible']">
@@ -50,7 +51,7 @@
 
             <!-- IMPUESTOS -->
             <div class="form-group row">
-                <label for="impuesto" class="col-form-label col-sm-4 required">Impuestos</label>
+                <label for="impuesto" class="col-form-label font-weight-bold col-sm-4 required">Impuestos</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="impuesto" class="custom-select" title="" [(ngModel)]="factura.impuesto" (change)="calcularImporteTotal()">
@@ -66,7 +67,7 @@
 
             <!-- IMPORTE TOTAL -->
             <div class="form-group row">
-                <label for="importeTotal" class="col-form-label col-sm-4">Importe total</label>
+                <label for="importeTotal" class="col-form-label font-weight-bold col-sm-4">Importe total</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="factura.importeTotal" name="importeTotal" readonly="true">
                     <!--<div *ngIf="erroresFormulario != null && erroresFormulario['importeTotal']">

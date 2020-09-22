@@ -70,6 +70,24 @@ export class FormularioVentaComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    jQuery('#fechaVentaDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.venta.fechaInicio = jQuery('#fechaVentaDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
+      console.log('Se carga el español');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el idioma');
+    });
+
   }
 
   // Metodos del formulario

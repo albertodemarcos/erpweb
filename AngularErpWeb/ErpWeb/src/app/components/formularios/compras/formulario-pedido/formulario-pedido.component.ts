@@ -71,6 +71,25 @@ export class FormularioPedidoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    jQuery('#fechaPedidoDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.pedido.fechaPedido = jQuery('#fechaPedidoDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
+      console.log('Se carga el español');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el idioma');
+    });
+
+
   }
 
   // Metodos del formulario

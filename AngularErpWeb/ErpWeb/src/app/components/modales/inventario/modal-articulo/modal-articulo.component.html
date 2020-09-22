@@ -1,6 +1,6 @@
 <!-- MODAL VISUALIZAR ARTICULO -->
-<div id="crearModalArticulo" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div id="crearModalArticulo" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
 
             <!-- TITULO {{evento.titulo}}-->
@@ -19,99 +19,82 @@
                         <!-- FORMULARIO -->
                         <form autocomplete="off" (ngSubmit)="crearAnadirArticuloFormulario()">
 
-                            <!-- AUTOCOMPLETAR ALMACEN -->
-                            <div class="form-group row">
-                                <label for="almacen" class="col-form-label col-sm-4 required">Almacén</label>
-                                <div class="col-7 ng-autocomplete">
-                                    <ng-autocomplete id="almacenAutoCompleteId" [data]="dataAlmacen" [searchKeyword]="keyword" name="almacen" [(ngModel)]="almacen" (selected)='itemAlmacenSeleccionado($event)' (inputChanged)='getAlmacenes($event)' (inputFocused)='cuadroSeleccionado($event)'
-                                        (inputCleared)="limpiarCuadroTextoAlmacen()" (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargandoAlmacen" [minQueryLength]="1" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                                        placeholder="Buscar almacen">
-                                    </ng-autocomplete>
-
-                                    <ng-template #itemTemplate let-item>
-                                        <a href="javascript:void(0)">
-                                            <span [innerHTML]="item.codigo"></span> -
-                                            <span [innerHTML]="item.nombre"></span>
-                                        </a>
-                                    </ng-template>
-
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        {{mensajeError}}
-                                    </ng-template>
+                            <div class="row">
+                                <!-- AUTOCOMPLETAR ALMACEN -->
+                                <div class="col-4">
+                                    <div class="row form-group">
+                                        <div class="col-12">
+                                            <label for="almacen" class="col-form-label required">Almacén</label>
+                                        </div>
+                                        <div class="col-12 ui-front">
+                                            <input id="almacenId" class="form-control" [(ngModel)]="almacen" name="almacen" />
+                                            <span class="ocultar" id="almacenSpanId" data-almacen-id=""></span>
+                                        </div>
+                                        <div class="loading col-12" id="cargandoAlmacenId"></div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <br/>
-                            <br/>
-
-                            <!-- AUTOCOMPLETAR ARTICULO -->
-                            <div class="form-group row">
-                                <label for="articulo" class="col-form-label col-sm-4 required">Articulo</label>
-                                <div class="col-7 ng-autocomplete">
-                                    <ng-autocomplete id="articuloAutoCompleteId" [data]="dataArticulo" [searchKeyword]="keyword" name="articulo" [(ngModel)]="articulo" (selected)='itemSeleccionado($event)' (inputChanged)='getArticulos($event)' (inputFocused)='cuadroSeleccionado($event)'
-                                        (inputCleared)="limpiarCuadroTextoArticulo()" (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargandoArticulo" [minQueryLength]="1" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                                        placeholder="Buscar articulo">
-                                    </ng-autocomplete>
-
-                                    <ng-template #itemTemplate let-item>
-                                        <a href="javascript:void(0)">
-                                            <span [innerHTML]="item.codigo"></span> -
-                                            <span [innerHTML]="item.nombre"></span>
-                                        </a>
-                                    </ng-template>
-
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        {{mensajeError}}
-                                    </ng-template>
+                                <!-- AUTOCOMPLETAR ARTICULO -->
+                                <div class="col-4">
+                                    <div class="row form-group">
+                                        <div class="col-12">
+                                            <label for="articulo" class="col-form-label col-sm-4 required">Artículo</label>
+                                        </div>
+                                        <div class="col-12 ui-front">
+                                            <input id="articuloId" class="form-control" [(ngModel)]="articulo" name="articulo" />
+                                            <span class="ocultar" id="articuloSpanId" data-articulo-id=""></span>
+                                        </div>
+                                        <div class="loading col-12" id="cargandoArticuloId"></div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <br/>
-                            <br/>
-
-                            <!-- CANTIDAD -->
-                            <div class="form-group row">
-                                <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
-                                <div class="col-sm-7">
-                                    <input type="number" class="form-control" [(ngModel)]="cantidad" name="cantidad">
-                                    <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
-                                        <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
+                                <!-- CANTIDAD -->
+                                <div class="col-4">
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="number" class="form-control" [(ngModel)]="cantidad" name="cantidad">
+                                            <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
+                                                <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <br/>
                             <br/>
 
                             <!--INFORMACION ARTICULO-->
-                            <div class="row">
-                                <div class="col-12">
-                                    <h6 class="text-center" *ngIf="articuloInfo.nombre">Datos articulo seleccionado</h6>
-                                </div>
-                                <div class="col-12">
-                                    <div class="row form-group">
-                                        <!-- ARTICULO -->
-                                        <dl class="col-12" *ngIf="articuloInfo.nombre">
-                                            <dt>Artículo</dt>
-                                            <dd>{{articuloInfo.nombre}}</dd>
-                                        </dl>
-                                        <!-- BASE IMPONIBLE -->
-                                        <dl class="col-4" *ngIf="articuloInfo.baseImponible">
-                                            <dt>Base imp.</dt>
-                                            <dd>{{articuloInfo.baseImponible | currency:'EUR':true}}</dd>
-                                        </dl>
-                                        <!-- IMPUESTO -->
-                                        <dl class="col-4" *ngIf="articuloInfo.impuesto">
-                                            <dt>Impuesto ap.</dt>
-                                            <dd>{{ mapaIva.get(articuloInfo.impuesto) | capitalizar}}</dd>
-                                        </dl>
-                                        <!-- TOTAL -->
-                                        <dl class="col-4" *ngIf="articuloInfo.importeTotal">
-                                            <dt>Importe total</dt>
-                                            <dd>{{articuloInfo.importeTotal | currency:'EUR':true}}</dd>
-                                        </dl>
+                            <div class="row" *ngIf="articuloInfo.id">
+                                <div class="card formluario">
+                                    <h5 class="card-header text-center cabecera">Artículo</h5>
+                                    <div class="card-body">
+                                        <h6 class="card-title">Datos del articulo seleccionado</h6>
+                                        <div class="row">
+                                            <!-- ARTICULO -->
+                                            <dl class="col-12" *ngIf="articuloInfo.nombre">
+                                                <dt>Nombre</dt>
+                                                <dd>{{articuloInfo.nombre}}</dd>
+                                            </dl>
+                                            <!-- BASE IMPONIBLE -->
+                                            <dl class="col-4" *ngIf="articuloInfo.baseImponible">
+                                                <dt>Base imp.</dt>
+                                                <dd>{{articuloInfo.baseImponible | currency:'EUR':true}}</dd>
+                                            </dl>
+                                            <!-- IMPUESTO -->
+                                            <dl class="col-4" *ngIf="articuloInfo.impuesto">
+                                                <dt>Impuesto ap.</dt>
+                                                <dd>{{ mapaIva.get(articuloInfo.impuesto) | capitalizar}}</dd>
+                                            </dl>
+                                            <!-- TOTAL -->
+                                            <dl class="col-4" *ngIf="articuloInfo.importeTotal">
+                                                <dt>Importe total</dt>
+                                                <dd>{{articuloInfo.importeTotal | currency:'EUR':true}}</dd>
+                                            </dl>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- BOTON -->
@@ -128,3 +111,60 @@
         </div>
     </div>
 </div>
+
+<!-- AUTOCOMPLETAR ALMACEN 
+<div class="row form-group">
+    <div class="col-3">
+        <label for="almacen" class="col-form-label required">Almacén</label>
+    </div>
+    <div class="col-6 ui-front">
+        <input id="almacenId" class="form-control" [(ngModel)]="almacen" name="almacen" />
+        <span class="ocultar" id="almacenSpanId" data-almacen-id=""></span>
+    </div>
+    <div class="loading col-3" id="cargandoAlmacenId"></div>
+</div>-->
+<!-- AUTOCOMPLETAR ARTICULO 
+<div class="row form-group">
+    <label for="articulo" class="col-form-label col-sm-4 required">Artículo</label>
+    <div class="ui-front col-7">
+        <input id="articuloId" class="form-control" [(ngModel)]="articulo" name="articulo" />
+        <span class="ocultar" id="articuloSpanId" data-articulo-id=""></span>
+    </div>
+    <div class="loading" id="cargandoArticuloId"></div>
+</div>-->
+
+<!-- CANTIDAD 
+<div class="form-group row">
+    <label for="cantidad" class="col-form-label col-sm-4 required">Cantidad</label>
+    <div class="col-sm-7">
+        <input type="number" class="form-control" [(ngModel)]="cantidad" name="cantidad">
+        <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">
+            <span class="error text-danger">{{erroresFormulario['cantidad']}}</span>
+        </div>
+    </div>
+</div>-->
+
+<!-- 
+        <div class="col-12">
+            <h6 class="text-center" *ngIf="articuloInfo.nombre">Datos articulo seleccionado</h6>
+        </div>
+        <div class="col-12">
+            <div class="row form-group">
+                <dl class="col-12" *ngIf="articuloInfo.nombre">
+                    <dt>Artículo</dt>
+                    <dd>{{articuloInfo.nombre}}</dd>
+                </dl>
+                <dl class="col-4" *ngIf="articuloInfo.baseImponible">
+                    <dt>Base imp.</dt>
+                    <dd>{{articuloInfo.baseImponible | currency:'EUR':true}}</dd>
+                </dl>
+                <dl class="col-4" *ngIf="articuloInfo.impuesto">
+                    <dt>Impuesto ap.</dt>
+                    <dd>{{ mapaIva.get(articuloInfo.impuesto) | capitalizar}}</dd>
+                </dl>
+                <dl class="col-4" *ngIf="articuloInfo.importeTotal">
+                    <dt>Importe total</dt>
+                    <dd>{{articuloInfo.importeTotal | currency:'EUR':true}}</dd>
+                </dl>
+            </div>
+        </div>-->

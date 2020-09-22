@@ -9,7 +9,7 @@
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 text-center required">Código</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-4 text-center required">Código</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="stockAlmacen.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -22,7 +22,7 @@
 
             <!-- AUTOCOMPLETAR ARTICULO -->
             <div class="form-group row">
-                <label for="articulo" class="col-form-label col-sm-4 text-center required">Articulo</label>
+                <label for="articulo" class="col-form-label font-weight-bold col-4 text-center required">Articulo</label>
                 <div class="col-7 ng-autocomplete">
                     <ng-autocomplete [data]="dataArticulo" [searchKeyword]="keyword" name="articulo" [(ngModel)]="articulo" (selected)='itemSeleccionado($event)' (inputChanged)='getArticulos($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoArticulo()"
                         (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar articulo">
@@ -46,7 +46,7 @@
 
             <!-- AUTOCOMPLETAR ALMACEN -->
             <div class="form-group row">
-                <label for="articulo" class="col-form-label col-sm-4 text-center required">Almacén</label>
+                <label for="articulo" class="col-form-label font-weight-bold col-4 text-center required">Almacén</label>
                 <div class="col-7 ng-autocomplete">
                     <ng-autocomplete [data]="dataAlmacen" [searchKeyword]="keyword" name="valorInicialAlmacen" [(ngModel)]="almacen" (selected)='itemSeleccionado($event)' (inputChanged)='getAlmacenes($event)' (inputFocused)='cuadroSeleccionado($event)' (inputCleared)="limpiarCuadroTextoAlmacen()"
                         (onChangeSearch)="cambiosAlBuscar($event)" [isLoading]="estaCargando" [minQueryLength]="2" [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar almacen">
@@ -70,7 +70,7 @@
 
             <!-- CANTIDAD -->
             <div class="form-group row">
-                <label for="cantidad" class="col-form-label col-sm-4 text-center required">Cantidad</label>
+                <label for="cantidad" class="col-form-label font-weight-bold col-4 text-center required">Cantidad</label>
                 <div class="col-sm-7">
                     <input type="number" class="form-control" [(ngModel)]="stockAlmacen.cantidad" name="cantidad">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['cantidad']">

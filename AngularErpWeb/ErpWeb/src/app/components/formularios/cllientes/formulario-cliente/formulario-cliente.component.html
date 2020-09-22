@@ -8,7 +8,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4 required">Nombre</label>
+                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
@@ -19,7 +19,7 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código cliente</label>
+                &nbsp;<label for="codigo" class="col-form-label font-weight-bold col-4 required">Código cliente</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -30,7 +30,7 @@
 
             <!-- PRIMER APELLIDO -->
             <div class="form-group row">
-                <label for="apellidoPrimero" class="col-form-label col-sm-4">Primer apellido</label>
+                &nbsp;<label for="apellidoPrimero" class="col-form-label font-weight-bold col-4">Primer apellido</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.apellidoPrimero" name="apellidoPrimero">
                 </div>
@@ -38,7 +38,7 @@
 
             <!-- SEGUNDO APELLIDO -->
             <div class="form-group row">
-                <label for="apellidoSegundo" class="col-form-label col-sm-4">Segundo apellido</label>
+                &nbsp;<label for="apellidoSegundo" class="col-form-label font-weight-bold col-4">Segundo apellido</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.apellidoSegundo" name="apellidoSegundo">
                 </div>
@@ -46,7 +46,7 @@
 
             <!-- NIF -->
             <div class="form-group row">
-                <label for="nif" class="col-form-label col-sm-4 required">NIF/DNI</label>
+                &nbsp;<label for="nif" class="col-form-label font-weight-bold col-4 required">NIF/DNI</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.nif" name="nif">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -57,7 +57,7 @@
 
             <!-- TIPO CLIENTE -->
             <div class="form-group row">
-                <label for="tipoCliente" class="col-form-label col-sm-4 required">Tipo de cliente</label>
+                &nbsp;<label for="tipoCliente" class="col-form-label font-weight-bold col-4 required">Tipo de cliente</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoCliente" title="" [(ngModel)]="cliente.tipoCliente">
@@ -73,7 +73,7 @@
 
             <!-- CODIGO POSTAL -->
             <div class="form-group row">
-                <label for="codigoPostal" class="col-form-label col-sm-4 required">Código postal</label>
+                &nbsp;<label for="codigoPostal" class="col-form-label font-weight-bold col-4 required">Código postal</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.codigoPostal" name="codigoPostal">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigoPostal']">
@@ -84,7 +84,7 @@
 
             <!-- DIRECCION -->
             <div class="form-group row">
-                <label for="direccion" class="col-form-label col-sm-4 required">Dirección</label>
+                &nbsp;<label for="direccion" class="col-form-label font-weight-bold col-4 required">Dirección</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.direccion" name="direccion">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['direccion']">
@@ -95,7 +95,7 @@
 
             <!-- EDIFICIO -->
             <div class="form-group row">
-                <label for="edificio" class="col-form-label col-sm-4">Edificio</label>
+                &nbsp;<label for="edificio" class="col-form-label font-weight-bold col-4">Edificio</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.edificio" name="edificio">
                 </div>
@@ -103,7 +103,7 @@
 
             <!-- OBSERVACIONES -->
             <div class="form-group row">
-                <label for="observaciones" class="col-form-label col-sm-4">Observaciones</label>
+                &nbsp;<label for="observaciones" class="col-form-label font-weight-bold col-4">Observaciones</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.observaciones" name="observaciones">
                 </div>
@@ -111,7 +111,7 @@
 
             <!-- TELEFONO -->
             <div class="form-group row">
-                <label for="telefono" class="col-form-label col-sm-4 required">Teléfono</label>
+                &nbsp;<label for="telefono" class="col-form-label font-weight-bold col-4 required">Teléfono</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.telefono" name="telefono">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['telefono']">
@@ -122,7 +122,7 @@
 
             <!-- PAIS -->
             <div class="form-group row">
-                <label for="pais" class="col-form-label col-sm-4 required">País</label>
+                &nbsp;<label for="pais" class="col-form-label font-weight-bold col-4 required">País</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.pais" name="pais">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['pais']">
@@ -133,7 +133,7 @@
 
             <!-- REGION -->
             <div class="form-group row">
-                <label for="region" class="col-form-label col-sm-4">Región</label>
+                &nbsp;<label for="region" class="col-form-label font-weight-bold col-4">Región</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="region" title="" [(ngModel)]="cliente.region">
@@ -149,8 +149,8 @@
 
             <!-- PROVINCIA -->
             <div class="form-group row">
-                <label for="provincia" class="col-form-label col-sm-4">Provincia</label>
-                <div class="col-sm-6">
+                &nbsp;<label for="provincia" class="col-form-label font-weight-bold col-4">Provincia</label>
+                <div class="col-sm-7">
                     <p>
                         <select name="provincia" title="" [(ngModel)]="cliente.provincia">
                             <option disabled="true"  selected >Selecciona provincia</option> 
@@ -165,8 +165,8 @@
 
             <!-- POBLACION -->
             <div class="form-group row">
-                <label for="poblacion" class="col-form-label col-sm-4 required">Población</label>
-                <div class="col-sm-6">
+                &nbsp;<label for="poblacion" class="col-form-label font-weight-bold col-4 required">Población</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="cliente.poblacion" name="poblacion">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['poblacion']">
                         <span class="error text-danger">{{erroresFormulario['poblacion']}}</span>

@@ -30,89 +30,163 @@ export class ModalArticuloComponent implements OnInit {
   public erroresFormulario: Map<string, object>;
 
   // Autocompletar
-  public keyword: string;
   public dataAlmacen: Almacen[];
   public dataArticulo: Articulo[];
   public mensajeError: string;
+  private errorModal: boolean;
   public estaCargandoAlmacen: boolean;
   public estaCargandoArticulo: boolean;
 
   @Output() articuloEvento: EventEmitter<Articulo> = new EventEmitter<Articulo>();
 
   constructor(private autocompletarService: AutocompletarService) {
+
+    console.log('Estoy en el autocompletarService');
+
     this.idTabla = autocompletarService.paramatroExterno;
     this.dataAlmacen = new Array<Almacen>();
     this.dataArticulo = new Array<Articulo>();
     this.articuloInfo = new Articulo();
+    this.almacenInfo = new Almacen();
+    this.almacen = null;
+    this.articulo = null;
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
     this.erroresFormulario = new Map<string, object>();
+    this.errorModal = false;
   }
 
   ngOnInit(): void {
+
+    $('#almacenId').autocomplete({
+      minLength: 2,
+      source: (request: any, response: any) => {
+        this.getAlmacenesAutocompletar(request, response);
+      },
+      focus: ( event: any, ui: any ) => {
+        console.log('Estoy en el foco');
+        $('#almacenId').val( ui.item.nombre );
+        $('#almacenId').attr('data-almacen-id', ui.item.id);
+        $('#almacenSpanId').attr('data-almacen-id', ui.item.id);
+        return false;
+      },
+      select: ( event: any, ui: any ) => {
+        this.rellenarAlmacenDeAutocompletar(ui.item);
+        console.log('Estoy en el selector');
+        $('#almacenId').val( ui.item.nombre );
+        $('#almacenId').attr('data-almacen-id', ui.item.id);
+        $('#almacenSpanId').attr('data-almacen-id', ui.item.id);
+        return false;
+      }
+    }).autocomplete('instance')._renderItem = ( ul: any, item: any ) => {
+      const codigo = item.codigo;
+      if (item != null && item !== 'undefined' && codigo != null && codigo !== 'undefined' && codigo.trim() !== '' )
+      {
+        return $('<li>').append('<a>' + codigo + '-' + item.nombre + '</a>').appendTo(ul);
+      }
+      // Si no tiene codigo
+      return $('<li>').append('<a>' + item.nombre + '</a>').appendTo(ul);
+   };
+
+    $('#articuloId').autocomplete({
+      minLength: 2,
+      source: (request: any, response: any) => {
+        this.getArticulosAutocompletar(request, response);
+      },
+      focus: ( event: any, ui: any ) => {
+        $('#articuloId').val( ui.item.nombre );
+        $('#articuloId').attr('data-articulo-id', ui.item.id);
+        $('#articuloSpanId').attr('data-articulo-id', ui.item.id);
+        return false;
+      },
+      select: ( event: any, ui: any ) => {
+        this.rellenarArticuloDeAutocompletar(ui.item);
+        $('#articuloId').val( ui.item.nombre );
+        $('#articuloId').attr('data-articulo-id', ui.item.id);
+        $('#articuloSpanId').attr('data-articulo-id', ui.item.id);
+        return false;
+      }
+    }).autocomplete('instance')._renderItem = ( ul: any, item: any ) => {
+      const codigo = item.codigo;
+      if (item != null && item !== 'undefined' && codigo != null && codigo !== 'undefined' && codigo.trim() !== '' )
+      {
+        return $('<li>').append('<a>' + codigo + '-' + item.nombre + '</a>').appendTo(ul);
+      }
+      // Si no tiene codigo
+      return $('<li>').append('<a>' + item.nombre + '</a>').appendTo(ul);
+    };
+
   }
 
-  public getAlmacenes(term: any){
+  private getAlmacenesAutocompletar(request: any, response: any){
     this.estaCargandoAlmacen = true;
      // Limpiamos el array previamente
     this.dataAlmacen = new Array<Almacen>();
-    this.autocompletarService.getAlmacenAutocompletar(term).then(
+    this.autocompletarService.getAlmacenAutocompletar(request.term).then(
       (almacenes) => {
         try {
           // Introducimos los datos
           if ( almacenes !== null )
           {
-            this.keyword = 'nombre';
             almacenes.forEach(almacen => {
               this.dataAlmacen.push(almacen);
             });
+            return response(this.dataAlmacen);
           }
           else
           {
             this.mensajeError = 'No existe el almacen';
           }
           this.estaCargandoAlmacen = false;
+          return response;
+
         } catch (errores){
           console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
           this.estaCargandoAlmacen = false;
+          return response;
         }
 
       }, (errores) => {
         this.estaCargandoAlmacen = false;
         swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+        return response;
       }
     );
   }
 
-  public getArticulos(term: any){
+  private getArticulosAutocompletar(request: any, response: any){
     this.estaCargandoArticulo = true;
     // Limpiamos el array previamente
     this.dataArticulo = new Array<Articulo>();
-    this.autocompletarService.getArticuloAutcompletar(term, true).then(
+    this.autocompletarService.getArticuloAutcompletar(request.term, true).then(
       (articulos) => {
         try {
           // Introducimos los datos
           if ( articulos !== null )
           {
-            this.keyword = 'nombre';
             articulos.forEach(articulo => {
               this.dataArticulo.push(articulo);
             });
+            return response(this.dataArticulo);
           }
           else
           {
             this.mensajeError = 'No existe el articulo';
           }
           this.estaCargandoArticulo = false;
+          return response;
+
         } catch (errores){
           this.estaCargandoArticulo = false;
           console.error('Se ha producido un error al convertir la infomracion del servidor' + errores);
+          return response;
         }
 
       }, (errores) => {
         this.estaCargandoArticulo = false;
         swal('Servidor', 'Error, el servidor no esta disponible en este momento, intentalo mas tarde', 'error');
+        return response;
       }
     );
   }
@@ -124,16 +198,16 @@ export class ModalArticuloComponent implements OnInit {
       // Comprobamos que no se ha añadido el articulo previamente
       if (!this.existeArticuloEnTabla(this.articuloInfo.id))
       {
-        console.log('Entramos a añadir articulo');
         // Introducimos datos
         this.rellenarFilaTabla(this.idTabla);
-        // Limpiamos datos almacen
-        this.almacenInfo = new Almacen();
-        // Limpiamos datos articulo
-        this.articuloInfo = new Articulo();
-        this.limpiarCuadroTextoArticuloAlmacen();
-        $('input-container input').val('');
-        this.cantidad = null;
+        console.log('Entramos al');
+        if (this.errorModal)
+        {
+          this.errorModal = false;
+          return;
+        }
+        // Limpiamos la modal
+        this.limpiarCuadrosTextoArticuloAlmacen();
         // Cerramos modal
         this.ocultarModalCrearArticulo();
       }
@@ -146,42 +220,19 @@ export class ModalArticuloComponent implements OnInit {
     console.error('Error, no existe la tabla');
   }
 
-  public itemAlmacenSeleccionado(item: any) {
-    // do something with selected item
-    console.log('Tenemos: ' + item);
-    this.almacenInfo = item;
-  }
-
-  public itemSeleccionado(item: any) {
-    // do something with selected item
-    console.log('Tenemos: ' + item);
-    this.articuloInfo = item;
-  }
-
-  public cambiosAlBuscar(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    console.log('Entramos en cambiosAlBuscar()');
-  }
-
-  public cuadroSeleccionado(e: any) {
-    // do something when input is focused
-    console.log('Entramos en cuadroSeleccionado()');
-  }
-
-  public limpiarCuadroTextoArticulo(){
-    console.log('Limpiamos ');
-    this.dataArticulo = new Array<Articulo>();
-  }
-
-  public limpiarCuadroTextoAlmacen(){
-    console.log('Limpiamos ');
-    this.dataAlmacen = new Array<Almacen>();
-  }
-
-  public limpiarCuadroTextoArticuloAlmacen(){
+  private limpiarCuadrosTextoArticuloAlmacen(): void{
+    // Limpiamos datos almacen
+    this.almacenInfo = new Almacen();
+    // Limpiamos datos articulo
+    this.articuloInfo = new Articulo();
+    // Otros datos
     this.dataArticulo = new Array<Articulo>();
     this.dataAlmacen = new Array<Almacen>();
+    // Limpiamos la cantidad
+    this.cantidad = null;
+    // Limpiamos autocompletar
+    $('#almacenId').val('');
+    $('#articuloId').val('');
   }
 
   /* METODOS AUXLIARES */
@@ -194,26 +245,31 @@ export class ModalArticuloComponent implements OnInit {
 
   private rellenarFilaTabla(idTabla: string): void {
     const id = '' + this.articuloInfo.id;
-    const funcion = 'onclick="destruirLineaArticulo(' + id + ')"';
-    // Agregamos una fila nueva
-    const filaTabla =
-    '<tr id="linea_art_id_' + id + '" data-art-id="' + id + '">' +
-      '<td class="ocultar">' + id + '</td>' +
-      '<td>' + this.articuloInfo.codigo + '</td>' +
-      '<td>' + this.articuloInfo.nombre + '</td>' +
-      '<td>' + this.articuloInfo.baseImponible + '€' + '</td>' +
-      '<td>' + this.mapaIva.get(this.articuloInfo.impuesto) + '</td>' +
-      '<td>' + this.articuloInfo.importeTotal + '€' + '</td>' +
-      '<td>' + this.cantidad + '</td>' +
-      '<td>' + (this.articuloInfo.importeTotal * this.cantidad) + '€' + '</td>' +
-      '<td class="ocultar">' + (this.almacenInfo.id) + '</td>' +
-      '<td class="text-center">' +
-        '<button type="button" class="btn btn-danger" ' + funcion + ' >' +
-          '<i class="fa fa-trash" aria-hidden="true"></i>' +
-        '</button>' +
-      '</td>' +
-    '</tr>';
-    $('#' + idTabla + ' tbody').append(filaTabla);
+    const almcenId = '' + this.almacenInfo.id;
+    this.comprobarAutocompletar();
+    if ( !this.errorModal )
+    {
+      const funcion = 'onclick="destruirLineaArticulo(' + id + ')"';
+      // Agregamos una fila nueva
+      const filaTabla =
+      '<tr id="linea_art_id_' + id + '" data-art-id="' + id + '">' +
+        '<td class="ocultar">' + id + '</td>' +
+        '<td>' + this.articuloInfo.codigo + '</td>' +
+        '<td>' + this.articuloInfo.nombre + '</td>' +
+        '<td>' + this.articuloInfo.baseImponible + '€' + '</td>' +
+        '<td>' + this.mapaIva.get(this.articuloInfo.impuesto) + '</td>' +
+        '<td>' + this.articuloInfo.importeTotal + '€' + '</td>' +
+        '<td>' + this.cantidad + '</td>' +
+        '<td>' + (this.articuloInfo.importeTotal * this.cantidad) + '€' + '</td>' +
+        '<td class="ocultar">' + (almcenId) + '</td>' +
+        '<td class="text-center">' +
+          '<button type="button" class="btn btn-danger" ' + funcion + ' >' +
+            '<i class="fa fa-trash" aria-hidden="true"></i>' +
+          '</button>' +
+        '</td>' +
+      '</tr>';
+      $('#' + idTabla + ' tbody').append(filaTabla);
+    }
   }
 
   private existeArticuloEnTabla(id: number): boolean{
@@ -232,6 +288,49 @@ export class ModalArticuloComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  private comprobarAutocompletar() {
+
+    const articuloId = '' + this.articuloInfo.id;
+    const almcenId = '' + this.almacenInfo.id;
+    const cantidad = '' + this.cantidad;
+
+    if (almcenId == null || almcenId === 'undefined' || almcenId === '')
+    {
+      swal('Error', 'Debes seleccionar un almacen', 'error');
+      this.errorModal = true;
+      return;
+    }
+
+    if ( articuloId == null || articuloId === 'undefined' || articuloId === '')
+    {
+      swal('Error', 'Debes seleccionar un articulo', 'error');
+      this.errorModal = true;
+      return;
+    }
+
+    if ( cantidad == null || cantidad === 'undefined' || cantidad === '' )
+    {
+      swal('Error', 'Debes introducir la cantidad', 'error');
+      this.errorModal = true;
+      return;
+    }
+  }
+
+  private rellenarAlmacenDeAutocompletar(almacenAuto: any){
+    this.almacenInfo.id = almacenAuto.id;
+    this.almacenInfo.codigo = almacenAuto.codigo;
+    this.almacenInfo.nombre = almacenAuto.nombre;
+  }
+
+  private rellenarArticuloDeAutocompletar(articuloAuto: any){
+    this.articuloInfo.id = articuloAuto.id;
+    this.articuloInfo.codigo = articuloAuto.codigo;
+    this.articuloInfo.nombre = articuloAuto.nombre;
+    this.articuloInfo.baseImponible = articuloAuto.baseImponible;
+    this.articuloInfo.impuesto = articuloAuto.impuesto;
+    this.articuloInfo.importeTotal = articuloAuto.importeTotal;
   }
 
   /* MODAL */

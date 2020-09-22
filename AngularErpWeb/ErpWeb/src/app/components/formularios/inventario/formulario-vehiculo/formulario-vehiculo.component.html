@@ -9,7 +9,7 @@
 
             <!-- CODIGO CLIENTE -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código vehículo</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-sm-4 required">Código vehículo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -20,7 +20,7 @@
 
             <!-- MATRICULA -->
             <div class="form-group row">
-                <label for="matricula" class="col-form-label col-sm-4 required">Matrícula</label>
+                <label for="matricula" class="col-form-label font-weight-bold col-sm-4 required">Matrícula</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.matricula" name="matricula">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['matricula']">
@@ -31,7 +31,7 @@
 
             <!-- MARCA -->
             <div class="form-group row">
-                <label for="marca" class="col-form-label col-sm-4 required">Marca</label>
+                <label for="marca" class="col-form-label font-weight-bold col-sm-4 required">Marca</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.marca" name="marca">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['marca']">
@@ -42,7 +42,7 @@
 
             <!-- MODELO -->
             <div class="form-group row">
-                <label for="modelo" class="col-form-label col-sm-4 required">Modelo</label>
+                <label for="modelo" class="col-form-label font-weight-bold col-sm-4 required">Modelo</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="vehiculo.modelo" name="modelo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['modelo']">
@@ -51,11 +51,12 @@
                 </div>
             </div>
 
-            <!-- FECHA METRICULACION -->
+            <!-- FECHA MATRICULACION -->
             <div class="form-group row">
-                <label for="fechaMatriculacion" class="col-form-label col-sm-4 required">Fecha matriculación</label>
+                <label for="fechaMatriculacion" class="col-form-label font-weight-bold col-sm-4 required">Fecha matriculación</label>
                 <div class="col-sm-7">
-                    <input type="date" class="form-control" [ngModel]="vehiculo.fechaMatriculacion | date:'yyyy-MM-dd'" (ngModelChange)="vehiculo.fechaMatriculacion = $event" name="fechaMatriculacion">
+                    <!--<input type="date" class="form-control" [ngModel]="vehiculo.fechaMatriculacion | date:'yyyy-MM-dd'" (ngModelChange)="vehiculo.fechaMatriculacion = $event" name="fechaMatriculacion">-->
+                    <input type="text" id="fechaMatriculaDatePicker" class="form-control" name="fechaMatriculacion" [ngModel]="vehiculo.fechaMatriculacion | date:'dd-MM-yyyy'" />
                     <div *ngIf="erroresFormulario != null && erroresFormulario['fechaMatriculacion']">
                         <span class="error text-danger">{{erroresFormulario['fechaMatriculacion']}}</span>
                     </div>
@@ -64,7 +65,7 @@
 
             <!-- TIPO VEHICULO -->
             <div class="form-group row">
-                <label for="tipoVehiculo" class="col-form-label col-sm-4 required">Tipo de vehículo</label>
+                <label for="tipoVehiculo" class="col-form-label font-weight-bold col-sm-4 required">Tipo de vehículo</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoVehiculo" title="" [(ngModel)]="vehiculo.tipoVehiculo">
@@ -80,7 +81,7 @@
 
             <!-- TIPO COMBUSTIBLE -->
             <div class="form-group row">
-                <label for="tipoVehiculo" class="col-form-label col-sm-4 required">Tipo de combustible</label>
+                <label for="tipoVehiculo" class="col-form-label font-weight-bold col-sm-4 required">Tipo de combustible</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoCombustible" title="" [(ngModel)]="vehiculo.tipoCombustible">

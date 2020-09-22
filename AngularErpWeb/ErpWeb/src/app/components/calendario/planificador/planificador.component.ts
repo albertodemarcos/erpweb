@@ -47,6 +47,24 @@ export class PlanificadorComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+
+    $('#fechaEventoInicioDatePicker').datetimepicker( {
+      dateFormat: 'dd-mm-yy',
+      timeFormat: 'HH:mm',
+      dayNames: true,
+      onClose: () => {
+        this.evento.fechaInicio = $('#fechaEventoInicioDatePicker').datepicker('getDate');
+      }
+    });
+
+    $('#fechaEventoFinDatePicker').datetimepicker( {
+      dateFormat: 'dd-mm-yy',
+      timeFormat: 'HH:mm',
+      dayNames: true,
+      onClose: () => {
+        this.evento.fechaFin = $('#fechaEventoFinDatePicker').datepicker('getDate');
+      }
+    });
   }
 
   /* METODOS GENERALES */
@@ -137,7 +155,7 @@ export class PlanificadorComponent implements OnInit  {
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
         // Recargamos los eventos
-        this.recargarCalendario();
+        // this.recargarCalendario();
         // Limpiamos la modal
         this.limpiarModalCrearEvento();
         // Informamos de que se ha creado el evento correctamente
@@ -351,7 +369,7 @@ export class PlanificadorComponent implements OnInit  {
 
   // Comprobar formulario
   comprobarFormularioCrearEvento(): boolean{
-
+    console.log('Entramos a la fechas');
     // Titulo
     if (this.evento.titulo == null || this.evento.titulo.trim() === '')
     {

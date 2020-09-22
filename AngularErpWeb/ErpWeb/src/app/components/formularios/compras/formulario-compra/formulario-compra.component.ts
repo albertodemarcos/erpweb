@@ -71,7 +71,23 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    /// jQuery('#fechaCompraInp').datepicker();
+
+    jQuery('#fechaCompraDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.compra.fechaCompra = jQuery('#fechaCompraDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
+      console.log('Se carga el español');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el idioma');
+    });
   }
 
   // Metodos del formulario
@@ -240,10 +256,10 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
       // Obtenemos las celdas de articulo y cantidad
       const celdaArticuloId = jQuery(celdas[0]).text(); // Celda 0 es articuloId..
       const celdaCantidad = jQuery(celdas[6]).text(); // Celda 6 es la cantidad..
-      const celdaAlmacenId = jQuery(celdas[8]).text(); // Celda 8 es la almacenId..
+      // const celdaAlmacenId = jQuery(celdas[8]).text(); // Celda 8 es la almacenId..
       if ( celdaArticuloId != null && celdaArticuloId !== 'undefined' && celdaArticuloId.trim() !== '')
       {
-        this.compra.almacenId = celdaAlmacenId;
+        // this.compra.almacenId = celdaAlmacenId;
         this.compra.articulosCantidadMap.set(celdaArticuloId, celdaCantidad);
       }
     }

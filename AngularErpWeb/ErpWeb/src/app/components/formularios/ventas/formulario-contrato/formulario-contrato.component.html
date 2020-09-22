@@ -23,7 +23,8 @@
                 <div class="col-4 form-group">
                     <label for="fechaInicio" class="col-form-label font-weight-bold col-12 text-left required">Fecha inicio</label>
                     <div class="col-12">
-                        <input type="date" class="form-control" [ngModel]="contrato.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaInicio = $event" name="fechaInicio">
+                        <!--<input type="date" class="form-control" [ngModel]="contrato.fechaInicio | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaInicio = $event" name="fechaInicio">-->
+                        <input type="text" id="fechaInicioContratoDatePicker" class="form-control" name="fechaInicio" [ngModel]="contrato.fechaInicio | date:'dd-MM-yyyy'" />
                         <div *ngIf="erroresFormulario != null && erroresFormulario['fechaInicio']">
                             <span class="error text-danger">{{erroresFormulario['fechaInicio']}}</span>
                         </div>
@@ -34,7 +35,8 @@
                 <div class="col-4 form-group">
                     <label for="fechaFin" class="col-form-label font-weight-bold col-12 text-left required">Fecha fín</label>
                     <div class="col-12">
-                        <input type="date" class="form-control" [ngModel]="contrato.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaFin = $event" name="fechaFin">
+                        <!--<input type="date" class="form-control" [ngModel]="contrato.fechaFin | date:'yyyy-MM-dd'" (ngModelChange)="contrato.fechaFin = $event" name="fechaFin">-->
+                        <input type="text" id="fechaFinContratoDatePicker" class="form-control" name="fechaFin" [ngModel]="contrato.fechaFin | date:'dd-MM-yyyy'" />
                         <div *ngIf="erroresFormulario != null && erroresFormulario['fechaFin']">
                             <span class="error text-danger">{{erroresFormulario['fechaFin']}}</span>
                         </div>

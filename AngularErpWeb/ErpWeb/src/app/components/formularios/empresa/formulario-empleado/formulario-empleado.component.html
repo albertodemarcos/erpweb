@@ -8,7 +8,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4 required">Nombre</label>
+                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.nombre" name="nombre">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
@@ -17,9 +17,9 @@
                 </div>
             </div>
 
-            <!-- CODIGO empleado -->
+            <!-- CODIGO EMPLEADO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código empleado</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-4 required">Código empleado</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -30,7 +30,7 @@
 
             <!-- PRIMER APELLIDO -->
             <div class="form-group row">
-                <label for="apellidoPrimero" class="col-form-label col-sm-4 required">Primer apellido</label>
+                <label for="apellidoPrimero" class="col-form-label font-weight-bold col-4 required">Primer apellido</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.apellidoPrimero" name="apellidoPrimero">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['apellidoPrimero']">
@@ -41,7 +41,7 @@
 
             <!-- SEGUNDO APELLIDO -->
             <div class="form-group row">
-                <label for="apellidoSegundo" class="col-form-label col-sm-4 required">Segundo apellido</label>
+                <label for="apellidoSegundo" class="col-form-label font-weight-bold col-4 required">Segundo apellido</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.apellidoSegundo" name="apellidoSegundo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['apellidoSegundo']">
@@ -52,7 +52,7 @@
 
             <!-- NIF -->
             <div class="form-group row">
-                <label for="nif" class="col-form-label col-sm-4 required">NIF/DNI</label>
+                <label for="nif" class="col-form-label font-weight-bold col-4 required">NIF/DNI</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.nif" name="nif">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nif']">
@@ -63,7 +63,7 @@
 
             <!-- TIPO EMPLEADO -->
             <div class="form-group row">
-                <label for="tipoempleado" class="col-form-label col-sm-4 required">Tipo de empleado</label>
+                <label for="tipoempleado" class="col-form-label font-weight-bold col-4 required">Tipo de empleado</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoEmpleado" title="" [(ngModel)]="empleado.tipoEmpleado">
@@ -79,7 +79,7 @@
 
             <!-- CODIGO POSTAL -->
             <div class="form-group row">
-                <label for="codigoPostal" class="col-form-label col-sm-4 required">Código postal</label>
+                <label for="codigoPostal" class="col-form-label font-weight-bold col-4 required">Código postal</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.codigoPostal" name="codigoPostal">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigoPostal']">
@@ -90,7 +90,7 @@
 
             <!-- DIRECCION -->
             <div class="form-group row">
-                <label for="direccion" class="col-form-label col-sm-4 required">Dirección</label>
+                <label for="direccion" class="col-form-label font-weight-bold col-4 required">Dirección</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.direccion" name="direccion">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['direccion']">
@@ -101,7 +101,7 @@
 
             <!-- EDIFICIO -->
             <div class="form-group row">
-                <label for="edificio" class="col-form-label col-sm-4">Edificio</label>
+                <label for="edificio" class="col-form-label font-weight-bold col-4">Edificio</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.edificio" name="edificio">
                 </div>
@@ -109,7 +109,7 @@
 
             <!-- OBSERVACIONES -->
             <div class="form-group row">
-                <label for="observaciones" class="col-form-label col-sm-4">Observaciones</label>
+                <label for="observaciones" class="col-form-label font-weight-bold col-4">Observaciones</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.observaciones" name="observaciones">
                 </div>
@@ -117,7 +117,7 @@
 
             <!-- TELEFONO -->
             <div class="form-group row">
-                <label for="telefono" class="col-form-label col-sm-4 required">Teléfono</label>
+                <label for="telefono" class="col-form-label font-weight-bold col-4 required">Teléfono</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.telefono" name="telefono">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['telefono']">
@@ -128,7 +128,7 @@
 
             <!-- PAIS -->
             <div class="form-group row">
-                <label for="pais" class="col-form-label col-sm-4 required">País</label>
+                <label for="pais" class="col-form-label font-weight-bold col-4 required">País</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.pais" name="pais">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['pais']">
@@ -139,7 +139,7 @@
 
             <!-- REGION -->
             <div class="form-group row">
-                <label for="region" class="col-form-label col-sm-4 required">Región</label>
+                <label for="region" class="col-form-label font-weight-bold col-4 required">Región</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="region" title="" [(ngModel)]="empleado.region">
@@ -155,7 +155,7 @@
 
             <!-- PROVINCIA -->
             <div class="form-group row">
-                <label for="provincia" class="col-form-label col-sm-4 required">Provincia</label>
+                <label for="provincia" class="col-form-label font-weight-bold col-4 required">Provincia</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="provincia" title="" [(ngModel)]="empleado.provincia">
@@ -171,7 +171,7 @@
 
             <!-- POBLACION -->
             <div class="form-group row">
-                <label for="poblacion" class="col-form-label col-sm-4 required">Población</label>
+                <label for="poblacion" class="col-form-label font-weight-bold col-4 required">Población</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empleado.poblacion" name="poblacion">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['poblacion']">

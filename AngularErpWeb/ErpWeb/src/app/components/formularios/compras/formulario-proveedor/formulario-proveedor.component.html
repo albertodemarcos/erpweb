@@ -9,7 +9,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4 required">Nombre proveedor</label>
+                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre proveedor</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.nombre" name="nombre">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
@@ -18,9 +18,9 @@
                 </div>
             </div>
 
-            <!-- CODIGO CLIENTE -->
+            <!-- CODIGO PROVEEDOR -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código proveedor</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-4 required">Código proveedor</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -31,7 +31,7 @@
 
             <!-- NOMBRE EMPRESA -->
             <div class="form-group row">
-                <label for="nombreEmpresa" class="col-form-label col-sm-4 required">Nombre empresa</label>
+                <label for="nombreEmpresa" class="col-form-label font-weight-bold col-4 required">Nombre empresa</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.nombreEmpresa" name="nombreEmpresa">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombreEmpresa']">
@@ -42,7 +42,7 @@
 
             <!-- TELEFONO -->
             <div class="form-group row">
-                <label for="telefono" class="col-form-label col-sm-4 required">Teléfono</label>
+                <label for="telefono" class="col-form-label font-weight-bold col-4 required">Teléfono</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.telefono" name="telefono">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['telefono']">
@@ -53,7 +53,7 @@
 
             <!-- TIPO PROVEEDOR -->
             <div class="form-group row">
-                <label for="tipoProveedor" class="col-form-label col-sm-4 required">Tipo proveedor</label>
+                <label for="tipoProveedor" class="col-form-label font-weight-bold col-4 required">Tipo proveedor</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="impuesto" title="" [(ngModel)]="proveedor.tipoProveedor">

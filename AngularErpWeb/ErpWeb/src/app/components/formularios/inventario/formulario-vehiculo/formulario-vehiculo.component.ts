@@ -6,6 +6,8 @@ import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
 import { CapitalizarPipe } from 'src/app/Pipes/capitalizar.pipe';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-formulario-vehiculo',
   templateUrl: './formulario-vehiculo.component.html',
@@ -38,6 +40,24 @@ export class FormularioVehiculoComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    jQuery('#fechaMatriculaDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.vehiculo.fechaMatriculacion = jQuery('#fechaMatriculaDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
+      console.log('Se carga el español');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el idioma');
+    });
+
   }
 
   // Metodos del formulario

@@ -22,7 +22,8 @@
                 <div class="col-5">
                     <label for="fechaPedido" class="col-form-label font-weight-bold col-12 text-left required">Fecha pedido</label>
                     <div class="col-12">
-                        <input type="date" class="form-control" [ngModel]="pedido.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedido.fechaPedido = $event" name="fechaPedido">
+                        <!--<input type="date" class="form-control" [ngModel]="pedido.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedido.fechaPedido = $event" name="fechaPedido">-->
+                        <input type="text" id="fechaPedidoDatePicker" class="form-control" name="fechaPedido" [ngModel]="pedido.fechaPedido | date:'dd-MM-yyyy'" />
                         <div *ngIf="erroresFormulario != null && erroresFormulario['fechaPedido']">
                             <span class="error text-danger">{{erroresFormulario['fechaPedido']}}</span>
                         </div>

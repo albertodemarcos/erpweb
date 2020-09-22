@@ -41,6 +41,23 @@ export class FormularioFacturaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    jQuery('#fechaFacturaDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.factura.fechaInicio = jQuery('#fechaFacturaDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
+      console.log('Se carga el español');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el idioma');
+    });
+
   }
 
   // Metodos del formulario

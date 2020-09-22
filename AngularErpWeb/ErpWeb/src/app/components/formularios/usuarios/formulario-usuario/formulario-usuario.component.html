@@ -9,7 +9,7 @@
 
             <!-- CODIGO -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label text-center col-sm-4 required">Código usuario</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-sm-4 required">Código usuario</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -20,7 +20,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombreCompleto" class="col-form-label text-center col-sm-4 required">Nombre</label>
+                <label for="nombreCompleto" class="col-form-label font-weight-bold col-sm-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombreCompleto']">
@@ -31,7 +31,7 @@
 
             <!-- EMAIL -->
             <div class="form-group row">
-                <label for="email" class="col-form-label col-sm-4 text-center required">Email</label>
+                <label for="email" class="col-form-label font-weight-bold col-sm-4 required">Email</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['email']">
@@ -42,7 +42,7 @@
 
             <!-- USERNAME -->
             <div class="form-group row">
-                <label for="username" class="col-form-label text-center col-sm-4 required">Usuario</label>
+                <label for="username" class="col-form-label font-weight-bold col-sm-4 required">Usuario</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['username']">
@@ -53,7 +53,7 @@
 
             <!-- PASSWORD -->
             <div class="form-group row">
-                <label for="password" class="col-form-label col-sm-4 text-center required">Contraseña</label>
+                <label for="password" class="col-form-label font-weight-bold col-sm-4 required">Contraseña</label>
                 <div class="col-sm-7">
                     <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['password']">

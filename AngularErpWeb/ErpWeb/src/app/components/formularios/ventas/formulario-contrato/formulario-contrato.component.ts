@@ -77,6 +77,34 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    jQuery('#fechaInicioContratoDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.contrato.fechaInicio = jQuery('#fechaInicioContratoDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery('#fechaFinContratoDatePicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: false,
+      changeYear: false,
+      dayNames: true,
+      showButtonPanel: true,
+      onClose: () => {
+        this.contrato.fechaFin = jQuery('#fechaFinContratoDatePicker').datepicker('getDate');
+      }
+    });
+
+    jQuery.getScript('assets/js/datepicker/datepicker-es.js').done(() => {
+      console.log('Se carga el español');
+    }).fail(() => {
+      console.error('Error, no se ha podido cargar el idioma');
+    });
   }
 
   // Metodos del formulario

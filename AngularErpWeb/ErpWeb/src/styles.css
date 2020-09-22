@@ -157,5 +157,14 @@ footer {
     background-color: #099dff !important;
 }
 
+.ui-autocomplete {
+    max-height: 100px !important;
+    overflow-y: auto !important;
+    /* prevent horizontal scrollbar */
+    overflow-x: auto !important;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 20px !important;
+}
+
 
 /** #37afff */

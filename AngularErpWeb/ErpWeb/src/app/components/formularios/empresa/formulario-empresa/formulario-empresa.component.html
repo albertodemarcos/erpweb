@@ -1,6 +1,6 @@
 <div class="card formluario">
 
-    <div class="card-header cabecera text-center">Nueva empresa</div>
+    <div class="card-header cabecera text-center">Editar empresa</div>
 
     <div class="card-body .bg-light">
         <!-- FORMULARIO -->
@@ -8,7 +8,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-4 required">Nombre</label>
+                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.nombre" name="nombre">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
@@ -19,7 +19,7 @@
 
             <!-- CODIGO EMPRESA -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label col-sm-4 required">Código empresa</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-4 required">Código empresa</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -30,7 +30,7 @@
 
             <!-- CIF -->
             <div class="form-group row">
-                <label for="cif" class="col-form-label col-sm-4 required">CIF</label>
+                <label for="cif" class="col-form-label font-weight-bold col-4 required">CIF</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="empresa.cif" name="cif">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['cif']">
@@ -41,7 +41,7 @@
 
             <!-- TIPO SOCIEDAD JURIDICA -->
             <div class="form-group row">
-                <label for="tipoSociedadJuridica" class="col-form-label col-sm-4 required">Tipo de sociedad jurídica</label>
+                <label for="tipoSociedadJuridica" class="col-form-label font-weight-bold col-4 required">Tipo de sociedad jurídica</label>
                 <div class="col-sm-7">
                     <p>
                         <select name="tipoSociedadJuridica" title="" [(ngModel)]="empresa.tipoSociedadJuridica">
