@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.FacturaDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.ventas.FacturaService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -36,9 +35,9 @@ public class FacturaController {
 	private ErroresService erroresService;
 	
 	@GetMapping("/factura/{facturaId}")
-	public @ResponseBody AccionRespuesta getFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getFactura( @PathVariable Long facturaId) throws Exception {
 		
-		return this.facturaService.getFactura(facturaId, user);
+		return this.facturaService.getFactura(facturaId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -48,15 +47,15 @@ public class FacturaController {
 	}
 	
 	@GetMapping( "/crearFactura" )
-	public @ResponseBody AccionRespuesta getCrearFactura(  Model model, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getCrearFactura(  Model model) throws Exception {
 		
 		return new AccionRespuesta();
 	}
 	
 	@GetMapping( "/editarFactura/{facturaId}" )
-	public @ResponseBody AccionRespuesta getEditarFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarFactura( @PathVariable Long facturaId) throws Exception {
 		
-		return this.facturaService.getFactura(facturaId, user);
+		return this.facturaService.getFactura(facturaId);
 	}
 	
 	@PostMapping( "/crearFactura" )
@@ -86,7 +85,7 @@ public class FacturaController {
 	}
 	
 	@GetMapping("/eliminarFactura/{facturaId}")
-	public @ResponseBody AccionRespuesta getEliminarFactura( @PathVariable Long facturaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarFactura( @PathVariable Long facturaId) throws Exception {
 		
 		if(facturaId == null || facturaId.longValue() < 1L ) {
 			

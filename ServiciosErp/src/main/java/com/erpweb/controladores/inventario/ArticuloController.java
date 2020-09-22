@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ArticuloDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.inventario.ArticuloService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class ArticuloController {
 	private ErroresService erroresService;
 	
 	@GetMapping("/articulo/{articuloId}")
-	public @ResponseBody AccionRespuesta getArticulo( @PathVariable Long articuloId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getArticulo( @PathVariable Long articuloId) throws Exception {
 		
-		return this.articuloService.getArticulo(articuloId, user);
+		return this.articuloService.getArticulo(articuloId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,16 +46,14 @@ public class ArticuloController {
 	}
 	
 	@GetMapping( "/editarArticulo/{articuloId}" )
-	public @ResponseBody AccionRespuesta getEditarArticulo( @PathVariable Long articuloId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarArticulo( @PathVariable Long articuloId) throws Exception {
 		
-		return this.articuloService.getArticulo(articuloId, user);
+		return this.articuloService.getArticulo(articuloId);
 	}
 	
 	@PostMapping( "/crearArticulo" )
 	public @ResponseBody AccionRespuesta postCrearArticulo( @RequestBody ArticuloDto articuloDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.articuloValidator.validate(articuloDto, result);
 		
 		if( result.hasErrors() ) {
@@ -64,14 +61,12 @@ public class ArticuloController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result));
 		}
 		
-		return this.articuloService.getCrearEditarArticulo(articuloDto, user);
+		return this.articuloService.getCrearEditarArticulo(articuloDto);
 	}
 	
 	@PostMapping( "/editarArticulo" )
 	public @ResponseBody AccionRespuesta postEditarArticulo( @RequestBody ArticuloDto articuloDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.articuloValidator.validate(articuloDto, result);
 		
 		if( result.hasErrors() ) {
@@ -79,11 +74,11 @@ public class ArticuloController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result));
 		}
 		
-		return this.articuloService.getCrearEditarArticulo(articuloDto, user);
+		return this.articuloService.getCrearEditarArticulo(articuloDto);
 	}
 	
 	@GetMapping("/eliminarArticulo/{articuloId}")
-	public @ResponseBody AccionRespuesta getEliminarArticulo( @PathVariable Long articuloId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarArticulo( @PathVariable Long articuloId) throws Exception {
 		
 		if(articuloId == null || articuloId.longValue() < 1L ) {
 			

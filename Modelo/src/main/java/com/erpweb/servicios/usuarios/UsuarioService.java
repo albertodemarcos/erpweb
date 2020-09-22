@@ -196,7 +196,7 @@ public class UsuarioService {
 		return new ArrayList<UsuarioDto>();
 	}
 	
-	public AccionRespuesta getUsuario(Long usuarioId, Usuario user) {
+	public AccionRespuesta getUsuario(Long usuarioId) {
 		
 		logger.debug("Entramos en el metodo getUsername()");
 		
@@ -237,19 +237,19 @@ public class UsuarioService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarUsuario(UsuarioDto usuarioDto, Usuario user) {
+	public AccionRespuesta getCrearEditarUsuario(UsuarioDto usuarioDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarUsuario() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarUsuario()");
 		
 		if( usuarioDto.getId() != null && usuarioDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Usuario con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Usuario");
 			
 			return this.actualizarUsuarioDesdeUsuarioDto(usuarioDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Usuario con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Usuario");
 			
 			return this.crearUsuarioDesdeUsuarioDto(usuarioDto);
 		}

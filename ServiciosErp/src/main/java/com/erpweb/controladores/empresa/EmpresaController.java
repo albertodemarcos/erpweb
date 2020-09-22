@@ -1,6 +1,5 @@
 package com.erpweb.controladores.empresa;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.EmpresaDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.empresa.EmpresaService;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -36,21 +34,19 @@ public class EmpresaController {
 	
 	
 	@GetMapping("/empresa/{empresaId}")
-	public @ResponseBody AccionRespuesta getEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEmpresa( @PathVariable Long empresaId) throws Exception {
 		
-		return this.empresaService.getEmpresa(empresaId, user);
+		return this.empresaService.getEmpresa(empresaId);
 	}
 	
 	@GetMapping( "/editarEmpresa/{empresaId}" )
-	public @ResponseBody AccionRespuesta getEditarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarEmpresa( @PathVariable Long empresaId) throws Exception {
 		
-		return this.empresaService.getEmpresa(empresaId, user);
+		return this.empresaService.getEmpresa(empresaId);
 	}
 	
 	@PostMapping( "/editarEmpresa" )
 	public @ResponseBody AccionRespuesta postEditarEmpresa( @RequestBody EmpresaDto empresaDto,  BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.empresaValidator.validate(empresaDto, result);
 		
@@ -59,11 +55,11 @@ public class EmpresaController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.empresaService.getCrearEditarEmpresa(empresaDto, user);
+		return this.empresaService.getCrearEditarEmpresa(empresaDto);
 	}
 	
 	@GetMapping("/eliminarEmpresa/empresaId")
-	public @ResponseBody AccionRespuesta getEliminarEmpresa( @PathVariable Long empresaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarEmpresa( @PathVariable Long empresaId) throws Exception {
 		
 		if(empresaId == null || empresaId.longValue() < 1L ) {
 			

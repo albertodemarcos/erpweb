@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.UsuarioDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.usuarios.UsuarioService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class UsuarioController {
 	private ErroresService erroresService;
 
 	@GetMapping("/usuario/{usuarioId}")
-	public @ResponseBody AccionRespuesta getUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getUsuario( @PathVariable Long usuarioId) throws Exception {
 		
-		return this.usuarioService.getUsuario(usuarioId, user);
+		return this.usuarioService.getUsuario(usuarioId);
 	}
 	
 	
@@ -48,17 +47,15 @@ public class UsuarioController {
 	}
 	
 	@GetMapping( "/editarUsuario/{usuarioId}" )
-	public @ResponseBody AccionRespuesta getEditarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarUsuario( @PathVariable Long usuarioId) throws Exception {
 		
-		return this.usuarioService.getUsuario(usuarioId, user);
+		return this.usuarioService.getUsuario(usuarioId);
 	}
 	
 	
 	@PostMapping( "/crearUsuario" )
 	public @ResponseBody AccionRespuesta postCrearUsuario( @RequestBody UsuarioDto usuarioDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.usuarioValidator.validate(usuarioDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -66,14 +63,12 @@ public class UsuarioController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);
+		return this.usuarioService.getCrearEditarUsuario(usuarioDto);
 	}
 	
 	@PostMapping( "/editarUsuario"  )
 	public @ResponseBody AccionRespuesta postEditarUsuario( @RequestBody UsuarioDto usuarioDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.usuarioValidator.validate(usuarioDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -81,12 +76,12 @@ public class UsuarioController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.usuarioService.getCrearEditarUsuario(usuarioDto, user);
+		return this.usuarioService.getCrearEditarUsuario(usuarioDto);
 	}
 	
 	
 	@GetMapping("/eliminarUsuario/{usuarioId}")
-	public @ResponseBody AccionRespuesta getEliminarUsuario( @PathVariable Long usuarioId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarUsuario( @PathVariable Long usuarioId) throws Exception {
 		
 		if(usuarioId == null || usuarioId.longValue() < 1L ) {
 			

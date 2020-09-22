@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.EventoDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.planificador.EventoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class EventoController {
 	private ErroresService erroresService;
 
 	@GetMapping("/evento/{eventoId}")
-	public @ResponseBody AccionRespuesta getEvento( @PathVariable Long eventoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEvento( @PathVariable Long eventoId) throws Exception {
 		
-		return this.eventoService.getEvento(eventoId, user);
+		return this.eventoService.getEvento(eventoId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,15 +46,13 @@ public class EventoController {
 	}
 			
 	@GetMapping( "/editarEvento/{eventoId}"  )
-	public @ResponseBody AccionRespuesta getEditarEvento( @PathVariable Long eventoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarEvento( @PathVariable Long eventoId) throws Exception {
 		
-		return this.eventoService.getEvento(eventoId, user);
+		return this.eventoService.getEvento(eventoId);
 	}
 	
 	@PostMapping( "/crearEvento" )
 	public @ResponseBody AccionRespuesta postCrearEvento(@RequestBody EventoDto eventoDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.eventoValidator.validate(eventoDto, result);
 		
@@ -64,13 +61,11 @@ public class EventoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.eventoService.getCrearEditarEvento(eventoDto, user);
+		return this.eventoService.getCrearEditarEvento(eventoDto);
 	}
 	
 	@PostMapping( "/editarEvento" )
 	public @ResponseBody AccionRespuesta postEditarEvento(@RequestBody EventoDto eventoDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.eventoValidator.validate(eventoDto, result);
 		
@@ -79,11 +74,11 @@ public class EventoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.eventoService.getCrearEditarEvento(eventoDto, user);
+		return this.eventoService.getCrearEditarEvento(eventoDto);
 	}
 	
 	@GetMapping("/eliminarEvento/{eventoId}")
-	public @ResponseBody AccionRespuesta getEliminarEvento( @PathVariable Long eventoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarEvento( @PathVariable Long eventoId) throws Exception {
 		
 		if(eventoId == null || eventoId.longValue() < 1L ) {
 			

@@ -1,6 +1,5 @@
 package com.erpweb.servicios.inventario;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.VehiculoDto;
 import com.erpweb.entidades.inventario.Vehiculo;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.inventario.VehiculoRepository;
 import com.erpweb.utiles.AccionRespuesta;
-
 
 
 @Service
@@ -203,7 +200,7 @@ public class VehiculoService {
 		return new ArrayList<VehiculoDto>();
 	}
 	
-	public AccionRespuesta getVehiculo(Long vehiculoId, Usuario user) {
+	public AccionRespuesta getVehiculo(Long vehiculoId) {
 		
 		logger.debug("Entramos en el metodo getVehiculo()");
 		
@@ -242,19 +239,19 @@ public class VehiculoService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarVehiculo(VehiculoDto vehiculoDto, Usuario user) {
+	public AccionRespuesta getCrearEditarVehiculo(VehiculoDto vehiculoDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarVehiculo() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarVehiculo()");
 		
 		if( vehiculoDto.getId() != null && vehiculoDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Vehiculo con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Vehiculo");
 			
 			return this.actualizarVehiculoDesdeVehiculoDto(vehiculoDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Vehiculo con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Vehiculo");
 			
 			return this.crearVehiculoDesdeVehiculoDto(vehiculoDto);
 		}

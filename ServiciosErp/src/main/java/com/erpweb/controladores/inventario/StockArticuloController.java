@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.StockArticuloDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.inventario.StockAlmacenService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -93,7 +92,7 @@ public class StockArticuloController {
 	}
 	
 	@GetMapping("/eliminarStockArticulo/{stockArticuloId}")
-	public @ResponseBody AccionRespuesta getEliminarAlmacen( @PathVariable Long stockArticuloId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarAlmacen( @PathVariable Long stockArticuloId) throws Exception {
 		
 		if(stockArticuloId == null || stockArticuloId.longValue() < 1L ) {
 			

@@ -1,7 +1,5 @@
 package com.erpweb.controladores.inicio;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,10 +31,8 @@ public class InicioController {
 	
 	@GetMapping("/index")
 	public String inicioWeb() {
-		
 		return "Hola Mundo!";
 	}
-	
 
 	@PostMapping("/oldlogin")
 	public @ResponseBody AccionRespuesta accesoUsuarios (@RequestBody UsuarioDto usuarioDto) throws Exception {
@@ -55,15 +51,4 @@ public class InicioController {
 
 		return null;
 	}
-
-	
-	/*COMENTARIOS UTILES
-	 
-	  Al ser un REST CONTROLLER, NO DEVUELVE VISTAS!!!
-	  CORS nos permite conectar spring con angular (servidores claro).
-	  
-	  @GetMapping
-	  @PostMapping
-	  
-	 */
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.VentaDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.ventas.VentaService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class VentaController {
 	private ErroresService erroresService;
 
 	@GetMapping("/venta/{ventaId}")
-	public @ResponseBody AccionRespuesta getVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getVenta( @PathVariable Long ventaId) throws Exception {
 		
-		return this.ventaService.getVenta(ventaId, user);
+		return this.ventaService.getVenta(ventaId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,9 +46,9 @@ public class VentaController {
 	}
 			
 	@GetMapping( "/editarVenta/{ventaId}" )
-	public @ResponseBody AccionRespuesta getEditarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarVenta( @PathVariable Long ventaId) throws Exception {
 		
-		return this.ventaService.getVenta(ventaId, user);
+		return this.ventaService.getVenta(ventaId);
 	}
 	
 	@PostMapping( "/crearVenta" )
@@ -79,7 +78,7 @@ public class VentaController {
 	}
 	
 	@GetMapping("/eliminarVenta/{ventaId}")
-	public @ResponseBody AccionRespuesta getEliminarVenta( @PathVariable Long ventaId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarVenta( @PathVariable Long ventaId) throws Exception {
 		
 		if(ventaId == null || ventaId.longValue() < 1L ) {
 			

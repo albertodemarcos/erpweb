@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.ProveedorDto;
 import com.erpweb.entidades.compras.Proveedor;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.compras.ProveedorRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -192,7 +191,7 @@ public class ProveedorService {
 		return new ArrayList<ProveedorDto>();
 	}
 	
-	public AccionRespuesta getProveedor(Long proveedorId, Usuario user) {
+	public AccionRespuesta getProveedor(Long proveedorId) {
 		
 		logger.debug("Entramos en el metodo getproveedor()");
 		
@@ -231,19 +230,19 @@ public class ProveedorService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarProveedor(ProveedorDto proveedorDto, Usuario user) {
+	public AccionRespuesta getCrearEditarProveedor(ProveedorDto proveedorDto ) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarProveedor() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarProveedor()");
 		
 		if( proveedorDto.getId() != null && proveedorDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Proveedor con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Proveedor");
 			
 			return this.actualizarProveedorDesdeProveedorDto(proveedorDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Proveedor con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Proveedor");
 			
 			return this.crearProveedorDesdeProveedorDto(proveedorDto);
 		}

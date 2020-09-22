@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.AlmacenDto;
 import com.erpweb.entidades.inventario.Almacen;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
 import com.erpweb.utiles.AccionRespuesta;
-
 
 
 @Service
@@ -212,7 +210,7 @@ public class AlmacenService {
 		return new ArrayList<AlmacenDto>();
 	}
 	
-	public AccionRespuesta getAlmacen(Long almacenId, Usuario user) {
+	public AccionRespuesta getAlmacen(Long almacenId) {
 		
 		logger.debug("Entramos en el metodo getAlmacen()");
 		
@@ -251,19 +249,19 @@ public class AlmacenService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarAlmacen(AlmacenDto almacenDto, Usuario user) {
+	public AccionRespuesta getCrearEditarAlmacen(AlmacenDto almacenDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarAlmacen() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarAlmacen()" );
 		
 		if( almacenDto.getId() != null && almacenDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del almacen con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del almacen" );
 			
 			return this.actualizarAlmacenDesdeAlmacenDto(almacenDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un almacen con usuario={}", user.getId());
+			logger.debug("Se va a crear un almacen");
 			
 			return this.crearAlmacenDesdeAlmacenDto(almacenDto);
 		}

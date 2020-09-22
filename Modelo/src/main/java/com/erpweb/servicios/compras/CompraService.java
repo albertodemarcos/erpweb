@@ -265,7 +265,7 @@ public class CompraService {
 		return new ArrayList<CompraDto>();
 	}
 	
-	public AccionRespuesta getCompra(Long compraId, Usuario user) {
+	public AccionRespuesta getCompra(Long compraId) {
 		
 		logger.debug("Entramos en el metodo getCompra()");
 		

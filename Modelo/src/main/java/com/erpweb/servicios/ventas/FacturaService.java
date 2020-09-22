@@ -1,6 +1,5 @@
 package com.erpweb.servicios.ventas;
 
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.FacturaDto;
 import com.erpweb.dto.LineaFacturaDto;
 import com.erpweb.entidades.inventario.Articulo;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.Factura;
 import com.erpweb.entidades.ventas.LineaFactura;
 import com.erpweb.patrones.builder.constructores.ConstructorFactura;
@@ -28,7 +26,6 @@ import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.repositorios.ventas.FacturaRepository;
 import com.erpweb.repositorios.ventas.LineaFacturaRepository;
 import com.erpweb.utiles.AccionRespuesta;
-
 
 @Service
 public class FacturaService {
@@ -254,7 +251,7 @@ public class FacturaService {
 		return new ArrayList<FacturaDto>();
 	}
 
-	public AccionRespuesta getFactura(Long facturaId, Usuario user) {
+	public AccionRespuesta getFactura(Long facturaId) {
 		
 		logger.debug("Entramos en el metodo getFactura()");
 		

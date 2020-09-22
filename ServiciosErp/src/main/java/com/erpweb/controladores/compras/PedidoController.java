@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.PedidoDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.compras.ConversorPedidoCompraService;
 import com.erpweb.servicios.compras.PedidoService;
 import com.erpweb.servicios.errores.ErroresService;
@@ -40,9 +39,9 @@ public class PedidoController {
 	private ErroresService erroresService;
 
 	@GetMapping("/pedido/{pedidoId}")
-	public @ResponseBody AccionRespuesta getPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getPedido( @PathVariable Long pedidoId ) throws Exception {
 		
-		return this.pedidoService.getPedido(pedidoId, user);
+		return this.pedidoService.getPedido(pedidoId);
 	}
 	
 	@GetMapping("/convertirCompraPedido/{pedidoId}")
@@ -59,16 +58,14 @@ public class PedidoController {
 	
 	
 	@GetMapping( "/editarPedido/{pedidoId}"  )
-	public @ResponseBody AccionRespuesta getEditarPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarPedido( @PathVariable Long pedidoId ) throws Exception {
 		
-		return this.pedidoService.getPedido(pedidoId, user);
+		return this.pedidoService.getPedido(pedidoId);
 	}
 	
 	@PostMapping( "/crearPedido" )
 	public @ResponseBody AccionRespuesta postCrearPedido( @RequestBody PedidoDto pedidoDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.pedidoValidator.validate(pedidoDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -76,11 +73,11 @@ public class PedidoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.pedidoService.getCrearEditarPedido(pedidoDto, user);
+		return this.pedidoService.getCrearEditarPedido(pedidoDto);
 	}
 	
 	@PostMapping( "/editarPedido" )
-	public @ResponseBody AccionRespuesta postEditarPedido( @RequestBody PedidoDto pedidoDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarPedido( @RequestBody PedidoDto pedidoDto, BindingResult result ) {
 		
 		this.pedidoValidator.validate(pedidoDto, result);
 		
@@ -89,11 +86,11 @@ public class PedidoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.pedidoService.getCrearEditarPedido(pedidoDto, user);
+		return this.pedidoService.getCrearEditarPedido(pedidoDto);
 	}
 	
 	@GetMapping("/eliminarPedido/{pedidoId}")
-	public @ResponseBody AccionRespuesta getEliminarPedido( @PathVariable Long pedidoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarPedido( @PathVariable Long pedidoId ) throws Exception {
 		
 		if(pedidoId == null || pedidoId.longValue() < 1L ) {
 			

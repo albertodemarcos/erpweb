@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.VehiculoDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.inventario.VehiculoService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class VehiculoController {
 	private ErroresService erroresService;
 
 	@GetMapping("/vehiculo/{vehiculoId}")
-	public @ResponseBody AccionRespuesta getVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getVehiculo( @PathVariable Long vehiculoId) throws Exception {
 		
-		return this.vehiculoService.getVehiculo(vehiculoId, user);
+		return this.vehiculoService.getVehiculo(vehiculoId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,16 +46,14 @@ public class VehiculoController {
 	}
 	
 	@GetMapping( "/editarVehiculo/{vehiculoId}" )
-	public @ResponseBody AccionRespuesta getEditarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarVehiculo( @PathVariable Long vehiculoId) throws Exception {
 		
-		return this.vehiculoService.getVehiculo(vehiculoId, user);
+		return this.vehiculoService.getVehiculo(vehiculoId);
 	}
 	
 	@PostMapping( "/crearVehiculo" )
 	public @ResponseBody AccionRespuesta postCrearVehiculo( @RequestBody VehiculoDto vehiculoDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.vehiculoValidator.validate(vehiculoDto, result);
 		
 		if( result.hasErrors() ) {
@@ -64,14 +61,12 @@ public class VehiculoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);
+		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto);
 	}
 	
 	@PostMapping( "/editarVehiculo"  )
 	public @ResponseBody AccionRespuesta postEditarVehiculo( @RequestBody VehiculoDto vehiculoDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.vehiculoValidator.validate(vehiculoDto, result);
 		
 		if( result.hasErrors() ) {
@@ -79,11 +74,11 @@ public class VehiculoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto, user);
+		return this.vehiculoService.getCrearEditarVehiculo(vehiculoDto);
 	}
 	
 	@GetMapping("/eliminarVehiculo/{vehiculoId}")
-	public @ResponseBody AccionRespuesta getEliminarVehiculo( @PathVariable Long vehiculoId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarVehiculo( @PathVariable Long vehiculoId) throws Exception {
 		
 		if(vehiculoId == null || vehiculoId.longValue() < 1L ) {
 			

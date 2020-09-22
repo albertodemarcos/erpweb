@@ -35,9 +35,9 @@ public class CompraController {
 	private ErroresService erroresService;
 
 	@GetMapping("/compra/{compraId}")
-	public @ResponseBody AccionRespuesta getCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getCompra( @PathVariable Long compraId ) throws Exception {
 		
-		return this.compraService.getCompra(compraId, user);
+		return this.compraService.getCompra(compraId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,9 +47,9 @@ public class CompraController {
 	}
 			
 	@GetMapping( "/editarCompra/{compraId}"  )
-	public @ResponseBody AccionRespuesta getEditarCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarCompra( @PathVariable Long compraId ) throws Exception {
 		
-		return this.compraService.getCompra(compraId, user);
+		return this.compraService.getCompra(compraId);
 	}
 	
 	@PostMapping( "/crearCompra" )
@@ -79,7 +79,7 @@ public class CompraController {
 	}
 	
 	@GetMapping("/eliminarCompra/{compraId}")
-	public @ResponseBody AccionRespuesta getEliminarCompra( @PathVariable Long compraId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarCompra( @PathVariable Long compraId ) throws Exception {
 		
 		if(compraId == null || compraId.longValue() < 1L ) {
 			

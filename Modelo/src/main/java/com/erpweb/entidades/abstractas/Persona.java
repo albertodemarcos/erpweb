@@ -63,11 +63,12 @@ public abstract class Persona {
 		return direccionPostal;
 	}
 
-    @Embedded
+    
 	public void setDireccionPostal(DireccionPostal direccionPostal) {
 		this.direccionPostal = direccionPostal;
 	}
 
+	@Embedded
 	public OrigenPersona getOrigenPersona() {
 		return origenPersona;
 	}

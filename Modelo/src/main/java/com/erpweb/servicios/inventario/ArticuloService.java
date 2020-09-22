@@ -15,12 +15,9 @@ import org.springframework.stereotype.Service;
 import com.erpweb.dto.ArticuloDto;
 import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.entidades.inventario.Articulo;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.inventario.ArticuloRepository;
 import com.erpweb.servicios.generales.GeneralService;
 import com.erpweb.utiles.AccionRespuesta;
-
-
 
 @Service
 public class ArticuloService {
@@ -206,7 +203,7 @@ public class ArticuloService {
 		return new ArrayList<ArticuloDto>();
 	}
 	
-	public AccionRespuesta getArticulo(Long articuloId, Usuario user) {
+	public AccionRespuesta getArticulo(Long articuloId) {
 		
 		logger.debug("Entramos en el metodo getArticulo()");
 		
@@ -245,19 +242,19 @@ public class ArticuloService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarArticulo(ArticuloDto articuloDto, Usuario user) {
+	public AccionRespuesta getCrearEditarArticulo(ArticuloDto articuloDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarArticulo() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarArticulo()");
 		
 		if( articuloDto.getId() != null && articuloDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Articulo con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Articulo");
 			
 			return this.actualizarArticuloDesdeArticuloDto(articuloDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Articulo con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Articulo");
 			
 			return this.crearArticuloDesdeArticuloDto(articuloDto);
 		}

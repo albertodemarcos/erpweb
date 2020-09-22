@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.EmpresaDto;
 import com.erpweb.entidades.empresa.Empresa;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpresaRepository;
 import com.erpweb.utiles.AccionRespuesta;
-
 
 
 @Service
@@ -170,7 +168,7 @@ public class EmpresaService {
 		return empresaDto;
 	}
 	
-	public AccionRespuesta getEmpresa(Long empresaId, Usuario user) {
+	public AccionRespuesta getEmpresa(Long empresaId) {
 		
 		logger.debug("Entramos en el metodo getEmpresa()");
 		
@@ -209,19 +207,19 @@ public class EmpresaService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarEmpresa(EmpresaDto EmpresaDto, Usuario user) {
+	public AccionRespuesta getCrearEditarEmpresa(EmpresaDto EmpresaDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarEmpresa() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarEmpresa()");
 		
 		if( EmpresaDto.getId() != null && EmpresaDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion de la Empresa con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion de la Empresa");
 			
 			return this.actualizarEmpresaDesdeEmpresaDto(EmpresaDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear una Empresa con usuario={}", user.getId() );
+			logger.debug("Se va a crear una Empresa");
 			
 			return this.crearEmpresaDesdeEmpresaDto(EmpresaDto);
 		}

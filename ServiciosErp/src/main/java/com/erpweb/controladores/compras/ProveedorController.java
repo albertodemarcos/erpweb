@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ProveedorDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.compras.ProveedorService;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class ProveedorController {
 	private ErroresService erroresService;
 	
 	@GetMapping("/proveedor/{proveedorId}")
-	public @ResponseBody AccionRespuesta getProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getProveedor( @PathVariable Long proveedorId ) throws Exception {
 		
-		return this.proveedorService.getProveedor(proveedorId, user);
+		return this.proveedorService.getProveedor(proveedorId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,16 +46,14 @@ public class ProveedorController {
 	}
 	
 	@GetMapping( "/editarProveedor/{proveedorId}" )
-	public @ResponseBody AccionRespuesta getEditarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarProveedor( @PathVariable Long proveedorId ) throws Exception {
 		
-		return this.proveedorService.getProveedor(proveedorId, user);
+		return this.proveedorService.getProveedor(proveedorId);
 	}
 	
 	@PostMapping( "/crearProveedor" )
 	public @ResponseBody AccionRespuesta postCrearProveedor( @RequestBody ProveedorDto proveedorDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.proveedorValidator.validate(proveedorDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -64,14 +61,12 @@ public class ProveedorController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.proveedorService.getCrearEditarProveedor(proveedorDto, user);
+		return this.proveedorService.getCrearEditarProveedor(proveedorDto);
 	}
 	
 	@PostMapping( "/editarProveedor" )
 	public @ResponseBody AccionRespuesta postEditarProveedor( @RequestBody ProveedorDto proveedorDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.proveedorValidator.validate(proveedorDto, result);
 		
 		if(	result.hasErrors() ) {
@@ -79,11 +74,11 @@ public class ProveedorController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.proveedorService.getCrearEditarProveedor(proveedorDto, user);
+		return this.proveedorService.getCrearEditarProveedor(proveedorDto);
 	}
 	
 	@GetMapping("/eliminarProveedor/{proveedorId}")
-	public @ResponseBody AccionRespuesta getEliminarProveedor( @PathVariable Long proveedorId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarProveedor( @PathVariable Long proveedorId ) throws Exception {
 		
 		if(proveedorId == null || proveedorId.longValue() < 1L ) {
 			

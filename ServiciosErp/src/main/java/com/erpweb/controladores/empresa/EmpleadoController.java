@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.EmpleadoDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.empresa.EmpleadoService;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class EmpleadoController {
 	private ErroresService erroresService;
 
 	@GetMapping("/empleado/{empleadoId}")
-	public @ResponseBody AccionRespuesta getEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEmpleado( @PathVariable Long empleadoId) throws Exception {
 		
-		return this.empleadoService.getEmpleado(empleadoId, user);
+		return this.empleadoService.getEmpleado(empleadoId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,15 +46,13 @@ public class EmpleadoController {
 	}
 	
 	@GetMapping( "/editarEmpleado/{empleadoId}" )
-	public @ResponseBody AccionRespuesta getEditarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarEmpleado( @PathVariable Long empleadoId) throws Exception {
 		
-		return this.empleadoService.getEmpleado(empleadoId, user);
+		return this.empleadoService.getEmpleado(empleadoId);
 	}
 	
 	@PostMapping( "/crearEmpleado" )
 	public @ResponseBody AccionRespuesta postCrearEmpleado( @RequestBody EmpleadoDto empleadoDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.empleadoValidator.validate(empleadoDto, result);
 		
@@ -64,11 +61,11 @@ public class EmpleadoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE,  this.erroresService.erroresValidacionEnDto(result));
 		}
 		
-		return this.empleadoService.getCrearEditarEmpleado(empleadoDto, user);
+		return this.empleadoService.getCrearEditarEmpleado(empleadoDto);
 	}
 	
 	@PostMapping( "/editarEmpleado" )
-	public @ResponseBody AccionRespuesta postEditarEmpleado( @RequestBody EmpleadoDto empleadoDto, Usuario user, BindingResult result ) {
+	public @ResponseBody AccionRespuesta postEditarEmpleado( @RequestBody EmpleadoDto empleadoDto, BindingResult result ) {
 		
 		this.empleadoValidator.validate(empleadoDto, result);
 		
@@ -77,11 +74,11 @@ public class EmpleadoController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.empleadoService.getCrearEditarEmpleado(empleadoDto, user);
+		return this.empleadoService.getCrearEditarEmpleado(empleadoDto);
 	}
 	
 	@GetMapping("/eliminarEmpleado/{empleadoId}")
-	public @ResponseBody AccionRespuesta getEliminarEmpleado( @PathVariable Long empleadoId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarEmpleado( @PathVariable Long empleadoId) throws Exception {
 		
 		if(empleadoId == null || empleadoId.longValue() < 1L ) {
 			

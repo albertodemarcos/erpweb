@@ -15,7 +15,6 @@ import com.erpweb.dto.ClienteDto;
 import com.erpweb.entidades.crm.Cliente;
 import com.erpweb.entidades.embebidos.DireccionPostal;
 import com.erpweb.entidades.embebidos.OrigenPersona;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.crm.ClienteRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -243,7 +242,7 @@ public class ClienteService {
 		return new ArrayList<ClienteDto>();
 	}
 	
-	public AccionRespuesta getCliente(Long clienteId, Usuario user) {
+	public AccionRespuesta getCliente(Long clienteId) {
 		
 		logger.debug("Entramos en el metodo getCliente()");
 		
@@ -282,19 +281,19 @@ public class ClienteService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarCliente(ClienteDto clienteDto, Usuario user) {
+	public AccionRespuesta getCrearEditarCliente(ClienteDto clienteDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarCliente() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarCliente()" );
 		
 		if( clienteDto.getId() != null && clienteDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Cliente con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Cliente");
 			
 			return this.actualizarClienteDesdeClienteDto(clienteDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Cliente con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Cliente");
 			
 			return this.crearClienteDesdeClienteDto(clienteDto);
 		}

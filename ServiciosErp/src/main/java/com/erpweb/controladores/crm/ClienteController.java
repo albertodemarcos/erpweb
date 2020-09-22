@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.ClienteDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.crm.ClienteService;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -36,9 +35,9 @@ public class ClienteController {
 	private ErroresService erroresService;
 
 	@GetMapping("/cliente/{clienteId}")
-	public @ResponseBody AccionRespuesta getCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getCliente( @PathVariable Long clienteId ) throws Exception {
 		
-		return this.clienteService.getCliente(clienteId, user);
+		return this.clienteService.getCliente(clienteId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -48,15 +47,13 @@ public class ClienteController {
 	}
 	
 	@GetMapping( "/editarCliente/{clienteId}" )
-	public @ResponseBody AccionRespuesta getEditarCliente(  @PathVariable Long clienteId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarCliente(  @PathVariable Long clienteId ) throws Exception {
 		
-		return this.clienteService.getCliente(clienteId, user);
+		return this.clienteService.getCliente(clienteId);
 	}
 	
 	@PostMapping( { "/crearCliente" } )
 	public @ResponseBody AccionRespuesta postCrearCliente(@RequestBody ClienteDto clienteDto, BindingResult result ) {
-		
-		Usuario user = new Usuario();
 		
 		this.clienteValidator.validate(clienteDto, result);
 		
@@ -65,13 +62,11 @@ public class ClienteController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE,  erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.clienteService.getCrearEditarCliente(clienteDto, user);
+		return this.clienteService.getCrearEditarCliente(clienteDto);
 	}
 	
 	@PostMapping( "/editarCliente" )
 	public @ResponseBody AccionRespuesta postEditarCliente( @RequestBody ClienteDto clienteDto, BindingResult result ) throws Exception {
-		
-		Usuario user = new Usuario();
 		
 		this.clienteValidator.validate(clienteDto, result);
 		
@@ -80,11 +75,11 @@ public class ClienteController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result) );
 		}
 		
-		return this.clienteService.getCrearEditarCliente(clienteDto, user);
+		return this.clienteService.getCrearEditarCliente(clienteDto);
 	}
 	
 	@GetMapping("/eliminarCliente/{clienteId}")
-	public @ResponseBody AccionRespuesta getEliminarCliente( @PathVariable Long clienteId, Usuario user ) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarCliente( @PathVariable Long clienteId ) throws Exception {
 		
 		if(clienteId == null || clienteId.longValue() < 1L ) {
 			

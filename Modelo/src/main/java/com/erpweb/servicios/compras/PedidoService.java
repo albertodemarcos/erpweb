@@ -21,7 +21,6 @@ import com.erpweb.dto.PedidoDto;
 import com.erpweb.entidades.compras.LineaPedido;
 import com.erpweb.entidades.compras.Pedido;
 import com.erpweb.entidades.inventario.Articulo;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.patrones.builder.constructores.ConstructorPedido;
 import com.erpweb.repositorios.compras.LineaPedidoRepository;
 import com.erpweb.repositorios.compras.PedidoRepository;
@@ -267,7 +266,7 @@ public class PedidoService {
 		return new ArrayList<PedidoDto>();
 	}
 	
-	public AccionRespuesta getPedido(Long pedidoId, Usuario user) {
+	public AccionRespuesta getPedido(Long pedidoId) {
 		
 		logger.debug("Entramos en el metodo getPedido()");
 		
@@ -306,19 +305,19 @@ public class PedidoService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarPedido(PedidoDto pedidoDto, Usuario user) {
+	public AccionRespuesta getCrearEditarPedido(PedidoDto pedidoDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarPedido() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarPedido()" );
 		
 		if( pedidoDto.getId() != null && pedidoDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Pedido con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Pedido" );
 			
 			return this.actualizarPedidoDesdePedidoDto(pedidoDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Pedido con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Pedido" );
 			
 			return this.crearPedidoDesdePedidoDto(pedidoDto);
 		}

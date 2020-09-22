@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -37,55 +38,11 @@ public class PedidoValidator implements Validator {
 			errors.rejectValue("fechaPedido", "", "El campo fecha no puede estar vacio");
 		} 
 		
-		/*if( StringUtils.isBlank( pedidoDto.getArticulo() )  ) {
-					
-			errors.rejectValue("articulo", "", "El campo codigo no puede estar vacio");
+		//Evaluamos el mapa de los articulos escogidos
+		if( CollectionUtils.isEmpty( pedidoDto.getArticulosCantidad() ) ) {
+			
+			errors.rejectValue("articulosCantidad", "", "Debe haber al menos un articulo en el pedido");
 		}
-		
-		if( pedidoDto.getCantidad() == null  ) {
-			
-			errors.rejectValue("cantidad", "", "El campo cantidad no puede estar vacío");
-			
-		}else if( pedidoDto.getCantidad().intValue() < 0  ) {
-			
-			errors.rejectValue("cantidad", "", "El campo cantidad no puede ser negativo");
-			
-		}else if( pedidoDto.getCantidad().intValue() == 0  ) {
-			
-			errors.rejectValue("cantidad", "", "El campo cantidad no puede ser cero");
-		}
-		
-		if( pedidoDto.getImpuesto() == null ) {
-			
-			errors.rejectValue("impuesto", "", "El campo impuesto no puede estar vacio");
-		}
-		
-		if( pedidoDto.getBaseImponibleTotal() == null  ) {
-			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede estar vacío");
-			
-		}else if( pedidoDto.getBaseImponibleTotal().intValue() < 0  ) {
-			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser negativo");
-			
-		}else if( pedidoDto.getBaseImponibleTotal().intValue() == 0  ) {
-			
-			errors.rejectValue("baseImponibleTotal", "", "El campo base imponible no puede ser cero");
-		}
-		
-		if( pedidoDto.getImporteTotal() == null  ) {
-			
-			errors.rejectValue("importeTotal", "", "El campo importe total no puede estar vacío");
-			
-		}else if( pedidoDto.getImporteTotal().intValue() < 0  ) {
-			
-			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser negativo");
-			
-		}else if( pedidoDto.getImporteTotal().intValue() == 0  ) {
-			
-			errors.rejectValue("importeTotal", "", "El campo importe total no puede ser cero");
-		}
-		*/
 	}
 
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erpweb.dto.AlmacenDto;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.servicios.errores.ErroresService;
 import com.erpweb.servicios.inventario.AlmacenService;
 import com.erpweb.utiles.AccionRespuesta;
@@ -35,9 +34,9 @@ public class AlmacenController {
 	private ErroresService erroresService;
 
 	@GetMapping("/almacen/{almacenId}")
-	public @ResponseBody AccionRespuesta getAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getAlmacen( @PathVariable Long almacenId) throws Exception {
 		
-		return this.almacenService.getAlmacen(almacenId, user);
+		return this.almacenService.getAlmacen(almacenId);
 	}
 	
 	@GetMapping("/listado.json")
@@ -47,16 +46,14 @@ public class AlmacenController {
 	}
 	
 	@GetMapping( "/editarAlmacen/{almacenId}" )
-	public @ResponseBody AccionRespuesta getEditarAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEditarAlmacen( @PathVariable Long almacenId) throws Exception {
 		
-		return this.almacenService.getAlmacen(almacenId, user);
+		return this.almacenService.getAlmacen(almacenId);
 	}
 	
 	@PostMapping( "/crearAlmacen" )
 	public @ResponseBody AccionRespuesta postCrearAlmacen( @RequestBody AlmacenDto almacenDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.almacenValidator.validate(almacenDto, result);
 		
 		if( result.hasErrors() ) {
@@ -64,14 +61,12 @@ public class AlmacenController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result));
 		}
 		
-		return this.almacenService.getCrearEditarAlmacen(almacenDto, user);
+		return this.almacenService.getCrearEditarAlmacen(almacenDto);
 	}
 	
 	@PostMapping( "/editarAlmacen" )
 	public @ResponseBody AccionRespuesta postEditarAlmacen( @RequestBody AlmacenDto almacenDto, BindingResult result ) {
 		
-		Usuario user = new Usuario();
-		
 		this.almacenValidator.validate(almacenDto, result);
 		
 		if( result.hasErrors() ) {
@@ -79,11 +74,11 @@ public class AlmacenController {
 			return new AccionRespuesta(-1L, "NOK", Boolean.FALSE, this.erroresService.erroresValidacionEnDto(result));
 		}
 		
-		return this.almacenService.getCrearEditarAlmacen(almacenDto, user);
+		return this.almacenService.getCrearEditarAlmacen(almacenDto);
 	}
 	
 	@GetMapping("/eliminarAlmacen/{almacenId}")
-	public @ResponseBody AccionRespuesta getEliminarAlmacen( @PathVariable Long almacenId, Usuario user) throws Exception {
+	public @ResponseBody AccionRespuesta getEliminarAlmacen( @PathVariable Long almacenId) throws Exception {
 		
 		if(almacenId == null || almacenId.longValue() < 1L ) {
 			

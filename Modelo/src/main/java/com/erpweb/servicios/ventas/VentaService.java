@@ -19,7 +19,6 @@ import com.erpweb.dto.ArticuloDto;
 import com.erpweb.dto.LineaVentaDto;
 import com.erpweb.dto.VentaDto;
 import com.erpweb.entidades.inventario.Articulo;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.entidades.ventas.LineaVenta;
 import com.erpweb.entidades.ventas.Venta;
 import com.erpweb.patrones.builder.constructores.ConstructorVenta;
@@ -270,7 +269,7 @@ public class VentaService {
 		return new ArrayList<VentaDto>();
 	}
 	
-	public AccionRespuesta getVenta(Long ventaId, Usuario user) {
+	public AccionRespuesta getVenta(Long ventaId) {
 		
 		logger.debug("Entramos en el metodo getCrearventa()");
 		

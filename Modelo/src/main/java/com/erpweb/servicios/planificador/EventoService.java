@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.EventoDto;
 import com.erpweb.entidades.planificador.Evento;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.planificador.EventoRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -161,7 +160,7 @@ public class EventoService {
 		return new ArrayList<EventoDto>();
 	}
 	
-	public AccionRespuesta getEvento(Long eventoId, Usuario user) {
+	public AccionRespuesta getEvento(Long eventoId) {
 		
 		logger.debug("Entramos en el metodo getproveedor()");
 		
@@ -200,19 +199,19 @@ public class EventoService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarEvento(EventoDto eventoDto, Usuario user) {
+	public AccionRespuesta getCrearEditarEvento(EventoDto eventoDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarProveedor() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarProveedor()");
 		
 		if( eventoDto.getId() != null && eventoDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Proveedor con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Proveedor");
 			
 			return this.actualizarEventoDesdeEventoDto(eventoDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Proveedor con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Proveedor");
 			
 			return this.crearEventoDesdeEventoDto(eventoDto);
 		}

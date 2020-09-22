@@ -15,7 +15,6 @@ import com.erpweb.dto.EmpleadoDto;
 import com.erpweb.entidades.embebidos.DireccionPostal;
 import com.erpweb.entidades.embebidos.OrigenPersona;
 import com.erpweb.entidades.empresa.Empleado;
-import com.erpweb.entidades.usuarios.Usuario;
 import com.erpweb.repositorios.empresa.EmpleadoRepository;
 import com.erpweb.utiles.AccionRespuesta;
 
@@ -246,7 +245,7 @@ public class EmpleadoService {
 		return new ArrayList<EmpleadoDto>();
 	}
 	
-	public AccionRespuesta getEmpleado(Long empleadoId, Usuario user) {
+	public AccionRespuesta getEmpleado(Long empleadoId) {
 		
 		logger.debug("Entramos en el metodo getEmpleado()");
 		
@@ -285,19 +284,19 @@ public class EmpleadoService {
 		return AccionRespuesta;
 	}
 	
-	public AccionRespuesta getCrearEditarEmpleado(EmpleadoDto empleadoDto, Usuario user) {
+	public AccionRespuesta getCrearEditarEmpleado(EmpleadoDto empleadoDto) {
 		
-		logger.debug("Entramos en el metodo getCrearEditarEmpleado() con usuario={}", user.getId() );
+		logger.debug("Entramos en el metodo getCrearEditarEmpleado()");
 		
 		if( empleadoDto.getId() != null && empleadoDto.getId().longValue() > 0) {
 			
-			logger.debug("Se va a realizar una actualizacion del Empleado con usuario={}", user.getId() );
+			logger.debug("Se va a realizar una actualizacion del Empleado");
 			
 			return this.actualizarEmpleadoDesdeEmpleadoDto(empleadoDto);
 			
 		} else {
 			
-			logger.debug("Se va a crear un Empleado con usuario={}", user.getId() );
+			logger.debug("Se va a crear un Empleado");
 			
 			return this.crearEmpleadoDesdeEmpleadoDto(empleadoDto);
 		}
