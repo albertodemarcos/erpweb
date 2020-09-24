@@ -351,6 +351,7 @@ public class UsuarioService {
 				usuarioDto.setNombreCompleto(usuario.getNombreCompleto());
 				usuarioDto.setUsername(usuario.getUsername());
 				usuarioDto.setPassword("");
+				usuarioDto.setEmail(usuario.getEmail());
 				usuarioDto.setRole(usuario.getRole());
 				usuario.setActivo(Boolean.TRUE);
 				usuariosDto.add(usuarioDto);			

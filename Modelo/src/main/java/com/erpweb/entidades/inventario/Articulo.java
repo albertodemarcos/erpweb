@@ -10,9 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import com.erpweb.entidades.abstractas.Producto;
 
@@ -68,6 +71,7 @@ public class Articulo extends Producto implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@Lob @Type(type="org.hibernate.type.TextType")
 	public String getDescripcion() {
 		return descripcion;
 	}
