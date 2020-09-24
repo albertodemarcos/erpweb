@@ -29,6 +29,8 @@ export class FormularioPedidoComponent implements OnInit, AfterViewInit {
   private respuestaGetCliente: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
+  public titulo: string;
+  public botonTitulo: string;
 
   // Modal Articulo
   @ViewChild('modalArticulo') modalArticulo: ModalArticuloComponent;
@@ -47,6 +49,8 @@ export class FormularioPedidoComponent implements OnInit, AfterViewInit {
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
     this.erroresFormulario = new Map<string, object>();
+    this.titulo = 'Nuevo pedido';
+    this.botonTitulo = 'Crear pedido';
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -144,11 +148,11 @@ export class FormularioPedidoComponent implements OnInit, AfterViewInit {
 
           if ( this.respuestaGetCliente.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetCliente.data) );
-            console.log('ES: ' + typeof(this.respuestaGetCliente.data));
             // tslint:disable-next-line: no-string-literal
             this.pedidoDto = this.respuestaGetCliente.data['pedidoDto'];
             this.obtenerPedidoDesdePedidoDto(this.pedidoDto);
+            this.titulo = 'Editar pedido';
+            this.botonTitulo = 'Editar pedido';
           }
 
         }catch (errores){

@@ -18,13 +18,17 @@ export class FormularioProveedorComponent implements OnInit {
   private proveedorDto: any;
   public tiposProveedores: string[];
   private respuestaGetProveedor: AccionRespuesta;
-  public erroresFormulario: Map<string, object>; 
+  public erroresFormulario: Map<string, object>;
+  public titulo: string;
+  public botonTitulo: string;
 
   constructor(private proveedorService: ProveedorService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.proveedor = new Proveedor();
     this.tiposProveedores = ['PRODUCTOS', 'SERVICIOS', 'RECURSOS', 'OTROS'];
     this.erroresFormulario = new Map<string, object>();
+    this.titulo = 'Nuevo proveedor';
+    this.botonTitulo = 'Crear proveedor';
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -45,8 +49,6 @@ export class FormularioProveedorComponent implements OnInit {
     console.log('Estamos dentro del metodo crear formulario');
 
     this.proveedorService.crearProveedor(this.proveedor).subscribe( accionRespuesta => {
-      console.log('Esta registrado' + accionRespuesta.resultado);
-      console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
         this.router.navigate(['proveedores', 'proveedor', accionRespuesta.id]);
@@ -91,17 +93,15 @@ export class FormularioProveedorComponent implements OnInit {
     this.proveedorService.getProveedor(this.proveedorId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el cliente');
-
           this.respuestaGetProveedor = accionRespuesta;
 
           if ( this.respuestaGetProveedor.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetProveedor.data) );
-            console.log('ES: ' + typeof(this.respuestaGetProveedor.data));
             // tslint:disable-next-line: no-string-literal
             this.proveedorDto = this.respuestaGetProveedor.data['proveedorDto'];
             this.obtenerProveedorDesdeProveedorDto(this.proveedorDto);
+            this.titulo = 'Editar proveedor';
+            this.botonTitulo = 'Editar proveedor';
           }
 
         }catch (errores){

@@ -18,13 +18,16 @@ export class FormularioUsuarioComponent implements OnInit {
   private usuarioDto: any;
   private respuestaGetUsuario: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
+  public titulo: string;
+  public botonTitulo: string;
 
   constructor(private usuarioService: UsuarioService, private router: Router, private activateRouter: ActivatedRoute) {
 
     this.usuario = new Usuario();
     this.erroresFormulario = new Map<string, object>();
+    this.titulo = 'Nuevo usuario';
+    this.botonTitulo = 'Crear usuario';
     this.activateRouter.params.subscribe( params => {
-      console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.usuarioId = params['id'];
       if (this.usuarioId != null){
@@ -36,12 +39,8 @@ export class FormularioUsuarioComponent implements OnInit {
   // Metodos del formulario
   public crearUsuarioFormulario(): void {
 
-    console.log('Estamos dentro del metodo crearUsuarioFormulario()');
-
     // Si tiene id, llamamos a crear, sino a editar
     if (this.usuario != null && this.usuario.id != null && this.usuario.id !== 0) {
-
-      console.log('Vamos a editar el usuario con ID: ' + this.usuario.id);
 
       this.usuarioService.actualizarUsuario(this.usuario).subscribe( accionRespuesta => {
 
@@ -56,8 +55,6 @@ export class FormularioUsuarioComponent implements OnInit {
     } else {
 
       this.usuarioService.crearUsuario(this.usuario).subscribe( accionRespuesta => {
-
-        console.log('Vamos a crear el usuario con codigo: ' + this.usuario.codigo);
 
         this.respuestaCrearEditarUsuario(accionRespuesta, false);
 
@@ -75,17 +72,15 @@ export class FormularioUsuarioComponent implements OnInit {
     this.usuarioService.getUsuario(this.usuarioId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el usuario');
-
           this.respuestaGetUsuario = accionRespuesta;
 
           if ( this.respuestaGetUsuario.resultado )
           {
-            // console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetUsuario.data) );
-            // console.log('ES: ' + typeof(this.respuestaGetUsuario.data));
             // tslint:disable-next-line: no-string-literal
             this.usuarioDto = this.respuestaGetUsuario.data['usuarioDto'];
             this.obtenerUsuarioDesdeUsuarioDto(this.usuarioDto);
+            this.titulo = 'Editar usuario';
+            this.botonTitulo = 'Editar usuario';
           }
 
         }catch (errores){
@@ -93,6 +88,7 @@ export class FormularioUsuarioComponent implements OnInit {
           console.log('Se ha producido un error al transformar el usuario' + errores);
         }
       }, (error) => {
+
         console.log('Error, no se ha podido recuperar el usuario' + error);
       }
     );
@@ -113,8 +109,6 @@ export class FormularioUsuarioComponent implements OnInit {
 
   respuestaCrearEditarUsuario(accionRespuesta: AccionRespuesta, esEditarUsuario: boolean): void {
 
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 

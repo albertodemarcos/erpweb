@@ -1,6 +1,6 @@
 <div class="card formluario">
 
-    <div class="card-header cabecera text-center">Nuevo empleado</div>
+    <div class="card-header cabecera text-center">{{titulo}}</div>
 
     <div class="card-body .bg-light">
         <!-- FORMULARIO -->
@@ -111,7 +111,8 @@
             <div class="form-group row">
                 <label for="observaciones" class="col-form-label font-weight-bold col-4">Observaciones</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="empleado.observaciones" name="observaciones">
+                    <!--<input type="text" class="form-control" [(ngModel)]="empleado.observaciones" name="observaciones">-->
+                    <textarea class="form-control" name="observaciones" maxlength="255" [(ngModel)]="empleado.observaciones" rows="4" cols="50"></textarea>
                 </div>
             </div>
 
@@ -184,7 +185,7 @@
             <div class="form-group row text-center">
                 <div class="col-sm-12">
                     <br/>
-                    <button class="btn btn-primary" role="button">Crear empleado</button>
+                    <button class="btn btn-primary" role="button">{{botonTitulo}}</button>
                 </div>
             </div>
 

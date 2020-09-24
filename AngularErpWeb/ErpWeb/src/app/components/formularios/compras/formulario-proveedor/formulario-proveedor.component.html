@@ -1,6 +1,6 @@
 <div class="card formluario">
 
-    <div class="card-header cabecera text-center">Nuevo proveedor</div>
+    <div class="card-header cabecera text-center">{{titulo}}</div>
 
     <div class="card-body bg-light">
 
@@ -9,7 +9,7 @@
 
             <!-- NOMBRE -->
             <div class="form-group row">
-                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre proveedor</label>
+                <label for="nombre" class="col-form-label font-weight-bold col-4 required">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.nombre" name="nombre">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombre']">
@@ -20,7 +20,7 @@
 
             <!-- CODIGO PROVEEDOR -->
             <div class="form-group row">
-                <label for="codigo" class="col-form-label font-weight-bold col-4 required">Código proveedor</label>
+                <label for="codigo" class="col-form-label font-weight-bold col-4 required">Código</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.codigo" name="codigo">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['codigo']">
@@ -31,7 +31,7 @@
 
             <!-- NOMBRE EMPRESA -->
             <div class="form-group row">
-                <label for="nombreEmpresa" class="col-form-label font-weight-bold col-4 required">Nombre empresa</label>
+                <label for="nombreEmpresa" class="col-form-label font-weight-bold col-4 required">Empresa</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control" [(ngModel)]="proveedor.nombreEmpresa" name="nombreEmpresa">
                     <div *ngIf="erroresFormulario != null && erroresFormulario['nombreEmpresa']">
@@ -71,7 +71,7 @@
             <div class="form-group row text-center">
                 <div class="col-sm-12">
                     <br/>
-                    <button class="btn btn-primary" role="button">Crear proveedor</button>
+                    <button class="btn btn-primary" role="button">{{botonTitulo}}</button>
                 </div>
             </div>
 

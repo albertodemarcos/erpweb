@@ -1,6 +1,6 @@
 <div class="card formluario">
 
-    <div class="card-header cabecera text-center">Nueva factura</div>
+    <div class="card-header cabecera text-center">{{titulo}}</div>
 
     <div class="card-body bg-light">
 
@@ -34,7 +34,8 @@
             <div class="form-group row">
                 <label for="descripcion" class="col-form-label font-weight-bold col-sm-4">Descripción</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="factura.descripcion" name="descripcion">
+                    <!--<input type="text" class="form-control" [(ngModel)]="factura.descripcion" name="descripcion">-->
+                    <textarea class="form-control" name="descripcion" maxlength="255" [(ngModel)]="factura.descripcion" rows="4" cols="50"></textarea>
                 </div>
             </div>
 
@@ -80,7 +81,7 @@
             <div class="form-group row text-center">
                 <div class="col-sm-12">
                     <br/>
-                    <button class="btn btn-primary" role="button">Crear factura</button>
+                    <button class="btn btn-primary" role="button">{{botonTitulo}}</button>
                 </div>
             </div>
 

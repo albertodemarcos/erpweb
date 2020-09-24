@@ -22,15 +22,18 @@ export class FormularioFacturaComponent implements OnInit {
   private respuestaGetFactura: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
+  public titulo: string;
+  public botonTitulo: string;
 
   constructor(private facturaService: FacturaService, private router: Router, private activateRouter: ActivatedRoute) {
     this.factura = new Factura();
     this.erroresFormulario = new Map<string, object>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
+    this.titulo = 'Nueva factura';
+    this.botonTitulo = 'Crear factura';
     this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
-      console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.facturaId = params['id'];
       if (this.facturaId != null){
@@ -102,17 +105,15 @@ export class FormularioFacturaComponent implements OnInit {
     this.facturaService.getFactura(this.facturaId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos la factura');
-
           this.respuestaGetFactura = accionRespuesta;
 
           if ( this.respuestaGetFactura.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetFactura.data) );
-            console.log('ES: ' + typeof(this.respuestaGetFactura.data));
             // tslint:disable-next-line: no-string-literal
             this.facturaDto = this.respuestaGetFactura.data['facturaDto'];
             this.obtenerFacturaDesdeFacturaDto(this.facturaDto);
+            this.titulo = 'Editar factura';
+            this.botonTitulo = 'Editar factura';
           }
 
         }catch (errores){

@@ -30,6 +30,8 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
   public erroresFormulario: Map<string, object>;
   public lineasContratoError: LineaContrato[];
   public mapaIva: Map<string, string>;
+  public titulo: string;
+  public botonTitulo: string;
 
   // Modal Articulo
   @ViewChild('modalArticulo') modalArticulo: ModalArticuloComponent;
@@ -52,9 +54,10 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
 
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
+    this.titulo = 'Nuevo contrato';
+    this.botonTitulo = 'Crear contrato';
 
     this.activateRouter.params.subscribe( params => {
-      console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.contratoId = params['id'];
       if (this.contratoId != null){
@@ -163,11 +166,11 @@ export class FormularioContratoComponent implements OnInit, AfterViewInit {
 
           if ( this.respuestaGetContrato.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetContrato.data) );
-            console.log('ES: ' + typeof(this.respuestaGetContrato.data));
             // tslint:disable-next-line: no-string-literal
             this.contratoDto = this.respuestaGetContrato.data['contratoDto'];
             this.obtenerContratoDesdeContratoDto(this.contratoDto);
+            this.titulo = 'Editar contrato';
+            this.botonTitulo = 'Editar contrato';
           }
 
         }catch (errores){

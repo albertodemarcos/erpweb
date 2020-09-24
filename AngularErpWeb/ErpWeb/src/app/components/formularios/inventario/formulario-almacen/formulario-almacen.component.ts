@@ -20,6 +20,8 @@ export class FormularioAlmacenComponent implements OnInit {
   public regiones: string[];
   private respuestaGetAlmacen: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
+  public titulo: string;
+  public botonTitulo: string;
 
   constructor(private almacenService: AlmacenService, private router: Router, private activateRouter: ActivatedRoute) {
 
@@ -35,6 +37,9 @@ export class FormularioAlmacenComponent implements OnInit {
     this.regiones = ['Andalucía', 'Aragón', 'Principado de Asturias', 'Islas Baleares', 'Islas Canarias', 'Cantabria', 'Castilla y León',
       'Castilla-La Mancha', 'Cataluña', 'Comunidad Valenciana', 'Extremadura', 'Galicia', 'Comunidad de Madrid', 'Región de Murcia',
       'Comunidad Foral de Navarra', 'País Vasco', 'La Rioja', 'Ciudad Autónoma de Ceuta', 'Ciudad Autónoma de Melilla' ];
+
+    this.titulo = 'Nuevo almacén';
+    this.botonTitulo = 'Crear almacén';
 
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -90,17 +95,15 @@ export class FormularioAlmacenComponent implements OnInit {
     this.almacenService.getAlmacen(this.almacenId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el cliente');
-
           this.respuestaGetAlmacen = accionRespuesta;
 
           if ( this.respuestaGetAlmacen.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetAlmacen.data) );
-            console.log('ES: ' + typeof(this.respuestaGetAlmacen.data));
             // tslint:disable-next-line: no-string-literal
             this.almacenDto = this.respuestaGetAlmacen.data['almacenDto'];
             this.obtenerAlmacenDesdeAlmacenDto(this.almacenDto);
+            this.titulo = 'Editar almacén';
+            this.botonTitulo = 'Editar almacén';
           }
 
         }catch (errores){

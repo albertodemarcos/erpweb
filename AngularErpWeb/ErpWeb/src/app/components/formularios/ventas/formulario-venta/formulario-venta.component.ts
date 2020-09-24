@@ -29,6 +29,8 @@ export class FormularioVentaComponent implements OnInit, AfterViewInit {
   private respuestaGetVenta: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
+  public titulo: string;
+  public botonTitulo: string;
 
   // Modal Articulo
   @ViewChild('modalArticulo') modalArticulo: ModalArticuloComponent;
@@ -45,9 +47,10 @@ export class FormularioVentaComponent implements OnInit, AfterViewInit {
     this.erroresFormulario = new Map<string, object>();
     this.tiposImpuesto = ['IVA_GENERAL', 'IVA_REDUCIDO', 'IVA_SUPER_REDUCIDO'];
     this.mapaIva = new Map<string, string>();
+    this.titulo = 'Nueva venta';
+    this.botonTitulo = 'Crear venta';
     this.rellenaMapaIva();
     this.activateRouter.params.subscribe( params => {
-      console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.ventaId = params['id'];
       if (this.ventaId != null){
@@ -136,17 +139,15 @@ export class FormularioVentaComponent implements OnInit, AfterViewInit {
     this.ventaService.getVenta(this.ventaId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos la venta');
-
           this.respuestaGetVenta = accionRespuesta;
 
           if ( this.respuestaGetVenta.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetVenta.data) );
-            console.log('ES: ' + typeof(this.respuestaGetVenta.data));
             // tslint:disable-next-line: no-string-literal
             this.ventaDto = this.respuestaGetVenta.data['ventaDto'];
             this.obtenerVentaDesdeVentaDto(this.ventaDto);
+            this.titulo = 'Editar venta';
+            this.botonTitulo = 'Editar venta';
           }
 
         }catch (errores){

@@ -28,7 +28,8 @@ export class FormularioArticuloComponent implements OnInit {
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
   public almacenesForm: Map<number, string>;
-
+  public titulo: string;
+  public botonTitulo: string;
   public classicEditor: ClassicEditor;
   public configurationClassicEditor: {};
 
@@ -43,6 +44,8 @@ export class FormularioArticuloComponent implements OnInit {
     this.mapaIva = new Map<string, string>();
     this.almacenesForm = new Map<number, string>();
     this.rellenaMapaIva();
+    this.titulo = 'Nuevo artículo';
+    this.botonTitulo = 'Crear artículo';
     // Routeo
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -74,8 +77,6 @@ export class FormularioArticuloComponent implements OnInit {
 
     // Si tiene id, llamamos a crear, sino a editar
     if (this.articulo != null && this.articulo.id != null && this.articulo.id !== 0) {
-
-      console.log('Vamos a editar el cliente con ID: ' + this.articulo.id);
 
       this.articuloService.actualizarArticulo(this.articulo).subscribe( accionRespuesta => {
 
@@ -109,17 +110,15 @@ export class FormularioArticuloComponent implements OnInit {
     this.articuloService.getArticulo(this.articuloId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el cliente');
-
           this.respuestaGetArticulo = accionRespuesta;
 
           if ( this.respuestaGetArticulo.resultado )
           {
-            // console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetArticulo.data) );
-            // console.log('ES: ' + typeof(this.respuestaGetArticulo.data));
             // tslint:disable-next-line: no-string-literal
             this.articuloDto = this.respuestaGetArticulo.data['articuloDto'];
             this.obtenerArticuloDesdeArticuloDto(this.articuloDto);
+            this.titulo = 'Editar artículo';
+            this.botonTitulo = 'Editar artículo';
           }
 
         }catch (errores){
@@ -148,8 +147,6 @@ export class FormularioArticuloComponent implements OnInit {
 
   private respuestaCrearEditarArticulo(accionRespuesta: AccionRespuesta, esEditarArticulo: boolean): void {
 
-    // console.log('Esta registrado' + accionRespuesta.resultado);
-    // console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
@@ -214,7 +211,6 @@ export class FormularioArticuloComponent implements OnInit {
   }
 
   public rellenarSelectorAlmacenes(): void{
-    console.log('Entramos');
     // Realizamos la llamada al servidor para traer los almacenes y llevarlos al formulario
     this.almacenService.getAlmacenes().then(
       (almacenes) => {

@@ -29,6 +29,8 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
   private respuestaGetCompra: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
   public mapaIva: Map<string, string>;
+  public titulo: string;
+  public botonTitulo: string;
 
   // Modal Articulo
   @ViewChild('modalArticulo') modalArticulo: ModalArticuloComponent;
@@ -47,6 +49,8 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
     this.mapaIva = new Map<string, string>();
     this.rellenaMapaIva();
     this.erroresFormulario = new Map<string, object>();
+    this.titulo = 'Nueva compra';
+    this.botonTitulo = 'Crear compra';
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -137,17 +141,15 @@ export class FormularioCompraComponent implements OnInit, AfterViewInit {
     this.compraService.getCompra(this.compraId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos la compra');
-
           this.respuestaGetCompra = accionRespuesta;
 
           if ( this.respuestaGetCompra.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetCompra.data) );
-            console.log('ES: ' + typeof(this.respuestaGetCompra.data));
             // tslint:disable-next-line: no-string-literal
             this.compraDto = this.respuestaGetCompra.data['compraDto'];
             this.obtenerCompraDesdeCompraDto(this.compraDto);
+            this.titulo = 'Editar compra';
+            this.botonTitulo = 'Editar compra';
           }
 
         }catch (errores){

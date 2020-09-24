@@ -26,6 +26,8 @@ export class FormularioStockComponent implements OnInit {
   public articulo: Articulo;
   private respuestaGetStock: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
+  public titulo: string;
+  public botonTitulo: string;
 
   // Autocompletar
   public keyword: string;
@@ -43,9 +45,11 @@ export class FormularioStockComponent implements OnInit {
 
     this.stockAlmacen = new Stock();
     this.erroresFormulario = new Map<string, object>();
+    this.titulo = 'Nuevo stock almacén';
+    this.botonTitulo = 'Crear stock almacén';
+
     // Autocompletar
     this.activateRouter.params.subscribe( params => {
-      console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.stockAlmacenId = params['id'];
       if (this.stockAlmacenId != null){
@@ -66,8 +70,6 @@ export class FormularioStockComponent implements OnInit {
 
     // Si tiene id, llamamos a crear, sino a editar
     if (this.stockAlmacen != null && this.stockAlmacen.id != null && this.stockAlmacen.id !== 0) {
-
-      console.log('Vamos a editar el stock del almacen con ID: ' + this.stockAlmacen.id);
 
       this.stockAlmacen.almacenId = this.almacen.id;
       this.stockAlmacen.articuloId = this.articulo.id;
@@ -107,8 +109,6 @@ export class FormularioStockComponent implements OnInit {
       (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el stock');
-
           this.respuestaGetStock = accionRespuesta;
 
           if ( this.respuestaGetStock.resultado )
@@ -120,6 +120,8 @@ export class FormularioStockComponent implements OnInit {
             this.obtenerStockAlmacenDesdeStockAlmacenDto(this.stockAlmacenDto);
             this.dataArticulo.push( this.stockAlmacen.articulo );
             this.dataAlmacen.push( this.stockAlmacen.almacen );
+            this.titulo = 'Editar stock almacén';
+            this.botonTitulo = 'Editar stock almacén';
           }
         }
         catch (errores)

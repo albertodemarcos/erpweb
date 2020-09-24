@@ -22,6 +22,8 @@ export class FormularioVehiculoComponent implements OnInit {
   private vehiculoDto: any;
   private respuestaGetVehiculo: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
+  public titulo: string;
+  public botonTitulo: string;
 
   constructor(private vehiculoService: VehiculoService, private router: Router, private activateRouter: ActivatedRoute) {
 
@@ -29,8 +31,10 @@ export class FormularioVehiculoComponent implements OnInit {
     this.erroresFormulario = new Map<string, object>();
     this.tiposVehiculos = ['COCHE', 'FURGONETA', 'CAMION', 'MOTOCICLETA', 'CICLOMOTOR', 'MIXTO'];
     this.tiposCombustible = ['DIESEL', 'GASOLINA', 'HIBRIDO', 'ELECTRICO', 'GAS'];
+    this.titulo = 'Nuevo vehículo';
+    this.botonTitulo = 'Crear vehículo';
+
     this.activateRouter.params.subscribe( params => {
-      console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
       this.vehiculoId = params['id'];
       if (this.vehiculoId != null){
@@ -101,17 +105,15 @@ export class FormularioVehiculoComponent implements OnInit {
     this.vehiculoService.getVehiculo(this.vehiculoId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el vehiculo');
-
           this.respuestaGetVehiculo = accionRespuesta;
 
           if ( this.respuestaGetVehiculo.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetVehiculo.data) );
-            console.log('ES: ' + typeof(this.respuestaGetVehiculo.data));
             // tslint:disable-next-line: no-string-literal
             this.vehiculoDto = this.respuestaGetVehiculo.data['vehiculoDto'];
             this.obtenerVehiculoDesdeVehiculoDto(this.vehiculoDto);
+            this.titulo = 'Editar vehículo';
+            this.botonTitulo = 'Editar vehículo';
           }
 
         }catch (errores){

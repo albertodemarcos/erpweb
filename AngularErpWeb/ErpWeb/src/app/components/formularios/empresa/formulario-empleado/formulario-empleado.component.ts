@@ -20,6 +20,8 @@ export class FormularioEmpleadoComponent implements OnInit {
   private empleadoDto: any;
   private respuestaGetCliente: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
+  public titulo: string;
+  public botonTitulo: string;
 
   constructor(private empleadoService: EmpleadoService, private router: Router, private activateRouter: ActivatedRoute) {
 
@@ -37,6 +39,8 @@ export class FormularioEmpleadoComponent implements OnInit {
       'Comunidad Foral de Navarra', 'País Vasco', 'La Rioja', 'Ciudad Autónoma de Ceuta', 'Ciudad Autónoma de Melilla' ];
 
     this.erroresFormulario = new Map<string, object>();
+    this.titulo = 'Nuevo empleado';
+    this.botonTitulo = 'Crear empleado';
 
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -95,22 +99,20 @@ export class FormularioEmpleadoComponent implements OnInit {
     this.empleadoService.getEmpleado(this.empresaId).toPromise().then( (accionRespuesta) => {
         try
         {
-          console.log('Recuperamos el empleado');
-
           this.respuestaGetCliente = accionRespuesta;
 
           if ( this.respuestaGetCliente.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetCliente.data) );
-            console.log('ES: ' + typeof(this.respuestaGetCliente.data));
             // tslint:disable-next-line: no-string-literal
             this.empleadoDto = this.respuestaGetCliente.data['empleadoDto'];
             this.obtenerEmpleadoDesdeEmpleadoDto(this.empleadoDto);
+            this.titulo = 'Editar empleado';
+            this.botonTitulo = 'Editar empleado';
           }
 
         }catch (errores){
 
-          console.log('Se ha producido un error al transformar el cliente' + errores);
+          console.log('Se ha producido un error al transformar el empleado' + errores);
         }
       }, (error) => {
         console.log('Error, no se ha podido recuperar el cliente' + error);

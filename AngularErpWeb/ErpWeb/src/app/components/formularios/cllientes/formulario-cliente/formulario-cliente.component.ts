@@ -22,6 +22,9 @@ export class FormularioClienteComponent implements OnInit {
   private respuestaGetCliente: AccionRespuesta;
   public erroresFormulario: Map<string, object>;
 
+  public titulo: string;
+  public botonTitulo: string;
+
   constructor(private clienteService: ClienteService, private router: Router, private activateRouter: ActivatedRoute) {
     this.cliente = new Cliente();
     this.tiposClientes = ['PARTICULAR', 'AUTONOMO', 'EMPRESA'];
@@ -37,6 +40,9 @@ export class FormularioClienteComponent implements OnInit {
       'Comunidad Foral de Navarra', 'País Vasco', 'La Rioja', 'Ciudad Autónoma de Ceuta', 'Ciudad Autónoma de Melilla' ];
 
     this.erroresFormulario = new Map<string, object>();
+
+    this.titulo = 'Nuevo cliente';
+    this.botonTitulo = 'Crear cliente';
 
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
@@ -103,6 +109,8 @@ export class FormularioClienteComponent implements OnInit {
             // tslint:disable-next-line: no-string-literal
             this.clienteDto = this.respuestaGetCliente.data['clienteDto'];
             this.obtenerClienteDesdeClienteDto(this.clienteDto);
+            this.titulo = 'Editar cliente';
+            this.botonTitulo = 'Editar cliente';
           }
 
         }catch (errores){
