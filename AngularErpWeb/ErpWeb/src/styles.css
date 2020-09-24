@@ -166,5 +166,9 @@ footer {
     padding-right: 20px !important;
 }
 
+.ck-editor__editable_inline {
+    min-height: 200px !important;
+}
+
 
 /** #37afff */

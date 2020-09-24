@@ -14,6 +14,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { registerLocaleData } from '@angular/common';
 import localEs from '@angular/common/locales/es'; // localeEs
 
+// CKEDITOR
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 // Autocompletar
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
@@ -176,6 +179,7 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     FormsModule,
     FullCalendarModule,
+    CKEditorModule,
     AutocompleteLibModule
   ],
   providers: [ // Servicios

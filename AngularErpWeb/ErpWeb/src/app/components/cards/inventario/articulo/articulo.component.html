@@ -1,6 +1,6 @@
-<div class="card text-center">
+<div class="card text-center formluario">
 
-    <div class="card-header">
+    <div class="card-header cabecera">
         <h5 class="card-title">Artículo</h5>
     </div>
 
@@ -19,15 +19,15 @@
                 <dt>Nombre</dt>
                 <dd>{{articulo.nombre}}</dd>
             </dl>
-            <!-- DESCRIPCION -->
+            <!-- DESCRIPCION 
             <dl class="col-6" *ngIf="articulo.descripcion">
                 <dt>Descripción</dt>
-                <dd>{{articulo.descripcion}}</dd>
-            </dl>
+                <dd id="descripcionArticulo"></dd>
+            </dl>-->
         </div>
 
         <!-- Fila 2-->
-        <h6 class="card-subtitle mb-2 text-muted text-left">Costes del articulo</h6>
+        <h6 class="card-subtitle mb-2 text-muted text-left">Costes del artículo</h6>
         <div class="form-group row text-left">
             <!-- BASE IMPONIBLE -->
             <dl class="col-3" *ngIf="articulo.baseImponible">
@@ -44,6 +44,15 @@
                 <dt>Importe total</dt>
                 <dd>{{articulo.importeTotal}}</dd>
             </dl>
+        </div>
+
+
+        <h6 class="card-subtitle mb-2 text-muted text-left">Descripción del artículo</h6>
+        <div class="form-group row text-left">
+            <!-- DESCRIPCION -->
+            <div class="col-12">
+                <p id="descripcionArticulo"></p>
+            </div>
         </div>
 
     </div>

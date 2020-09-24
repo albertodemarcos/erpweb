@@ -7,15 +7,17 @@
 </div>
 
 <!-- MODAL CREAR EVENTO -->
-<div id="crearEventoModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div id="crearEventoModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{tituloCrearEditar}}</h5>
+                <h5 class="modal-title bg-blue">{{tituloCrearEditar}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+
             <div class="modal-body" style="padding: 5%;">
                 <!-- FORMULARIO CREAR EVENTO -->
                 <div>
@@ -23,7 +25,7 @@
                         <!-- TITULO -->
                         <div class="form-group row">
                             <div class="col-sm-3 text-left">
-                                <label for="descripcion" class="col-form-label col-sm-2">Título</label>
+                                <label for="descripcion" class="col-form-label font-weight-bold required">Título</label>
                             </div>
                             <div class="col-sm-6 text-left">
                                 <input type="text" class="form-control" [(ngModel)]="evento.titulo" name="titulo">
@@ -32,7 +34,7 @@
                         <!-- FECHA INICIO -->
                         <div class="form-group row">
                             <div class="col-sm-3 text-left">
-                                <label for="descripcion" class="col-form-label col-sm-2">Fecha Inicio</label>
+                                <label for="descripcion" class="col-form-label font-weight-bold required">Fecha Inicio</label>
                             </div>
                             <div class="col-sm-6 text-left">
                                 <!--<input type="datetime-local" class="form-control" [ngModel]="evento.fechaInicio | date:'yyyy-MM-dd hh:mm'" (ngModelChange)="evento.fechaInicio = $event" name="fechaInicio">-->
@@ -42,7 +44,7 @@
                         <!-- FECHA FIN -->
                         <div class="form-group row">
                             <div class="col-sm-3 text-left">
-                                <label for="descripcion" class="col-form-label col-sm-2">Fecha Fín</label>
+                                <label for="descripcion" class="col-form-label font-weight-bold required">Fecha Fín</label>
                             </div>
                             <div class="col-sm-6 text-left">
                                 <!--<input type="datetime-local" class="form-control" [ngModel]="evento.fechaFin | date:'yyyy-MM-dd hh:mm'" (ngModelChange)="evento.fechaFin = $event" name="fechaFin">-->
@@ -52,7 +54,7 @@
                         <!-- DESCRIPCION -->
                         <div class="form-group row">
                             <div class="col-sm-3 text-left">
-                                <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
+                                <label for="descripcion" class="col-form-label font-weight-bold required">Descripción</label>
                             </div>
                             <div class="col-sm-6 text-left">
                                 <!--<input type="text-area" class="form-control" [(ngModel)]="evento.descripcion" name="descripcion">-->
@@ -77,13 +79,14 @@
 </div>
 
 <!-- MODAL VISUALIZAR EVENTO -->
-<div id="visualizarEventoModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div id="visualizarEventoModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
         <div class="modal-content">
 
             <!-- TITULO -->
             <div class="modal-header">
-                <h5 class="modal-title">{{evento.titulo}}</h5>
+                <h5 class="modal-title bg-blue">{{evento.titulo}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -115,18 +118,20 @@
                         </dd>
                     </dl>
                 </div>
+            </div>
 
+            <div class="modal-footer">
                 <!-- BOTONES -->
-                <div class="form-group row">
-                    <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-6 text-left">
                         <button type="button" class="btn btn-primary" (click)="editarEventoPlanificador()">Editar</button>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-6 text-right">
                         <button type="button" class="btn btn-danger" (click)="eliminarEventoPlanificador()">Eliminar</button>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
 </div>

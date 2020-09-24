@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+// Servicio
 import { ArticuloService } from 'src/app/services/inventario/articulo.service';
+import { AlmacenService } from 'src/app/services/inventario/almacen.service';
+// Model
 import { Articulo } from 'src/app/model/entitys/articulo.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
+// Swal
 import swal from 'sweetalert2';
-import { AlmacenService } from '../../../../services/inventario/almacen.service';
+// CKEDITOR
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+declare var $: any;
 
 @Component({
   selector: 'app-formulario-articulo',
@@ -23,6 +29,9 @@ export class FormularioArticuloComponent implements OnInit {
   public mapaIva: Map<string, string>;
   public almacenesForm: Map<number, string>;
 
+  public classicEditor: ClassicEditor;
+  public configurationClassicEditor: {};
+
   constructor(private articuloService: ArticuloService,
               private almacenService: AlmacenService,
               private router: Router,
@@ -34,6 +43,7 @@ export class FormularioArticuloComponent implements OnInit {
     this.mapaIva = new Map<string, string>();
     this.almacenesForm = new Map<number, string>();
     this.rellenaMapaIva();
+    // Routeo
     this.activateRouter.params.subscribe( params => {
       console.log('Entro al constructor' + params);
       // tslint:disable-next-line: no-string-literal
@@ -42,10 +52,17 @@ export class FormularioArticuloComponent implements OnInit {
         this.getEditarArticulo();
       }
     });
+
+    this.classicEditor = ClassicEditor;
+
+    this.configurationClassicEditor = {
+      toolbar: [ 'heading', '|', 'bold', 'italic', 'alignment', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'blockQuote', 'undo', 'redo' ],
+      language: 'es'
+    };
+
    }
 
   ngOnInit(): void {
-
     // Buscamos los almacenes disponibles para el articulo
     this.rellenarSelectorAlmacenes();
   }

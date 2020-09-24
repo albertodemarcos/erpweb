@@ -1,0 +1,8 @@
+.modal-header {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.modal-footer {
+    display: inline;
+}

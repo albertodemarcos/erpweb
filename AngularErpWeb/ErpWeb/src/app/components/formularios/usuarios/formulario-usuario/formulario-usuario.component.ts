@@ -81,8 +81,8 @@ export class FormularioUsuarioComponent implements OnInit {
 
           if ( this.respuestaGetUsuario.resultado )
           {
-            console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetUsuario.data) );
-            console.log('ES: ' + typeof(this.respuestaGetUsuario.data));
+            // console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetUsuario.data) );
+            // console.log('ES: ' + typeof(this.respuestaGetUsuario.data));
             // tslint:disable-next-line: no-string-literal
             this.usuarioDto = this.respuestaGetUsuario.data['usuarioDto'];
             this.obtenerUsuarioDesdeUsuarioDto(this.usuarioDto);

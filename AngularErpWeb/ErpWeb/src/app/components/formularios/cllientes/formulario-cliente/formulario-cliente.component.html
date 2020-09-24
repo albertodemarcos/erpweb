@@ -105,7 +105,8 @@
             <div class="form-group row">
                 &nbsp;<label for="observaciones" class="col-form-label font-weight-bold col-4">Observaciones</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.observaciones" name="observaciones">
+                    <!--<input type="text" class="form-control" [(ngModel)]="cliente.observaciones" name="observaciones">-->
+                    <textarea class="form-control" name="observaciones" maxlength="255" [(ngModel)]="cliente.observaciones" rows="4" cols="50"></textarea>
                 </div>
             </div>
 

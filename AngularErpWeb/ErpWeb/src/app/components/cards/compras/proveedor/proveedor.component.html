@@ -1,6 +1,6 @@
-<div class="card text-center">
+<div class="card formluario text-center">
 
-    <div class="card-header text-center">
+    <div class="card-header cabecera text-center">
         <h5 class="card-title">Proveedor</h5>
     </div>
 
@@ -10,27 +10,27 @@
         <h6 class="card-subtitle mb-2 text-muted text-left">Datos del proveedor</h6>
         <div class="form-group row text-left">
             <!-- CODIGO PROVEEDOR -->
-            <dl class="col" *ngIf="proveedor.codigo">
+            <dl class="col-4" *ngIf="proveedor.codigo">
                 <dt>Código proveedor</dt>
                 <dd>{{proveedor.codigo}}</dd>
             </dl>
             <!-- NOMBRE -->
-            <dl class="col" *ngIf="proveedor.nombre">
+            <dl class="col-4" *ngIf="proveedor.nombre">
                 <dt>Nombre proveedor</dt>
                 <dd>{{proveedor.nombre}}</dd>
             </dl>
             <!-- NOMBRE EMPRESA -->
-            <dl class="col" *ngIf="proveedor.nombreEmpresa">
+            <dl class="col-4" *ngIf="proveedor.nombreEmpresa">
                 <dt>Nombre empresa</dt>
                 <dd>{{proveedor.nombreEmpresa}}</dd>
             </dl>
             <!-- TELEFONO -->
-            <dl class="col" *ngIf="proveedor.telefono">
+            <dl class="col-4" *ngIf="proveedor.telefono">
                 <dt>Teléfono</dt>
                 <dd>{{proveedor.telefono}}</dd>
             </dl>
             <!-- TIPO PROVEEDOR -->
-            <dl class="col" *ngIf="proveedor.tipoProveedor">
+            <dl class="col-4" *ngIf="proveedor.tipoProveedor">
                 <dt>Tipo proveedor</dt>
                 <dd>{{proveedor.tipoProveedor}}</dd>
             </dl>

@@ -5,6 +5,7 @@ import { Articulo } from 'src/app/model/entitys/articulo.model';
 import { AccionRespuesta } from 'src/app/model/utiles/accion-respuesta.model';
 import swal from 'sweetalert2';
 
+declare var $: any;
 
 @Component({
   selector: 'app-articulo',
@@ -46,11 +47,12 @@ export class ArticuloComponent implements OnInit {
 
         if ( this.respuestaGetArticulo.resultado )
         {
-        console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetArticulo.data) );
-        console.log('ES: ' + typeof(this.respuestaGetArticulo.data));
-        // tslint:disable-next-line: no-string-literal
-        this.articuloDto = this.respuestaGetArticulo.data['articuloDto'];
-        this.obtenerArticuloDesdeArticuloDto(this.articuloDto);
+          // tslint:disable-next-line: no-string-literal
+          this.articuloDto = this.respuestaGetArticulo.data['articuloDto'];
+          this.obtenerArticuloDesdeArticuloDto(this.articuloDto);
+          setTimeout(() => {
+            $('#descripcionArticulo').after('' + this.articulo.descripcion);
+          }, 200);
         }
 
       }catch (errores){

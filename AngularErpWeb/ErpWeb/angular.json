@@ -48,8 +48,8 @@
                             "node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-sliderAccess.js",
                             "node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js",
                             "node_modules/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-es.js",
-                            "node_modules/jquery-ui/ui/widgets/autocomplete.js"
-
+                            "node_modules/jquery-ui/ui/widgets/autocomplete.js",
+                            "node_modules/@ckeditor/ckeditor5-build-classic/build/translations/es.js"
                         ]
                     },
                     "configurations": {
