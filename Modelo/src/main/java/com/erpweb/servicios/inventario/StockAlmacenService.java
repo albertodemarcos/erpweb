@@ -445,15 +445,15 @@ public class StockAlmacenService {
 		almacenDto.setId(almacen.getId());
 		almacenDto.setCodigo(almacen.getCodigo());
 		almacenDto.setNombre(almacen.getNombre());
-		almacenDto.setCodigoPostal(almacen.getCodigoPostal());
-		almacenDto.setDireccion(almacen.getDireccion());
-		almacenDto.setEdificio(almacen.getEdificio());
-		almacenDto.setObservaciones(almacen.getObservaciones());
-		almacenDto.setTelefono(almacen.getTelefono());
-		almacenDto.setPoblacion(almacen.getPoblacion());
-		almacenDto.setProvincia(almacen.getProvincia());
-		almacenDto.setRegion(almacen.getRegion());
-		almacenDto.setPais(almacen.getPais());
+		almacenDto.setCodigoPostal(almacen.getDireccionPostal().getCodigoPostal());
+		almacenDto.setDireccion(almacen.getDireccionPostal().getDireccion());
+		almacenDto.setEdificio(almacen.getDireccionPostal().getEdificio());
+		almacenDto.setObservaciones(almacen.getDireccionPostal().getObservaciones());
+		almacenDto.setTelefono(almacen.getDireccionPostal().getTelefono());
+		almacenDto.setPoblacion(almacen.getOrigenPersona().getPoblacion());
+		almacenDto.setProvincia(almacen.getOrigenPersona().getProvincia());
+		almacenDto.setRegion(almacen.getOrigenPersona().getRegion());
+		almacenDto.setPais(almacen.getOrigenPersona().getPais());
 		
 		return almacenDto;
 	}

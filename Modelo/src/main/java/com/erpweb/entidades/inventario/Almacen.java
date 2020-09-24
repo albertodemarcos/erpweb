@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.erpweb.entidades.embebidos.DireccionPostal;
+import com.erpweb.entidades.embebidos.OrigenPersona;
 
 
 @Entity
@@ -27,18 +31,8 @@ public class Almacen implements Serializable {
 	private String codigo;
 	private String nombre;
 	
-	//Atributos de direccion postal
-   	private String codigoPostal;
-   	private String direccion; 		//Calle/avenida/plaza, etc. con numero
-   	private String edificio;        //Edificio planta y letra
-   	private String observaciones;
-   	private String telefono;
-   	
-   	//Atributos origen
-   	private String poblacion;
-   	private String region;
-   	private String provincia;
-   	private String pais;
+    private DireccionPostal direccionPostal; 	 //Atributos de direccion postal
+    private OrigenPersona origenPersona;		 //Atributos origen
 		
    	//Articulo del Almacen
    	private Set<Articulo> articulos = new HashSet<Articulo>();
@@ -73,76 +67,22 @@ public class Almacen implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getCodigoPostal() {
-		return codigoPostal;
+	@Embedded
+	public DireccionPostal getDireccionPostal() {
+		return direccionPostal;
 	}
 
-	public void setCodigoPostal(String codigoPostal) {
-		this.codigoPostal = codigoPostal;
+	public void setDireccionPostal(DireccionPostal direccionPostal) {
+		this.direccionPostal = direccionPostal;
 	}
 
-	public String getDireccion() {
-		return direccion;
+	@Embedded
+	public OrigenPersona getOrigenPersona() {
+		return origenPersona;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getEdificio() {
-		return edificio;
-	}
-
-	public void setEdificio(String edificio) {
-		this.edificio = edificio;
-	}
-
-	public String getObservaciones() {
-		return observaciones;
-	}
-
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getPoblacion() {
-		return poblacion;
-	}
-
-	public void setPoblacion(String poblacion) {
-		this.poblacion = poblacion;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
+	public void setOrigenPersona(OrigenPersona origenPersona) {
+		this.origenPersona = origenPersona;
 	}
 
 	@JoinTable(
@@ -167,6 +107,5 @@ public class Almacen implements Serializable {
 	public void setStockAlmacen(Set<StockArticulo> stockAlmacen) {
 		this.stockAlmacen = stockAlmacen;
 	}
-	
 	
 }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erpweb.dto.AlmacenDto;
+import com.erpweb.entidades.embebidos.DireccionPostal;
+import com.erpweb.entidades.embebidos.OrigenPersona;
 import com.erpweb.entidades.inventario.Almacen;
 import com.erpweb.repositorios.inventario.AlmacenRepository;
 import com.erpweb.utiles.AccionRespuesta;
@@ -34,15 +36,21 @@ public class AlmacenService {
 		
 		almacen.setCodigo(almacenDto.getCodigo());
 		almacen.setNombre(almacenDto.getNombre());
-		almacen.setCodigoPostal(almacenDto.getCodigoPostal());
-		almacen.setDireccion(almacenDto.getDireccion());
-		almacen.setEdificio(almacenDto.getEdificio());
-		almacen.setObservaciones(almacenDto.getObservaciones());
-		almacen.setTelefono(almacenDto.getTelefono());
-		almacen.setPoblacion(almacenDto.getPoblacion());
-		almacen.setProvincia(almacenDto.getProvincia());
-		almacen.setRegion(almacenDto.getRegion());
-		almacen.setPais(almacenDto.getPais());
+		
+		almacen.setDireccionPostal(new DireccionPostal());
+		
+		almacen.getDireccionPostal().setCodigoPostal(almacenDto.getCodigoPostal());
+		almacen.getDireccionPostal().setDireccion(almacenDto.getDireccion());
+		almacen.getDireccionPostal().setEdificio(almacenDto.getEdificio());
+		almacen.getDireccionPostal().setObservaciones(almacenDto.getObservaciones());
+		almacen.getDireccionPostal().setTelefono(almacenDto.getTelefono());
+		
+		almacen.setOrigenPersona(new OrigenPersona());
+		
+		almacen.getOrigenPersona().setPoblacion(almacenDto.getPoblacion());
+		almacen.getOrigenPersona().setProvincia(almacenDto.getProvincia());
+		almacen.getOrigenPersona().setRegion(almacenDto.getRegion());
+		almacen.getOrigenPersona().setPais(almacenDto.getPais());
 		
 		try {
 			
@@ -70,15 +78,21 @@ public class AlmacenService {
 		almacen.setId(almacenDto.getId());
 		almacen.setCodigo(almacenDto.getCodigo());
 		almacen.setNombre(almacenDto.getNombre());
-		almacen.setCodigoPostal(almacenDto.getCodigoPostal());
-		almacen.setDireccion(almacenDto.getDireccion());
-		almacen.setEdificio(almacenDto.getEdificio());
-		almacen.setObservaciones(almacenDto.getObservaciones());
-		almacen.setTelefono(almacenDto.getTelefono());
-		almacen.setPoblacion(almacenDto.getPoblacion());
-		almacen.setProvincia(almacenDto.getProvincia());
-		almacen.setRegion(almacenDto.getRegion());
-		almacen.setPais(almacenDto.getPais());
+		
+		almacen.setDireccionPostal(new DireccionPostal());
+		
+		almacen.getDireccionPostal().setCodigoPostal(almacenDto.getCodigoPostal());
+		almacen.getDireccionPostal().setDireccion(almacenDto.getDireccion());
+		almacen.getDireccionPostal().setEdificio(almacenDto.getEdificio());
+		almacen.getDireccionPostal().setObservaciones(almacenDto.getObservaciones());
+		almacen.getDireccionPostal().setTelefono(almacenDto.getTelefono());
+		
+		almacen.setOrigenPersona(new OrigenPersona());
+		
+		almacen.getOrigenPersona().setPoblacion(almacenDto.getPoblacion());
+		almacen.getOrigenPersona().setProvincia(almacenDto.getProvincia());
+		almacen.getOrigenPersona().setRegion(almacenDto.getRegion());
+		almacen.getOrigenPersona().setPais(almacenDto.getPais());
 		
 		try {
 			//Guardamos el almacen en base de datos
@@ -170,15 +184,15 @@ public class AlmacenService {
 			almacenDto.setId(almacen.getId());
 			almacenDto.setCodigo(almacen.getCodigo());
 			almacenDto.setNombre(almacen.getNombre());
-			almacenDto.setCodigoPostal(almacen.getCodigoPostal());
-			almacenDto.setDireccion(almacen.getDireccion());
-			almacenDto.setEdificio(almacen.getEdificio());
-			almacenDto.setObservaciones(almacen.getObservaciones());
-			almacenDto.setTelefono(almacen.getTelefono());
-			almacenDto.setPoblacion(almacen.getPoblacion());
-			almacenDto.setProvincia(almacen.getProvincia());
-			almacenDto.setRegion(almacen.getRegion());
-			almacenDto.setPais(almacen.getPais());
+			almacenDto.setCodigoPostal(almacen.getDireccionPostal().getCodigoPostal());
+			almacenDto.setDireccion(almacen.getDireccionPostal().getDireccion());
+			almacenDto.setEdificio(almacen.getDireccionPostal().getEdificio());
+			almacenDto.setObservaciones(almacen.getDireccionPostal().getObservaciones());
+			almacenDto.setTelefono(almacen.getDireccionPostal().getTelefono());
+			almacenDto.setPoblacion(almacen.getOrigenPersona().getPoblacion());
+			almacenDto.setProvincia(almacen.getOrigenPersona().getProvincia());
+			almacenDto.setRegion(almacen.getOrigenPersona().getRegion());
+			almacenDto.setPais(almacen.getOrigenPersona().getPais());
 			
 		} catch(Exception e) {
 			
@@ -355,15 +369,15 @@ public class AlmacenService {
 				almacenDto.setId(almacen.getId());
 				almacenDto.setCodigo(almacen.getCodigo());
 				almacenDto.setNombre(almacen.getNombre());
-				almacenDto.setCodigoPostal(almacen.getCodigoPostal());
-				almacenDto.setDireccion(almacen.getDireccion());
-				almacenDto.setEdificio(almacen.getEdificio());
-				almacenDto.setObservaciones(almacen.getObservaciones());
-				almacenDto.setTelefono(almacen.getTelefono());
-				almacenDto.setPoblacion(almacen.getPoblacion());
-				almacenDto.setProvincia(almacen.getProvincia());
-				almacenDto.setRegion(almacen.getRegion());
-				almacenDto.setPais(almacen.getPais());
+				almacenDto.setCodigoPostal(almacen.getDireccionPostal().getCodigoPostal());
+				almacenDto.setDireccion(almacen.getDireccionPostal().getDireccion());
+				almacenDto.setEdificio(almacen.getDireccionPostal().getEdificio());
+				almacenDto.setObservaciones(almacen.getDireccionPostal().getObservaciones());
+				almacenDto.setTelefono(almacen.getDireccionPostal().getTelefono());
+				almacenDto.setPoblacion(almacen.getOrigenPersona().getPoblacion());
+				almacenDto.setProvincia(almacen.getOrigenPersona().getProvincia());
+				almacenDto.setRegion(almacen.getOrigenPersona().getRegion());
+				almacenDto.setPais(almacen.getOrigenPersona().getPais());
 				
 				almacenesDto.add(almacenDto);			
 			}
