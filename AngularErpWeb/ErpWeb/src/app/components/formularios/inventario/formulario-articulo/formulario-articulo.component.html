@@ -44,22 +44,6 @@
                 </div>
             </div>
 
-
-            <!-- DESCRIPCION -->
-            <div class="form-group row">
-                <label for="descripcion" class="col-form-label font-weight-bold col-4 required">Descripción</label>
-                <div class="col-sm-12">
-                    <!--<input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">-->
-                    <!--<textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion"></textarea>-->
-                    <ckeditor [editor]="classicEditor" name="descripcion" data=" " [(ngModel)]="articulo.descripcion" [config]="configurationClassicEditor"></ckeditor>
-                    <div *ngIf="erroresFormulario != null && erroresFormulario['descripcion']">
-                        <span class="error text-danger">{{erroresFormulario['descripcion']}}</span>
-                    </div>
-                </div>
-            </div>
-
-            <br/>
-
             <!-- BASE IMPONIBLE -->
             <div class="form-group row">
                 <label for="baseImponible" class="col-form-label font-weight-bold col-4 required">Base imponible</label>
@@ -97,6 +81,24 @@
                     </div>-->
                 </div>
             </div>
+
+
+            <!-- DESCRIPCION -->
+            <div class="form-group row">
+                <label for="descripcion" class="col-form-label font-weight-bold col-4 required">Descripción</label>
+                <div class="col-sm-12">
+                    <!--<input type="text" class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion">-->
+                    <!--<textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion"></textarea>-->
+                    <ckeditor [editor]="classicEditor" name="descripcion" data=" " [(ngModel)]="articulo.descripcion" [config]="configurationClassicEditor"></ckeditor>
+                    <div *ngIf="erroresFormulario != null && erroresFormulario['descripcion']">
+                        <span class="error text-danger">{{erroresFormulario['descripcion']}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+
 
             <!-- BOTON -->
             <div class="form-group row text-center">

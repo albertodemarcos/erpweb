@@ -155,7 +155,7 @@ export class PlanificadorComponent implements OnInit  {
       // Si el resultado es true, navegamos hasta la vista
       if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
         // Recargamos los eventos
-        // this.recargarCalendario();
+        this.recargarCalendario();
         // Limpiamos la modal
         this.limpiarModalCrearEvento();
         // Informamos de que se ha creado el evento correctamente

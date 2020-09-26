@@ -166,10 +166,12 @@ export class PedidoComponent implements OnInit {
         {
           console.log('Compra: ' + JSON.stringify(accionRespuesta) );
           const compraId = accionRespuesta.id;
-          if (accionRespuesta.respuesta && compraId != null && compraId > 0)
+          if (accionRespuesta.resultado && compraId != null && compraId > 0)
           {
             // Despues de convertir el pedido, vamos a la compra
             this.router.navigate(['compras', 'compra', compraId]);
+            swal('Compra', 'Se ha creado una compra desde un correctamente', 'success');
+            return;
           }
           swal('Error', 'Error, se ha producido un error al redireccinar', 'error');
         } catch (errores)

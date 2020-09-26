@@ -2,6 +2,7 @@ import { Component, OnInit , AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { VehiculoService } from 'src/app/services/inventario/vehiculo.service';
 import { Vehiculo } from 'src/app/model/entitys/vehiculo.model';
+import { DatePipe } from '@angular/common';
 
 declare var jQuery: any;
 declare var TableExport: any;
@@ -37,14 +38,12 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
       { name: 'matricula', index: '', width: '', search: true, sortable: true },
       { name: 'tipoVehiculo', index: '', width: '', search: true, sortable: true},
       { name: 'tipoCombustible', index: '', width: '', search: true, sortable: true },
-      { name: 'fechaMatriculacion', index: '', width: '', search: true, sortable: true }
+      { name: 'fechaMatriculacion', index: '', width: '', search: true, sortable: true, formatter: (fechaInicio: any) => this.formatearFecha(fechaInicio) }
     ];
     this.jqGridData = new Array<Vehiculo>();
   }
 
   getListadoVehiculos(): void{
-
-    console.log('Entramos en el metodo getListadoVehiculos()');
 
     this.vhiculoService.getVehiculos().then( (vehiculos) => {
         try {
@@ -59,6 +58,15 @@ export class ListadoVehiculosComponent implements OnInit, AfterViewInit {
         console.log('Error, no se ha obtenido la informacion');
       }
     );
+  }
+
+  private formatearFecha(fecha: any){
+    const datePipe: DatePipe = new DatePipe('es-ES');
+    if (fecha != null)
+    {
+      return datePipe.transform(fecha, 'dd/MM/yyyy');
+    }
+    return '';
   }
 
   ngAfterViewInit(): void {
