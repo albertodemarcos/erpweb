@@ -42,8 +42,6 @@ export class EmpleadoComponent implements OnInit {
 
         if ( this.respuestaGetEmpleado.resultado )
         {
-        console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetEmpleado.data) );
-        console.log('ES: ' + typeof(this.respuestaGetEmpleado.data));
         // tslint:disable-next-line: no-string-literal
         this.empleadoDto = this.respuestaGetEmpleado.data['empleadoDto'];
         this.obtenerEmpleadoDesdeEmpleadoDto(this.empleadoDto);
@@ -83,13 +81,10 @@ export class EmpleadoComponent implements OnInit {
   }
 
   editarEmpleado(empleadoId: number): void{
-    console.log('Empleado CON ID: ' + empleadoId);
-    this.router.navigate(['empleados', 'editar-empleado', empleadoId]);
+    this.router.navigate(['rrhh', 'editar-empleado', empleadoId]);
   }
 
   borrarEmpleado(empleadoId: number): void{
-
-    console.log('Empleado CON ID: ' + empleadoId);
 
     // Evitamos borrar accidentalmente un Empleado
     swal({
@@ -112,7 +107,7 @@ export class EmpleadoComponent implements OnInit {
         if ( accionRespuesta.resultado ) {
         console.log('Se ha eliminado correctamente el Empleado');
         swal('Empleado eliminado', 'Se ha eliminado el Empleado correctamente', 'success').then(() =>{
-          this.router.navigate( ['empleados'] );
+          this.router.navigate( ['rrhh'] );
         });
 
         } else {

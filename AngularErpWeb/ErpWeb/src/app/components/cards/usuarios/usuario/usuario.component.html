@@ -39,10 +39,15 @@
             </dl>
             <!-- EMAIL -->
             <dl class="col">
+                <dt>Email</dt>
+                <dd *ngIf="usuario.email">{{usuario.email}}</dd>
+            </dl>
+            <!-- EMAIL
+            <dl class="col">
                 <dt>Activo</dt>
                 <dd *ngIf="usuario.activo">Sí</dd>
                 <dd *ngIf="!usuario.activo">No</dd>
-            </dl>
+            </dl> -->
         </div>
 
     </div>

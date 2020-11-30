@@ -25,7 +25,7 @@ export class ListadoAlmacenComponent implements OnInit, AfterViewInit {
   constructor(private almacenService: AlmacenService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.tituloListado = 'Listado de almcenes';
     this.botonRetorno = '<button class="btn btn-primary btn-xs" style="margin: 0%; width: 15 px; height: 30px"><i class="fa fa-search-minus" aria-hidden="true"></i></button>';
-    this.jqGridId = 'almcenes-grid';
+    this.jqGridId = 'almacenes-grid';
     this.jqGridPagerId = 'almcenes-pager';
     this.jqGridColNames = ['ID', 'Ver', 'Código', 'Nombre', 'Dirección', 'Población', 'Región' ];
     this.jqGridColModel = [

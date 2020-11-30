@@ -88,8 +88,6 @@ export class FormularioEmpresaComponent implements OnInit {
 
         if ( this.respuestaGetEmpresa.resultado )
         {
-          console.log('Respuesta: ' +  JSON.stringify(this.respuestaGetEmpresa.data) );
-          console.log('ES: ' + typeof(this.respuestaGetEmpresa.data));
           // tslint:disable-next-line: no-string-literal
           this.empresaDto = this.respuestaGetEmpresa.data['empresaDto'];
           this.obtenerEmpresaDesdeEmpresaDto(this.empresaDto);
@@ -119,20 +117,18 @@ obtenerEmpresaDesdeEmpresaDto(empresaDto: any): void{
 
 respuestaCrearEditarEmpresa(accionRespuesta: AccionRespuesta, esEditarEmpresa: boolean): void {
 
-  console.log('Esta registrado' + accionRespuesta.resultado);
-  console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
   // Si el resultado es true, navegamos hasta la vista
   if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
-    this.router.navigate(['empresas', 'empresa', accionRespuesta.id]);
+    this.router.navigate(['empresa', accionRespuesta.id]);
 
     if (esEditarEmpresa != null && esEditarEmpresa ){
 
-      swal('Empresa editado', 'Se ha editado el empresa correctamente', 'success');
+      swal('Empresa editada', 'Se ha editado la empresa correctamente.', 'success');
 
      }else{
 
-      swal('Nueva empresa', 'Se ha creado el empresa correctamente', 'success');
+      // swal('Nueva empresa', 'Se ha creado el empresa correctamente', 'success');
 
      }
 

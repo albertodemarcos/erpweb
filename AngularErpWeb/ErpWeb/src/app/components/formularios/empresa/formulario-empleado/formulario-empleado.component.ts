@@ -145,8 +145,6 @@ export class FormularioEmpleadoComponent implements OnInit {
 
   respuestaCrearEditarEmpleado(accionRespuesta: AccionRespuesta, esEditarEmpleado: boolean): void {
 
-    console.log('Esta registrado' + accionRespuesta.resultado);
-    console.log('Datos que nos devuelve spring: ' + JSON.stringify(accionRespuesta));
     // Si el resultado es true, navegamos hasta la vista
     if (accionRespuesta.resultado && accionRespuesta.id !== null ) {
 
